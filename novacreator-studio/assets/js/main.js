@@ -276,10 +276,19 @@ function initCounters() {
     
     if (counterElements.length === 0) return;
     
+    // Сначала показываем финальные значения (для SEO и доступности)
+    counterElements.forEach(element => {
+        const target = parseInt(element.getAttribute('data-target')) || 0;
+        const prefix = element.getAttribute('data-prefix') || '';
+        const suffix = element.getAttribute('data-suffix') || '';
+        // Показываем финальное значение по умолчанию
+        element.textContent = prefix + target + suffix;
+    });
+    
     // Создаем Intersection Observer для отслеживания видимости
     const observerOptions = {
-        threshold: 0.5, // Запускаем анимацию, когда элемент виден на 50%
-        rootMargin: '0px'
+        threshold: 0.2, // Запускаем анимацию, когда элемент виден на 20%
+        rootMargin: '0px 0px -100px 0px' // Запускаем раньше, когда элемент еще не полностью виден
     };
     
     const counterObserver = new IntersectionObserver(function(entries) {
@@ -294,7 +303,13 @@ function initCounters() {
                 // Проверяем, не была ли уже запущена анимация
                 if (!element.classList.contains('counter-animated')) {
                     element.classList.add('counter-animated');
-                    animateCounter(element, target, prefix, suffix, duration);
+                    // Устанавливаем 0 перед анимацией
+                    element.textContent = prefix + '0' + suffix;
+                    // Небольшая задержка для плавности
+                    setTimeout(() => {
+                        // Запускаем анимацию
+                        animateCounter(element, target, prefix, suffix, duration);
+                    }, 100);
                 }
                 
                 // Отключаем наблюдение после запуска анимации
