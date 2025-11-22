@@ -56,7 +56,6 @@
                     <h3 class="text-lg font-semibold mb-6 text-gradient">Компания</h3>
                     <ul class="space-y-3">
                         <li><a href="about.php" class="text-gray-400 hover:text-neon-purple transition-colors">О нас</a></li>
-                        <li><a href="portfolio.php" class="text-gray-400 hover:text-neon-purple transition-colors">Портфолио</a></li>
                         <li><a href="contact.php" class="text-gray-400 hover:text-neon-purple transition-colors">Контакты</a></li>
                         <li><a href="calculator.php" class="text-gray-400 hover:text-neon-purple transition-colors">Калькулятор</a></li>
                         <li><a href="blog.php" class="text-gray-400 hover:text-neon-purple transition-colors">Блог</a></li>

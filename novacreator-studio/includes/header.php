@@ -63,7 +63,6 @@
                     <a href="services.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'text-neon-purple' : ''; ?>">Услуги</a>
                     <a href="seo.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'seo.php' ? 'text-neon-purple' : ''; ?>">SEO</a>
                     <a href="ads.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'ads.php' ? 'text-neon-purple' : ''; ?>">Google Ads</a>
-                    <a href="portfolio.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'portfolio.php' ? 'text-neon-purple' : ''; ?>">Портфолио</a>
                     <a href="about.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'text-neon-purple' : ''; ?>">О нас</a>
                     <a href="contact.php" class="btn-neon text-sm py-2 px-6">Связаться</a>
                 </div>
@@ -84,7 +83,6 @@
                 <a href="services.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Услуги</a>
                 <a href="seo.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'seo.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">SEO</a>
                 <a href="ads.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'ads.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Google Ads</a>
-                <a href="portfolio.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'portfolio.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Портфолио</a>
                 <a href="about.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">О нас</a>
                 <a href="contact.php" class="block btn-neon text-center mt-4">Связаться</a>
             </div>
