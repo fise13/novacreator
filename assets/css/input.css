@@ -1,0 +1,92 @@
+/* Основной входной файл для Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Кастомные стили */
+@layer base {
+  /* Подключение шрифта Inter */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  
+  body {
+    @apply bg-dark-bg text-white font-sans antialiased;
+  }
+  
+  /* Плавная прокрутка */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Кнопка с неоновым эффектом */
+  .btn-neon {
+    @apply px-8 py-4 bg-gradient-to-r from-neon-purple to-neon-blue 
+           text-white font-semibold rounded-lg 
+           transition-all duration-300 
+           hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] 
+           hover:scale-105 
+           active:scale-95;
+  }
+  
+  /* Кнопка outline */
+  .btn-outline {
+    @apply px-8 py-4 border-2 border-neon-purple 
+           text-neon-purple font-semibold rounded-lg 
+           transition-all duration-300 
+           hover:bg-neon-purple hover:text-white 
+           hover:shadow-[0_0_20px_rgba(139,92,246,0.3)];
+  }
+  
+  /* Карточка услуги */
+  .service-card {
+    @apply bg-dark-surface border border-dark-border rounded-xl p-8 
+           transition-all duration-300 
+           hover:border-neon-purple hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] 
+           hover:-translate-y-2;
+  }
+  
+  /* Заголовок секции */
+  .section-title {
+    @apply text-5xl md:text-6xl lg:text-7xl font-bold mb-6 
+           bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent;
+  }
+  
+  /* Подзаголовок секции */
+  .section-subtitle {
+    @apply text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl;
+  }
+  
+  /* Инпут формы */
+  .form-input {
+    @apply w-full px-6 py-4 bg-dark-surface border border-dark-border 
+           rounded-lg text-white placeholder-gray-500 
+           focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/20 
+           transition-all duration-300;
+  }
+  
+  /* Текстовая область формы */
+  .form-textarea {
+    @apply w-full px-6 py-4 bg-dark-surface border border-dark-border 
+           rounded-lg text-white placeholder-gray-500 
+           focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/20 
+           transition-all duration-300 resize-none;
+  }
+}
+
+@layer utilities {
+  /* Градиентный текст */
+  .text-gradient {
+    @apply bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent;
+  }
+  
+  /* Неоновое свечение */
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  }
+  
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  }
+}
+

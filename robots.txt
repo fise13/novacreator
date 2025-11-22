@@ -1,0 +1,44 @@
+# Robots.txt для NovaCreator Studio
+# Обновите URL в строке Sitemap на ваш реальный домен
+
+User-agent: *
+Allow: /
+Disallow: /backend/
+Disallow: /telegram_bot/
+Disallow: /node_modules/
+Disallow: /*.txt$
+Disallow: /*.log$
+
+# Разрешаем индексацию важных страниц
+Allow: /index.php
+Allow: /services.php
+Allow: /seo.php
+Allow: /ads.php
+Allow: /portfolio.php
+Allow: /about.php
+Allow: /contact.php
+Allow: /vacancies.php
+
+# Sitemap (обновите на ваш реальный домен)
+# Sitemap: https://ваш-домен.com/sitemap.xml
+
+# Crawl-delay (опционально, для снижения нагрузки)
+# Crawl-delay: 1
+
+# Специальные правила для поисковых систем
+User-agent: Googlebot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Блокируем ботов-спамеров
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
