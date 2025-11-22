@@ -10,7 +10,7 @@
                 <!-- О компании -->
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <img src="./assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" />
+                        <img src="/assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" />
                         <span class="text-xl font-bold text-gradient">NovaCreator Studio</span>
                     </div>
                     <p class="text-gray-400 mb-4">
@@ -95,14 +95,7 @@
     </footer>
     
     <!-- Подключение основного JavaScript -->
-    <?php
-    // Определяем базовый URL для статических файлов
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'];
-    $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
-    $baseUrl = $protocol . '://' . $host . ($scriptPath === '/' || $scriptPath === '\\' ? '' : $scriptPath);
-    ?>
-    <script src="<?php echo rtrim($baseUrl, '/'); ?>/assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
     
     <!-- Дополнительная структурированная разметка для сайта -->
     <script type="application/ld+json">
