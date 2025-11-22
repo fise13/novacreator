@@ -1,15 +1,16 @@
 # Зависимости
 node_modules/
+novacreator-studio/node_modules/
 
 # Скомпилированные файлы
-assets/css/output.css
+novacreator-studio/assets/css/output.css
 
 # Файлы заявок (содержат персональные данные)
-backend/requests.txt
-backend/telegram_errors.log
+novacreator-studio/backend/requests.txt
+novacreator-studio/backend/telegram_errors.log
 
 # Конфиденциальные данные Telegram бота
-telegram_bot/config.php
+novacreator-studio/telegram_bot/config.php
 
 # Системные файлы
 .DS_Store

@@ -20,9 +20,6 @@
         }
     ?></title>
     
-    <!-- Подключаем функции для путей -->
-    <?php include __DIR__ . '/paths.php'; ?>
-    
     <!-- Подключаем SEO мета-теги -->
     <?php include __DIR__ . '/seo_meta.php'; ?>
     
@@ -31,11 +28,11 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     
     <!-- Tailwind CSS -->
-    <link href="<?php echo asset('assets/css/output.css'); ?>" rel="stylesheet">
+    <link href="./assets/css/output.css" rel="stylesheet">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="<?php echo asset('assets/img/favicon.ico'); ?>">
-    <link rel="apple-touch-icon" href="<?php echo asset('assets/img/apple-touch-icon.png'); ?>">
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
     
     <!-- Дополнительные мета-теги -->
     <meta name="theme-color" content="#0A0A0F">

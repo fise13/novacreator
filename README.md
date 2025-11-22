@@ -12,29 +12,44 @@
 
 ```
 novacreative/
-├── assets/
-│   ├── css/
-│   │   ├── input.css      # Входной файл для Tailwind
-│   │   └── output.css     # Скомпилированный CSS (генерируется)
-│   ├── js/
-│   │   └── main.js        # Основной JavaScript файл
-│   └── img/               # Изображения
-├── backend/
-│   ├── send.php           # Обработчик форм
-│   └── requests.txt       # Файл для сохранения заявок (создается автоматически)
-├── includes/
-│   ├── header.php         # Общий header
-│   └── footer.php         # Общий footer
-├── index.php              # Главная страница
-├── services.php           # Страница услуг
-├── seo.php                # Страница SEO
-├── ads.php                # Страница Google Ads
-├── portfolio.php          # Портфолио
-├── about.php              # О компании
-├── contact.php            # Контакты
-├── tailwind.config.js     # Конфигурация Tailwind
-├── package.json           # Зависимости проекта
-└── README.md              # Этот файл
+├── novacreator-studio/    # Основная папка сайта (загружается на хостинг)
+│   ├── assets/
+│   │   ├── css/
+│   │   │   ├── input.css      # Входной файл для Tailwind
+│   │   │   └── output.css     # Скомпилированный CSS (генерируется)
+│   │   ├── js/
+│   │   │   └── main.js        # Основной JavaScript файл
+│   │   └── img/               # Изображения
+│   ├── backend/
+│   │   ├── send.php           # Обработчик форм
+│   │   └── requests.txt       # Файл для сохранения заявок (создается автоматически)
+│   ├── includes/
+│   │   ├── header.php         # Общий header
+│   │   ├── footer.php         # Общий footer
+│   │   ├── breadcrumbs.php    # Breadcrumbs для SEO
+│   │   └── seo_meta.php       # SEO мета-теги
+│   ├── telegram_bot/
+│   │   ├── config.php         # Конфигурация бота (не в Git)
+│   │   ├── config.example.php # Пример конфигурации
+│   │   └── send_telegram.php  # Функции отправки в Telegram
+│   ├── index.php              # Главная страница
+│   ├── services.php           # Страница услуг
+│   ├── seo.php                # Страница SEO
+│   ├── ads.php                # Страница Google Ads
+│   ├── portfolio.php          # Портфолио
+│   ├── about.php              # О компании
+│   ├── contact.php            # Контакты
+│   ├── vacancies.php          # Вакансии
+│   ├── 404.php                 # Страница 404
+│   ├── 500.php                 # Страница 500
+│   ├── tailwind.config.js     # Конфигурация Tailwind
+│   ├── package.json           # Зависимости проекта
+│   ├── robots.txt             # Robots.txt для SEO
+│   ├── sitemap.xml            # Карта сайта
+│   └── .htaccess              # Настройки Apache
+├── README.md                  # Этот файл
+├── QUICKSTART.md              # Быстрый старт
+└── SEO_CHECKLIST.md           # SEO чеклист
 ```
 
 ## Установка и настройка
@@ -46,6 +61,11 @@ npm install
 ```
 
 ### 2. Компиляция CSS
+
+Перейдите в папку сайта:
+```bash
+cd novacreator-studio
+```
 
 Для разработки (с автоматической перекомпиляцией):
 ```bash
@@ -62,10 +82,11 @@ npm run build-css-prod
 Для локальной разработки можно использовать встроенный PHP сервер:
 
 ```bash
+cd novacreator-studio
 php -S localhost:8000
 ```
 
-Или настройте виртуальный хост в Apache/Nginx.
+Или настройте виртуальный хост в Apache/Nginx, указав корневую папку `novacreator-studio`.
 
 ### 4. Настройка email в backend/send.php
 
