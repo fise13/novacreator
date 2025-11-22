@@ -14,8 +14,9 @@ include 'includes/header.php';
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
     <!-- Фоновые декоративные элементы -->
     <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl animate-pulse parallax" data-speed="0.3"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/20 rounded-full blur-3xl animate-pulse parallax" data-speed="0.5" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-neon-purple/10 rounded-full blur-2xl animate-pulse parallax" data-speed="0.4" style="animation-delay: 0.5s;"></div>
     </div>
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">

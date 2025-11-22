@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollEffects();
     initCounters();
     initProgressBars();
+    initScrollProgress();
+    initBackToTop();
+    initPageLoadAnimation();
+    initMagneticButtons();
 });
 
 /**
@@ -384,11 +388,109 @@ function initProgressBars() {
     });
 }
 
+/**
+ * Индикатор прогресса прокрутки страницы
+ * Показывает, сколько страницы уже прочитано
+ */
+function initScrollProgress() {
+    const progressBar = document.querySelector('.scroll-progress-bar');
+    if (!progressBar) return;
+    
+    window.addEventListener('scroll', function() {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.pageYOffset / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+}
+
+/**
+ * Кнопка "Наверх"
+ * Появляется при скролле вниз и плавно прокручивает наверх
+ */
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('backToTop');
+    if (!backToTopBtn) return;
+    
+    // Показываем/скрываем кнопку при скролле
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            backToTopBtn.classList.add('opacity-100');
+        } else {
+            backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            backToTopBtn.classList.remove('opacity-100');
+        }
+    });
+    
+    // Плавная прокрутка наверх при клике
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+/**
+ * Анимация загрузки страницы
+ * Плавное появление контента при первой загрузке
+ */
+function initPageLoadAnimation() {
+    // Добавляем класс для анимации загрузки
+    document.body.classList.add('page-loaded');
+    
+    // Плавное появление основных элементов
+    const mainElements = document.querySelectorAll('section, header, footer');
+    mainElements.forEach((element, index) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        
+        setTimeout(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }, index * 50); // Последовательное появление
+    });
+}
+
+/**
+ * Эффект "магнитного" курсора для кнопок
+ * Кнопки слегка притягивают курсор при наведении
+ */
+function initMagneticButtons() {
+    const magneticButtons = document.querySelectorAll('.btn-neon, .btn-outline, a[href^="#"]');
+    
+    magneticButtons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transition = 'transform 0.3s ease-out';
+        });
+        
+        button.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            // Небольшое смещение (магнитный эффект)
+            const moveX = x * 0.15;
+            const moveY = y * 0.15;
+            
+            this.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(0, 0) scale(1)';
+        });
+    });
+}
+
 // Экспортируем функции для использования в других скриптах
 window.NovaCreator = {
     animateCounter,
     showNotification,
     initCounters,
-    initProgressBars
+    initProgressBars,
+    initScrollProgress,
+    initBackToTop,
+    initMagneticButtons
 };
 

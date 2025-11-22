@@ -67,6 +67,8 @@
     <meta name="theme-color" content="#0A0A0F">
 </head>
 <body class="bg-dark-bg text-white overflow-x-hidden">
+    <!-- Индикатор прогресса прокрутки -->
+    <div class="scroll-progress-bar fixed top-0 left-0 h-1 bg-gradient-to-r from-neon-purple to-neon-blue z-50" style="width: 0%; transition: width 0.1s ease-out;"></div>
     
     <!-- Навигация -->
     <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-border transition-all duration-300">

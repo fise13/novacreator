@@ -199,5 +199,83 @@
       transform: translateY(0);
     }
   }
+  
+  /* Индикатор прогресса прокрутки */
+  .scroll-progress-bar {
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  }
+  
+  /* Кнопка "Наверх" */
+  #backToTop {
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  }
+  
+  #backToTop:hover {
+    box-shadow: 0 6px 30px rgba(139, 92, 246, 0.6), 0 0 40px rgba(6, 182, 212, 0.4);
+  }
+  
+  /* Анимация загрузки страницы */
+  body:not(.page-loaded) {
+    overflow: hidden;
+  }
+  
+  /* Улучшенные hover эффекты для карточек */
+  .service-card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .service-card:hover::before {
+    left: 100%;
+  }
+  
+  /* Плавающие частицы на фоне (опционально) */
+  .floating-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent);
+    animation: float 20s infinite ease-in-out;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.3;
+    }
+    25% {
+      transform: translate(100px, -100px) scale(1.2);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translate(-50px, -200px) scale(0.8);
+      opacity: 0.4;
+    }
+    75% {
+      transform: translate(-100px, 50px) scale(1.1);
+      opacity: 0.6;
+    }
+  }
 }
 
