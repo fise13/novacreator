@@ -89,7 +89,7 @@
     </footer>
     
     <!-- Подключение основного JavaScript -->
-    <script src="./assets/js/main.js"></script>
+    <script src="<?php echo asset('assets/js/main.js'); ?>"></script>
     
     <!-- Дополнительная структурированная разметка для сайта -->
     <script type="application/ld+json">

@@ -1,0 +1,30 @@
+# Зависимости
+node_modules/
+
+# Скомпилированные файлы
+assets/css/output.css
+
+# Файлы заявок (содержат персональные данные)
+backend/requests.txt
+backend/telegram_errors.log
+
+# Конфиденциальные данные Telegram бота
+telegram_bot/config.php
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Логи
+*.log
+
+# Временные файлы
+*.tmp
+*.cache
+

@@ -112,7 +112,12 @@ function initForms() {
             
             try {
                 // Отправляем запрос на сервер
-                const response = await fetch('/backend/send.php', {
+                // Определяем правильный путь к backend относительно текущей страницы
+                const currentPath = window.location.pathname;
+                const isRoot = currentPath === '/' || currentPath.endsWith('/index.php');
+                const backendPath = isRoot ? 'backend/send.php' : '../backend/send.php';
+                
+                const response = await fetch(backendPath, {
                     method: 'POST',
                     body: formData
                 });
