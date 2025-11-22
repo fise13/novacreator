@@ -32,32 +32,25 @@
     
     <!-- Tailwind CSS -->
     <?php
-    // Универсальный путь, который работает в preview режиме Plesk
-    // Используем REQUEST_URI для определения реального пути
-    $requestUri = $_SERVER['REQUEST_URI'];
-    // Убираем query string
-    $requestUri = strtok($requestUri, '?');
-    // Определяем базовый путь
-    $scriptName = basename($_SERVER['SCRIPT_NAME']);
-    $baseDir = str_replace($scriptName, '', $requestUri);
-    $baseDir = rtrim($baseDir, '/');
+    // Определяем правильный путь к CSS, учитывая preview режим Plesk
+    $scriptPath = $_SERVER['SCRIPT_NAME'];
     
-    // Если путь содержит preview, убираем его
-    if (strpos($baseDir, '/plesk-site-preview/') !== false) {
-        // Находим где заканчивается preview путь
-        $parts = explode('/plesk-site-preview/', $baseDir);
-        if (count($parts) > 1) {
-            // Берем только часть после preview
-            $afterPreview = $parts[1];
-            // Убираем домен и оставляем только путь к файлам
-            $afterPreview = preg_replace('#^[^/]+/[^/]+/#', '/', $afterPreview);
-            $baseDir = $afterPreview;
-        }
+    // Если в preview режиме Plesk, извлекаем реальный путь
+    if (preg_match('#/plesk-site-preview/[^/]+/(.+)$#', $scriptPath, $matches)) {
+        // Берем путь после preview
+        $realPath = '/' . $matches[1];
+        $baseDir = dirname($realPath);
+    } else {
+        // Обычный режим
+        $baseDir = dirname($scriptPath);
     }
+    
+    // Нормализуем путь
+    $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
+    $baseDir = rtrim($baseDir, '/\\');
     
     // Формируем путь к CSS
     $cssPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/css/output.css';
-    // Убираем двойные слеши
     $cssPath = preg_replace('#/+#', '/', $cssPath);
     ?>
     <link href="<?php echo $cssPath; ?>" rel="stylesheet">
