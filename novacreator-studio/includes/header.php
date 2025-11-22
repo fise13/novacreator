@@ -14,6 +14,15 @@
     <!-- Предотвращение автоматического определения телефонных номеров на iOS -->
     <meta name="format-detection" content="telephone=yes">
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XD6LHCBQZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XD6LHCBQZS');
+    </script>
+    
     <!-- Title -->
     <title><?php 
         if (isset($pageMetaTitle)) {
