@@ -31,7 +31,13 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     
     <!-- Tailwind CSS -->
-    <link href="/assets/css/output.css" rel="stylesheet">
+    <?php
+    // Универсальный путь к статическим файлам (работает в корне и в подпапке)
+    $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    $baseDir = ($baseDir === '/' || $baseDir === '\\') ? '' : $baseDir;
+    $cssPath = $baseDir . '/assets/css/output.css';
+    ?>
+    <link href="<?php echo $cssPath; ?>" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -48,7 +54,12 @@
             <div class="flex items-center justify-between h-16 md:h-20">
                 <!-- Логотип -->
                 <a href="index.php" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation">
-                    <img src="/assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство в Казахстане" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" />
+                    <?php
+                    $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+                    $baseDir = ($baseDir === '/' || $baseDir === '\\') ? '' : $baseDir;
+                    $logoPath = $baseDir . '/assets/img/NCS.svg';
+                    ?>
+                    <img src="<?php echo $logoPath; ?>" alt="Логотип NovaCreator Studio - Digital агентство в Казахстане" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" />
                     <span class="text-lg md:text-2xl font-bold text-gradient">NovaCreator Studio</span>
                 </a>
                 

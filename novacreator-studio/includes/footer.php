@@ -10,7 +10,12 @@
                 <!-- О компании -->
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <img src="/assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" />
+                        <?php
+                        $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+                        $baseDir = ($baseDir === '/' || $baseDir === '\\') ? '' : $baseDir;
+                        $logoPath = $baseDir . '/assets/img/NCS.svg';
+                        ?>
+                        <img src="<?php echo $logoPath; ?>" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" />
                         <span class="text-xl font-bold text-gradient">NovaCreator Studio</span>
                     </div>
                     <p class="text-gray-400 mb-4">
@@ -95,7 +100,13 @@
     </footer>
     
     <!-- Подключение основного JavaScript -->
-    <script src="/assets/js/main.js"></script>
+    <?php
+    // Универсальный путь к статическим файлам (работает в корне и в подпапке)
+    $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    $baseDir = ($baseDir === '/' || $baseDir === '\\') ? '' : $baseDir;
+    $jsPath = $baseDir . '/assets/js/main.js';
+    ?>
+    <script src="<?php echo $jsPath; ?>"></script>
     
     <!-- Дополнительная структурированная разметка для сайта -->
     <script type="application/ld+json">
