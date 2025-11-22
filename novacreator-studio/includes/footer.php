@@ -96,17 +96,31 @@
     
     <!-- Подключение основного JavaScript -->
     <?php
-    // Абсолютный путь от корня сайта (работает везде)
-    // Определяем базовый путь, убирая preview пути Plesk и другие
-    $scriptName = $_SERVER['SCRIPT_NAME'];
-    // Убираем все что связано с preview
-    $scriptName = preg_replace('#/plesk-site-preview/[^/]+/#', '/', $scriptName);
-    // Получаем путь к директории скрипта
-    $baseDir = dirname($scriptName);
-    // Если в корне, то пустая строка, иначе путь
-    $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
+    // Универсальный путь, который работает в preview режиме Plesk
+    // Используем REQUEST_URI для определения реального пути
+    $requestUri = $_SERVER['REQUEST_URI'];
+    // Убираем query string
+    $requestUri = strtok($requestUri, '?');
+    // Определяем базовый путь
+    $scriptName = basename($_SERVER['SCRIPT_NAME']);
+    $baseDir = str_replace($scriptName, '', $requestUri);
+    $baseDir = rtrim($baseDir, '/');
+    
+    // Если путь содержит preview, убираем его
+    if (strpos($baseDir, '/plesk-site-preview/') !== false) {
+        // Находим где заканчивается preview путь
+        $parts = explode('/plesk-site-preview/', $baseDir);
+        if (count($parts) > 1) {
+            // Берем только часть после preview
+            $afterPreview = $parts[1];
+            // Убираем домен и оставляем только путь к файлам
+            $afterPreview = preg_replace('#^[^/]+/[^/]+/#', '/', $afterPreview);
+            $baseDir = $afterPreview;
+        }
+    }
+    
     // Формируем путь к JS
-    $jsPath = ($baseDir ? rtrim($baseDir, '/\\') . '/' : '/') . 'assets/js/main.js';
+    $jsPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.js';
     // Убираем двойные слеши
     $jsPath = preg_replace('#/+#', '/', $jsPath);
     ?>
