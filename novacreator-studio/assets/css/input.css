@@ -26,6 +26,37 @@
   /* Оптимизация touch для мобильных */
   * {
     -webkit-tap-highlight-color: transparent;
+    /* Улучшенная производительность на touch устройствах */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Разрешаем выделение текста для контента */
+  p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, input, textarea, select {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  
+  /* Улучшенные стили для touch устройств */
+  .touch-device button,
+  .touch-device .btn-neon,
+  .touch-device .btn-outline,
+  .touch-device a {
+    /* Увеличиваем область нажатия */
+    padding: 0.875rem 1.5rem;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .touch-device .service-card {
+    /* Улучшенная обратная связь при touch */
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  
+  .touch-device .service-card:active {
+    transform: scale(0.98);
+    opacity: 0.9;
   }
   
   /* Улучшение производительности анимаций на мобильных */

@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollProgress();
     initBackToTop();
     initPageLoadAnimation();
+    initTouchOptimizations();
 });
 
 /**
@@ -452,6 +453,118 @@ function initPageLoadAnimation() {
     });
 }
 
+/**
+ * Оптимизация для touch устройств
+ * Улучшенные жесты, haptic feedback и оптимизация touch событий
+ */
+function initTouchOptimizations() {
+    // Проверяем, что это touch устройство
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (!isTouchDevice) return;
+    
+    // Haptic feedback для важных действий (если поддерживается)
+    function hapticFeedback(type = 'light') {
+        if ('vibrate' in navigator) {
+            const patterns = {
+                light: 10,      // Легкая вибрация
+                medium: 20,    // Средняя вибрация
+                heavy: 30       // Сильная вибрация
+            };
+            navigator.vibrate(patterns[type] || patterns.light);
+        }
+    }
+    
+    // Улучшенная обработка кликов на touch устройствах
+    const interactiveElements = document.querySelectorAll('button, a, .btn-neon, .btn-outline, .service-card, input, textarea, select');
+    
+    interactiveElements.forEach(element => {
+        // Добавляем визуальную обратную связь при touch
+        element.addEventListener('touchstart', function() {
+            this.style.opacity = '0.8';
+            hapticFeedback('light');
+        }, { passive: true });
+        
+        element.addEventListener('touchend', function() {
+            setTimeout(() => {
+                this.style.opacity = '1';
+            }, 100);
+        }, { passive: true });
+        
+        // Предотвращаем двойной клик на touch устройствах
+        let lastTouchEnd = 0;
+        element.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+    });
+    
+    // Swipe жесты для навигации (опционально)
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    
+    document.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const minSwipeDistance = 50;
+        
+        // Горизонтальный swipe (можно использовать для навигации)
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+            // Swipe влево/вправо - можно добавить функционал
+            // Например, открытие/закрытие меню
+        }
+        
+        // Вертикальный swipe вверх - показать кнопку "Наверх"
+        if (deltaY < -minSwipeDistance && window.pageYOffset > 500) {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (backToTopBtn) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100');
+            }
+        }
+    }
+    
+    // Улучшенная прокрутка для touch устройств
+    let isScrolling = false;
+    window.addEventListener('touchstart', function() {
+        isScrolling = true;
+    }, { passive: true });
+    
+    window.addEventListener('touchend', function() {
+        isScrolling = false;
+    }, { passive: true });
+    
+    // Оптимизация производительности при прокрутке на touch
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                // Обновление индикатора прогресса и других элементов
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+    
+    // Добавляем класс для touch устройств (для CSS стилей)
+    document.documentElement.classList.add('touch-device');
+}
+
 // Экспортируем функции для использования в других скриптах
 window.NovaCreator = {
     animateCounter,
@@ -459,6 +572,7 @@ window.NovaCreator = {
     initCounters,
     initProgressBars,
     initScrollProgress,
-    initBackToTop
+    initBackToTop,
+    initTouchOptimizations
 };
 
