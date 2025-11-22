@@ -20,16 +20,54 @@ include 'includes/header.php';
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-5xl mx-auto animate-on-scroll">
+            <?php
+            // Варианты заголовков (ротация при каждом обновлении)
+            $headlines = [
+                [
+                    'title' => 'Растим бизнес',
+                    'subtitle' => 'в цифровом пространстве'
+                ],
+                [
+                    'title' => 'Превращаем идеи',
+                    'subtitle' => 'в цифровой успех'
+                ],
+                [
+                    'title' => 'Увеличиваем продажи',
+                    'subtitle' => 'через интернет-маркетинг'
+                ],
+                [
+                    'title' => 'Выводим в топ',
+                    'subtitle' => 'и привлекаем клиентов'
+                ],
+                [
+                    'title' => 'Создаем сайты',
+                    'subtitle' => 'которые продают'
+                ]
+            ];
+            
+            // Варианты подзаголовков
+            $descriptions = [
+                'SEO-продвижение, разработка сайтов и маркетинговые стратегии, которые приносят результат. Работаем с клиентами по всему Казахстану: Алматы, Астана, Шымкент и другие города. Ваш успех — наша миссия.',
+                'Профессиональное digital-агентство с опытом работы более 10 лет. Помогаем бизнесу расти в интернете через SEO, контекстную рекламу и разработку. Работаем онлайн по всему Казахстану.',
+                'Комплексные решения для digital-продвижения вашего бизнеса. От технического SEO до настройки рекламных кампаний — всё для роста вашей компании. Клиенты из Алматы, Астаны, Шымкента и других городов.',
+                'Новое агентство с большим опытом команды. Выводим сайты в топ поисковых систем, создаем продающие сайты и настраиваем эффективную рекламу. Ваш рост — наша цель.',
+                'Digital-маркетинг, который работает. SEO-оптимизация, разработка сайтов, Google Ads и аналитика. Работаем с компаниями по всему Казахстану и помогаем достигать результатов.'
+            ];
+            
+            // Выбираем случайный вариант
+            $randomHeadline = $headlines[array_rand($headlines)];
+            $randomDescription = $descriptions[array_rand($descriptions)];
+            ?>
+            
             <!-- Заголовок H1 (главный для SEO) -->
             <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-bold mb-4 md:mb-6 leading-tight px-4 md:px-0">
-                <span class="text-gradient">Растим бизнес</span><br>
-                в цифровом пространстве
+                <span class="text-gradient"><?php echo htmlspecialchars($randomHeadline['title']); ?></span><br>
+                <?php echo htmlspecialchars($randomHeadline['subtitle']); ?>
             </h1>
             
             <!-- Подзаголовок -->
             <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
-                SEO-продвижение, разработка сайтов и маркетинговые стратегии, 
-                которые приносят результат. Ваш успех — наша миссия.
+                <?php echo htmlspecialchars($randomDescription); ?>
             </p>
             
             <!-- CTA кнопки - оптимизированы для мобильных -->
@@ -75,11 +113,13 @@ include 'includes/header.php';
                 <h3 class="text-2xl font-bold mb-4 text-gradient">SEO-оптимизация</h3>
                 <p class="text-gray-400 mb-6 leading-relaxed">
                     Выводим ваш сайт в топ поисковых систем. Комплексная оптимизация, 
-                    технический аудит и постоянный мониторинг результатов.
+                    технический аудит и постоянный мониторинг результатов. Работаем с клиентами 
+                    по всему Казахстану: Алматы, Астана, Шымкент и другие города.
                 </p>
                 <a href="seo.php" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                     Узнать больше →
                 </a>
+                <span class="text-gray-500 text-sm ml-4">или <a href="calculator.php" class="text-neon-purple hover:text-neon-blue">рассчитать стоимость</a></span>
             </div>
             
             <!-- Разработка сайтов -->
@@ -180,15 +220,21 @@ include 'includes/header.php';
                 <p class="text-gray-400 text-sm md:text-base lg:text-lg">Компания</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
-                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4" data-target="10">0</div>
+                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4">
+                    <span class="counter-number" data-target="10" data-suffix="+">0</span>
+                </div>
                 <p class="text-gray-400 text-sm md:text-base lg:text-lg">Лет опыта команды</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4">2</div>
+                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4">
+                    <span class="counter-number" data-target="2">0</span>
+                </div>
                 <p class="text-gray-400 text-sm md:text-base lg:text-lg">Профессионала</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.3s;">
-                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4">100%</div>
+                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4">
+                    <span class="counter-number" data-target="100" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-sm md:text-base lg:text-lg">Онлайн работа</p>
             </div>
         </div>
@@ -244,6 +290,59 @@ include 'includes/header.php';
                 <p class="text-gray-400">
                     Постоянно улучшаем результаты и масштабируем успех
                 </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Гарантии и преимущества -->
+<section class="py-16 md:py-24 lg:py-32 bg-dark-surface relative overflow-hidden">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16 lg:mb-20 animate-on-scroll">
+            <h2 class="section-title">Наши гарантии</h2>
+            <p class="section-subtitle">
+                Мы уверены в качестве нашей работы и готовы это доказать
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+            <!-- Пожизненная гарантия -->
+            <div class="bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 rounded-2xl p-6 md:p-8 animate-on-scroll">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">Пожизненная гарантия</h3>
+                </div>
+                <p class="text-gray-300 leading-relaxed text-base md:text-lg">
+                    Мы даем <strong class="text-white">пожизненную гарантию</strong> на все наши работы. 
+                    Если возникнут проблемы с сайтом или продвижением, мы исправим их бесплатно. 
+                    Ваш успех — наш приоритет.
+                </p>
+            </div>
+            
+            <!-- Поддержка для первых клиентов -->
+            <div class="bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 border border-neon-blue/30 rounded-2xl p-6 md:p-8 animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">6 месяцев поддержки</h3>
+                </div>
+                <p class="text-gray-300 leading-relaxed text-base md:text-lg">
+                    В честь открытия нашей компании, <strong class="text-white">первым клиентам</strong> мы предоставляем 
+                    <strong class="text-white">бесплатную поддержку в течение 6 месяцев</strong>. 
+                    Консультации, доработки и помощь — всё включено!
+                </p>
+                <div class="mt-4 pt-4 border-t border-neon-blue/30">
+                    <span class="inline-block bg-neon-blue/20 text-neon-blue px-3 py-1 rounded-full text-sm font-semibold">
+                        Ограниченное предложение
+                    </span>
+                </div>
             </div>
         </div>
     </div>

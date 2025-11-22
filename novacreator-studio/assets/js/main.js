@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initForms();
     initScrollEffects();
+    initCounters();
 });
 
 /**
@@ -245,25 +246,73 @@ function initScrollEffects() {
 /**
  * Плавное появление чисел (для статистики)
  * Анимация счетчика от 0 до целевого значения
+ * @param {HTMLElement} element - Элемент для анимации
+ * @param {number} target - Целевое значение
+ * @param {string} prefix - Префикс (например, "+" или "-")
+ * @param {string} suffix - Суффикс (например, "%")
+ * @param {number} duration - Длительность анимации в миллисекундах
  */
-function animateCounter(element, target, duration = 2000) {
+function animateCounter(element, target, prefix = '', suffix = '', duration = 2000) {
     let start = 0;
-    const increment = target / (duration / 16); // 60 FPS
+    const increment = target / (duration / 16); // 60 FPS для плавной анимации
     
     const timer = setInterval(() => {
         start += increment;
         if (start >= target) {
-            element.textContent = target;
+            element.textContent = prefix + target + suffix;
             clearInterval(timer);
         } else {
-            element.textContent = Math.floor(start);
+            element.textContent = prefix + Math.floor(start) + suffix;
         }
     }, 16);
+}
+
+/**
+ * Инициализация счетчиков на странице
+ * Анимация запускается, когда элемент появляется в viewport
+ */
+function initCounters() {
+    const counterElements = document.querySelectorAll('.counter-number');
+    
+    if (counterElements.length === 0) return;
+    
+    // Создаем Intersection Observer для отслеживания видимости
+    const observerOptions = {
+        threshold: 0.5, // Запускаем анимацию, когда элемент виден на 50%
+        rootMargin: '0px'
+    };
+    
+    const counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const target = parseInt(element.getAttribute('data-target')) || 0;
+                const prefix = element.getAttribute('data-prefix') || '';
+                const suffix = element.getAttribute('data-suffix') || '';
+                const duration = parseInt(element.getAttribute('data-duration')) || 2000;
+                
+                // Проверяем, не была ли уже запущена анимация
+                if (!element.classList.contains('counter-animated')) {
+                    element.classList.add('counter-animated');
+                    animateCounter(element, target, prefix, suffix, duration);
+                }
+                
+                // Отключаем наблюдение после запуска анимации
+                counterObserver.unobserve(element);
+            }
+        });
+    }, observerOptions);
+    
+    // Начинаем наблюдение за каждым счетчиком
+    counterElements.forEach(element => {
+        counterObserver.observe(element);
+    });
 }
 
 // Экспортируем функции для использования в других скриптах
 window.NovaCreator = {
     animateCounter,
-    showNotification
+    showNotification,
+    initCounters
 };
 

@@ -31,19 +31,19 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     
     <!-- Tailwind CSS -->
-    <link href="./assets/css/output.css" rel="stylesheet">
+    <?php
+    // Определяем базовый путь для статических файлов
+    $basePath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    $basePath = ($basePath === '/' || $basePath === '\\') ? '' : $basePath;
+    ?>
+    <link href="<?php echo $basePath; ?>/assets/css/output.css" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon.ico">
-    <link rel="shortcut icon" href="/favicon.ico">
     
     <!-- Дополнительные мета-теги -->
     <meta name="theme-color" content="#0A0A0F">
-    <meta name="msapplication-TileColor" content="#8B5CF6">
-    <meta name="format-detection" content="telephone=yes">
 </head>
 <body class="bg-dark-bg text-white overflow-x-hidden">
     
@@ -53,7 +53,7 @@
             <div class="flex items-center justify-between h-16 md:h-20">
                 <!-- Логотип -->
                 <a href="index.php" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation">
-                    <img src="./assets/img/NCS.svg" alt="NovaCreator Studio" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" />
+                    <img src="./assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство в Казахстане" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" />
                     <span class="text-lg md:text-2xl font-bold text-gradient">NovaCreator Studio</span>
                 </a>
                 

@@ -10,12 +10,16 @@
                 <!-- О компании -->
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <img src="./assets/img/NCS.svg" alt="NovaCreator Studio" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" />
+                        <img src="./assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" />
                         <span class="text-xl font-bold text-gradient">NovaCreator Studio</span>
                     </div>
-                    <p class="text-gray-400 mb-6">
+                    <p class="text-gray-400 mb-4">
                         Профессиональное digital-агентство. Помогаем бизнесу расти в интернете через SEO, разработку и маркетинг.
                     </p>
+                    <div class="space-y-2 text-sm">
+                        <p class="text-neon-purple font-semibold">✓ Пожизненная гарантия</p>
+                        <p class="text-neon-blue font-semibold">✓ 6 месяцев поддержки первым клиентам</p>
+                    </div>
                     <div class="flex space-x-4">
                         <a href="#" class="w-10 h-10 bg-dark-bg border border-dark-border rounded-lg flex items-center justify-center hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -54,7 +58,8 @@
                         <li><a href="about.php" class="text-gray-400 hover:text-neon-purple transition-colors">О нас</a></li>
                         <li><a href="portfolio.php" class="text-gray-400 hover:text-neon-purple transition-colors">Портфолио</a></li>
                         <li><a href="contact.php" class="text-gray-400 hover:text-neon-purple transition-colors">Контакты</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-neon-purple transition-colors">Блог</a></li>
+                        <li><a href="calculator.php" class="text-gray-400 hover:text-neon-purple transition-colors">Калькулятор</a></li>
+                        <li><a href="blog.php" class="text-gray-400 hover:text-neon-purple transition-colors">Блог</a></li>
                         <li><a href="vacancies.php" class="text-gray-400 hover:text-neon-purple transition-colors">Вакансии</a></li>
                     </ul>
                 </div>
@@ -91,7 +96,12 @@
     </footer>
     
     <!-- Подключение основного JavaScript -->
-    <script src="./assets/js/main.js"></script>
+    <?php
+    // Определяем базовый путь для статических файлов
+    $basePath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    $basePath = ($basePath === '/' || $basePath === '\\') ? '' : $basePath;
+    ?>
+    <script src="<?php echo $basePath; ?>/assets/js/main.js"></script>
     
     <!-- Дополнительная структурированная разметка для сайта -->
     <script type="application/ld+json">

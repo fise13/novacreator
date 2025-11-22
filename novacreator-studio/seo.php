@@ -225,19 +225,27 @@ include 'includes/header.php';
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="text-center animate-on-scroll">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">+250%</div>
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-lg">Рост органического трафика</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">+180%</div>
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-lg">Позиций в топ-10</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">+95%</div>
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-lg">Рост конверсий</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.3s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">-40%</div>
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-lg">Снижение стоимости лида</p>
             </div>
         </div>
@@ -304,6 +312,151 @@ include 'includes/header.php';
                         Постоянно отслеживаем результаты, анализируем метрики и оптимизируем 
                         работу для достижения максимальной эффективности.
                     </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ секция с Schema.org разметкой -->
+<section class="py-20">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto animate-on-scroll">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Часто задаваемые вопросы о SEO</h2>
+                <p class="text-xl text-gray-400">
+                    Ответы на популярные вопросы о продвижении сайтов
+                </p>
+            </div>
+            
+            <div itemscope itemtype="https://schema.org/FAQPage" class="space-y-6">
+                <!-- Вопрос 1 -->
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
+                    <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
+                        Сколько времени нужно для выхода сайта в топ поисковых систем?
+                    </h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            Первые результаты SEO-оптимизации обычно видны через 3-6 месяцев после начала работы. 
+                            Выход в топ-10 по высокочастотным запросам может занять 6-12 месяцев. 
+                            Скорость зависит от конкуренции в вашей нише, текущего состояния сайта и объема работ. 
+                            Мы предоставляем ежемесячные отчеты о прогрессе.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Вопрос 2 -->
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
+                    <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
+                        Что входит в стоимость SEO-продвижения?
+                    </h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            Стоимость зависит от объема работ и сложности проекта. В базовый пакет входит: 
+                            технический аудит, оптимизация контента, работа с мета-тегами, внутренняя перелинковка, 
+                            создание карты сайта, настройка аналитики. Расширенные пакеты включают ссылочное продвижение, 
+                            контент-маркетинг и регулярные отчеты. Свяжитесь с нами для расчета стоимости вашего проекта.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Вопрос 3 -->
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
+                    <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
+                        Работаете ли вы с сайтами на разных CMS (WordPress, 1C-Битрикс, OpenCart)?
+                    </h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            Да, мы работаем с любыми CMS и платформами: WordPress, 1C-Битрикс, OpenCart, 
+                            WooCommerce, Magento, а также с сайтами на чистом HTML/CSS/JS. 
+                            Наш опыт позволяет оптимизировать сайты любой сложности и технической реализации.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Вопрос 4 -->
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
+                    <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
+                        Гарантируете ли вы попадание в топ-10?
+                    </h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            Мы гарантируем профессиональную работу и постоянное улучшение позиций сайта. 
+                            Однако честные SEO-специалисты не могут гарантировать конкретные позиции, 
+                            так как алгоритмы поисковых систем постоянно меняются. Мы гарантируем: 
+                            регулярную работу над сайтом, прозрачную отчетность, рост органического трафика 
+                            и улучшение позиций по целевым запросам. <strong class="text-white">Кроме того, мы даем пожизненную гарантию</strong> 
+                            на все выполненные работы — если возникнут проблемы, мы исправим их бесплатно.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Вопрос 5 -->
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
+                    <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
+                        Как вы отслеживаете результаты работы?
+                    </h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            Мы используем профессиональные инструменты: Google Analytics, Яндекс.Метрику, 
+                            Google Search Console, Яндекс.Вебмастер, а также специализированные SEO-инструменты. 
+                            Каждый месяц вы получаете подробный отчет с данными о позициях, трафике, конверсиях 
+                            и выполненной работе. Все метрики доступны в реальном времени через личный кабинет.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Гарантии -->
+<section class="py-20 bg-dark-surface">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-on-scroll">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Наши гарантии</h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Мы уверены в качестве нашей работы и готовы это доказать
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <!-- Пожизненная гарантия -->
+            <div class="bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 rounded-2xl p-8 animate-on-scroll">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">Пожизненная гарантия</h3>
+                </div>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    Мы даем <strong class="text-white">пожизненную гарантию</strong> на все наши работы. 
+                    Если возникнут проблемы с сайтом или продвижением, мы исправим их бесплатно. 
+                    Ваш успех — наш приоритет.
+                </p>
+            </div>
+            
+            <!-- Поддержка для первых клиентов -->
+            <div class="bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 border border-neon-blue/30 rounded-2xl p-8 animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">6 месяцев поддержки</h3>
+                </div>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    В честь открытия нашей компании, <strong class="text-white">первым клиентам</strong> мы предоставляем 
+                    <strong class="text-white">бесплатную поддержку в течение 6 месяцев</strong>. 
+                    Консультации, доработки и помощь — всё включено!
+                </p>
+                <div class="mt-6 pt-6 border-t border-neon-blue/30">
+                    <span class="inline-block bg-neon-blue/20 text-neon-blue px-4 py-2 rounded-full text-sm font-semibold">
+                        Ограниченное предложение
+                    </span>
                 </div>
             </div>
         </div>

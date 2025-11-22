@@ -178,19 +178,27 @@ include 'includes/header.php';
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="text-center animate-on-scroll">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">+45%</div>
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="45" data-prefix="+" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-lg">Рост CTR</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">+120%</div>
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="120" data-prefix="+" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-lg">Рост конверсий</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">-35%</div>
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="35" data-prefix="-" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-lg">Снижение стоимости клика</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.3s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">+200%</div>
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="200" data-prefix="+" data-suffix="%">0</span>
+                </div>
                 <p class="text-gray-400 text-lg">Рост ROI</p>
             </div>
         </div>
@@ -276,6 +284,59 @@ include 'includes/header.php';
             <a href="contact.php" class="btn-neon inline-block">
                 Получить консультацию
             </a>
+        </div>
+    </div>
+</section>
+
+<!-- Гарантии -->
+<section class="py-20 bg-dark-surface">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-on-scroll">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Наши гарантии</h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Мы уверены в качестве нашей работы и готовы это доказать
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <!-- Пожизненная гарантия -->
+            <div class="bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 rounded-2xl p-8 animate-on-scroll">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">Пожизненная гарантия</h3>
+                </div>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    Мы даем <strong class="text-white">пожизненную гарантию</strong> на все наши работы. 
+                    Если возникнут проблемы с рекламными кампаниями или настройками, мы исправим их бесплатно. 
+                    Ваш успех — наш приоритет.
+                </p>
+            </div>
+            
+            <!-- Поддержка для первых клиентов -->
+            <div class="bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 border border-neon-blue/30 rounded-2xl p-8 animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">6 месяцев поддержки</h3>
+                </div>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    В честь открытия нашей компании, <strong class="text-white">первым клиентам</strong> мы предоставляем 
+                    <strong class="text-white">бесплатную поддержку в течение 6 месяцев</strong>. 
+                    Консультации, доработки и помощь — всё включено!
+                </p>
+                <div class="mt-6 pt-6 border-t border-neon-blue/30">
+                    <span class="inline-block bg-neon-blue/20 text-neon-blue px-4 py-2 rounded-full text-sm font-semibold">
+                        Ограниченное предложение
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
