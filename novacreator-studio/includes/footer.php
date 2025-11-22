@@ -96,13 +96,12 @@
     
     <!-- Подключение основного JavaScript -->
     <?php
-    // Определяем базовый URL для статических файлов
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'];
-    $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
-    $baseUrl = $protocol . '://' . $host . ($scriptPath === '/' || $scriptPath === '\\' ? '' : $scriptPath);
+    // Простой и надежный путь к JS
+    $jsPath = dirname($_SERVER['SCRIPT_NAME']);
+    $jsPath = ($jsPath === '/' || $jsPath === '\\') ? '' : $jsPath;
+    $jsPath = rtrim($jsPath, '/\\') . '/assets/js/main.js';
     ?>
-    <script src="<?php echo rtrim($baseUrl, '/'); ?>/assets/js/main.js"></script>
+    <script src="<?php echo $jsPath; ?>"></script>
     
     <!-- Дополнительная структурированная разметка для сайта -->
     <script type="application/ld+json">

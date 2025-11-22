@@ -32,13 +32,12 @@
     
     <!-- Tailwind CSS -->
     <?php
-    // Определяем базовый URL для статических файлов
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'];
-    $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
-    $baseUrl = $protocol . '://' . $host . ($scriptPath === '/' || $scriptPath === '\\' ? '' : $scriptPath);
+    // Простой и надежный путь к CSS
+    $cssPath = dirname($_SERVER['SCRIPT_NAME']);
+    $cssPath = ($cssPath === '/' || $cssPath === '\\') ? '' : $cssPath;
+    $cssPath = rtrim($cssPath, '/\\') . '/assets/css/output.css';
     ?>
-    <link href="<?php echo rtrim($baseUrl, '/'); ?>/assets/css/output.css" rel="stylesheet">
+    <link href="<?php echo $cssPath; ?>" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
