@@ -224,41 +224,29 @@ include 'includes/header.php';
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="text-center animate-on-scroll group">
-                <div class="relative inline-block mb-4">
-                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative text-5xl md:text-6xl font-bold text-gradient counter-wrapper">
-                        <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">+250%</span>
-                    </div>
+            <div class="text-center animate-on-scroll">
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
                 </div>
-                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Рост органического трафика</p>
+                <p class="text-gray-400 text-lg">Рост органического трафика</p>
             </div>
-            <div class="text-center animate-on-scroll group" style="animation-delay: 0.1s;">
-                <div class="relative inline-block mb-4">
-                    <div class="absolute inset-0 bg-gradient-to-r from-neon-blue/30 to-neon-purple/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative text-5xl md:text-6xl font-bold text-gradient counter-wrapper">
-                        <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">+180%</span>
-                    </div>
+            <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
                 </div>
-                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Позиций в топ-10</p>
+                <p class="text-gray-400 text-lg">Позиций в топ-10</p>
             </div>
-            <div class="text-center animate-on-scroll group" style="animation-delay: 0.2s;">
-                <div class="relative inline-block mb-4">
-                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative text-5xl md:text-6xl font-bold text-gradient counter-wrapper">
-                        <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">+95%</span>
-                    </div>
+            <div class="text-center animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
                 </div>
-                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Рост конверсий</p>
+                <p class="text-gray-400 text-lg">Рост конверсий</p>
             </div>
-            <div class="text-center animate-on-scroll group" style="animation-delay: 0.3s;">
-                <div class="relative inline-block mb-4">
-                    <div class="absolute inset-0 bg-gradient-to-r from-neon-blue/30 to-neon-purple/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative text-5xl md:text-6xl font-bold text-gradient counter-wrapper">
-                        <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">-40%</span>
-                    </div>
+            <div class="text-center animate-on-scroll" style="animation-delay: 0.3s;">
+                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">
+                    <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">0</span>
                 </div>
-                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Снижение стоимости лида</p>
+                <p class="text-gray-400 text-lg">Снижение стоимости лида</p>
             </div>
         </div>
     </div>

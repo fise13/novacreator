@@ -32,12 +32,11 @@
     
     <!-- Tailwind CSS -->
     <?php
-    // Универсальный путь к статическим файлам (работает в корне и в подпапке)
-    $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-    $baseDir = ($baseDir === '/' || $baseDir === '\\') ? '' : $baseDir;
-    $cssPath = $baseDir . '/assets/css/output.css';
+    // Определяем базовый путь для статических файлов
+    $basePath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    $basePath = ($basePath === '/' || $basePath === '\\') ? '' : $basePath;
     ?>
-    <link href="<?php echo $cssPath; ?>" rel="stylesheet">
+    <link href="<?php echo $basePath; ?>/assets/css/output.css" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -54,12 +53,7 @@
             <div class="flex items-center justify-between h-16 md:h-20">
                 <!-- Логотип -->
                 <a href="index.php" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation">
-                    <?php
-                    $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-                    $baseDir = ($baseDir === '/' || $baseDir === '\\') ? '' : $baseDir;
-                    $logoPath = $baseDir . '/assets/img/NCS.svg';
-                    ?>
-                    <img src="<?php echo $logoPath; ?>" alt="Логотип NovaCreator Studio - Digital агентство в Казахстане" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" />
+                    <img src="./assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство в Казахстане" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" />
                     <span class="text-lg md:text-2xl font-bold text-gradient">NovaCreator Studio</span>
                 </a>
                 
@@ -69,6 +63,7 @@
                     <a href="services.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'text-neon-purple' : ''; ?>">Услуги</a>
                     <a href="seo.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'seo.php' ? 'text-neon-purple' : ''; ?>">SEO</a>
                     <a href="ads.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'ads.php' ? 'text-neon-purple' : ''; ?>">Google Ads</a>
+                    <a href="portfolio.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'portfolio.php' ? 'text-neon-purple' : ''; ?>">Портфолио</a>
                     <a href="about.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'text-neon-purple' : ''; ?>">О нас</a>
                     <a href="contact.php" class="btn-neon text-sm py-2 px-6">Связаться</a>
                 </div>
@@ -89,6 +84,7 @@
                 <a href="services.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Услуги</a>
                 <a href="seo.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'seo.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">SEO</a>
                 <a href="ads.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'ads.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Google Ads</a>
+                <a href="portfolio.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'portfolio.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Портфолио</a>
                 <a href="about.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">О нас</a>
                 <a href="contact.php" class="block btn-neon text-center mt-4">Связаться</a>
             </div>

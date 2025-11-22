@@ -10,12 +10,7 @@
                 <!-- О компании -->
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <?php
-                        $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-                        $baseDir = ($baseDir === '/' || $baseDir === '\\') ? '' : $baseDir;
-                        $logoPath = $baseDir . '/assets/img/NCS.svg';
-                        ?>
-                        <img src="<?php echo $logoPath; ?>" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" />
+                        <img src="./assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" />
                         <span class="text-xl font-bold text-gradient">NovaCreator Studio</span>
                     </div>
                     <p class="text-gray-400 mb-4">
@@ -61,6 +56,7 @@
                     <h3 class="text-lg font-semibold mb-6 text-gradient">Компания</h3>
                     <ul class="space-y-3">
                         <li><a href="about.php" class="text-gray-400 hover:text-neon-purple transition-colors">О нас</a></li>
+                        <li><a href="portfolio.php" class="text-gray-400 hover:text-neon-purple transition-colors">Портфолио</a></li>
                         <li><a href="contact.php" class="text-gray-400 hover:text-neon-purple transition-colors">Контакты</a></li>
                         <li><a href="calculator.php" class="text-gray-400 hover:text-neon-purple transition-colors">Калькулятор</a></li>
                         <li><a href="blog.php" class="text-gray-400 hover:text-neon-purple transition-colors">Блог</a></li>
@@ -75,16 +71,16 @@
                         <li class="flex items-center space-x-3">
                             <div class="w-8 h-8 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg flex items-center justify-center flex-shrink-0">
                                 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
                             </div>
                             <a href="mailto:contact@novacreatorstudio.com" class="hover:text-neon-purple transition-colors">contact@novacreatorstudio.com</a>
                         </li>
                         <li class="flex items-center space-x-3">
                             <div class="w-8 h-8 bg-gradient-to-r from-neon-blue to-neon-purple rounded-lg flex items-center justify-center flex-shrink-0">
                                 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                </svg>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
                             </div>
                             <a href="tel:+77066063921" class="hover:text-neon-purple transition-colors">+7 706 606 39 21</a>
                         </li>
@@ -101,12 +97,11 @@
     
     <!-- Подключение основного JavaScript -->
     <?php
-    // Универсальный путь к статическим файлам (работает в корне и в подпапке)
-    $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-    $baseDir = ($baseDir === '/' || $baseDir === '\\') ? '' : $baseDir;
-    $jsPath = $baseDir . '/assets/js/main.js';
+    // Определяем базовый путь для статических файлов
+    $basePath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    $basePath = ($basePath === '/' || $basePath === '\\') ? '' : $basePath;
     ?>
-    <script src="<?php echo $jsPath; ?>"></script>
+    <script src="<?php echo $basePath; ?>/assets/js/main.js"></script>
     
     <!-- Дополнительная структурированная разметка для сайта -->
     <script type="application/ld+json">
