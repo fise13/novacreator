@@ -31,12 +31,7 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     
     <!-- Tailwind CSS -->
-    <?php
-    // Определяем базовый путь для статических файлов
-    $basePath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-    $basePath = ($basePath === '/' || $basePath === '\\') ? '' : $basePath;
-    ?>
-    <link href="<?php echo $basePath; ?>/assets/css/output.css" rel="stylesheet">
+    <link href="./assets/css/output.css" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
