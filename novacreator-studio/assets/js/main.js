@@ -336,7 +336,7 @@ function initProgressBars() {
     
     // Создаем Intersection Observer для отслеживания видимости
     const observerOptions = {
-        threshold: 0.3,
+        threshold: 0.2, // Запускаем когда видно 20%
         rootMargin: '0px 0px -50px 0px'
     };
     
@@ -350,20 +350,26 @@ function initProgressBars() {
                 if (!bar.classList.contains('progress-animated')) {
                     bar.classList.add('progress-animated');
                     
-                    // Анимация заполнения прогресс-бара
-                    let currentWidth = 0;
-                    const duration = 1500; // 1.5 секунды
-                    const increment = targetWidth / (duration / 16); // 60 FPS
+                    // Устанавливаем начальную ширину 0
+                    bar.style.width = '0%';
                     
-                    const timer = setInterval(() => {
-                        currentWidth += increment;
-                        if (currentWidth >= targetWidth) {
-                            bar.style.width = targetWidth + '%';
-                            clearInterval(timer);
-                        } else {
-                            bar.style.width = Math.floor(currentWidth) + '%';
-                        }
-                    }, 16);
+                    // Небольшая задержка для плавности
+                    setTimeout(() => {
+                        // Анимация заполнения прогресс-бара
+                        let currentWidth = 0;
+                        const duration = 2000; // 2 секунды для плавности
+                        const increment = targetWidth / (duration / 16); // 60 FPS
+                        
+                        const timer = setInterval(() => {
+                            currentWidth += increment;
+                            if (currentWidth >= targetWidth) {
+                                bar.style.width = targetWidth + '%';
+                                clearInterval(timer);
+                            } else {
+                                bar.style.width = Math.floor(currentWidth) + '%';
+                            }
+                        }, 16);
+                    }, 200); // Задержка 200ms для синхронизации со счетчиками
                 }
                 
                 // Отключаем наблюдение после запуска анимации

@@ -219,7 +219,12 @@ include 'includes/header.php';
                         <div class="progress-item">
                             <div class="flex justify-between mb-2">
                                 <span class="text-gray-400">CTR</span>
-                                <span class="text-neon-purple font-bold counter-number" data-target="45" data-prefix="+" data-suffix="%">+45%</span>
+                                <div class="relative inline-block">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <span class="relative text-neon-purple font-bold counter-wrapper">
+                                        <span class="counter-number" data-target="45" data-prefix="+" data-suffix="%">+45%</span>
+                                    </span>
+                                </div>
                             </div>
                             <div class="w-full bg-dark-bg rounded-full h-2 overflow-hidden">
                                 <div class="progress-bar bg-gradient-to-r from-neon-purple to-neon-blue h-2 rounded-full" data-width="85" style="width: 0%"></div>
@@ -228,7 +233,12 @@ include 'includes/header.php';
                         <div class="progress-item" style="animation-delay: 0.1s;">
                             <div class="flex justify-between mb-2">
                                 <span class="text-gray-400">Конверсии</span>
-                                <span class="text-neon-blue font-bold counter-number" data-target="120" data-prefix="+" data-suffix="%">+120%</span>
+                                <div class="relative inline-block">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-neon-blue/30 to-neon-purple/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <span class="relative text-neon-blue font-bold counter-wrapper">
+                                        <span class="counter-number" data-target="120" data-prefix="+" data-suffix="%">+120%</span>
+                                    </span>
+                                </div>
                             </div>
                             <div class="w-full bg-dark-bg rounded-full h-2 overflow-hidden">
                                 <div class="progress-bar bg-gradient-to-r from-neon-blue to-neon-purple h-2 rounded-full" data-width="90" style="width: 0%"></div>
@@ -237,7 +247,12 @@ include 'includes/header.php';
                         <div class="progress-item" style="animation-delay: 0.2s;">
                             <div class="flex justify-between mb-2">
                                 <span class="text-gray-400">Снижение стоимости клика</span>
-                                <span class="text-neon-purple font-bold counter-number" data-target="35" data-prefix="-" data-suffix="%">-35%</span>
+                                <div class="relative inline-block">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <span class="relative text-neon-purple font-bold counter-wrapper">
+                                        <span class="counter-number" data-target="35" data-prefix="-" data-suffix="%">-35%</span>
+                                    </span>
+                                </div>
                             </div>
                             <div class="w-full bg-dark-bg rounded-full h-2 overflow-hidden">
                                 <div class="progress-bar bg-gradient-to-r from-neon-purple to-neon-blue h-2 rounded-full" data-width="75" style="width: 0%"></div>
