@@ -60,7 +60,7 @@ $pagesMeta = [
     ],
     'contact' => [
         'title' => 'Контакты NovaCreator Studio | Связаться с нами',
-        'description' => 'Свяжитесь с NovaCreator Studio. Телефон: +7 706 606 39 21, Email: victhewise@icloud.com. Работаем каждый день, онлайн по всему миру.',
+        'description' => 'Свяжитесь с NovaCreator Studio. Телефон: +7 706 606 39 21, Email: contact@novacreatorstudio.com. Работаем каждый день, онлайн по всему миру.',
         'keywords' => 'контакты, связаться, заявка, обратная связь, телефон, email',
         'og_type' => 'website',
         'schema_type' => 'ContactPage'
@@ -128,7 +128,7 @@ $pageUrl = $siteUrl . '/' . ($currentPage === 'index' ? '' : $currentPage . '.ph
     "@type": "ContactPoint",
     "telephone": "+7-706-606-39-21",
     "contactType": "customer service",
-    "email": "victhewise@icloud.com",
+    "email": "contact@novacreatorstudio.com",
     "availableLanguage": "Russian"
   },
   "sameAs": [
@@ -165,7 +165,7 @@ if ($currentPage === 'contact'): ?>
     "@type": "Organization",
     "name": "<?php echo $siteName; ?>",
     "telephone": "+7-706-606-39-21",
-    "email": "victhewise@icloud.com"
+    "email": "contact@novacreatorstudio.com"
   }
 }
 </script>

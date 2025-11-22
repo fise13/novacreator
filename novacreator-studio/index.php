@@ -20,33 +20,33 @@ include 'includes/header.php';
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-5xl mx-auto animate-on-scroll">
-            <!-- Заголовок -->
-            <h1 class="text-5xl md:text-6xl lg:text-8xl font-bold mb-6 leading-tight">
+            <!-- Заголовок H1 (главный для SEO) -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-bold mb-4 md:mb-6 leading-tight px-4 md:px-0">
                 <span class="text-gradient">Растим бизнес</span><br>
                 в цифровом пространстве
             </h1>
             
             <!-- Подзаголовок -->
-            <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
                 SEO-продвижение, разработка сайтов и маркетинговые стратегии, 
                 которые приносят результат. Ваш успех — наша миссия.
             </p>
             
-            <!-- CTA кнопки -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <a href="contact.php" class="btn-neon">
+            <!-- CTA кнопки - оптимизированы для мобильных -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 md:gap-6 px-4 md:px-0">
+                <a href="contact.php" class="btn-neon text-center w-full sm:w-auto">
                     Начать проект
                 </a>
-                <a href="portfolio.php" class="btn-outline">
+                <a href="portfolio.php" class="btn-outline text-center w-full sm:w-auto">
                     Посмотреть работы
                 </a>
             </div>
         </div>
     </div>
     
-    <!-- Стрелка вниз -->
-    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <svg class="w-6 h-6 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- Стрелка вниз - скрыта на очень маленьких экранах -->
+    <div class="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
+        <svg class="w-5 h-5 md:w-6 md:h-6 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
     </div>
@@ -63,8 +63,8 @@ include 'includes/header.php';
             </p>
         </div>
         
-        <!-- Карточки услуг -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Карточки услуг - оптимизированы для мобильных -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-4 md:px-0">
             <!-- SEO-оптимизация -->
             <div class="service-card animate-on-scroll">
                 <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-6">
@@ -172,40 +172,40 @@ include 'includes/header.php';
 </section>
 
 <!-- Статистика -->
-<section class="py-32 bg-dark-surface relative overflow-hidden">
+<section class="py-16 md:py-24 lg:py-32 bg-dark-surface relative overflow-hidden">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             <div class="text-center animate-on-scroll">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">Новая</div>
-                <p class="text-gray-400 text-lg">Компания</p>
+                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4">Новая</div>
+                <p class="text-gray-400 text-sm md:text-base lg:text-lg">Компания</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4" data-target="10">0</div>
-                <p class="text-gray-400 text-lg">Лет опыта команды</p>
+                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4" data-target="10">0</div>
+                <p class="text-gray-400 text-sm md:text-base lg:text-lg">Лет опыта команды</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">2</div>
-                <p class="text-gray-400 text-lg">Профессионала</p>
+                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4">2</div>
+                <p class="text-gray-400 text-sm md:text-base lg:text-lg">Профессионала</p>
             </div>
             <div class="text-center animate-on-scroll" style="animation-delay: 0.3s;">
-                <div class="text-5xl md:text-6xl font-bold text-gradient mb-4">100%</div>
-                <p class="text-gray-400 text-lg">Онлайн работа</p>
+                <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-2 md:mb-4">100%</div>
+                <p class="text-gray-400 text-sm md:text-base lg:text-lg">Онлайн работа</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Процесс работы -->
-<section class="py-32">
+<section class="py-16 md:py-24 lg:py-32">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="text-center mb-20 animate-on-scroll">
+        <div class="text-center mb-12 md:mb-16 lg:mb-20 animate-on-scroll">
             <h2 class="section-title">Как мы работаем</h2>
             <p class="section-subtitle">
                 Четкий процесс от первого контакта до достижения результатов
             </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-0">
             <div class="text-center animate-on-scroll">
                 <div class="w-20 h-20 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold">
                     1
@@ -250,13 +250,13 @@ include 'includes/header.php';
 </section>
 
 <!-- CTA секция -->
-<section class="py-32 bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 relative overflow-hidden">
+<section class="py-16 md:py-24 lg:py-32 bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 relative overflow-hidden">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
                 Готовы начать расти?
             </h2>
-            <p class="text-xl text-gray-300 mb-12">
+            <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-8 md:mb-12 px-4 md:px-0">
                 Свяжитесь с нами сегодня и получите бесплатную консультацию 
                 по продвижению вашего бизнеса в интернете.
             </p>

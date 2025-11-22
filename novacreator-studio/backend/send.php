@@ -131,9 +131,9 @@ try {
     error_log('Ошибка при отправке в Telegram: ' . $e->getMessage());
 }
 
-// Отправляем email на victhewise@icloud.com
+// Отправляем email на contact@novacreatorstudio.com
 $emailSent = false;
-$emailTo = 'victhewise@icloud.com'; // Email для получения всех заявок
+$emailTo = 'contact@novacreatorstudio.com'; // Email для получения всех заявок
 
 // Формируем тему письма
 $subject = "Новая заявка с сайта NovaCreator Studio - " . ($service ?: 'Общий запрос');

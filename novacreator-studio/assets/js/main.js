@@ -14,12 +14,18 @@ document.addEventListener('DOMContentLoaded', function() {
 /**
  * Инициализация анимаций при скролле
  * Элементы появляются плавно при прокрутке страницы
+ * Оптимизировано для мобильных устройств
  */
 function initAnimations() {
+    // Проверяем, поддерживает ли устройство анимации (для экономии ресурсов на слабых устройствах)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
     // Создаем Intersection Observer для отслеживания видимости элементов
+    // На мобильных используем более агрессивные настройки для производительности
+    const isMobile = window.innerWidth < 768;
     const observerOptions = {
-        threshold: 0.1, // Элемент считается видимым при 10% появления
-        rootMargin: '0px 0px -50px 0px' // Небольшой отступ снизу
+        threshold: isMobile ? 0.05 : 0.1, // На мобильных срабатывает раньше
+        rootMargin: isMobile ? '0px 0px -30px 0px' : '0px 0px -50px 0px' // Меньший отступ на мобильных
     };
 
     const observer = new IntersectionObserver(function(entries) {
@@ -39,10 +45,19 @@ function initAnimations() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     
     animatedElements.forEach(element => {
+        // Пропускаем анимацию, если пользователь предпочитает уменьшенное движение
+        if (prefersReducedMotion) {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+            return;
+        }
+        
         // Устанавливаем начальное состояние
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
-        element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        // На мобильных используем более короткую анимацию для лучшей производительности
+        const duration = isMobile ? '0.4s' : '0.6s';
+        element.style.transition = `opacity ${duration} ease-out, transform ${duration} ease-out`;
         
         // Начинаем наблюдение
         observer.observe(element);
@@ -112,7 +127,9 @@ function initForms() {
             
             try {
                 // Отправляем запрос на сервер
-                const response = await fetch('/backend/send.php', {
+                // Используем относительный путь для корректной работы на всех страницах
+                const formAction = form.getAttribute('action') || './backend/send.php';
+                const response = await fetch(formAction, {
                     method: 'POST',
                     body: formData
                 });
@@ -143,13 +160,20 @@ function initForms() {
 
 /**
  * Показ уведомления пользователю
+ * Оптимизировано для мобильных устройств
  * @param {string} message - Текст уведомления
  * @param {string} type - Тип: 'success' или 'error'
  */
 function showNotification(message, type = 'success') {
+    // Определяем позицию для мобильных и десктопа
+    const isMobile = window.innerWidth < 768;
+    const positionClass = isMobile 
+        ? 'top-4 left-4 right-4' // На мобильных занимает всю ширину
+        : 'top-4 right-4'; // На десктопе справа
+    
     // Создаем элемент уведомления
     const notification = document.createElement('div');
-    notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 ${
+    notification.className = `fixed ${positionClass} z-50 px-4 py-3 md:px-6 md:py-4 rounded-lg shadow-lg transform transition-all duration-300 text-sm md:text-base ${
         type === 'success' 
             ? 'bg-green-600 text-white' 
             : 'bg-red-600 text-white'
