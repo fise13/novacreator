@@ -10,9 +10,7 @@
                 <!-- О компании -->
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-10 h-10 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg flex items-center justify-center font-bold text-xl">
-                            S
-                        </div>
+                        <img src="./assets/img/NCS.svg" alt="NovaCreator Studio" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" />
                         <span class="text-xl font-bold text-gradient">NovaCreator Studio</span>
                     </div>
                     <p class="text-gray-400 mb-6">

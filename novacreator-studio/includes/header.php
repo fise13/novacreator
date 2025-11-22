@@ -34,11 +34,11 @@
     <link href="./assets/css/output.css" rel="stylesheet">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="./favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon.ico">
-    <link rel="apple-touch-icon" href="./favicon.ico">
-    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     
     <!-- Дополнительные мета-теги -->
     <meta name="theme-color" content="#0A0A0F">
@@ -53,9 +53,7 @@
             <div class="flex items-center justify-between h-16 md:h-20">
                 <!-- Логотип -->
                 <a href="index.php" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation">
-                    <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg flex items-center justify-center font-bold text-lg md:text-xl group-hover:scale-110 transition-transform duration-300">
-                        S
-                    </div>
+                    <img src="./assets/img/NCS.svg" alt="NovaCreator Studio" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" />
                     <span class="text-lg md:text-2xl font-bold text-gradient">NovaCreator Studio</span>
                 </a>
                 
