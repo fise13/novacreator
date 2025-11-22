@@ -99,9 +99,13 @@
     // Определяем правильный путь к JS, учитывая preview режим Plesk
     $scriptPath = $_SERVER['SCRIPT_NAME'];
     
-    // Если в preview режиме Plesk, извлекаем реальный путь
-    if (preg_match('#/plesk-site-preview/[^/]+/(.+)$#', $scriptPath, $matches)) {
-        // Берем путь после preview
+    // Если в preview режиме Plesk, извлекаем реальный путь после всех preview сегментов
+    if (preg_match('#/plesk-site-preview/[^/]+/[^/]+/[^/]+/(.+)$#', $scriptPath, $matches)) {
+        // Берем путь после всех preview сегментов (домен/https/IP)
+        $realPath = '/' . $matches[1];
+        $baseDir = dirname($realPath);
+    } elseif (preg_match('#/plesk-site-preview/[^/]+/(.+)$#', $scriptPath, $matches)) {
+        // Альтернативный паттерн для других форматов preview
         $realPath = '/' . $matches[1];
         $baseDir = dirname($realPath);
     } else {
