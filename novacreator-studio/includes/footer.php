@@ -96,10 +96,19 @@
     
     <!-- Подключение основного JavaScript -->
     <?php
-    // Простой и надежный путь к JS
-    $jsPath = dirname($_SERVER['SCRIPT_NAME']);
-    $jsPath = ($jsPath === '/' || $jsPath === '\\') ? '' : $jsPath;
-    $jsPath = rtrim($jsPath, '/\\') . '/assets/js/main.js';
+    // Абсолютный путь от корня сайта (работает везде)
+    // Определяем базовый путь, убирая preview пути Plesk и другие
+    $scriptName = $_SERVER['SCRIPT_NAME'];
+    // Убираем все что связано с preview
+    $scriptName = preg_replace('#/plesk-site-preview/[^/]+/#', '/', $scriptName);
+    // Получаем путь к директории скрипта
+    $baseDir = dirname($scriptName);
+    // Если в корне, то пустая строка, иначе путь
+    $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
+    // Формируем путь к JS
+    $jsPath = ($baseDir ? rtrim($baseDir, '/\\') . '/' : '/') . 'assets/js/main.js';
+    // Убираем двойные слеши
+    $jsPath = preg_replace('#/+#', '/', $jsPath);
     ?>
     <script src="<?php echo $jsPath; ?>"></script>
     

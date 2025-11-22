@@ -32,10 +32,19 @@
     
     <!-- Tailwind CSS -->
     <?php
-    // Простой и надежный путь к CSS
-    $cssPath = dirname($_SERVER['SCRIPT_NAME']);
-    $cssPath = ($cssPath === '/' || $cssPath === '\\') ? '' : $cssPath;
-    $cssPath = rtrim($cssPath, '/\\') . '/assets/css/output.css';
+    // Абсолютный путь от корня сайта (работает везде)
+    // Определяем базовый путь, убирая preview пути Plesk и другие
+    $scriptName = $_SERVER['SCRIPT_NAME'];
+    // Убираем все что связано с preview
+    $scriptName = preg_replace('#/plesk-site-preview/[^/]+/#', '/', $scriptName);
+    // Получаем путь к директории скрипта
+    $baseDir = dirname($scriptName);
+    // Если в корне, то пустая строка, иначе путь
+    $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
+    // Формируем путь к CSS
+    $cssPath = ($baseDir ? rtrim($baseDir, '/\\') . '/' : '/') . 'assets/css/output.css';
+    // Убираем двойные слеши
+    $cssPath = preg_replace('#/+#', '/', $cssPath);
     ?>
     <link href="<?php echo $cssPath; ?>" rel="stylesheet">
     
