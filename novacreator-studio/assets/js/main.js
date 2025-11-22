@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollProgress();
     initBackToTop();
     initPageLoadAnimation();
-    initMagneticButtons();
 });
 
 /**
@@ -453,36 +452,6 @@ function initPageLoadAnimation() {
     });
 }
 
-/**
- * Эффект "магнитного" курсора для кнопок
- * Кнопки слегка притягивают курсор при наведении
- */
-function initMagneticButtons() {
-    const magneticButtons = document.querySelectorAll('.btn-neon, .btn-outline, a[href^="#"]');
-    
-    magneticButtons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            this.style.transition = 'transform 0.3s ease-out';
-        });
-        
-        button.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            // Небольшое смещение (магнитный эффект)
-            const moveX = x * 0.15;
-            const moveY = y * 0.15;
-            
-            this.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-        });
-        
-        button.addEventListener('mouseleave', function() {
-            this.style.transform = 'translate(0, 0) scale(1)';
-        });
-    });
-}
-
 // Экспортируем функции для использования в других скриптах
 window.NovaCreator = {
     animateCounter,
@@ -490,7 +459,6 @@ window.NovaCreator = {
     initCounters,
     initProgressBars,
     initScrollProgress,
-    initBackToTop,
-    initMagneticButtons
+    initBackToTop
 };
 
