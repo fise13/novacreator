@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initForms();
     initScrollEffects();
     initCounters();
+    initProgressBars();
 });
 
 /**
@@ -324,10 +325,64 @@ function initCounters() {
     });
 }
 
+/**
+ * Инициализация анимации прогресс-баров
+ * Прогресс-бары заполняются при появлении в viewport
+ */
+function initProgressBars() {
+    const progressBars = document.querySelectorAll('.progress-bar');
+    
+    if (progressBars.length === 0) return;
+    
+    // Создаем Intersection Observer для отслеживания видимости
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const progressObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bar = entry.target;
+                const targetWidth = parseInt(bar.getAttribute('data-width')) || 0;
+                
+                // Проверяем, не была ли уже запущена анимация
+                if (!bar.classList.contains('progress-animated')) {
+                    bar.classList.add('progress-animated');
+                    
+                    // Анимация заполнения прогресс-бара
+                    let currentWidth = 0;
+                    const duration = 1500; // 1.5 секунды
+                    const increment = targetWidth / (duration / 16); // 60 FPS
+                    
+                    const timer = setInterval(() => {
+                        currentWidth += increment;
+                        if (currentWidth >= targetWidth) {
+                            bar.style.width = targetWidth + '%';
+                            clearInterval(timer);
+                        } else {
+                            bar.style.width = Math.floor(currentWidth) + '%';
+                        }
+                    }, 16);
+                }
+                
+                // Отключаем наблюдение после запуска анимации
+                progressObserver.unobserve(bar);
+            }
+        });
+    }, observerOptions);
+    
+    // Начинаем наблюдение за каждым прогресс-баром
+    progressBars.forEach(bar => {
+        progressObserver.observe(bar);
+    });
+}
+
 // Экспортируем функции для использования в других скриптах
 window.NovaCreator = {
     animateCounter,
     showNotification,
-    initCounters
+    initCounters,
+    initProgressBars
 };
 

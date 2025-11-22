@@ -147,5 +147,31 @@
       text-shadow: 0 0 25px rgba(139, 92, 246, 0.8), 0 0 35px rgba(6, 182, 212, 0.6);
     }
   }
+  
+  /* Анимация для прогресс-баров */
+  .progress-bar {
+    @apply transition-all duration-500 ease-out;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+  }
+  
+  .progress-bar.progress-animated {
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.5), 0 0 25px rgba(6, 182, 212, 0.3);
+  }
+  
+  .progress-item {
+    @apply opacity-0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 

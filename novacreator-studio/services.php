@@ -216,31 +216,31 @@ include 'includes/header.php';
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-8">
                     <h3 class="text-2xl font-bold mb-6 text-gradient">Результаты наших клиентов</h3>
                     <div class="space-y-6">
-                        <div>
+                        <div class="progress-item">
                             <div class="flex justify-between mb-2">
                                 <span class="text-gray-400">CTR</span>
-                                <span class="text-neon-purple font-bold">+45%</span>
+                                <span class="text-neon-purple font-bold counter-number" data-target="45" data-prefix="+" data-suffix="%">+45%</span>
                             </div>
-                            <div class="w-full bg-dark-bg rounded-full h-2">
-                                <div class="bg-gradient-to-r from-neon-purple to-neon-blue h-2 rounded-full" style="width: 85%"></div>
+                            <div class="w-full bg-dark-bg rounded-full h-2 overflow-hidden">
+                                <div class="progress-bar bg-gradient-to-r from-neon-purple to-neon-blue h-2 rounded-full" data-width="85" style="width: 0%"></div>
                             </div>
                         </div>
-                        <div>
+                        <div class="progress-item" style="animation-delay: 0.1s;">
                             <div class="flex justify-between mb-2">
                                 <span class="text-gray-400">Конверсии</span>
-                                <span class="text-neon-blue font-bold">+120%</span>
+                                <span class="text-neon-blue font-bold counter-number" data-target="120" data-prefix="+" data-suffix="%">+120%</span>
                             </div>
-                            <div class="w-full bg-dark-bg rounded-full h-2">
-                                <div class="bg-gradient-to-r from-neon-blue to-neon-purple h-2 rounded-full" style="width: 90%"></div>
+                            <div class="w-full bg-dark-bg rounded-full h-2 overflow-hidden">
+                                <div class="progress-bar bg-gradient-to-r from-neon-blue to-neon-purple h-2 rounded-full" data-width="90" style="width: 0%"></div>
                             </div>
                         </div>
-                        <div>
+                        <div class="progress-item" style="animation-delay: 0.2s;">
                             <div class="flex justify-between mb-2">
                                 <span class="text-gray-400">Снижение стоимости клика</span>
-                                <span class="text-neon-purple font-bold">-35%</span>
+                                <span class="text-neon-purple font-bold counter-number" data-target="35" data-prefix="-" data-suffix="%">-35%</span>
                             </div>
-                            <div class="w-full bg-dark-bg rounded-full h-2">
-                                <div class="bg-gradient-to-r from-neon-purple to-neon-blue h-2 rounded-full" style="width: 75%"></div>
+                            <div class="w-full bg-dark-bg rounded-full h-2 overflow-hidden">
+                                <div class="progress-bar bg-gradient-to-r from-neon-purple to-neon-blue h-2 rounded-full" data-width="75" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
