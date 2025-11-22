@@ -31,7 +31,14 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     
     <!-- Tailwind CSS -->
-    <link href="./assets/css/output.css" rel="stylesheet">
+    <?php
+    // Определяем базовый URL для статических файлов
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'];
+    $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
+    $baseUrl = $protocol . '://' . $host . ($scriptPath === '/' || $scriptPath === '\\' ? '' : $scriptPath);
+    ?>
+    <link href="<?php echo rtrim($baseUrl, '/'); ?>/assets/css/output.css" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
