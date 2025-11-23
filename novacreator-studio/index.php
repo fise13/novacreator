@@ -5,7 +5,7 @@
  */
 $pageTitle = 'Главная';
 $pageMetaTitle = 'NovaCreator Studio - Digital агентство | SEO, разработка сайтов, маркетинг';
-$pageMetaDescription = 'Профессиональное digital-агентство NovaCreator Studio. SEO-продвижение, разработка сайтов, Google Ads и маркетинговые стратегии. Работаем онлайн по всему миру. Опыт работы с motorland.kz.';
+$pageMetaDescription = 'Профессиональное digital-агентство NovaCreator Studio. SEO-продвижение, разработка сайтов, Google Ads и маркетинговые стратегии. Молодая компания с большим стажем работы команды. Работаем онлайн по всему миру.';
 $pageMetaKeywords = 'digital агентство, SEO продвижение, разработка сайтов, Google Ads, контекстная реклама, маркетинг, веб-разработка, интернет-маркетинг, продвижение сайтов';
 include 'includes/header.php';
 ?>

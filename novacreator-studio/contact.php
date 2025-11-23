@@ -264,9 +264,9 @@ include 'includes/header.php';
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll" style="animation-delay: 0.4s;">
                     <h3 class="text-xl font-bold mb-3 text-gradient">Какой у вас опыт работы?</h3>
                     <p class="text-gray-400">
-                        Хотя мы новая компания, у нашей команды более 10 лет совокупного опыта в digital-сфере. 
-                        Мы успешно работали с различными проектами, включая <strong class="text-neon-purple">motorland.kz</strong>, 
-                        где достигли отличных результатов в продвижении и развитии бизнеса.
+                        Мы молодая компания, но у нашей команды большой стаж работы в digital-сфере. 
+                        Каждый из нас имеет многолетний опыт работы с различными проектами, 
+                        где мы достигли отличных результатов в продвижении и развитии бизнеса.
                     </p>
                 </div>
                 
