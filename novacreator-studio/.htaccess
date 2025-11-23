@@ -14,10 +14,20 @@
     # RewriteCond %{HTTPS} off
     # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     
-    # Убираем .php из URL (опционально)
-    # RewriteCond %{REQUEST_FILENAME} !-d
-    # RewriteCond %{REQUEST_FILENAME}\.php -f
-    # RewriteRule ^(.*)$ $1.php [L]
+    # Убираем .php из URL
+    # Редирект с .php на версию без расширения (сохраняем параметры запроса)
+    RewriteCond %{THE_REQUEST} /([^.]+)\.php(\?.*)? [NC]
+    RewriteRule ^ /%1%2 [NC,L,R=301]
+    
+    # Внутренний rewrite: добавляем .php если файл существует (сохраняем параметры запроса)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $1.php [L,QSA]
+    
+    # Редирект index.php на главную
+    RewriteCond %{THE_REQUEST} /index\.php(\?.*)? [NC]
+    RewriteRule ^index\.php$ /%1 [NC,L,R=301]
 </IfModule>
 
 # Сжатие GZIP для ускорения загрузки

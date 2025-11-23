@@ -84,19 +84,22 @@
         <div class="container mx-auto px-4 md:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 md:h-20">
                 <!-- Логотип -->
-                <a href="index.php" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation">
+                <a href="/" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation">
                     <img src="./assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство в Казахстане" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" />
                     <span class="text-lg md:text-2xl font-bold text-gradient">NovaCreator Studio</span>
                 </a>
                 
                 <!-- Меню для десктопа -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'text-neon-purple' : ''; ?>">Главная</a>
-                    <a href="services.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'text-neon-purple' : ''; ?>">Услуги</a>
-                    <a href="seo.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'seo.php' ? 'text-neon-purple' : ''; ?>">SEO</a>
-                    <a href="ads.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'ads.php' ? 'text-neon-purple' : ''; ?>">Google Ads</a>
-                    <a href="about.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'text-neon-purple' : ''; ?>">О нас</a>
-                    <a href="contact.php" class="btn-neon text-sm py-2 px-6">Связаться</a>
+                    <?php 
+                    $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+                    ?>
+                    <a href="/" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'index' ? 'text-neon-purple' : ''; ?>">Главная</a>
+                    <a href="/services" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'services' ? 'text-neon-purple' : ''; ?>">Услуги</a>
+                    <a href="/seo" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'text-neon-purple' : ''; ?>">SEO</a>
+                    <a href="/ads" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'text-neon-purple' : ''; ?>">Google Ads</a>
+                    <a href="/about" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'about' ? 'text-neon-purple' : ''; ?>">О нас</a>
+                    <a href="/contact" class="btn-neon text-sm py-2 px-6">Связаться</a>
                 </div>
                 
                 <!-- Кнопка мобильного меню - оптимизирована для touch -->
@@ -111,12 +114,15 @@
         <!-- Мобильное меню - оптимизировано для touch -->
         <div class="hidden border-t border-dark-border bg-dark-bg/95 backdrop-blur-md" id="mobileMenu">
             <div class="container mx-auto px-4 py-4 space-y-2">
-                <a href="index.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Главная</a>
-                <a href="services.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Услуги</a>
-                <a href="seo.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'seo.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">SEO</a>
-                <a href="ads.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'ads.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Google Ads</a>
-                <a href="about.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'text-neon-purple bg-dark-surface' : ''; ?>">О нас</a>
-                <a href="contact.php" class="block btn-neon text-center mt-4">Связаться</a>
+                <?php 
+                $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+                ?>
+                <a href="/" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'index' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Главная</a>
+                <a href="/services" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'services' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Услуги</a>
+                <a href="/seo" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'seo' ? 'text-neon-purple bg-dark-surface' : ''; ?>">SEO</a>
+                <a href="/ads" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'ads' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Google Ads</a>
+                <a href="/about" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'about' ? 'text-neon-purple bg-dark-surface' : ''; ?>">О нас</a>
+                <a href="/contact" class="block btn-neon text-center mt-4">Связаться</a>
             </div>
         </div>
     </nav>

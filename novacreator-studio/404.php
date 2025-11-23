@@ -16,10 +16,10 @@ include 'includes/header.php';
                 К сожалению, запрашиваемая страница не существует или была перемещена.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <a href="index.php" class="btn-neon">
+                <a href="/" class="btn-neon">
                     На главную
                 </a>
-                <a href="contact.php" class="btn-outline">
+                <a href="/contact" class="btn-outline">
                     Связаться с нами
                 </a>
             </div>

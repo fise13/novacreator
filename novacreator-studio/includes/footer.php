@@ -43,11 +43,11 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-6 text-gradient">Услуги</h3>
                     <ul class="space-y-3">
-                        <li><a href="seo.php" class="text-gray-400 hover:text-neon-purple transition-colors">SEO-оптимизация</a></li>
-                        <li><a href="services.php#development" class="text-gray-400 hover:text-neon-purple transition-colors">Разработка сайтов</a></li>
-                        <li><a href="ads.php" class="text-gray-400 hover:text-neon-purple transition-colors">Google Ads</a></li>
-                        <li><a href="services.php#marketing" class="text-gray-400 hover:text-neon-purple transition-colors">Маркетинг</a></li>
-                        <li><a href="services.php#analytics" class="text-gray-400 hover:text-neon-purple transition-colors">Аналитика</a></li>
+                        <li><a href="/seo" class="text-gray-400 hover:text-neon-purple transition-colors">SEO-оптимизация</a></li>
+                        <li><a href="/services#development" class="text-gray-400 hover:text-neon-purple transition-colors">Разработка сайтов</a></li>
+                        <li><a href="/ads" class="text-gray-400 hover:text-neon-purple transition-colors">Google Ads</a></li>
+                        <li><a href="/services#marketing" class="text-gray-400 hover:text-neon-purple transition-colors">Маркетинг</a></li>
+                        <li><a href="/services#analytics" class="text-gray-400 hover:text-neon-purple transition-colors">Аналитика</a></li>
                     </ul>
                 </div>
                 
@@ -55,11 +55,11 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-6 text-gradient">Компания</h3>
                     <ul class="space-y-3">
-                        <li><a href="about.php" class="text-gray-400 hover:text-neon-purple transition-colors">О нас</a></li>
-                        <li><a href="contact.php" class="text-gray-400 hover:text-neon-purple transition-colors">Контакты</a></li>
-                        <li><a href="calculator.php" class="text-gray-400 hover:text-neon-purple transition-colors">Калькулятор</a></li>
-                        <li><a href="blog.php" class="text-gray-400 hover:text-neon-purple transition-colors">Блог</a></li>
-                        <li><a href="vacancies.php" class="text-gray-400 hover:text-neon-purple transition-colors">Вакансии</a></li>
+                        <li><a href="/about" class="text-gray-400 hover:text-neon-purple transition-colors">О нас</a></li>
+                        <li><a href="/contact" class="text-gray-400 hover:text-neon-purple transition-colors">Контакты</a></li>
+                        <li><a href="/calculator" class="text-gray-400 hover:text-neon-purple transition-colors">Калькулятор</a></li>
+                        <li><a href="/blog" class="text-gray-400 hover:text-neon-purple transition-colors">Блог</a></li>
+                        <li><a href="/vacancies" class="text-gray-400 hover:text-neon-purple transition-colors">Вакансии</a></li>
                     </ul>
                 </div>
                 

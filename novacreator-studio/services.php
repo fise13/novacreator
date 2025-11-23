@@ -67,7 +67,7 @@ include 'includes/header.php';
                         <span class="text-gray-300">Ежемесячная отчетность и аналитика</span>
                     </li>
                 </ul>
-                <a href="seo.php" class="btn-neon inline-block">
+                <a href="/seo" class="btn-neon inline-block">
                     Подробнее о SEO
                 </a>
             </div>
@@ -157,7 +157,7 @@ include 'includes/header.php';
                         <span class="text-gray-300">Поддержка и обновления</span>
                     </li>
                 </ul>
-                <a href="contact.php" class="btn-neon inline-block">
+                <a href="/contact" class="btn-neon inline-block">
                     Обсудить проект
                 </a>
             </div>
@@ -208,7 +208,7 @@ include 'includes/header.php';
                         <span class="text-gray-300">Ежедневный мониторинг и оптимизация</span>
                     </li>
                 </ul>
-                <a href="ads.php" class="btn-neon inline-block">
+                <a href="/ads" class="btn-neon inline-block">
                     Подробнее о Google Ads
                 </a>
             </div>
@@ -327,7 +327,7 @@ include 'includes/header.php';
                         <span class="text-gray-300">Брендинг и позиционирование</span>
                     </li>
                 </ul>
-                <a href="contact.php" class="btn-neon inline-block">
+                <a href="/contact" class="btn-neon inline-block">
                     Обсудить стратегию
                 </a>
             </div>
@@ -377,7 +377,7 @@ include 'includes/header.php';
                         <span class="text-gray-300">Ежемесячные отчеты и рекомендации</span>
                     </li>
                 </ul>
-                <a href="contact.php" class="btn-neon inline-block">
+                <a href="/contact" class="btn-neon inline-block">
                     Настроить аналитику
                 </a>
             </div>

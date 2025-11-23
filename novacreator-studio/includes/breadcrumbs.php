@@ -21,12 +21,12 @@ $pageNames = [
 
 // Формируем breadcrumbs
 $breadcrumbs = [
-    ['name' => 'Главная', 'url' => 'index.php']
+    ['name' => 'Главная', 'url' => '/']
 ];
 
 // Добавляем текущую страницу (если не главная)
 if ($currentPage !== 'index' && isset($pageNames[$currentPage])) {
-    $breadcrumbs[] = ['name' => $pageNames[$currentPage], 'url' => $currentPage . '.php'];
+    $breadcrumbs[] = ['name' => $pageNames[$currentPage], 'url' => '/' . $currentPage];
 }
 ?>
 

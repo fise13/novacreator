@@ -46,7 +46,7 @@ include 'includes/header.php';
                     Портфолио будет пополняться по мере работы с новыми клиентами. 
                     Станьте нашим первым клиентом и получите <strong class="text-neon-blue">6 месяцев бесплатной поддержки</strong>!
                 </p>
-                <a href="contact.php" class="btn-neon inline-block">
+                <a href="/contact" class="btn-neon inline-block">
                     Стать первым клиентом
                 </a>
             </div>

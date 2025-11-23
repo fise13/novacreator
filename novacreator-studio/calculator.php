@@ -157,7 +157,7 @@ include 'includes/header.php';
                         <h3 class="text-2xl font-bold mb-4 text-gradient">Примерная стоимость</h3>
                         <div class="text-4xl md:text-5xl font-bold text-gradient mb-4" id="price">0 ₸</div>
                         <p class="text-gray-400 mb-6" id="price-note">Это ориентировочная стоимость. Точная цена рассчитывается после консультации.</p>
-                        <a href="contact.php" class="btn-neon inline-block">
+                        <a href="/contact" class="btn-neon inline-block">
                             Получить точный расчет
                         </a>
                     </div>

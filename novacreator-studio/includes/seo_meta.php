@@ -97,7 +97,7 @@ if (isset($pageMetaDescription)) $meta['description'] = $pageMetaDescription;
 if (isset($pageMetaKeywords)) $meta['keywords'] = $pageMetaKeywords;
 
 // Формируем полный URL страницы
-$pageUrl = $siteUrl . '/' . ($currentPage === 'index' ? '' : $currentPage . '.php');
+$pageUrl = $siteUrl . ($currentPage === 'index' ? '' : '/' . $currentPage);
 ?>
 
 <!-- Основные мета-теги -->
@@ -201,7 +201,7 @@ if ($currentPage === 'contact'): ?>
   "areaServed": "Worldwide",
   "availableChannel": {
     "@type": "ServiceChannel",
-    "serviceUrl": "<?php echo $siteUrl; ?>/contact.php"
+    "serviceUrl": "<?php echo $siteUrl; ?>/contact"
   }
 }
 </script>

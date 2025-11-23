@@ -293,7 +293,7 @@ include 'includes/header.php';
             <p class="text-xl text-gray-300 mb-12">
                 Получите бесплатную консультацию и расчет бюджета для вашей кампании
             </p>
-            <a href="contact.php" class="btn-neon inline-block">
+            <a href="/contact" class="btn-neon inline-block">
                 Получить консультацию
             </a>
         </div>

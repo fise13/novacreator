@@ -85,7 +85,7 @@ function formatDate($date) {
                             <span class="text-sm text-gray-500"><?php echo formatDate($article['date']); ?></span>
                         </div>
                         <h2 class="text-2xl font-bold mb-4 text-gradient">
-                            <a href="blog-post.php?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="hover:text-neon-blue transition-colors">
+                            <a href="/blog-post?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="hover:text-neon-blue transition-colors">
                                 <?php echo htmlspecialchars($article['title']); ?>
                             </a>
                         </h2>
@@ -145,7 +145,7 @@ function formatDate($date) {
             <p class="text-xl text-gray-300 mb-12">
                 Свяжитесь с нами и получите бесплатную консультацию
             </p>
-            <a href="contact.php" class="btn-neon inline-block">
+            <a href="/contact" class="btn-neon inline-block">
                 Получить консультацию
             </a>
         </div>

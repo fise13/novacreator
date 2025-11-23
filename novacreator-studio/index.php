@@ -73,10 +73,10 @@ include 'includes/header.php';
             
             <!-- CTA кнопки - оптимизированы для мобильных -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 md:gap-6 px-4 md:px-0">
-                <a href="contact.php" class="btn-neon text-center w-full sm:w-auto">
+                <a href="/contact" class="btn-neon text-center w-full sm:w-auto">
                     Начать проект
                 </a>
-                <a href="portfolio.php" class="btn-outline text-center w-full sm:w-auto">
+                <a href="/portfolio" class="btn-outline text-center w-full sm:w-auto">
                     Посмотреть работы
                 </a>
             </div>
@@ -117,10 +117,10 @@ include 'includes/header.php';
                     технический аудит и постоянный мониторинг результатов. Работаем с клиентами 
                     по всему Казахстану: Алматы, Астана, Шымкент и другие города.
                 </p>
-                <a href="seo.php" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                <a href="/seo" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                     Узнать больше →
                 </a>
-                <span class="text-gray-500 text-sm ml-4">или <a href="calculator.php" class="text-neon-purple hover:text-neon-blue">рассчитать стоимость</a></span>
+                <span class="text-gray-500 text-sm ml-4">или <a href="/calculator" class="text-neon-purple hover:text-neon-blue">рассчитать стоимость</a></span>
             </div>
             
             <!-- Разработка сайтов -->
@@ -135,7 +135,7 @@ include 'includes/header.php';
                     Современные, быстрые и адаптивные сайты. От лендингов до сложных 
                     веб-приложений. Качество и скорость в каждом проекте.
                 </p>
-                <a href="services.php#development" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                <a href="/services#development" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                     Узнать больше →
                 </a>
             </div>
@@ -153,7 +153,7 @@ include 'includes/header.php';
                     Контекстная реклама под ключ. Настройка, запуск и оптимизация 
                     кампаний для максимальной конверсии и ROI.
                 </p>
-                <a href="ads.php" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                <a href="/ads" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                     Узнать больше →
                 </a>
             </div>
@@ -170,7 +170,7 @@ include 'includes/header.php';
                     Разработка и внедрение маркетинговых стратегий. SMM, контент-маркетинг, 
                     email-рассылки и многое другое.
                 </p>
-                <a href="services.php#marketing" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                <a href="/services#marketing" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                     Узнать больше →
                 </a>
             </div>
@@ -187,7 +187,7 @@ include 'includes/header.php';
                     Глубокий анализ данных и метрик. Отслеживание конверсий, 
                     оптимизация воронок продаж и рост эффективности.
                 </p>
-                <a href="services.php#analytics" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                <a href="/services#analytics" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                     Узнать больше →
                 </a>
             </div>
@@ -204,7 +204,7 @@ include 'includes/header.php';
                     Увеличиваем конверсию сайта через A/B тестирование, 
                     оптимизацию UX и внедрение лучших практик.
                 </p>
-                <a href="services.php#conversion" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                <a href="/services#conversion" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                     Узнать больше →
                 </a>
             </div>
@@ -360,7 +360,7 @@ include 'includes/header.php';
                 Свяжитесь с нами сегодня и получите бесплатную консультацию 
                 по продвижению вашего бизнеса в интернете.
             </p>
-            <a href="contact.php" class="btn-neon inline-block">
+            <a href="/contact" class="btn-neon inline-block">
                 Получить консультацию
             </a>
         </div>

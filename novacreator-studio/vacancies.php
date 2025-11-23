@@ -127,7 +127,7 @@ include 'includes/header.php';
                             <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Опыт от 2 лет</span>
                         </div>
                     </div>
-                    <a href="contact.php?type=vacancy&vacancy=SEO-специалист" class="btn-neon whitespace-nowrap">
+                    <a href="/contact?type=vacancy&vacancy=SEO-специалист" class="btn-neon whitespace-nowrap">
                         Откликнуться
                     </a>
                 </div>
@@ -148,7 +148,7 @@ include 'includes/header.php';
                             <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Опыт от 1 года</span>
                         </div>
                     </div>
-                    <a href="contact.php?type=vacancy&vacancy=Веб-разработчик" class="btn-neon whitespace-nowrap">
+                    <a href="/contact?type=vacancy&vacancy=Веб-разработчик" class="btn-neon whitespace-nowrap">
                         Откликнуться
                     </a>
                 </div>
@@ -169,7 +169,7 @@ include 'includes/header.php';
                             <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Опыт от 1 года</span>
                         </div>
                     </div>
-                    <a href="contact.php?type=vacancy&vacancy=Специалист по контекстной рекламе" class="btn-neon whitespace-nowrap">
+                    <a href="/contact?type=vacancy&vacancy=Специалист по контекстной рекламе" class="btn-neon whitespace-nowrap">
                         Откликнуться
                     </a>
                 </div>
@@ -190,7 +190,7 @@ include 'includes/header.php';
                             <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Опыт приветствуется</span>
                         </div>
                     </div>
-                    <a href="contact.php?type=vacancy&vacancy=Контент-менеджер" class="btn-neon whitespace-nowrap">
+                    <a href="/contact?type=vacancy&vacancy=Контент-менеджер" class="btn-neon whitespace-nowrap">
                         Откликнуться
                     </a>
                 </div>
