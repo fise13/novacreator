@@ -92,7 +92,7 @@ function formatDate($date) {
                         <p class="text-gray-400 mb-6 leading-relaxed">
                             <?php echo htmlspecialchars($article['excerpt']); ?>
                         </p>
-                        <a href="blog-post.php?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                        <a href="/blog-post?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                             Читать далее →
                         </a>
                     </article>

@@ -161,7 +161,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
                         <p class="text-gray-400 mb-4 text-sm leading-relaxed">
                             <?php echo htmlspecialchars(mb_substr($related['excerpt'], 0, 100)) . '...'; ?>
                         </p>
-                        <a href="blog-post.php?slug=<?php echo htmlspecialchars($related['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors text-sm font-semibold">
+                        <a href="/blog-post?slug=<?php echo htmlspecialchars($related['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors text-sm font-semibold">
                             Читать →
                         </a>
                     </article>

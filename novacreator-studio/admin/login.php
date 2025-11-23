@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
             
             <div class="mt-6 text-center text-sm text-gray-500">
-                <a href="../blog.php" class="text-neon-purple hover:text-neon-blue transition-colors">Вернуться к блогу</a>
+                <a href="../blog" class="text-neon-purple hover:text-neon-blue transition-colors">Вернуться к блогу</a>
             </div>
         </div>
     </div>

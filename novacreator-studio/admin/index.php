@@ -38,7 +38,7 @@ if (isset($_GET['message'])) {
                         <a href="edit.php" class="btn-neon text-sm py-2 px-4">
                             + Новая статья
                         </a>
-                        <a href="../blog.php" class="text-gray-400 hover:text-neon-purple transition-colors text-sm">
+                        <a href="../blog" class="text-gray-400 hover:text-neon-purple transition-colors text-sm">
                             Просмотр блога
                         </a>
                         <a href="logout.php" class="text-gray-400 hover:text-red-400 transition-colors text-sm">
@@ -86,7 +86,7 @@ if (isset($_GET['message'])) {
                                 <tr class="border-b border-dark-border hover:bg-dark-bg/50 transition-colors">
                                     <td class="px-6 py-4 text-gray-400"><?php echo $article['id']; ?></td>
                                     <td class="px-6 py-4">
-                                        <a href="../blog-post.php?slug=<?php echo htmlspecialchars($article['slug']); ?>" target="_blank" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                                        <a href="../blog-post?slug=<?php echo htmlspecialchars($article['slug']); ?>" target="_blank" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                                             <?php echo htmlspecialchars($article['title']); ?>
                                         </a>
                                     </td>

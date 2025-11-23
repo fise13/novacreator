@@ -244,7 +244,7 @@ include 'includes/header.php';
             </div>
             
             <div class="mt-12">
-                <a href="contact.php?type=vacancy" class="btn-neon inline-block">
+                <a href="/contact?type=vacancy" class="btn-neon inline-block">
                     Отправить резюме
                 </a>
             </div>
@@ -263,7 +263,7 @@ include 'includes/header.php';
                 Отправьте резюме на общих основаниях. Мы всегда рады талантливым людям 
                 и можем найти место для вас в нашей команде.
             </p>
-            <a href="contact.php?type=vacancy" class="btn-neon inline-block">
+            <a href="/contact?type=vacancy" class="btn-neon inline-block">
                 Отправить резюме
             </a>
         </div>
