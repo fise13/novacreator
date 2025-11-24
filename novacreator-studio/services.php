@@ -76,15 +76,21 @@ include 'includes/header.php';
                     <div class="space-y-6">
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
                             <span class="text-gray-400">Органический трафик</span>
-                            <span class="text-2xl font-bold text-neon-purple">+250%</span>
+                            <span class="text-2xl font-bold text-neon-purple">
+                                <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
+                            </span>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
                             <span class="text-gray-400">Позиции в топ-10</span>
-                            <span class="text-2xl font-bold text-neon-blue">+180%</span>
+                            <span class="text-2xl font-bold text-neon-blue">
+                                <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
+                            </span>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
                             <span class="text-gray-400">Конверсии</span>
-                            <span class="text-2xl font-bold text-neon-purple">+95%</span>
+                            <span class="text-2xl font-bold text-neon-purple">
+                                <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -481,6 +487,48 @@ include 'includes/header.php';
         </div>
     </div>
 </section>
+
+<!-- Скрипт для анимации счетчиков -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('[data-target]');
+    
+    const animateCounter = (element) => {
+        const target = parseInt(element.getAttribute('data-target'));
+        const prefix = element.getAttribute('data-prefix') || '';
+        const suffix = element.getAttribute('data-suffix') || '';
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = prefix + target + suffix;
+                clearInterval(timer);
+            } else {
+                element.textContent = prefix + Math.floor(current) + suffix;
+            }
+        }, 16);
+    };
+    
+    // Создаем observer для запуска анимации при появлении
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const currentText = entry.target.textContent.trim();
+                // Проверяем, что счетчик еще не анимирован (начинается с 0 или пустой)
+                if (currentText === '0' || currentText === '' || /^[+\-]?0[%]?$/.test(currentText)) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => observer.observe(counter));
+});
+</script>
 
 <?php include 'includes/footer.php'; ?>
 
