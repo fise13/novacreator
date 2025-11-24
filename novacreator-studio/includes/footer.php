@@ -131,13 +131,6 @@
     ?>
     <script src="<?php echo $jsPath; ?>" defer></script>
     
-    <!-- Виджет онлайн-чата -->
-    <?php
-    $chatWidgetPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/chat-widget.js';
-    $chatWidgetPath = preg_replace('#/+#', '/', $chatWidgetPath);
-    ?>
-    <script src="<?php echo $chatWidgetPath; ?>" defer></script>
-    
     <!-- Service Worker для Push-уведомлений -->
     <script>
     if ('serviceWorker' in navigator) {

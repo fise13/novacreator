@@ -37,10 +37,6 @@ if (isset($_GET['message'])) {
                         <h1 class="text-xl font-bold text-gradient">Админ-панель</h1>
                         <div class="hidden md:flex items-center space-x-4 border-l border-dark-border pl-6">
                             <a href="index.php" class="text-neon-purple font-semibold text-sm">Блог</a>
-                            <a href="chats.php" class="text-gray-400 hover:text-neon-purple transition-colors text-sm relative">
-                                Чаты
-                                <span id="unreadChatsBadge" class="hidden absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center text-white"></span>
-                            </a>
                             <a href="projects.php" class="text-gray-400 hover:text-neon-purple transition-colors text-sm">Проекты</a>
                         </div>
                     </div>
@@ -68,7 +64,7 @@ if (isset($_GET['message'])) {
             <?php endif; ?>
 
             <!-- Статистика -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 rounded-xl p-6">
                     <div class="flex items-center justify-between">
                         <div>
@@ -99,19 +95,6 @@ if (isset($_GET['message'])) {
                         </div>
                     </div>
                 </div>
-                <a href="chats.php" class="bg-gradient-to-br from-green-600/20 to-emerald-600/20 border border-green-600/30 rounded-xl p-6 hover:border-green-500 transition-colors cursor-pointer">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-400 text-sm mb-1">Активные чаты</p>
-                            <p class="text-3xl font-bold text-gradient" id="activeChatsCount">-</p>
-                        </div>
-                        <div class="w-12 h-12 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
             </div>
 
             <div class="mb-6 flex items-center justify-between">
@@ -172,36 +155,6 @@ if (isset($_GET['message'])) {
             <?php endif; ?>
         </div>
     </div>
-    
-    <script>
-        // Загружаем количество активных чатов
-        function loadChatsCount() {
-            fetch('/backend/chat_api.php?action=get_chats')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const activeChats = data.chats.filter(chat => chat.status === 'active').length;
-                        document.getElementById('activeChatsCount').textContent = activeChats;
-                        
-                        // Обновляем бейдж непрочитанных
-                        const badge = document.getElementById('unreadChatsBadge');
-                        if (activeChats > 0) {
-                            badge.classList.remove('hidden');
-                            badge.textContent = activeChats > 9 ? '9+' : activeChats;
-                        } else {
-                            badge.classList.add('hidden');
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Ошибка загрузки чатов:', error);
-                });
-        }
-        
-        // Загружаем при загрузке страницы и обновляем каждые 30 секунд
-        loadChatsCount();
-        setInterval(loadChatsCount, 30000);
-    </script>
 </body>
 </html>
 
