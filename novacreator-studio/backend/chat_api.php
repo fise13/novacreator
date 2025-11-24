@@ -14,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+// Подключаем Telegram функции
+require_once __DIR__ . '/../telegram_bot/config.php';
 require_once __DIR__ . '/../telegram_bot/send_telegram.php';
 
 $chatsFile = __DIR__ . '/../data/chats.json';

@@ -8,7 +8,9 @@
  */
 function sendTelegramMessage($message, $type = 'contact') {
     // Подключаем конфигурацию
-    require_once __DIR__ . '/config.php';
+    if (!defined('TELEGRAM_BOT_TOKEN')) {
+        require_once __DIR__ . '/config.php';
+    }
     
     // Проверяем, включена ли отправка в Telegram
     if (!TELEGRAM_ENABLED) {
@@ -29,13 +31,18 @@ function sendTelegramMessage($message, $type = 'contact') {
     // Формируем URL для API Telegram
     $url = "https://api.telegram.org/bot" . TELEGRAM_BOT_TOKEN . "/sendMessage";
     
-    // Эмодзи в зависимости от типа сообщения
-    $emoji = $type === 'vacancy' ? '💼' : '📧';
+    // Эмодзи в зависимости от типа сообщения (только если сообщение не начинается с эмодзи)
+    $emoji = '';
+    if ($type === 'vacancy') {
+        $emoji = '💼 ';
+    } elseif ($type === 'contact' && strpos($message, '💬') === false && strpos($message, '📧') === false) {
+        $emoji = '📧 ';
+    }
     
     // Формируем данные для отправки
     $data = [
         'chat_id' => TELEGRAM_CHAT_ID,
-        'text' => $emoji . " " . $message,
+        'text' => $emoji . $message,
         'parse_mode' => 'HTML' // Позволяет использовать HTML разметку
     ];
     
