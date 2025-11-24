@@ -5,7 +5,10 @@
  */
 
 // Простая авторизация (для продакшена лучше использовать более надежную систему)
-session_start();
+// Запускаем сессию только если она еще не запущена
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Подключаем утилиты
 require_once __DIR__ . '/../includes/utils.php';

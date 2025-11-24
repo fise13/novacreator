@@ -9,7 +9,7 @@
  * @return string Базовый путь
  */
 function getBasePath() {
-    $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
+    $scriptPath = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '';
     
     // Если в preview режиме Plesk, извлекаем реальный путь
     if (preg_match('#/plesk-site-preview/[^/]+/[^/]+/[^/]+/(.+)$#', $scriptPath, $matches)) {
@@ -140,7 +140,7 @@ function getClientIP() {
     $ipKeys = ['HTTP_CF_CONNECTING_IP', 'HTTP_X_REAL_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'];
     
     foreach ($ipKeys as $key) {
-        if (!empty($_SERVER[$key])) {
+        if (isset($_SERVER[$key]) && !empty($_SERVER[$key])) {
             $ip = $_SERVER[$key];
             // Если это список IP (через прокси), берем первый
             if (strpos($ip, ',') !== false) {

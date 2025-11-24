@@ -2,11 +2,25 @@
 /**
  * Страница входа в админ-панель
  */
-session_start();
+
+// Включаем отображение ошибок только для разработки (уберите в продакшене!)
+error_reporting(E_ALL);
+ini_set('display_errors', 0); // Не показываем ошибки пользователям
+ini_set('log_errors', 1);
+
+// Запускаем сессию только если она еще не запущена
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Подключаем утилиты и конфигурацию
-require_once __DIR__ . '/../includes/utils.php';
-require_once __DIR__ . '/config.php';
+try {
+    require_once __DIR__ . '/../includes/utils.php';
+    require_once __DIR__ . '/config.php';
+} catch (Exception $e) {
+    error_log('Ошибка подключения файлов в login.php: ' . $e->getMessage());
+    die('Ошибка загрузки. Пожалуйста, свяжитесь с администратором.');
+}
 
 // Если уже авторизован, перенаправляем
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
@@ -29,7 +43,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $csrfToken = $_POST['csrf_token'] ?? '';
     
