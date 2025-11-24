@@ -126,20 +126,20 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
         
         <!-- Затемнение фона для мобильного меню -->
-        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay"></div>
+        <div class="fixed inset-0 bg-black/70 backdrop-blur-md z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay"></div>
         
         <!-- Мобильное меню - оптимизировано для touch -->
-        <div class="fixed top-16 left-0 right-0 border-t border-dark-border bg-dark-bg/98 backdrop-blur-md z-50 overflow-y-auto hidden shadow-lg" id="mobileMenu" style="max-height: calc(100vh - 4rem);">
+        <div class="fixed top-16 left-0 right-0 border-t border-dark-border bg-dark-bg/98 backdrop-blur-xl z-50 overflow-y-auto hidden shadow-lg" id="mobileMenu" style="max-height: calc(100vh - 4rem);">
             <div class="container mx-auto px-4 py-6 space-y-2">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 ?>
-                <a href="/" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'index' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Главная</a>
-                <a href="/services" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'services' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Услуги</a>
-                <a href="/seo" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'seo' ? 'text-neon-purple bg-dark-surface' : ''; ?>">SEO</a>
-                <a href="/ads" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'ads' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Google Ads</a>
-                <a href="/about" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'about' ? 'text-neon-purple bg-dark-surface' : ''; ?>">О нас</a>
-                <a href="/contact" class="block btn-neon text-center mt-4">Связаться</a>
+                <a href="/" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'index' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Главная</a>
+                <a href="/services" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'services' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Услуги</a>
+                <a href="/seo" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'seo' ? 'text-neon-purple bg-dark-surface' : ''; ?>">SEO</a>
+                <a href="/ads" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'ads' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Google Ads</a>
+                <a href="/about" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'about' ? 'text-neon-purple bg-dark-surface' : ''; ?>">О нас</a>
+                <a href="/contact" class="mobile-menu-item block btn-neon text-center mt-4 opacity-0 transform translate-y-2">Связаться</a>
             </div>
         </div>
     </nav>
@@ -155,7 +155,6 @@ if (session_status() === PHP_SESSION_NONE) {
             if (mobileMenuBtn && mobileMenu && mobileMenuOverlay) {
                 // Функция открытия меню
                 function openMenu() {
-                    console.log('Opening menu...'); // Отладка
                     isMenuOpen = true;
                     
                     // Показываем overlay
@@ -171,20 +170,37 @@ if (session_status() === PHP_SESSION_NONE) {
                     // Предотвращаем скролл body при открытом меню
                     document.body.style.overflow = 'hidden';
                     
+                    // Анимация появления кнопок меню с задержкой
+                    const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
+                    menuItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                            item.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+                        }, 50 + (index * 50)); // Задержка 50ms между каждой кнопкой
+                    });
+                    
                     // Меняем иконку на крестик
                     const icon = mobileMenuBtn.querySelector('svg');
                     if (icon) {
                         icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
                         icon.classList.add('rotate-90');
                     }
-                    
-                    console.log('Menu should be visible now'); // Отладка
                 }
                 
                 // Функция закрытия меню
                 function closeMenu() {
                     isMenuOpen = false;
                     mobileMenuOverlay.style.opacity = '0';
+                    
+                    // Анимация исчезновения кнопок меню
+                    const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
+                    menuItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(-10px)';
+                        }, index * 30); // Быстрая анимация закрытия
+                    });
                     
                     // Восстанавливаем скролл
                     document.body.style.overflow = '';
@@ -194,6 +210,12 @@ if (session_status() === PHP_SESSION_NONE) {
                         mobileMenu.classList.add('hidden');
                         mobileMenu.style.display = 'none';
                         mobileMenuOverlay.classList.add('hidden');
+                        
+                        // Сбрасываем стили кнопок для следующего открытия
+                        menuItems.forEach(item => {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(8px)';
+                        });
                     }, 300);
                     
                     // Меняем иконку на гамбургер
