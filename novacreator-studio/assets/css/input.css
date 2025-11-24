@@ -484,12 +484,47 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     will-change: backdrop-filter;
+    /* Для мобильных устройств */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
   
   /* Улучшенный blur для самого меню */
   #mobileMenu {
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
+    /* Для мобильных устройств */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  /* Специальные стили для мобильных устройств */
+  @media (max-width: 768px) {
+    #mobileMenuOverlay {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      /* Усиленный blur для мобильных */
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    
+    #mobileMenu {
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      /* Более сильный blur для мобильных */
+    }
+  }
+  
+  /* Для iOS Safari */
+  @supports (-webkit-touch-callout: none) {
+    #mobileMenuOverlay {
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+    }
+    
+    #mobileMenu {
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      backdrop-filter: blur(30px) saturate(180%);
+    }
   }
   
   /* Плавающие частицы на фоне (опционально) */
