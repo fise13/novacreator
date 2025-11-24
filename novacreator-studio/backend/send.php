@@ -196,35 +196,120 @@ $headers = [
     'Importance: High'
 ];
 
-// Отправляем email
-$emailSent = false;
+// Сохраняем заявку в файл как резервный вариант
+$logFile = __DIR__ . '/requests.txt';
+$logEntry = sprintf(
+    "[%s] Имя: %s | Email: %s | Телефон: %s | Услуга: %s | IP: %s\nСообщение: %s\n%s\n",
+    $timestamp,
+    $name,
+    $email,
+    $phone,
+    $service ?: ($vacancy ?: 'Не указана'),
+    $ip,
+    $message,
+    str_repeat('-', 80)
+);
+
+$fileSaved = false;
 try {
-    // Кодируем тему письма для поддержки кириллицы
-    $subjectEncoded = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    $fileSaved = @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX) !== false;
+} catch (Exception $e) {
+    error_log('Ошибка записи в файл: ' . $e->getMessage());
+}
+
+// Отправляем email - пробуем несколько вариантов
+$emailSent = false;
+$lastError = '';
+
+// Вариант 1: Простое текстовое письмо (самый надежный)
+try {
+    $simpleHeaders = [
+        'From: NovaCreator Studio <noreply@novacreator-studio.com>',
+        'Reply-To: ' . $email,
+        'Content-Type: text/plain; charset=UTF-8',
+        'X-Mailer: PHP/' . phpversion()
+    ];
     
-    $emailSent = @mail($emailTo, $subjectEncoded, $emailBody, implode("\r\n", $headers));
+    $emailSent = @mail($emailTo, $subject, $emailMessageText, implode("\r\n", $simpleHeaders));
     
-    if (!$emailSent) {
-        error_log("Не удалось отправить email на {$emailTo}. Проверьте настройки сервера.");
-        // Пробуем альтернативный способ без кодирования темы
-        $emailSent = @mail($emailTo, $subject, $emailBody, implode("\r\n", $headers));
+    if ($emailSent) {
+        error_log("Email успешно отправлен простым способом на {$emailTo}");
+    } else {
+        $errorInfo = error_get_last();
+        $lastError = ($errorInfo && isset($errorInfo['message'])) ? $errorInfo['message'] : 'Неизвестная ошибка';
+        error_log("Первый способ не сработал: {$lastError}");
     }
 } catch (Exception $e) {
-    error_log('Ошибка отправки email: ' . $e->getMessage());
+    $lastError = $e->getMessage();
+    error_log('Ошибка отправки email (вариант 1): ' . $lastError);
+}
+
+// Вариант 2: Если простой не сработал, пробуем HTML
+if (!$emailSent) {
+    try {
+        $htmlHeaders = [
+            'MIME-Version: 1.0',
+            'Content-Type: text/html; charset=UTF-8',
+            'From: NovaCreator Studio <noreply@novacreator-studio.com>',
+            'Reply-To: ' . $email,
+            'X-Mailer: PHP/' . phpversion()
+        ];
+        
+        $emailSent = @mail($emailTo, $subject, $emailMessageHTML, implode("\r\n", $htmlHeaders));
+        
+        if ($emailSent) {
+            error_log("Email успешно отправлен HTML способом на {$emailTo}");
+        } else {
+            $errorInfo = error_get_last();
+            $lastError = ($errorInfo && isset($errorInfo['message'])) ? $errorInfo['message'] : 'Неизвестная ошибка';
+            error_log("Второй способ не сработал: {$lastError}");
+        }
+    } catch (Exception $e) {
+        $lastError = $e->getMessage();
+        error_log('Ошибка отправки email (вариант 2): ' . $lastError);
+    }
+}
+
+// Вариант 3: Если и HTML не сработал, пробуем multipart
+if (!$emailSent) {
+    try {
+        $emailSent = @mail($emailTo, $subject, $emailBody, implode("\r\n", $headers));
+        
+        if ($emailSent) {
+            error_log("Email успешно отправлен multipart способом на {$emailTo}");
+        } else {
+            $errorInfo = error_get_last();
+            $lastError = ($errorInfo && isset($errorInfo['message'])) ? $errorInfo['message'] : 'Неизвестная ошибка';
+            error_log("Третий способ не сработал: {$lastError}");
+        }
+    } catch (Exception $e) {
+        $lastError = $e->getMessage();
+        error_log('Ошибка отправки email (вариант 3): ' . $lastError);
+    }
+}
+
+// Если email не отправился, но файл сохранился - считаем успехом
+// Заявка будет в файле и можно будет обработать вручную
+if (!$emailSent && $fileSaved) {
+    error_log("ВНИМАНИЕ: Email не отправлен, но заявка сохранена в файл: {$logFile}");
+    error_log("Последняя ошибка: {$lastError}");
 }
 
 // Возвращаем результат
-if ($emailSent) {
+// Считаем успехом, если либо email отправлен, либо файл сохранен
+if ($emailSent || $fileSaved) {
     http_response_code(200);
     echo json_encode([
         'success' => true,
-        'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.'
+        'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.',
+        'email_sent' => $emailSent,
+        'saved_to_file' => $fileSaved
     ]);
 } else {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Ошибка при отправке заявки. Попробуйте позже или свяжитесь с нами напрямую.'
+        'message' => 'Ошибка при отправке заявки. Попробуйте позже или свяжитесь с нами напрямую по телефону или email.'
     ]);
 }
 ?>
