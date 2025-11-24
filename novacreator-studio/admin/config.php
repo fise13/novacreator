@@ -19,12 +19,13 @@ function checkAuth() {
         // Определяем правильный путь к login.php
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
-        $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
         
-        // Если доступ через /adm, используем /adm/login
-        if (strpos($_SERVER['REQUEST_URI'], '/adm') === 0) {
+        // Проверяем, через какой путь зашли
+        $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+        if (strpos($requestUri, '/adm') === 0) {
             $loginUrl = $protocol . '://' . $host . '/adm/login';
         } else {
+            $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
             $loginUrl = $protocol . '://' . $host . $scriptPath . '/login.php';
         }
         
