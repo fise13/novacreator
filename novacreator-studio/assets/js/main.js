@@ -200,7 +200,12 @@ function initForms() {
             
             // Собираем данные формы
             const formData = new FormData(form);
-            const formAction = form.getAttribute('action') || '/backend/send.php';
+            // Пробуем разные варианты пути для совместимости с разными хостингами
+            let formAction = form.getAttribute('action') || '/backend/send.php';
+            // Если путь начинается с /, используем его как есть, иначе добавляем относительный путь
+            if (!formAction.startsWith('/') && !formAction.startsWith('http')) {
+                formAction = './backend/send.php';
+            }
             
             // Отправляем запрос
             fetch(formAction, {

@@ -48,9 +48,25 @@ $telegramSent = false;
 $telegramError = '';
 $telegramLogFile = __DIR__ . '/telegram_errors.log';
 
-// Подключаем функции отправки в Telegram
-require_once __DIR__ . '/../telegram_bot/send_telegram.php';
+// Сначала подключаем конфигурацию Telegram
+$configPath = __DIR__ . '/../telegram_bot/config.php';
+if (file_exists($configPath)) {
+    require_once $configPath;
+} else {
+    $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Файл config.php не найден по пути: {$configPath}\n";
+    @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
+}
 
+// Подключаем функции отправки в Telegram
+$telegramIncludePath = __DIR__ . '/../telegram_bot/send_telegram.php';
+if (file_exists($telegramIncludePath)) {
+    require_once $telegramIncludePath;
+} else {
+    $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Файл send_telegram.php не найден по пути: {$telegramIncludePath}\n";
+    @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
+}
+
+// Проверяем наличие функций
 if (function_exists('formatContactMessage') && function_exists('sendTelegramMessage')) {
     // Подготавливаем данные для Telegram
     $data = [
@@ -73,8 +89,14 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
     }
     
     // Отправляем сообщение в Telegram
-    $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
-    $telegramSent = isset($telegramResult['success']) ? $telegramResult['success'] : false;
+    // Проверяем, что конфигурация загружена
+    if (!defined('TELEGRAM_BOT_TOKEN') || !defined('TELEGRAM_CHAT_ID')) {
+        $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Конфигурация Telegram не загружена\n";
+        @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
+    } else {
+        $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
+        $telegramSent = isset($telegramResult['success']) ? $telegramResult['success'] : false;
+    }
     
     // Логируем результат (всегда, даже если успешно)
     $logTimestamp = date('Y-m-d H:i:s');
@@ -114,6 +136,7 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
     $logTimestamp = date('Y-m-d H:i:s');
     $errorLog = "[{$logTimestamp}] ❌ Функции Telegram не найдены (formatContactMessage или sendTelegramMessage)\n";
     @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
+    @file_put_contents($debugLogFile, $errorLog, FILE_APPEND | LOCK_EX);
 }
 
 // Пытаемся отправить email (без проверки ошибок)
