@@ -126,10 +126,10 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
         
         <!-- Затемнение фона для мобильного меню -->
-        <div class="fixed inset-0 bg-black/70 backdrop-blur-md z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay"></div>
+        <div class="fixed inset-0 bg-black/70 z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay" style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"></div>
         
         <!-- Мобильное меню - оптимизировано для touch -->
-        <div class="fixed top-16 left-0 right-0 border-t border-dark-border bg-dark-bg/98 backdrop-blur-xl z-50 overflow-y-auto hidden shadow-lg" id="mobileMenu" style="max-height: calc(100vh - 4rem);">
+        <div class="fixed top-16 left-0 right-0 border-t border-dark-border bg-dark-bg/95 z-50 overflow-y-auto hidden shadow-lg" id="mobileMenu" style="max-height: calc(100vh - 4rem); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
             <div class="container mx-auto px-4 py-6 space-y-2">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
