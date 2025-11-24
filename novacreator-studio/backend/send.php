@@ -66,8 +66,12 @@ if (file_exists($telegramIncludePath)) {
     @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
 }
 
-// Проверяем наличие функций
-if (function_exists('formatContactMessage') && function_exists('sendTelegramMessage')) {
+// Проверяем наличие всех необходимых функций
+$hasFormatContact = function_exists('formatContactMessage');
+$hasFormatVacancy = function_exists('formatVacancyMessage');
+$hasSendTelegram = function_exists('sendTelegramMessage');
+
+if ($hasFormatContact && $hasSendTelegram && ($hasFormatVacancy || $type !== 'vacancy')) {
     // Подготавливаем данные для Telegram
     $data = [
         'timestamp' => $timestamp,
@@ -81,9 +85,16 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
     
     $messageType = ($type === 'vacancy' || !empty($vacancy)) ? 'vacancy' : 'contact';
     
+    // Формируем сообщение в зависимости от типа
     if ($messageType === 'vacancy') {
-        $data['vacancy'] = $vacancy ?: $service;
-        $telegramMessage = formatVacancyMessage($data);
+        if ($hasFormatVacancy) {
+            $data['vacancy'] = $vacancy ?: $service;
+            $telegramMessage = formatVacancyMessage($data);
+        } else {
+            // Fallback на formatContactMessage если formatVacancyMessage недоступна
+            $data['service'] = 'Вакансия: ' . ($vacancy ?: $service);
+            $telegramMessage = formatContactMessage($data);
+        }
     } else {
         $telegramMessage = formatContactMessage($data);
     }
@@ -101,11 +112,25 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
         } else {
             // Отправляем сообщение
             try {
-                $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
-                $telegramSent = isset($telegramResult['success']) ? $telegramResult['success'] : false;
+                // Убеждаемся, что сообщение не пустое
+                if (empty($telegramMessage)) {
+                    $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Сообщение для Telegram пустое\n";
+                    @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
+                } else {
+                    $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
+                    $telegramSent = isset($telegramResult['success']) ? $telegramResult['success'] : false;
+                    if (!$telegramSent) {
+                        $telegramError = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
+                    }
+                }
             } catch (Exception $e) {
                 $telegramSent = false;
-                $telegramResult = ['success' => false, 'message' => 'Исключение: ' . $e->getMessage()];
+                $telegramError = 'Исключение: ' . $e->getMessage();
+                $telegramResult = ['success' => false, 'message' => $telegramError];
+            } catch (Error $e) {
+                $telegramSent = false;
+                $telegramError = 'Ошибка PHP: ' . $e->getMessage();
+                $telegramResult = ['success' => false, 'message' => $telegramError];
             }
         }
     }
@@ -113,6 +138,8 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
     // Логируем результат (всегда, даже если успешно)
     $logTimestamp = date('Y-m-d H:i:s');
     $chatId = defined('TELEGRAM_CHAT_ID') ? TELEGRAM_CHAT_ID : 'не определен';
+    $botToken = defined('TELEGRAM_BOT_TOKEN') ? (substr(TELEGRAM_BOT_TOKEN, 0, 10) . '...') : 'не определен';
+    $telegramEnabled = defined('TELEGRAM_ENABLED') ? (TELEGRAM_ENABLED ? 'ДА' : 'НЕТ') : 'не определен';
     
     if ($telegramSent) {
         $successLog = "[{$logTimestamp}] ✅ Telegram отправка УСПЕШНА | Тип: {$messageType} | Chat ID: {$chatId} | Имя: {$name} | Email: {$email}\n";
@@ -128,8 +155,17 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
             ]);
         }
     } else {
-        $telegramError = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
-        $errorLog = "[{$logTimestamp}] ❌ Telegram отправка НЕ УДАЛАСЬ | Тип: {$messageType} | Chat ID: {$chatId} | Ошибка: {$telegramError} | Имя: {$name} | Email: {$email} | Телефон: {$phone}\n";
+        if (empty($telegramError)) {
+            $telegramError = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
+        }
+        $errorLog = "[{$logTimestamp}] ❌ Telegram отправка НЕ УДАЛАСЬ\n";
+        $errorLog .= "   Тип: {$messageType}\n";
+        $errorLog .= "   Chat ID: {$chatId}\n";
+        $errorLog .= "   Bot Token: {$botToken}\n";
+        $errorLog .= "   Telegram Enabled: {$telegramEnabled}\n";
+        $errorLog .= "   Ошибка: {$telegramError}\n";
+        $errorLog .= "   Имя: {$name} | Email: {$email} | Телефон: {$phone}\n";
+        $errorLog .= "   Длина сообщения: " . (isset($telegramMessage) ? strlen($telegramMessage) : 0) . " символов\n";
         @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
         
         // Также пытаемся отправить простое сообщение напрямую через cURL как fallback
@@ -178,7 +214,15 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
 } else {
     // Функции не найдены
     $logTimestamp = date('Y-m-d H:i:s');
-    $errorLog = "[{$logTimestamp}] ❌ Функции Telegram не найдены (formatContactMessage или sendTelegramMessage)\n";
+    $missingFunctions = [];
+    if (!$hasFormatContact) $missingFunctions[] = 'formatContactMessage';
+    if (!$hasSendTelegram) $missingFunctions[] = 'sendTelegramMessage';
+    if ($type === 'vacancy' && !$hasFormatVacancy) $missingFunctions[] = 'formatVacancyMessage';
+    
+    $errorLog = "[{$logTimestamp}] ❌ Функции Telegram не найдены: " . implode(', ', $missingFunctions) . "\n";
+    $errorLog .= "   Проверка функций: formatContactMessage=" . ($hasFormatContact ? 'ДА' : 'НЕТ') . ", formatVacancyMessage=" . ($hasFormatVacancy ? 'ДА' : 'НЕТ') . ", sendTelegramMessage=" . ($hasSendTelegram ? 'ДА' : 'НЕТ') . "\n";
+    $errorLog .= "   Путь к config.php: {$configPath} (существует: " . (file_exists($configPath) ? 'ДА' : 'НЕТ') . ")\n";
+    $errorLog .= "   Путь к send_telegram.php: {$telegramIncludePath} (существует: " . (file_exists($telegramIncludePath) ? 'ДА' : 'НЕТ') . ")\n";
     @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
 }
 

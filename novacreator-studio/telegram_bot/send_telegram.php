@@ -127,6 +127,8 @@ function sendTelegramMessage($message, $type = 'contact') {
                 $errorMessage = 'Бот был заблокирован или удален из группы. Добавьте бота обратно в группу.';
             } elseif (strpos($errorMessage, 'Forbidden') !== false) {
                 $errorMessage = 'Бот не имеет прав на отправку сообщений в эту группу. Проверьте права бота.';
+            } elseif (strpos($errorMessage, 'Bad Request') !== false) {
+                $errorMessage = 'Некорректный запрос. Проверьте формат сообщения и Chat ID.';
             }
             
             return [
@@ -138,6 +140,11 @@ function sendTelegramMessage($message, $type = 'contact') {
         return [
             'success' => false,
             'message' => 'Ошибка парсинга ответа: ' . $e->getMessage()
+        ];
+    } catch (Error $e) {
+        return [
+            'success' => false,
+            'message' => 'Ошибка PHP: ' . $e->getMessage()
         ];
     }
 }
