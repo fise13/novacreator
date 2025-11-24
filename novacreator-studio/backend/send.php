@@ -91,11 +91,23 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
     // Отправляем сообщение в Telegram
     // Проверяем, что конфигурация загружена
     if (!defined('TELEGRAM_BOT_TOKEN') || !defined('TELEGRAM_CHAT_ID')) {
-        $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Конфигурация Telegram не загружена\n";
+        $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Конфигурация Telegram не загружена | TELEGRAM_BOT_TOKEN: " . (defined('TELEGRAM_BOT_TOKEN') ? 'определен' : 'НЕ определен') . " | TELEGRAM_CHAT_ID: " . (defined('TELEGRAM_CHAT_ID') ? 'определен' : 'НЕ определен') . "\n";
         @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
     } else {
-        $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
-        $telegramSent = isset($telegramResult['success']) ? $telegramResult['success'] : false;
+        // Убеждаемся, что данные не пустые перед отправкой
+        if (empty($name) && empty($email) && empty($phone)) {
+            $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Все данные формы пустые, отправка отменена\n";
+            @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
+        } else {
+            // Отправляем сообщение
+            try {
+                $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
+                $telegramSent = isset($telegramResult['success']) ? $telegramResult['success'] : false;
+            } catch (Exception $e) {
+                $telegramSent = false;
+                $telegramResult = ['success' => false, 'message' => 'Исключение: ' . $e->getMessage()];
+            }
+        }
     }
     
     // Логируем результат (всегда, даже если успешно)
@@ -117,13 +129,45 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
         }
     } else {
         $telegramError = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
-        $errorLog = "[{$logTimestamp}] ❌ Telegram отправка НЕ УДАЛАСЬ | Тип: {$messageType} | Chat ID: {$chatId} | Ошибка: {$telegramError} | Имя: {$name} | Email: {$email}\n";
+        $errorLog = "[{$logTimestamp}] ❌ Telegram отправка НЕ УДАЛАСЬ | Тип: {$messageType} | Chat ID: {$chatId} | Ошибка: {$telegramError} | Имя: {$name} | Email: {$email} | Телефон: {$phone}\n";
         @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
         
+        // Также пытаемся отправить простое сообщение напрямую через cURL как fallback
+        if (defined('TELEGRAM_BOT_TOKEN') && defined('TELEGRAM_CHAT_ID') && !empty($name)) {
+            $simpleMessage = "📧 Новая заявка\n\nИмя: {$name}\nEmail: {$email}\nТелефон: {$phone}\nУслуга: " . ($service ?: 'Не указана') . "\n\nСообщение: {$message}";
+            $fallbackUrl = "https://api.telegram.org/bot" . TELEGRAM_BOT_TOKEN . "/sendMessage";
+            $fallbackData = [
+                'chat_id' => TELEGRAM_CHAT_ID,
+                'text' => $simpleMessage,
+                'parse_mode' => 'HTML'
+            ];
+            
+            if (function_exists('curl_init')) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $fallbackUrl);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fallbackData));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                $fallbackResult = curl_exec($ch);
+                curl_close($ch);
+                
+                if ($fallbackResult) {
+                    $fallbackResponse = json_decode($fallbackResult, true);
+                    if (isset($fallbackResponse['ok']) && $fallbackResponse['ok']) {
+                        $fallbackLog = "[{$logTimestamp}] ✅ Fallback отправка УСПЕШНА\n";
+                        @file_put_contents($telegramLogFile, $fallbackLog, FILE_APPEND | LOCK_EX);
+                        $telegramSent = true; // Обновляем статус
+                    }
+                }
+            }
+        }
+        
         // Также логируем через функцию logError если доступна
-        if (function_exists('logError')) {
+        if (function_exists('logError') && !$telegramSent) {
             logError('Telegram отправка не удалась', [
-                'error' => $telegramError,
+                'error' => isset($telegramError) ? $telegramError : 'Неизвестная ошибка',
                 'type' => $messageType,
                 'chat_id' => $chatId,
                 'name' => $name,
@@ -136,7 +180,6 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
     $logTimestamp = date('Y-m-d H:i:s');
     $errorLog = "[{$logTimestamp}] ❌ Функции Telegram не найдены (formatContactMessage или sendTelegramMessage)\n";
     @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
-    @file_put_contents($debugLogFile, $errorLog, FILE_APPEND | LOCK_EX);
 }
 
 // Пытаемся отправить email (без проверки ошибок)
