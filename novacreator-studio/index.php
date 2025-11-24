@@ -11,12 +11,12 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-    <!-- Фоновые декоративные элементы -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24">
+    <!-- Фоновые декоративные элементы - оптимизированы для мобильных -->
     <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl animate-pulse parallax" data-speed="0.3"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/20 rounded-full blur-3xl animate-pulse parallax" data-speed="0.5" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-neon-purple/10 rounded-full blur-2xl animate-pulse parallax" data-speed="0.4" style="animation-delay: 0.5s;"></div>
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-neon-purple/20 rounded-full blur-2xl md:blur-3xl animate-pulse parallax" data-speed="0.3"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-neon-blue/20 rounded-full blur-2xl md:blur-3xl animate-pulse parallax" data-speed="0.5" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/2 w-48 h-48 md:w-64 md:h-64 bg-neon-purple/10 rounded-full blur-xl md:blur-2xl animate-pulse parallax" data-speed="0.4" style="animation-delay: 0.5s;"></div>
     </div>
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
@@ -73,10 +73,10 @@ include 'includes/header.php';
             
             <!-- CTA кнопки - оптимизированы для мобильных -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 md:gap-6 px-4 md:px-0">
-                <a href="/contact" class="btn-neon text-center w-full sm:w-auto">
+                <a href="/contact" class="btn-neon text-center w-full sm:w-auto min-h-[48px] flex items-center justify-center">
                     Начать проект
                 </a>
-                <a href="/portfolio" class="btn-outline text-center w-full sm:w-auto">
+                <a href="/portfolio" class="btn-outline text-center w-full sm:w-auto min-h-[48px] flex items-center justify-center">
                     Посмотреть работы
                 </a>
             </div>
@@ -103,10 +103,10 @@ include 'includes/header.php';
         </div>
         
         <!-- Карточки услуг - оптимизированы для мобильных -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-4 md:px-0">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8 px-4 md:px-0">
             <!-- SEO-оптимизация -->
             <div class="service-card animate-on-scroll">
-                <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-6">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
@@ -142,7 +142,7 @@ include 'includes/header.php';
             
             <!-- Google Ads -->
             <div class="service-card animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-6">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
@@ -177,7 +177,7 @@ include 'includes/header.php';
             
             <!-- Аналитика -->
             <div class="service-card animate-on-scroll" style="animation-delay: 0.4s;">
-                <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-6">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
@@ -310,7 +310,7 @@ include 'includes/header.php';
             <!-- Пожизненная гарантия -->
             <div class="bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 rounded-2xl p-6 md:p-8 animate-on-scroll">
                 <div class="flex items-center mb-4">
-                    <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>

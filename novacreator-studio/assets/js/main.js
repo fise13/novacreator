@@ -15,7 +15,49 @@ document.addEventListener('DOMContentLoaded', function() {
     initBackToTop();
     initPageLoadAnimation();
     initTouchOptimizations();
+    initLazyLoading();
 });
+
+/**
+ * Lazy loading для изображений
+ * Улучшает производительность на мобильных устройствах
+ */
+function initLazyLoading() {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    
+                    // Если изображение еще не загружено
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        delete img.dataset.src;
+                    }
+                    
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px' // Начинаем загрузку за 50px до появления
+        });
+        
+        images.forEach(img => {
+            imageObserver.observe(img);
+        });
+    } else {
+        // Fallback для старых браузеров
+        images.forEach(img => {
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+            }
+            img.classList.add('loaded');
+        });
+    }
+}
 
 /**
  * Инициализация анимаций при скролле
@@ -99,13 +141,37 @@ function initNavigation() {
     // Изменение стиля навигации при скролле
     const navbar = document.querySelector('.navbar');
     if (navbar) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+        
+        function updateNavbar() {
+            const scrollY = window.scrollY;
+            const isMobile = window.innerWidth < 768;
+            
+            if (scrollY > 50) {
                 navbar.classList.add('scrolled');
+                
+                // На мобильных уменьшаем высоту навигации при скролле вниз
+                if (isMobile && scrollY > lastScrollY && scrollY > 100) {
+                    navbar.style.height = '3.5rem';
+                } else {
+                    navbar.style.height = '';
+                }
             } else {
                 navbar.classList.remove('scrolled');
+                navbar.style.height = '';
             }
-        });
+            
+            lastScrollY = scrollY;
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateNavbar);
+                ticking = true;
+            }
+        }, { passive: true });
     }
 }
 
@@ -208,20 +274,36 @@ function showNotification(message, type = 'success') {
 /**
  * Дополнительные эффекты при скролле
  * Параллакс эффекты и другие визуальные улучшения
+ * Оптимизировано для мобильных устройств
  */
 function initScrollEffects() {
-    // Эффект параллакса для фоновых элементов
+    // Проверяем, мобильное ли устройство и поддерживает ли производительность
+    const isMobile = window.innerWidth < 768;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // Эффект параллакса для фоновых элементов (отключаем на мобильных для производительности)
     const parallaxElements = document.querySelectorAll('.parallax');
     
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
+    if (!isMobile && !prefersReducedMotion && parallaxElements.length > 0) {
+        let ticking = false;
         
-        parallaxElements.forEach(element => {
-            const speed = element.dataset.speed || 0.5;
-            const yPos = -(scrolled * speed);
-            element.style.transform = `translateY(${yPos}px)`;
-        });
-    });
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrolled = window.pageYOffset;
+                    
+                    parallaxElements.forEach(element => {
+                        const speed = element.dataset.speed || 0.5;
+                        const yPos = -(scrolled * speed);
+                        element.style.transform = `translateY(${yPos}px)`;
+                    });
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    }
     
     // Подсветка активного раздела в навигации
     const sections = document.querySelectorAll('section[id]');

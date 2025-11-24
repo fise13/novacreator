@@ -21,6 +21,11 @@
     scroll-behavior: smooth;
     /* Улучшение производительности на мобильных */
     -webkit-tap-highlight-color: transparent;
+    /* Safe area insets для iPhone */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
   
   /* Оптимизация touch для мобильных */
@@ -67,6 +72,92 @@
       transition-duration: 0.01ms !important;
     }
   }
+  
+  /* Оптимизация типографики для очень маленьких экранов */
+  @media (max-width: 374px) {
+    h1 {
+      font-size: 1.75rem !important;
+      line-height: 1.2 !important;
+    }
+    h2 {
+      font-size: 1.5rem !important;
+      line-height: 1.3 !important;
+    }
+    h3 {
+      font-size: 1.25rem !important;
+      line-height: 1.4 !important;
+    }
+    p {
+      font-size: 0.9375rem !important;
+      line-height: 1.6 !important;
+    }
+  }
+  
+  /* Оптимизация для landscape ориентации на мобильных */
+  @media (max-width: 896px) and (orientation: landscape) {
+    .min-h-screen {
+      min-height: auto !important;
+    }
+    section {
+      padding-top: 2rem !important;
+      padding-bottom: 2rem !important;
+    }
+  }
+  
+  /* Оптимизация производительности для мобильных */
+  @media (max-width: 768px) {
+    /* Упрощаем blur эффекты на мобильных */
+    .blur-3xl {
+      filter: blur(40px);
+    }
+    
+    .blur-2xl {
+      filter: blur(30px);
+    }
+    
+    /* Отключаем тяжелые анимации на слабых устройствах */
+    @media (prefers-reduced-motion: no-preference) {
+      /* Упрощаем parallax на мобильных */
+      .parallax {
+        transform: none !important;
+      }
+    }
+    
+    /* Оптимизация для FAQ на мобильных */
+    .faq-answer {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    
+    /* Улучшенные отступы для FAQ */
+    .faq-answer p {
+      padding-top: 0.75rem;
+    }
+  }
+  
+  /* Lazy loading для изображений */
+  img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  img[loading="lazy"].loaded {
+    opacity: 1;
+  }
+  
+  /* Safe area insets для навигации на iPhone */
+  @supports (padding: max(0px)) {
+    .navbar {
+      padding-top: max(0px, env(safe-area-inset-top));
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+    }
+    
+    #backToTop {
+      bottom: max(2rem, calc(2rem + env(safe-area-inset-bottom)));
+      right: max(2rem, calc(2rem + env(safe-area-inset-right)));
+    }
+  }
 }
 
 @layer components {
@@ -95,7 +186,42 @@
     @apply bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 
            transition-all duration-300 
            hover:border-neon-purple hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] 
-           hover:-translate-y-2;
+           hover:-translate-y-2
+           active:scale-[0.98] active:opacity-90;
+    /* Ripple эффект для мобильных */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Ripple эффект при нажатии на мобильных */
+  .service-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    pointer-events: none;
+  }
+  
+  .service-card:active::after {
+    width: 300px;
+    height: 300px;
+  }
+  
+  @media (max-width: 768px) {
+    .service-card {
+      @apply p-5 mb-4;
+      margin-bottom: 1rem;
+    }
+    
+    .service-card:hover {
+      transform: none;
+    }
   }
   
   /* Заголовок секции - адаптивные размеры */
@@ -111,15 +237,35 @@
            leading-relaxed px-4 md:px-0;
   }
   
+  /* Оптимизация для очень маленьких экранов */
+  @media (max-width: 374px) {
+    .section-title {
+      @apply text-2xl mb-3;
+    }
+    .section-subtitle {
+      @apply text-sm mb-6;
+    }
+  }
+  
+  /* Оптимизация длины строк для читаемости */
+  @media (max-width: 768px) {
+    p, li {
+      max-width: 65ch;
+    }
+  }
+  
   /* Инпут формы - оптимизирован для мобильных */
   .form-input {
     @apply w-full px-4 py-3 md:px-6 md:py-4 bg-dark-surface border border-dark-border 
            rounded-lg text-white placeholder-gray-500 text-base
            focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/20 
-           transition-all duration-300 min-h-[44px];
+           transition-all duration-300 min-h-[48px];
     /* Убираем стили iOS */
     -webkit-appearance: none;
     appearance: none;
+    /* Улучшенная читаемость на мобильных */
+    font-size: 16px; /* Предотвращает zoom на iOS */
+    line-height: 1.5;
   }
   
   /* Текстовая область формы - оптимизирована для мобильных */
@@ -127,7 +273,34 @@
     @apply w-full px-4 py-3 md:px-6 md:py-4 bg-dark-surface border border-dark-border 
            rounded-lg text-white placeholder-gray-500 text-base
            focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/20 
-           transition-all duration-300 resize-none min-h-[120px];
+           transition-all duration-300 resize-none min-h-[140px];
+    /* Улучшенная читаемость на мобильных */
+    font-size: 16px; /* Предотвращает zoom на iOS */
+    line-height: 1.6;
+  }
+  
+  /* Визуализация ошибок валидации */
+  .form-input:invalid:not(:placeholder-shown),
+  .form-textarea:invalid:not(:placeholder-shown) {
+    @apply border-red-500 focus:border-red-500 focus:ring-red-500/20;
+  }
+  
+  .form-input:valid:not(:placeholder-shown),
+  .form-textarea:valid:not(:placeholder-shown) {
+    @apply border-green-500/50;
+  }
+  
+  /* Улучшенные отступы для форм на мобильных */
+  @media (max-width: 768px) {
+    .contact-form {
+      @apply space-y-5;
+    }
+    
+    .form-input,
+    .form-textarea {
+      @apply px-4 py-3.5;
+      font-size: 16px; /* Важно для предотвращения zoom на iOS */
+    }
   }
 }
 
@@ -269,6 +442,41 @@
   
   .service-card:hover::before {
     left: 100%;
+  }
+  
+  /* Sticky навигация с тенью при скролле */
+  .navbar.scrolled {
+    @apply bg-dark-bg/95 shadow-lg;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    .navbar.scrolled {
+      @apply h-14;
+    }
+  }
+  
+  /* Анимация иконки гамбургера */
+  #mobileMenuBtn svg {
+    transition: transform 0.3s ease;
+  }
+  
+  #mobileMenuBtn svg.rotate-90 {
+    transform: rotate(90deg);
+  }
+  
+  /* Плавная анимация мобильного меню */
+  #mobileMenu {
+    will-change: transform;
+  }
+  
+  #mobileMenuOverlay {
+    will-change: opacity;
+  }
+  
+  /* Safe area для мобильного меню */
+  .pb-safe {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   }
   
   /* Плавающие частицы на фоне (опционально) */

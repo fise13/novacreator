@@ -44,10 +44,10 @@ include 'includes/header.php';
                     </h2>
                     <div class="space-y-6">
                         <!-- Вопрос 1 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Сколько времени нужно для выхода сайта в топ поисковых систем?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Сколько времени нужно для выхода сайта в топ поисковых систем?</span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -62,10 +62,10 @@ include 'includes/header.php';
                         </div>
                         
                         <!-- Вопрос 2 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Что входит в стоимость SEO-продвижения?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Что входит в стоимость SEO-продвижения?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -80,10 +80,10 @@ include 'includes/header.php';
                         </div>
                         
                         <!-- Вопрос 3 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Гарантируете ли вы попадание в топ-10?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Гарантируете ли вы попадание в топ-10?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -111,10 +111,10 @@ include 'includes/header.php';
                     </h2>
                     <div class="space-y-6">
                         <!-- Вопрос 1 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Сколько времени занимает разработка сайта?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Сколько времени занимает разработка сайта?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -128,10 +128,10 @@ include 'includes/header.php';
                         </div>
                         
                         <!-- Вопрос 2 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Можно ли вносить изменения после запуска сайта?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Можно ли вносить изменения после запуска сайта?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -157,10 +157,10 @@ include 'includes/header.php';
                     </h2>
                     <div class="space-y-6">
                         <!-- Вопрос 1 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Сколько стоит настройка рекламной кампании?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Сколько стоит настройка рекламной кампании?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -175,10 +175,10 @@ include 'includes/header.php';
                         </div>
                         
                         <!-- Вопрос 2 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Когда появятся первые результаты?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Когда появятся первые результаты?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -203,10 +203,10 @@ include 'includes/header.php';
                     </h2>
                     <div class="space-y-6">
                         <!-- Вопрос 1 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Работаете ли вы с клиентами из других городов?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Работаете ли вы с клиентами из других городов?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -220,10 +220,10 @@ include 'includes/header.php';
                         </div>
                         
                         <!-- Вопрос 2 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Как происходит оплата?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Как происходит оплата?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
@@ -237,10 +237,10 @@ include 'includes/header.php';
                         </div>
                         
                         <!-- Вопрос 3 -->
-                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
-                                <span class="group-hover:text-neon-purple transition-colors duration-300">Предоставляете ли вы гарантии?</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-5 md:p-8 hover:border-neon-purple transition-all duration-300 active:scale-[0.98]">
+                            <h3 itemprop="name" class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gradient cursor-pointer flex items-center justify-between group min-h-[48px] touch-manipulation" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300 pr-4 flex-1 text-left">Предоставляете ли вы гарантии?                                </span>
+                                <svg class="w-6 h-6 md:w-7 md:h-7 transform transition-transform duration-500 ease-in-out text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
