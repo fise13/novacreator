@@ -57,6 +57,7 @@
                     <ul class="space-y-3">
                         <li><a href="/about" class="text-gray-400 hover:text-neon-purple transition-colors">О нас</a></li>
                         <li><a href="/contact" class="text-gray-400 hover:text-neon-purple transition-colors">Контакты</a></li>
+                        <li><a href="/faq" class="text-gray-400 hover:text-neon-purple transition-colors">FAQ</a></li>
                         <li><a href="/calculator" class="text-gray-400 hover:text-neon-purple transition-colors">Калькулятор</a></li>
                         <li><a href="/blog" class="text-gray-400 hover:text-neon-purple transition-colors">Блог</a></li>
                         <li><a href="/vacancies" class="text-gray-400 hover:text-neon-purple transition-colors">Вакансии</a></li>
@@ -129,6 +130,13 @@
     $jsPath = preg_replace('#/+#', '/', $jsPath);
     ?>
     <script src="<?php echo $jsPath; ?>" defer></script>
+    
+    <!-- Виджет онлайн-чата -->
+    <?php
+    $chatWidgetPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/chat-widget.js';
+    $chatWidgetPath = preg_replace('#/+#', '/', $chatWidgetPath);
+    ?>
+    <script src="<?php echo $chatWidgetPath; ?>" defer></script>
     
     <!-- Service Worker для Push-уведомлений -->
     <script>

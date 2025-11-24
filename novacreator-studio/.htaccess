@@ -21,6 +21,7 @@
     RewriteRule ^vacancies$ /vacancies.php [L]
     RewriteRule ^calculator$ /calculator.php [L]
     RewriteRule ^blog$ /blog.php [L]
+    RewriteRule ^faq$ /faq.php [L]
     
     # Правила для клиентской части
     RewriteRule ^client/login$ /client/login.php [L]
@@ -28,6 +29,9 @@
     RewriteRule ^client/logout$ /client/logout.php [L]
     
     # Правила для админ-панели
+    RewriteRule ^adm$ /admin/index.php [L]
+    RewriteRule ^adm/$ /admin/index.php [L]
+    RewriteRule ^adm/(.*)$ /admin/$1 [L]
     RewriteRule ^admin/projects$ /admin/projects.php [L]
 </IfModule>
 
