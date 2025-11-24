@@ -24,10 +24,6 @@ $articles = array_values($articles);
 // Сохраняем
 saveArticles($articles);
 
-// Очищаем кэш блога
-require_once __DIR__ . '/../includes/cache.php';
-clearCache('blog_articles_all');
-
 // Перенаправляем на список статей
 header('Location: index.php?message=deleted');
 exit;

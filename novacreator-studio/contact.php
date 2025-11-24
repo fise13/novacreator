@@ -109,7 +109,7 @@ include 'includes/header.php';
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-4 md:p-6 lg:p-8">
                     <h2 class="text-2xl sm:text-3xl font-bold mb-6 md:mb-8 text-gradient">Отправить заявку</h2>
                     
-                    <form class="contact-form space-y-6" method="POST" action="/backend/send.php" novalidate>
+                    <form class="contact-form space-y-6" method="POST" action="/backend/send.php">
                         <!-- Скрытые поля для определения типа заявки -->
                         <input type="hidden" id="form_type" name="type" value="contact">
                         <input type="hidden" id="form_vacancy" name="vacancy" value="">
@@ -126,12 +126,7 @@ include 'includes/header.php';
                                 class="form-input" 
                                 placeholder="Ваше имя"
                                 required
-                                autocomplete="name"
-                                aria-required="true"
-                                aria-describedby="name-error"
-                                minlength="2"
                             >
-                            <div id="name-error" class="error-message text-red-400 text-sm mt-1" role="alert" aria-live="polite"></div>
                         </div>
                         
                         <!-- Email -->
@@ -146,11 +141,7 @@ include 'includes/header.php';
                                 class="form-input" 
                                 placeholder="your@email.com"
                                 required
-                                autocomplete="email"
-                                aria-required="true"
-                                aria-describedby="email-error"
                             >
-                            <div id="email-error" class="error-message text-red-400 text-sm mt-1" role="alert" aria-live="polite"></div>
                         </div>
                         
                         <!-- Телефон -->
@@ -165,12 +156,7 @@ include 'includes/header.php';
                                 class="form-input" 
                                 placeholder="+7 (XXX) XXX-XX-XX"
                                 required
-                                autocomplete="tel"
-                                aria-required="true"
-                                aria-describedby="phone-error"
-                                pattern="[\d\s\+\-\(\)]+"
                             >
-                            <div id="phone-error" class="error-message text-red-400 text-sm mt-1" role="alert" aria-live="polite"></div>
                         </div>
                         
                         <!-- Услуга / Вакансия -->
@@ -205,12 +191,7 @@ include 'includes/header.php';
                                 class="form-textarea" 
                                 placeholder="Расскажите о вашем проекте..."
                                 required
-                                aria-required="true"
-                                aria-describedby="message-error"
-                                minlength="10"
-                                maxlength="5000"
                             ></textarea>
-                            <div id="message-error" class="error-message text-red-400 text-sm mt-1" role="alert" aria-live="polite"></div>
                         </div>
                         
                         <!-- Кнопка отправки -->

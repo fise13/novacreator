@@ -80,6 +80,16 @@ function sendTelegramMessage($message, $type = 'contact') {
                     $errorDetails = ': ' . $errorResponse['description'];
                 }
             }
+            
+            // Логируем для отладки
+            $debugLog = __DIR__ . '/../backend/telegram_debug.log';
+            $debugInfo = "[" . date('Y-m-d H:i:s') . "] HTTP ошибка при отправке:\n";
+            $debugInfo .= "   HTTP Code: {$httpCode}\n";
+            $debugInfo .= "   URL: {$url}\n";
+            $debugInfo .= "   Chat ID: " . TELEGRAM_CHAT_ID . "\n";
+            $debugInfo .= "   Response: " . substr($result, 0, 500) . "\n";
+            @file_put_contents($debugLog, $debugInfo, FILE_APPEND | LOCK_EX);
+            
             return [
                 'success' => false,
                 'message' => 'HTTP ошибка ' . $httpCode . $errorDetails
@@ -117,18 +127,30 @@ function sendTelegramMessage($message, $type = 'contact') {
                 'message' => 'Сообщение успешно отправлено в Telegram'
             ];
         } else {
+            // Получаем информацию об ошибке
             $errorMessage = isset($response['description']) ? $response['description'] : 'Неизвестная ошибка';
             $errorCode = isset($response['error_code']) ? $response['error_code'] : 'неизвестен';
             
+            // Логируем полный ответ для отладки
+            $debugLog = __DIR__ . '/../backend/telegram_debug.log';
+            $debugInfo = "[" . date('Y-m-d H:i:s') . "] Telegram API ответ:\n";
+            $debugInfo .= "   HTTP Code: " . (isset($httpCode) ? $httpCode : 'не определен') . "\n";
+            $debugInfo .= "   Response: " . print_r($response, true) . "\n";
+            $debugInfo .= "   Raw Result: " . substr($result, 0, 500) . "\n";
+            @file_put_contents($debugLog, $debugInfo, FILE_APPEND | LOCK_EX);
+            
             // Специальные сообщения для частых ошибок
-            if (strpos($errorMessage, 'chat not found') !== false || strpos($errorMessage, 'Chat not found') !== false) {
-                $errorMessage = 'Чат не найден. Убедитесь, что бот добавлен в группу и имеет права на отправку сообщений.';
-            } elseif (strpos($errorMessage, 'bot was blocked') !== false || strpos($errorMessage, 'bot was kicked') !== false) {
+            $originalError = $errorMessage;
+            if (stripos($errorMessage, 'chat not found') !== false || stripos($errorMessage, 'Chat not found') !== false) {
+                $errorMessage = 'Чат не найден. Убедитесь, что бот добавлен в группу и имеет права на отправку сообщений. Chat ID: ' . TELEGRAM_CHAT_ID;
+            } elseif (stripos($errorMessage, 'bot was blocked') !== false || stripos($errorMessage, 'bot was kicked') !== false) {
                 $errorMessage = 'Бот был заблокирован или удален из группы. Добавьте бота обратно в группу.';
-            } elseif (strpos($errorMessage, 'Forbidden') !== false) {
+            } elseif (stripos($errorMessage, 'Forbidden') !== false) {
                 $errorMessage = 'Бот не имеет прав на отправку сообщений в эту группу. Проверьте права бота.';
-            } elseif (strpos($errorMessage, 'Bad Request') !== false) {
-                $errorMessage = 'Некорректный запрос. Проверьте формат сообщения и Chat ID.';
+            } elseif (stripos($errorMessage, 'Bad Request') !== false) {
+                $errorMessage = 'Некорректный запрос. Проверьте формат сообщения и Chat ID. Ошибка: ' . $originalError;
+            } elseif (stripos($errorMessage, 'Unauthorized') !== false) {
+                $errorMessage = 'Неверный токен бота. Проверьте TELEGRAM_BOT_TOKEN в конфигурации.';
             }
             
             return [

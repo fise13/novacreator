@@ -24,10 +24,6 @@ Thumbs.db
 
 # Логи
 *.log
-novacreator-studio/backend/errors.log
-
-# Кэш
-novacreator-studio/cache/
 
 # Временные файлы
 *.tmp

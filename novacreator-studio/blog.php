@@ -9,28 +9,17 @@ $pageMetaDescription = 'Полезные статьи о SEO, разработк
 $pageMetaKeywords = 'блог digital маркетинг, статьи о SEO, статьи о разработке сайтов, статьи о рекламе, полезные материалы, кейсы, советы экспертов';
 include 'includes/header.php';
 
-// Подключаем кэш
-require_once __DIR__ . '/includes/cache.php';
-
-// Загружаем статьи из кэша или JSON файла
-$cacheKey = 'blog_articles_all';
-$articles = getCache($cacheKey, 1800); // Кэш на 30 минут
-
-if ($articles === false) {
-    $blogFile = __DIR__ . '/data/blog.json';
-    $articles = [];
-    if (file_exists($blogFile)) {
-        $articles = json_decode(file_get_contents($blogFile), true) ?: [];
-    }
-    
-    // Сортируем по дате (новые сначала)
-    usort($articles, function($a, $b) {
-        return strtotime($b['date']) - strtotime($a['date']);
-    });
-    
-    // Сохраняем в кэш
-    setCache($cacheKey, $articles);
+// Загружаем статьи из JSON файла
+$blogFile = __DIR__ . '/data/blog.json';
+$articles = [];
+if (file_exists($blogFile)) {
+    $articles = json_decode(file_get_contents($blogFile), true) ?: [];
 }
+
+// Сортируем по дате (новые сначала)
+usort($articles, function($a, $b) {
+    return strtotime($b['date']) - strtotime($a['date']);
+});
 
 // Пагинация
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;

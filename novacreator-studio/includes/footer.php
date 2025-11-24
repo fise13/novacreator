@@ -96,7 +96,7 @@
     </footer>
     
     <!-- Кнопка "Наверх" -->
-    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 opacity-0 pointer-events-none z-40 group" aria-label="Наверх" aria-hidden="true">
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 opacity-0 pointer-events-none z-40 group" aria-label="Наверх">
         <svg class="w-6 h-6 text-white transform group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>
@@ -104,13 +104,30 @@
     
     <!-- Подключение основного JavaScript -->
     <?php
-    // Подключаем утилиты если еще не подключены
-    if (!function_exists('getAssetPath')) {
-        require_once __DIR__ . '/utils.php';
+    // Определяем правильный путь к JS, учитывая preview режим Plesk
+    $scriptPath = $_SERVER['SCRIPT_NAME'];
+    
+    // Если в preview режиме Plesk, извлекаем реальный путь после всех preview сегментов
+    if (preg_match('#/plesk-site-preview/[^/]+/[^/]+/[^/]+/(.+)$#', $scriptPath, $matches)) {
+        // Берем путь после всех preview сегментов (домен/https/IP)
+        $realPath = '/' . $matches[1];
+        $baseDir = dirname($realPath);
+    } elseif (preg_match('#/plesk-site-preview/[^/]+/(.+)$#', $scriptPath, $matches)) {
+        // Альтернативный паттерн для других форматов preview
+        $realPath = '/' . $matches[1];
+        $baseDir = dirname($realPath);
+    } else {
+        // Обычный режим
+        $baseDir = dirname($scriptPath);
     }
     
-    // Используем функцию для получения пути
-    $jsPath = getAssetPath('assets/js/main.min.js');
+    // Нормализуем путь
+    $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
+    $baseDir = rtrim($baseDir, '/\\');
+    
+    // Формируем путь к JS
+    $jsPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
+    $jsPath = preg_replace('#/+#', '/', $jsPath);
     ?>
     <script src="<?php echo $jsPath; ?>" defer></script>
     

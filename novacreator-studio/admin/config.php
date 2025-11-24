@@ -5,22 +5,10 @@
  */
 
 // Простая авторизация (для продакшена лучше использовать более надежную систему)
-// Запускаем сессию только если она еще не запущена
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Подключаем утилиты
-require_once __DIR__ . '/../includes/utils.php';
+session_start();
 
 // Пароль для входа (измените на свой!)
-// ВАЖНО: Используйте password_hash() для создания хеша пароля
-// Пример: password_hash('ваш_пароль', PASSWORD_DEFAULT)
-// Сохраните хеш в переменную ниже
-define('ADMIN_PASSWORD_HASH', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'); // ИЗМЕНИТЕ НА СВОЙ ХЕШ!
-
-// Для обратной совместимости (устаревший способ)
-define('ADMIN_PASSWORD', 'admin123'); // ИЗМЕНИТЕ ЭТОТ ПАРОЛЬ!
+define('ADMIN_PASSWORD', 'Vic0214!'); // ИЗМЕНИТЕ ЭТОТ ПАРОЛЬ!
 
 // Путь к файлу с статьями
 define('BLOG_FILE', __DIR__ . '/../data/blog.json');

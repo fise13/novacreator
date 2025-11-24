@@ -175,8 +175,6 @@ function initNavigation() {
     }
 }
 
-// ФУНКЦИИ ВАЛИДАЦИИ УДАЛЕНЫ - форма отправляется без проверок
-
 /**
  * Инициализация обработки форм
  * Отправка данных через fetch API на backend
@@ -185,10 +183,8 @@ function initForms() {
     const forms = document.querySelectorAll('.contact-form');
     
     forms.forEach(form => {
-        // УБРАНА ВСЯ ВАЛИДАЦИЯ - форма отправляется без проверок
-        
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Предотвращаем стандартную отправку формы
             
             // Получаем кнопку отправки
             const submitBtn = form.querySelector('button[type="submit"]');
@@ -200,55 +196,45 @@ function initForms() {
             
             // Собираем данные формы
             const formData = new FormData(form);
-            // Пробуем разные варианты пути для совместимости с разными хостингами
-            let formAction = form.getAttribute('action') || '/backend/send.php';
-            // Если путь начинается с /, используем его как есть, иначе добавляем относительный путь
-            if (!formAction.startsWith('/') && !formAction.startsWith('http')) {
-                formAction = './backend/send.php';
-            }
             
-            // Отправляем запрос
-            fetch(formAction, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                // Пытаемся получить JSON ответ
-                return response.json().catch(() => {
-                    // Если не JSON, считаем успехом
-                    return { success: true };
+            try {
+                // Отправляем запрос на сервер
+                // Используем относительный путь для корректной работы на всех страницах
+                const formAction = form.getAttribute('action') || './backend/send.php';
+                const response = await fetch(formAction, {
+                    method: 'POST',
+                    body: formData
                 });
-            })
-            .then(data => {
-                // Показываем успешное сообщение
-                showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
-                form.reset();
                 
-                // Логируем в консоль для отладки (можно убрать в продакшене)
-                console.log('Форма отправлена успешно:', data);
-            })
-            .catch(error => {
-                // В случае ошибки тоже показываем успех (чтобы пользователь не видел ошибок)
-                showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
-                form.reset();
+                // Парсим JSON ответ
+                const result = await response.json();
                 
-                // Логируем ошибку в консоль для отладки
+                if (result.success) {
+                    // Успешная отправка
+                    showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
+                    form.reset(); // Очищаем форму
+                } else {
+                    // Ошибка на сервере
+                    showNotification(result.message || 'Произошла ошибка при отправке. Попробуйте позже.', 'error');
+                }
+            } catch (error) {
+                // Ошибка сети или другая ошибка
                 console.error('Ошибка отправки формы:', error);
-            })
-            .finally(() => {
+                showNotification('Ошибка соединения. Проверьте интернет и попробуйте снова.', 'error');
+            } finally {
                 // Восстанавливаем кнопку
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
-            });
+            }
         });
     });
 }
 
 /**
  * Показ уведомления пользователю
- * ВСЕГДА показывает успех (без ошибок)
+ * Оптимизировано для мобильных устройств
  * @param {string} message - Текст уведомления
- * @param {string} type - Игнорируется, всегда success
+ * @param {string} type - Тип: 'success' или 'error'
  */
 function showNotification(message, type = 'success') {
     // Определяем позицию для мобильных и десктопа
@@ -257,9 +243,13 @@ function showNotification(message, type = 'success') {
         ? 'top-4 left-4 right-4' // На мобильных занимает всю ширину
         : 'top-4 right-4'; // На десктопе справа
     
-    // Создаем элемент уведомления - ВСЕГДА зеленый (успех)
+    // Создаем элемент уведомления
     const notification = document.createElement('div');
-    notification.className = `fixed ${positionClass} z-50 px-4 py-3 md:px-6 md:py-4 rounded-lg shadow-lg transform transition-all duration-300 text-sm md:text-base bg-green-600 text-white`;
+    notification.className = `fixed ${positionClass} z-50 px-4 py-3 md:px-6 md:py-4 rounded-lg shadow-lg transform transition-all duration-300 text-sm md:text-base ${
+        type === 'success' 
+            ? 'bg-green-600 text-white' 
+            : 'bg-red-600 text-white'
+    }`;
     notification.textContent = message;
     
     // Добавляем на страницу
@@ -276,9 +266,7 @@ function showNotification(message, type = 'success') {
         notification.style.opacity = '0';
         notification.style.transform = 'translateX(100%)';
         setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
+            document.body.removeChild(notification);
         }, 300);
     }, 5000);
 }
@@ -510,13 +498,11 @@ function initBackToTop() {
         if (window.pageYOffset > 300) {
             backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
             backToTopBtn.classList.add('opacity-100');
-            backToTopBtn.setAttribute('aria-hidden', 'false');
         } else {
             backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
             backToTopBtn.classList.remove('opacity-100');
-            backToTopBtn.setAttribute('aria-hidden', 'true');
         }
-    }, { passive: true });
+    });
     
     // Плавная прокрутка наверх при клике
     backToTopBtn.addEventListener('click', function() {
