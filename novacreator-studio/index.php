@@ -102,6 +102,40 @@ include 'includes/header.php';
             </p>
         </div>
         
+        <!-- Метрики результатов -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-16 px-4 md:px-0 animate-on-scroll">
+            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm md:text-base mb-2">Органический трафик</p>
+                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-purple">
+                            <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm md:text-base mb-2">Позиции в топ-10</p>
+                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-blue">
+                            <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm md:text-base mb-2">Конверсии</p>
+                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-purple">
+                            <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Карточки услуг - оптимизированы для мобильных -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8 px-4 md:px-0">
             <!-- SEO-оптимизация -->
@@ -374,6 +408,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const animateCounter = (element) => {
         const target = parseInt(element.getAttribute('data-target'));
+        const prefix = element.getAttribute('data-prefix') || '';
+        const suffix = element.getAttribute('data-suffix') || '';
         const duration = 2000;
         const increment = target / (duration / 16);
         let current = 0;
@@ -381,10 +417,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
-                element.textContent = target;
+                element.textContent = prefix + target + suffix;
                 clearInterval(timer);
             } else {
-                element.textContent = Math.floor(current);
+                element.textContent = prefix + Math.floor(current) + suffix;
             }
         }, 16);
     };
@@ -392,9 +428,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Создаем observer для запуска анимации при появлении
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && entry.target.textContent === '0') {
-                animateCounter(entry.target);
-                observer.unobserve(entry.target);
+            if (entry.isIntersecting) {
+                const currentText = entry.target.textContent.trim();
+                // Проверяем, что счетчик еще не анимирован (начинается с 0 или пустой)
+                if (currentText === '0' || currentText === '' || /^[+\-]?0[%]?$/.test(currentText)) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
             }
         });
     }, { threshold: 0.5 });
