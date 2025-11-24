@@ -1,101 +1,18 @@
-# .htaccess для SEO и производительности
-# NovaCreator Studio
-
-# Включаем mod_rewrite
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /
     
-    # Редирект с www на без www (или наоборот - выберите нужный вариант)
-    # RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-    # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-    
-    # Редирект на HTTPS (раскомментируйте при наличии SSL)
-    # RewriteCond %{HTTPS} off
-    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-    
-    # Убираем .php из URL
-    # Редирект с .php на версию без расширения (сохраняем параметры запроса)
-    RewriteCond %{THE_REQUEST} /([^.]+)\.php(\?.*)? [NC]
-    RewriteRule ^ /%1%2 [NC,L,R=301]
-    
-    # Внутренний rewrite: добавляем .php если файл существует (сохраняем параметры запроса)
-    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME}.php -f
-    RewriteRule ^(.*)$ $1.php [L,QSA]
+    RewriteCond %{REQUEST_FILENAME} !-d
     
-    # Редирект index.php на главную
-    RewriteCond %{THE_REQUEST} /index\.php(\?.*)? [NC]
-    RewriteRule ^index\.php$ /%1 [NC,L,R=301]
+    RewriteRule ^client/login$ /client/login.php [L]
+    RewriteRule ^client/dashboard$ /client/dashboard.php [L]
+    RewriteRule ^client/logout$ /client/logout.php [L]
+    RewriteRule ^admin/projects$ /admin/projects.php [L]
 </IfModule>
 
-# Сжатие GZIP для ускорения загрузки
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
-</IfModule>
-
-# Кэширование браузера
-<IfModule mod_expires.c>
-    ExpiresActive On
-    
-    # Изображения
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/gif "access plus 1 year"
-    ExpiresByType image/webp "access plus 1 year"
-    ExpiresByType image/svg+xml "access plus 1 year"
-    ExpiresByType image/x-icon "access plus 1 year"
-    
-    # CSS и JavaScript
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType text/javascript "access plus 1 month"
-    
-    # Шрифты
-    ExpiresByType font/woff "access plus 1 year"
-    ExpiresByType font/woff2 "access plus 1 year"
-    ExpiresByType application/font-woff "access plus 1 year"
-    ExpiresByType application/font-woff2 "access plus 1 year"
-    
-    # HTML
-    ExpiresByType text/html "access plus 0 seconds"
-</IfModule>
-
-# Заголовки безопасности и производительности
-<IfModule mod_headers.c>
-    # Кэширование статических файлов
-    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|css|js|woff|woff2)$">
-        Header set Cache-Control "max-age=31536000, public"
-    </FilesMatch>
-    
-    # Отключаем кэширование HTML
-    <FilesMatch "\.(php|html)$">
-        Header set Cache-Control "no-cache, no-store, must-revalidate"
-        Header set Pragma "no-cache"
-        Header set Expires "0"
-    </FilesMatch>
-</IfModule>
-
-# Защита от просмотра файлов
-<FilesMatch "^\.">
-    Order allow,deny
-    Deny from all
+<FilesMatch "\.(json)$">
+    <IfModule mod_headers.c>
+        Header set Access-Control-Allow-Origin "*"
+        Header set Content-Type "application/json"
+    </IfModule>
 </FilesMatch>
-
-# Защита конфигурационных файлов
-<FilesMatch "(config|\.env|\.git)">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-
-# Улучшенная обработка ошибок
-ErrorDocument 404 /404.php
-ErrorDocument 500 /500.php
-
-# Установка кодировки по умолчанию
-AddDefaultCharset UTF-8
-
-# Отключение листинга директорий
-Options -Indexes
-

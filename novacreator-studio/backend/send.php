@@ -180,10 +180,55 @@ try {
     error_log('Ошибка отправки email: ' . $e->getMessage());
 }
 
-// Формируем ответ
+try {
+    require_once __DIR__ . '/../client/config.php';
+    
+    $users = loadUsers();
+    $clientId = null;
+    
+    foreach ($users as $user) {
+        if ($user['email'] === $email) {
+            $clientId = $user['id'];
+            break;
+        }
+    }
+    
+    if (!$clientId && !empty($service)) {
+        $newUser = [
+            'id' => time(),
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'password' => password_hash('temp' . time(), PASSWORD_DEFAULT),
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+        
+        $users[] = $newUser;
+        saveUsers($users);
+        $clientId = $newUser['id'];
+        
+        $projects = loadProjects();
+        $newProject = [
+            'id' => time() + 1,
+            'name' => $service . ' - ' . $name,
+            'type' => $service,
+            'client_id' => $clientId,
+            'current_stage' => 'planning',
+            'progress' => 5,
+            'stages' => [],
+            'files' => [],
+            'created_at' => date('Y-m-d H:i:s'),
+            'deadline' => date('Y-m-d', strtotime('+30 days'))
+        ];
+        
+        $projects[] = $newProject;
+        saveProjects($projects);
+    }
+} catch (Exception $e) {
+    error_log('Ошибка создания проекта: ' . $e->getMessage());
+}
+
 if ($fileSaved) {
-    // Успешное сохранение в файл
-    // Заявка всегда сохраняется в файл, даже если email не отправился
     http_response_code(200);
     echo json_encode([
         'success' => true,
@@ -193,7 +238,6 @@ if ($fileSaved) {
         'saved_to_file' => true
     ]);
 } else {
-    // Ошибка сохранения
     http_response_code(500);
     echo json_encode([
         'success' => false,
