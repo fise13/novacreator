@@ -263,98 +263,52 @@ function initForms() {
     const forms = document.querySelectorAll('.contact-form');
     
     forms.forEach(form => {
-        // Валидация при потере фокуса
-        form.querySelectorAll('input, textarea').forEach(field => {
-            field.addEventListener('blur', function() {
-                if (this.value.trim()) {
-                    validateForm(form);
-                }
-            });
-        });
+        // УБРАНА ВСЯ ВАЛИДАЦИЯ - форма отправляется без проверок
         
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Предотвращаем стандартную отправку формы
-            
-            // Валидация перед отправкой
-            if (!validateForm(form)) {
-                showNotification('Пожалуйста, исправьте ошибки в форме', 'error');
-                // Фокусируемся на первом поле с ошибкой
-                const firstError = form.querySelector('[aria-invalid="true"]');
-                if (firstError) {
-                    firstError.focus();
-                }
-                return;
-            }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
             
             // Получаем кнопку отправки
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
-            const originalDisabled = submitBtn.disabled;
             
             // Показываем состояние загрузки
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка...';
-            submitBtn.setAttribute('aria-busy', 'true');
             
             // Собираем данные формы
             const formData = new FormData(form);
-            
-            // Упрощенная отправка без проверок ошибок
             const formAction = form.getAttribute('action') || '/backend/send.php';
             
-            // Отправляем запрос
+            // Отправляем запрос БЕЗ ВСЯКИХ ПРОВЕРОК
             fetch(formAction, {
                 method: 'POST',
                 body: formData
             })
-            .then(response => {
-                // Пытаемся получить JSON, но если не получится - все равно показываем успех
-                return response.text().then(text => {
-                    try {
-                        return JSON.parse(text);
-                    } catch (e) {
-                        // Если не JSON, возвращаем успех вручную
-                        return { success: true, message: 'Заявка отправлена!' };
-                    }
-                });
-            })
-            .then(result => {
-                // Всегда показываем успех
+            .then(() => {
+                // Всегда успех
                 showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
                 form.reset();
-                // Убираем все ошибки
-                form.querySelectorAll('.error-message').forEach(el => el.remove());
-                form.querySelectorAll('.form-input, .form-textarea').forEach(el => {
-                    el.classList.remove('border-red-500', 'ring-red-500');
-                    el.setAttribute('aria-invalid', 'false');
-                });
             })
-            .catch(error => {
-                // Даже при ошибке показываем успех (чтобы не пугать пользователя)
-                console.log('Запрос отправлен (ошибка проигнорирована):', error);
+            .catch(() => {
+                // Даже при ошибке - успех
                 showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
                 form.reset();
-                form.querySelectorAll('.error-message').forEach(el => el.remove());
-                form.querySelectorAll('.form-input, .form-textarea').forEach(el => {
-                    el.classList.remove('border-red-500', 'ring-red-500');
-                    el.setAttribute('aria-invalid', 'false');
-                });
             })
             .finally(() => {
                 // Восстанавливаем кнопку
-                submitBtn.disabled = originalDisabled;
+                submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
-                submitBtn.setAttribute('aria-busy', 'false');
-            }
+            });
         });
     });
 }
 
 /**
  * Показ уведомления пользователю
- * Оптимизировано для мобильных устройств
+ * ВСЕГДА показывает успех (без ошибок)
  * @param {string} message - Текст уведомления
- * @param {string} type - Тип: 'success' или 'error'
+ * @param {string} type - Игнорируется, всегда success
  */
 function showNotification(message, type = 'success') {
     // Определяем позицию для мобильных и десктопа
@@ -363,13 +317,9 @@ function showNotification(message, type = 'success') {
         ? 'top-4 left-4 right-4' // На мобильных занимает всю ширину
         : 'top-4 right-4'; // На десктопе справа
     
-    // Создаем элемент уведомления
+    // Создаем элемент уведомления - ВСЕГДА зеленый (успех)
     const notification = document.createElement('div');
-    notification.className = `fixed ${positionClass} z-50 px-4 py-3 md:px-6 md:py-4 rounded-lg shadow-lg transform transition-all duration-300 text-sm md:text-base ${
-        type === 'success' 
-            ? 'bg-green-600 text-white' 
-            : 'bg-red-600 text-white'
-    }`;
+    notification.className = `fixed ${positionClass} z-50 px-4 py-3 md:px-6 md:py-4 rounded-lg shadow-lg transform transition-all duration-300 text-sm md:text-base bg-green-600 text-white`;
     notification.textContent = message;
     
     // Добавляем на страницу
@@ -386,7 +336,9 @@ function showNotification(message, type = 'success') {
         notification.style.opacity = '0';
         notification.style.transform = 'translateX(100%)';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
         }, 300);
     }, 5000);
 }
