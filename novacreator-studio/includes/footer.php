@@ -130,6 +130,21 @@
     ?>
     <script src="<?php echo $jsPath; ?>" defer></script>
     
+    <!-- Service Worker для Push-уведомлений -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js')
+                .then(function(registration) {
+                    console.log('ServiceWorker registered');
+                })
+                .catch(function(error) {
+                    console.log('ServiceWorker registration failed');
+                });
+        });
+    }
+    </script>
+    
     <!-- Дополнительная структурированная разметка для сайта -->
     <script type="application/ld+json">
     {

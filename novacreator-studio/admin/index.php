@@ -38,6 +38,9 @@ if (isset($_GET['message'])) {
                         <a href="edit.php" class="btn-neon text-sm py-2 px-4">
                             + Новая статья
                         </a>
+                        <a href="projects.php" class="text-gray-400 hover:text-neon-purple transition-colors text-sm">
+                            Проекты
+                        </a>
                         <a href="../blog" class="text-gray-400 hover:text-neon-purple transition-colors text-sm">
                             Просмотр блога
                         </a>
