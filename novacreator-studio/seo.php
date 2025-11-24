@@ -228,7 +228,7 @@ include 'includes/header.php';
                 <div class="relative inline-block mb-4">
                     <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="relative text-5xl md:text-6xl font-bold text-gradient counter-wrapper">
-                        <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">+250%</span>
+                        <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
                     </div>
                 </div>
                 <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Рост органического трафика</p>
@@ -237,7 +237,7 @@ include 'includes/header.php';
                 <div class="relative inline-block mb-4">
                     <div class="absolute inset-0 bg-gradient-to-r from-neon-blue/30 to-neon-purple/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="relative text-5xl md:text-6xl font-bold text-gradient counter-wrapper">
-                        <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">+180%</span>
+                        <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
                     </div>
                 </div>
                 <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Позиций в топ-10</p>
@@ -246,7 +246,7 @@ include 'includes/header.php';
                 <div class="relative inline-block mb-4">
                     <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="relative text-5xl md:text-6xl font-bold text-gradient counter-wrapper">
-                        <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">+95%</span>
+                        <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
                     </div>
                 </div>
                 <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Рост конверсий</p>
@@ -255,7 +255,7 @@ include 'includes/header.php';
                 <div class="relative inline-block mb-4">
                     <div class="absolute inset-0 bg-gradient-to-r from-neon-blue/30 to-neon-purple/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="relative text-5xl md:text-6xl font-bold text-gradient counter-wrapper">
-                        <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">-40%</span>
+                        <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">0</span>
                     </div>
                 </div>
                 <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Снижение стоимости лида</p>
@@ -491,6 +491,48 @@ include 'includes/header.php';
         </div>
     </div>
 </section>
+
+<!-- Скрипт для анимации счетчиков -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('[data-target]');
+    
+    const animateCounter = (element) => {
+        const target = parseInt(element.getAttribute('data-target'));
+        const prefix = element.getAttribute('data-prefix') || '';
+        const suffix = element.getAttribute('data-suffix') || '';
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = prefix + target + suffix;
+                clearInterval(timer);
+            } else {
+                element.textContent = prefix + Math.floor(current) + suffix;
+            }
+        }, 16);
+    };
+    
+    // Создаем observer для запуска анимации при появлении
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const currentText = entry.target.textContent.trim();
+                // Проверяем, что счетчик еще не анимирован (начинается с 0 или пустой)
+                if (currentText === '0' || currentText === '' || /^[+\-]?0[%]?$/.test(currentText)) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => observer.observe(counter));
+});
+</script>
 
 <?php include 'includes/footer.php'; ?>
 
