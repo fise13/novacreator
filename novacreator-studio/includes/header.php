@@ -48,32 +48,12 @@ if (session_status() === PHP_SESSION_NONE) {
     
     <!-- Tailwind CSS -->
     <?php
-    // Определяем правильный путь к CSS, учитывая preview режим Plesk
-    $scriptPath = $_SERVER['SCRIPT_NAME'];
+    // Подключаем утилиты
+    require_once __DIR__ . '/utils.php';
     
-    // Если в preview режиме Plesk, извлекаем реальный путь после всех preview сегментов
-    if (preg_match('#/plesk-site-preview/[^/]+/[^/]+/[^/]+/(.+)$#', $scriptPath, $matches)) {
-        // Берем путь после всех preview сегментов (домен/https/IP)
-        $realPath = '/' . $matches[1];
-        $baseDir = dirname($realPath);
-    } elseif (preg_match('#/plesk-site-preview/[^/]+/(.+)$#', $scriptPath, $matches)) {
-        // Альтернативный паттерн для других форматов preview
-        $realPath = '/' . $matches[1];
-        $baseDir = dirname($realPath);
-    } else {
-        // Обычный режим
-        $baseDir = dirname($scriptPath);
-    }
-    
-    // Нормализуем путь
-    $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
-    $baseDir = rtrim($baseDir, '/\\');
-    
-    // Формируем путь к CSS и JS
-    $cssPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/css/output.css';
-    $cssPath = preg_replace('#/+#', '/', $cssPath);
-    $jsPreloadPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
-    $jsPreloadPath = preg_replace('#/+#', '/', $jsPreloadPath);
+    // Используем функцию для получения путей
+    $cssPath = getAssetPath('assets/css/output.css');
+    $jsPreloadPath = getAssetPath('assets/js/main.min.js');
     ?>
     <link rel="preload" as="style" href="<?php echo $cssPath; ?>">
     <link href="<?php echo $cssPath; ?>" rel="stylesheet">
@@ -129,7 +109,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="fixed inset-0 bg-black/60 z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay" style="backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); will-change: backdrop-filter; transform: translateZ(0); -webkit-transform: translateZ(0);"></div>
         
         <!-- Мобильное меню - оптимизировано для touch -->
-        <div class="fixed top-16 left-0 right-0 border-t border-dark-border bg-dark-bg/95 z-50 overflow-y-auto hidden shadow-lg" id="mobileMenu" style="max-height: calc(100vh - 4rem); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); transform: translateZ(0); -webkit-transform: translateZ(0);">
+        <div class="fixed top-16 left-0 right-0 border-t border-dark-border bg-dark-bg/95 z-50 overflow-y-auto hidden shadow-lg" id="mobileMenu" role="navigation" aria-label="Мобильное меню" aria-hidden="true" style="max-height: calc(100vh - 4rem); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); transform: translateZ(0); -webkit-transform: translateZ(0);">
             <div class="container mx-auto px-4 py-6 space-y-2">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
@@ -159,6 +139,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     
                     // Показываем overlay
                     mobileMenuOverlay.classList.remove('hidden');
+                    mobileMenuOverlay.setAttribute('aria-hidden', 'false');
                     setTimeout(() => {
                         mobileMenuOverlay.style.opacity = '1';
                     }, 10);
@@ -166,6 +147,9 @@ if (session_status() === PHP_SESSION_NONE) {
                     // Показываем меню
                     mobileMenu.classList.remove('hidden');
                     mobileMenu.style.display = 'block';
+                    mobileMenu.setAttribute('aria-hidden', 'false');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                    mobileMenuBtn.setAttribute('aria-label', 'Закрыть меню');
                     
                     // Предотвращаем скролл body при открытом меню
                     document.body.style.overflow = 'hidden';
@@ -192,6 +176,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 function closeMenu() {
                     isMenuOpen = false;
                     mobileMenuOverlay.style.opacity = '0';
+                    mobileMenuOverlay.setAttribute('aria-hidden', 'true');
                     
                     // Анимация исчезновения кнопок меню
                     const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
@@ -209,7 +194,10 @@ if (session_status() === PHP_SESSION_NONE) {
                     setTimeout(() => {
                         mobileMenu.classList.add('hidden');
                         mobileMenu.style.display = 'none';
+                        mobileMenu.setAttribute('aria-hidden', 'true');
                         mobileMenuOverlay.classList.add('hidden');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                        mobileMenuBtn.setAttribute('aria-label', 'Открыть меню');
                         
                         // Сбрасываем стили кнопок для следующего открытия
                         menuItems.forEach(item => {

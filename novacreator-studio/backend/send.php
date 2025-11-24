@@ -4,60 +4,91 @@
  * Принимает POST запросы, сохраняет данные в файл и отправляет на email
  */
 
+// Подключаем утилиты
+require_once __DIR__ . '/../includes/utils.php';
+
 // Устанавливаем заголовок для JSON ответа
 header('Content-Type: application/json; charset=utf-8');
 
-// Разрешаем CORS запросы (для разработки)
-header('Access-Control-Allow-Origin: *');
+// Разрешаем CORS запросы только с нашего домена (для безопасности)
+$allowedOrigins = [
+    'https://novacreator-studio.com',
+    'https://www.novacreator-studio.com',
+    'http://localhost:8000',
+    'http://localhost'
+];
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowedOrigins)) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+}
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
 // Обрабатываем только POST запросы
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode([
+    jsonResponse([
         'success' => false,
         'message' => 'Метод не разрешен'
-    ]);
-    exit;
+    ], 405);
 }
 
-// Получаем данные из формы
-$name = isset($_POST['name']) ? trim($_POST['name']) : '';
-$email = isset($_POST['email']) ? trim($_POST['email']) : '';
-$phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-$message = isset($_POST['message']) ? trim($_POST['message']) : '';
-$service = isset($_POST['service']) ? trim($_POST['service']) : '';
-$type = isset($_POST['type']) ? trim($_POST['type']) : 'contact'; // 'contact' или 'vacancy'
-$vacancy = isset($_POST['vacancy']) ? trim($_POST['vacancy']) : '';
+// Проверяем CSRF токен (если передан)
+$csrfToken = $_POST['csrf_token'] ?? '';
+if (!empty($csrfToken) && !verifyCSRFToken($csrfToken)) {
+    jsonResponse([
+        'success' => false,
+        'message' => 'Ошибка безопасности. Обновите страницу и попробуйте снова.'
+    ], 403);
+}
+
+// Проверяем rate limiting
+$ip = getClientIP();
+if (!checkRateLimit($ip, 10, 300)) {
+    jsonResponse([
+        'success' => false,
+        'message' => 'Слишком много запросов. Попробуйте через несколько минут.'
+    ], 429);
+}
+
+// Получаем и очищаем данные из формы
+$name = sanitizeInput($_POST['name'] ?? '');
+$email = sanitizeInput($_POST['email'] ?? '');
+$phone = sanitizeInput($_POST['phone'] ?? '');
+$message = sanitizeInput($_POST['message'] ?? '');
+$service = sanitizeInput($_POST['service'] ?? '');
+$type = sanitizeInput($_POST['type'] ?? 'contact');
+$vacancy = sanitizeInput($_POST['vacancy'] ?? '');
 
 // Валидация данных
 $errors = [];
 
-if (empty($name)) {
-    $errors[] = 'Имя обязательно для заполнения';
+if (empty($name) || strlen($name) < 2) {
+    $errors[] = 'Имя должно содержать минимум 2 символа';
 }
 
-if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if (empty($email) || !validateEmail($email)) {
     $errors[] = 'Введите корректный email';
 }
 
-if (empty($phone)) {
-    $errors[] = 'Телефон обязателен для заполнения';
+if (empty($phone) || !validatePhone($phone)) {
+    $errors[] = 'Введите корректный телефон';
 }
 
-if (empty($message)) {
-    $errors[] = 'Сообщение обязательно для заполнения';
+if (empty($message) || strlen($message) < 10) {
+    $errors[] = 'Сообщение должно содержать минимум 10 символов';
+}
+
+// Проверка на спам (базовая)
+if (strlen($message) > 5000) {
+    $errors[] = 'Сообщение слишком длинное';
 }
 
 // Если есть ошибки валидации, возвращаем их
 if (!empty($errors)) {
-    http_response_code(400);
-    echo json_encode([
+    jsonResponse([
         'success' => false,
         'message' => implode(', ', $errors)
-    ]);
-    exit;
+    ], 400);
 }
 
 // Подготавливаем данные для сохранения
@@ -69,7 +100,7 @@ $data = [
     'phone' => $phone,
     'message' => $message,
     'service' => $service,
-    'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+    'ip' => getClientIP()
 ];
 
 // Форматируем строку для записи в файл
@@ -229,20 +260,19 @@ try {
 }
 
 if ($fileSaved) {
-    http_response_code(200);
-    echo json_encode([
+    jsonResponse([
         'success' => true,
         'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.',
         'email_sent' => $emailSent,
         'telegram_sent' => $telegramSent,
         'saved_to_file' => true
-    ]);
+    ], 200);
 } else {
-    http_response_code(500);
-    echo json_encode([
+    logError('Ошибка сохранения заявки', ['ip' => getClientIP(), 'email' => $email]);
+    jsonResponse([
         'success' => false,
         'message' => 'Ошибка при сохранении заявки. Попробуйте позже или свяжитесь с нами напрямую.'
-    ]);
+    ], 500);
 }
 ?>
 

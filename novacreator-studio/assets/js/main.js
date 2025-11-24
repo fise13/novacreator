@@ -176,6 +176,86 @@ function initNavigation() {
 }
 
 /**
+ * Валидация формы на клиенте
+ * @param {HTMLFormElement} form - Форма для валидации
+ * @return {boolean} true если форма валидна
+ */
+function validateForm(form) {
+    let isValid = true;
+    
+    // Очищаем предыдущие ошибки
+    form.querySelectorAll('.error-message').forEach(el => el.remove());
+    form.querySelectorAll('.form-input, .form-textarea').forEach(el => {
+        el.classList.remove('border-red-500', 'ring-red-500');
+        el.setAttribute('aria-invalid', 'false');
+    });
+    
+    // Валидация имени
+    const nameInput = form.querySelector('[name="name"]');
+    if (nameInput) {
+        const name = nameInput.value.trim();
+        if (name.length < 2) {
+            showFieldError(nameInput, 'Имя должно содержать минимум 2 символа');
+            isValid = false;
+        }
+    }
+    
+    // Валидация email
+    const emailInput = form.querySelector('[name="email"]');
+    if (emailInput) {
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+            showFieldError(emailInput, 'Введите корректный email адрес');
+            isValid = false;
+        }
+    }
+    
+    // Валидация телефона
+    const phoneInput = form.querySelector('[name="phone"]');
+    if (phoneInput) {
+        const phone = phoneInput.value.trim();
+        const phoneRegex = /^\+?[\d\s\-\(\)]{10,15}$/;
+        const cleanedPhone = phone.replace(/\D/g, '');
+        if (!phone || cleanedPhone.length < 10) {
+            showFieldError(phoneInput, 'Введите корректный телефон (минимум 10 цифр)');
+            isValid = false;
+        }
+    }
+    
+    // Валидация сообщения
+    const messageInput = form.querySelector('[name="message"]');
+    if (messageInput) {
+        const message = messageInput.value.trim();
+        if (message.length < 10) {
+            showFieldError(messageInput, 'Сообщение должно содержать минимум 10 символов');
+            isValid = false;
+        } else if (message.length > 5000) {
+            showFieldError(messageInput, 'Сообщение слишком длинное (максимум 5000 символов)');
+            isValid = false;
+        }
+    }
+    
+    return isValid;
+}
+
+/**
+ * Показывает ошибку для поля формы
+ * @param {HTMLElement} field - Поле формы
+ * @param {string} message - Сообщение об ошибке
+ */
+function showFieldError(field, message) {
+    field.classList.add('border-red-500', 'ring-red-500');
+    field.setAttribute('aria-invalid', 'true');
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message text-red-400 text-sm mt-1';
+    errorDiv.textContent = message;
+    errorDiv.setAttribute('role', 'alert');
+    field.parentNode.appendChild(errorDiv);
+}
+
+/**
  * Инициализация обработки форм
  * Отправка данных через fetch API на backend
  */
@@ -183,23 +263,44 @@ function initForms() {
     const forms = document.querySelectorAll('.contact-form');
     
     forms.forEach(form => {
+        // Валидация при потере фокуса
+        form.querySelectorAll('input, textarea').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.value.trim()) {
+                    validateForm(form);
+                }
+            });
+        });
+        
         form.addEventListener('submit', async function(e) {
             e.preventDefault(); // Предотвращаем стандартную отправку формы
+            
+            // Валидация перед отправкой
+            if (!validateForm(form)) {
+                showNotification('Пожалуйста, исправьте ошибки в форме', 'error');
+                // Фокусируемся на первом поле с ошибкой
+                const firstError = form.querySelector('[aria-invalid="true"]');
+                if (firstError) {
+                    firstError.focus();
+                }
+                return;
+            }
             
             // Получаем кнопку отправки
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
+            const originalDisabled = submitBtn.disabled;
             
             // Показываем состояние загрузки
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка...';
+            submitBtn.setAttribute('aria-busy', 'true');
             
             // Собираем данные формы
             const formData = new FormData(form);
             
             try {
                 // Отправляем запрос на сервер
-                // Используем относительный путь для корректной работы на всех страницах
                 const formAction = form.getAttribute('action') || './backend/send.php';
                 const response = await fetch(formAction, {
                     method: 'POST',
@@ -207,12 +308,23 @@ function initForms() {
                 });
                 
                 // Парсим JSON ответ
-                const result = await response.json();
+                let result;
+                try {
+                    result = await response.json();
+                } catch (parseError) {
+                    throw new Error('Ошибка обработки ответа сервера');
+                }
                 
                 if (result.success) {
                     // Успешная отправка
                     showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
                     form.reset(); // Очищаем форму
+                    // Убираем все ошибки
+                    form.querySelectorAll('.error-message').forEach(el => el.remove());
+                    form.querySelectorAll('.form-input, .form-textarea').forEach(el => {
+                        el.classList.remove('border-red-500', 'ring-red-500');
+                        el.setAttribute('aria-invalid', 'false');
+                    });
                 } else {
                     // Ошибка на сервере
                     showNotification(result.message || 'Произошла ошибка при отправке. Попробуйте позже.', 'error');
@@ -223,8 +335,9 @@ function initForms() {
                 showNotification('Ошибка соединения. Проверьте интернет и попробуйте снова.', 'error');
             } finally {
                 // Восстанавливаем кнопку
-                submitBtn.disabled = false;
+                submitBtn.disabled = originalDisabled;
                 submitBtn.textContent = originalText;
+                submitBtn.setAttribute('aria-busy', 'false');
             }
         });
     });
@@ -498,11 +611,13 @@ function initBackToTop() {
         if (window.pageYOffset > 300) {
             backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
             backToTopBtn.classList.add('opacity-100');
+            backToTopBtn.setAttribute('aria-hidden', 'false');
         } else {
             backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
             backToTopBtn.classList.remove('opacity-100');
+            backToTopBtn.setAttribute('aria-hidden', 'true');
         }
-    });
+    }, { passive: true });
     
     // Плавная прокрутка наверх при клике
     backToTopBtn.addEventListener('click', function() {
