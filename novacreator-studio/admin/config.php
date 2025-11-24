@@ -16,7 +16,19 @@ define('BLOG_FILE', __DIR__ . '/../data/blog.json');
 // Проверка авторизации
 function checkAuth() {
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-        header('Location: login.php');
+        // Определяем правильный путь к login.php
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
+        
+        // Если доступ через /adm, используем /adm/login
+        if (strpos($_SERVER['REQUEST_URI'], '/adm') === 0) {
+            $loginUrl = $protocol . '://' . $host . '/adm/login';
+        } else {
+            $loginUrl = $protocol . '://' . $host . $scriptPath . '/login.php';
+        }
+        
+        header('Location: ' . $loginUrl);
         exit;
     }
 }

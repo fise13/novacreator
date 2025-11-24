@@ -8,21 +8,26 @@
     RewriteRule ^ /%1? [R=301,L]
     
     # Правила для админ-панели через /adm (должны быть ПЕРЕД другими правилами)
+    # Более специфичные правила идут первыми
+    RewriteCond %{REQUEST_URI} ^/adm/login [NC]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^adm/login$ /admin/login.php [L]
     
+    RewriteCond %{REQUEST_URI} ^/adm/chats [NC]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^adm/chats$ /admin/chats.php [L]
     
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^adm/(.*)$ /admin/$1 [L]
-    
+    RewriteCond %{REQUEST_URI} ^/adm$ [NC]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^adm/?$ /admin/index.php [L]
+    
+    RewriteCond %{REQUEST_URI} ^/adm/ [NC]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^adm/(.*)$ /admin/$1 [L]
     
     # Проверяем, что файл или директория не существуют
     RewriteCond %{REQUEST_FILENAME} !-f

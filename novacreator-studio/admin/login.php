@@ -6,7 +6,19 @@ session_start();
 
 // Если уже авторизован, перенаправляем
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header('Location: index.php');
+    // Определяем правильный путь к index.php
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'];
+    
+    // Если доступ через /adm, используем /adm
+    if (strpos($_SERVER['REQUEST_URI'], '/adm') === 0) {
+        $indexUrl = $protocol . '://' . $host . '/adm';
+    } else {
+        $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
+        $indexUrl = $protocol . '://' . $host . $scriptPath . '/index.php';
+    }
+    
+    header('Location: ' . $indexUrl);
     exit;
 }
 
@@ -18,7 +30,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Проверяем пароль (в продакшене используйте хеширование!)
     if ($password === 'Vic0214!') { // ИЗМЕНИТЕ ЭТОТ ПАРОЛЬ!
         $_SESSION['admin_logged_in'] = true;
-        header('Location: index.php');
+        
+        // Определяем правильный путь к index.php
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        
+        // Если доступ через /adm, используем /adm
+        if (strpos($_SERVER['REQUEST_URI'], '/adm') === 0) {
+            $indexUrl = $protocol . '://' . $host . '/adm';
+        } else {
+            $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
+            $indexUrl = $protocol . '://' . $host . $scriptPath . '/index.php';
+        }
+        
+        header('Location: ' . $indexUrl);
         exit;
     } else {
         $error = 'Неверный пароль';
