@@ -1,12 +1,33 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
+    # Редирект с .php на версию без расширения (301 - постоянный редирект)
+    # Только для файлов в корне сайта, исключая подпапки (admin, client, includes, backend и т.д.)
+    RewriteCond %{THE_REQUEST} \s/+([^/?\s]+)\.php[\s?] [NC]
+    RewriteCond %{REQUEST_URI} !^/(admin|client|includes|backend|assets|telegram_bot|data)/ [NC]
+    RewriteRule ^ /%1? [R=301,L]
+    
+    # Проверяем, что файл или директория не существуют
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     
+    # Правила для основных страниц сайта
+    RewriteRule ^services$ /services.php [L]
+    RewriteRule ^seo$ /seo.php [L]
+    RewriteRule ^ads$ /ads.php [L]
+    RewriteRule ^about$ /about.php [L]
+    RewriteRule ^contact$ /contact.php [L]
+    RewriteRule ^portfolio$ /portfolio.php [L]
+    RewriteRule ^vacancies$ /vacancies.php [L]
+    RewriteRule ^calculator$ /calculator.php [L]
+    RewriteRule ^blog$ /blog.php [L]
+    
+    # Правила для клиентской части
     RewriteRule ^client/login$ /client/login.php [L]
     RewriteRule ^client/dashboard$ /client/dashboard.php [L]
     RewriteRule ^client/logout$ /client/logout.php [L]
+    
+    # Правила для админ-панели
     RewriteRule ^admin/projects$ /admin/projects.php [L]
 </IfModule>
 

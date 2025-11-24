@@ -64,7 +64,7 @@ include 'includes/header.php';
             <p class="text-xl text-gray-300 mb-12">
                 Свяжитесь с нами и обсудим ваш проект
             </p>
-            <a href="contact.php" class="btn-neon inline-block">
+            <a href="/contact" class="btn-neon inline-block">
                 Обсудить проект
             </a>
         </div>

@@ -113,11 +113,6 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a href="/seo" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'text-neon-purple' : ''; ?>">SEO</a>
                     <a href="/ads" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'text-neon-purple' : ''; ?>">Google Ads</a>
                     <a href="/about" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'about' ? 'text-neon-purple' : ''; ?>">О нас</a>
-                    <?php if (isset($_SESSION['client_id'])): ?>
-                        <a href="/client/dashboard.php" class="nav-link text-neon-blue hover:text-neon-purple transition-colors duration-300">Личный кабинет</a>
-                    <?php else: ?>
-                        <a href="/client/login.php" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300">Войти</a>
-                    <?php endif; ?>
                     <a href="/contact" class="btn-neon text-sm py-2 px-6">Связаться</a>
                 </div>
                 
@@ -141,11 +136,6 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="/seo" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'seo' ? 'text-neon-purple bg-dark-surface' : ''; ?>">SEO</a>
                 <a href="/ads" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'ads' ? 'text-neon-purple bg-dark-surface' : ''; ?>">Google Ads</a>
                 <a href="/about" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation <?php echo $currentPage == 'about' ? 'text-neon-purple bg-dark-surface' : ''; ?>">О нас</a>
-                <?php if (isset($_SESSION['client_id'])): ?>
-                    <a href="/client/dashboard.php" class="block py-3 px-4 text-neon-blue hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation">Личный кабинет</a>
-                <?php else: ?>
-                    <a href="/client/login.php" class="block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation">Войти</a>
-                <?php endif; ?>
                 <a href="/contact" class="block btn-neon text-center mt-4">Связаться</a>
             </div>
         </div>
