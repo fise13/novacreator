@@ -245,20 +245,24 @@ if (!function_exists('mail')) {
 // Отправляем email - используем самый надежный способ
 $emailSent = false;
 $lastError = '';
+$emailDebug = [];
+
+// Логируем попытку отправки
+error_log("=== ПОПЫТКА ОТПРАВКИ EMAIL ===");
+error_log("Получатель: {$emailTo}");
+error_log("Тема: {$subject}");
+error_log("Отправитель формы: {$email}");
 
 // Кодируем тему письма для поддержки кириллицы
 $subjectEncoded = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 
-// Используем HTML формат с правильными заголовками
+// Используем более простой и надежный формат заголовков
 $finalHeaders = [
     'MIME-Version: 1.0',
     'Content-Type: text/html; charset=UTF-8',
-    'Content-Transfer-Encoding: 8bit',
     'From: NovaCreator Studio <noreply@novacreator-studio.com>',
     'Reply-To: ' . $email,
     'X-Mailer: PHP/' . phpversion(),
-    'X-Priority: 1',
-    'Importance: High',
     'Date: ' . date('r')
 ];
 
@@ -279,28 +283,46 @@ foreach ($attempts as $index => $attempt) {
     if ($emailSent) break;
     
     try {
+        error_log("--- Попытка " . ($index + 1) . " из " . count($attempts) . " ---");
+        error_log("Тема: " . substr($attempt['subject'], 0, 50) . "...");
+        error_log("Размер тела письма: " . strlen($attempt['body']) . " байт");
+        
         // Отключаем вывод ошибок для этой попытки
         $oldErrorReporting = error_reporting(0);
         
         // Отправляем письмо
-        $result = mail($emailTo, $attempt['subject'], $attempt['body'], implode("\r\n", $attempt['headers']));
+        $result = @mail($emailTo, $attempt['subject'], $attempt['body'], implode("\r\n", $attempt['headers']));
         
         // Восстанавливаем уровень ошибок
         error_reporting($oldErrorReporting);
         
+        $emailDebug[] = [
+            'attempt' => $index + 1,
+            'result' => $result ? 'success' : 'failed',
+            'subject' => substr($attempt['subject'], 0, 30)
+        ];
+        
         if ($result) {
             $emailSent = true;
-            error_log("Email успешно отправлен на {$emailTo} (попытка " . ($index + 1) . ")");
+            error_log("✓ Email успешно отправлен на {$emailTo} (попытка " . ($index + 1) . ")");
             break;
         } else {
             $errorInfo = error_get_last();
             if ($errorInfo && isset($errorInfo['message'])) {
                 $lastError = $errorInfo['message'];
+                error_log("✗ Ошибка: " . $lastError);
+            } else {
+                error_log("✗ Функция mail() вернула false без ошибки");
             }
         }
     } catch (Exception $e) {
         $lastError = $e->getMessage();
-        error_log('Ошибка отправки email (попытка ' . ($index + 1) . '): ' . $lastError);
+        error_log('✗ Исключение при отправке email (попытка ' . ($index + 1) . '): ' . $lastError);
+        $emailDebug[] = [
+            'attempt' => $index + 1,
+            'result' => 'exception',
+            'error' => $lastError
+        ];
     }
     
     // Небольшая задержка между попытками
@@ -318,13 +340,20 @@ if (function_exists('ini_set')) {
 
 // Если email не отправился, логируем детали
 if (!$emailSent) {
-    error_log("НЕ УДАЛОСЬ отправить email на {$emailTo}");
-    error_log("Последняя ошибка: {$lastError}");
+    error_log("=== EMAIL НЕ ОТПРАВЛЕН ===");
+    error_log("Получатель: {$emailTo}");
+    error_log("Последняя ошибка: " . ($lastError ?: 'Неизвестная ошибка'));
     error_log("Заявка сохранена в файл: {$logFile}");
+    error_log("Детали попыток: " . json_encode($emailDebug, JSON_UNESCAPED_UNICODE));
+    error_log("Проверьте настройки SMTP сервера или используйте внешний SMTP сервис");
     
-    // Пытаемся отправить уведомление администратору через системный лог
-    $adminNotification = "ВНИМАНИЕ: Не удалось отправить заявку на email {$emailTo}. Проверьте файл {$logFile}";
-    error_log($adminNotification);
+    // Сохраняем детальную информацию об ошибке в файл
+    $errorLogFile = __DIR__ . '/email_errors.log';
+    $errorLogEntry = date('Y-m-d H:i:s') . " - Не удалось отправить email на {$emailTo}\n";
+    $errorLogEntry .= "Ошибка: " . ($lastError ?: 'Неизвестная ошибка') . "\n";
+    $errorLogEntry .= "Детали: " . json_encode($emailDebug, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . "\n";
+    $errorLogEntry .= str_repeat('-', 80) . "\n";
+    @file_put_contents($errorLogFile, $errorLogEntry, FILE_APPEND | LOCK_EX);
 }
 
 // Возвращаем результат
