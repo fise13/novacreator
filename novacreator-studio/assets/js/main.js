@@ -175,85 +175,7 @@ function initNavigation() {
     }
 }
 
-/**
- * Валидация формы на клиенте
- * @param {HTMLFormElement} form - Форма для валидации
- * @return {boolean} true если форма валидна
- */
-function validateForm(form) {
-    let isValid = true;
-    
-    // Очищаем предыдущие ошибки
-    form.querySelectorAll('.error-message').forEach(el => el.remove());
-    form.querySelectorAll('.form-input, .form-textarea').forEach(el => {
-        el.classList.remove('border-red-500', 'ring-red-500');
-        el.setAttribute('aria-invalid', 'false');
-    });
-    
-    // Валидация имени
-    const nameInput = form.querySelector('[name="name"]');
-    if (nameInput) {
-        const name = nameInput.value.trim();
-        if (name.length < 2) {
-            showFieldError(nameInput, 'Имя должно содержать минимум 2 символа');
-            isValid = false;
-        }
-    }
-    
-    // Валидация email
-    const emailInput = form.querySelector('[name="email"]');
-    if (emailInput) {
-        const email = emailInput.value.trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email || !emailRegex.test(email)) {
-            showFieldError(emailInput, 'Введите корректный email адрес');
-            isValid = false;
-        }
-    }
-    
-    // Валидация телефона
-    const phoneInput = form.querySelector('[name="phone"]');
-    if (phoneInput) {
-        const phone = phoneInput.value.trim();
-        const phoneRegex = /^\+?[\d\s\-\(\)]{10,15}$/;
-        const cleanedPhone = phone.replace(/\D/g, '');
-        if (!phone || cleanedPhone.length < 10) {
-            showFieldError(phoneInput, 'Введите корректный телефон (минимум 10 цифр)');
-            isValid = false;
-        }
-    }
-    
-    // Валидация сообщения
-    const messageInput = form.querySelector('[name="message"]');
-    if (messageInput) {
-        const message = messageInput.value.trim();
-        if (message.length < 10) {
-            showFieldError(messageInput, 'Сообщение должно содержать минимум 10 символов');
-            isValid = false;
-        } else if (message.length > 5000) {
-            showFieldError(messageInput, 'Сообщение слишком длинное (максимум 5000 символов)');
-            isValid = false;
-        }
-    }
-    
-    return isValid;
-}
-
-/**
- * Показывает ошибку для поля формы
- * @param {HTMLElement} field - Поле формы
- * @param {string} message - Сообщение об ошибке
- */
-function showFieldError(field, message) {
-    field.classList.add('border-red-500', 'ring-red-500');
-    field.setAttribute('aria-invalid', 'true');
-    
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message text-red-400 text-sm mt-1';
-    errorDiv.textContent = message;
-    errorDiv.setAttribute('role', 'alert');
-    field.parentNode.appendChild(errorDiv);
-}
+// ФУНКЦИИ ВАЛИДАЦИИ УДАЛЕНЫ - форма отправляется без проверок
 
 /**
  * Инициализация обработки форм
@@ -291,7 +213,7 @@ function initForms() {
                 form.reset();
             })
             .catch(() => {
-                // Даже при ошибке - успех
+                // Всегда успех - ошибки игнорируются
                 showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
                 form.reset();
             })
