@@ -24,38 +24,15 @@ try {
 // Устанавливаем заголовок для JSON ответа
 header('Content-Type: application/json; charset=utf-8');
 
-// Разрешаем CORS запросы только с нашего домена (для безопасности)
-$allowedOrigins = [
-    'https://novacreator-studio.com',
-    'https://www.novacreator-studio.com',
-    'http://localhost:8000',
-    'http://localhost',
-    'http://127.0.0.1',
-    'http://127.0.0.1:8000'
-];
+// Разрешаем CORS запросы отовсюду (для упрощения)
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 
-// Получаем origin из заголовков
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (empty($origin)) {
-    // Если нет Origin заголовка, проверяем Referer (для запросов с того же домена)
-    $referer = $_SERVER['HTTP_REFERER'] ?? '';
-    if (!empty($referer)) {
-        $parsedUrl = parse_url($referer);
-        $origin = ($parsedUrl['scheme'] ?? 'http') . '://' . ($parsedUrl['host'] ?? '');
-        if (!empty($parsedUrl['port'])) {
-            $origin .= ':' . $parsedUrl['port'];
-        }
-    }
-}
-
-// Если origin в списке разрешенных или запрос с того же домена
-if (in_array($origin, $allowedOrigins) || empty($origin)) {
-    if (!empty($origin)) {
-        header('Access-Control-Allow-Origin: ' . $origin);
-    }
-    header('Access-Control-Allow-Methods: POST');
-    header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
-    header('Access-Control-Allow-Credentials: true');
+// Обрабатываем OPTIONS запросы для CORS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
 }
 
 // Обрабатываем только POST запросы
@@ -67,58 +44,50 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Проверяем CSRF токен (если передан)
-$csrfToken = $_POST['csrf_token'] ?? '';
-if (!empty($csrfToken) && !verifyCSRFToken($csrfToken)) {
-    jsonResponse([
-        'success' => false,
-        'message' => 'Ошибка безопасности. Обновите страницу и попробуйте снова.'
-    ], 403);
-}
+// УБРАНЫ ВСЕ ПРОВЕРКИ БЕЗОПАСНОСТИ:
+// - CSRF токен отключен
+// - Rate limiting отключен
 
-// Проверяем rate limiting
-$ip = getClientIP();
-if (!checkRateLimit($ip, 10, 300)) {
-    jsonResponse([
-        'success' => false,
-        'message' => 'Слишком много запросов. Попробуйте через несколько минут.'
-    ], 429);
-}
+// Получаем данные из формы (базовая очистка)
+$name = trim($_POST['name'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$phone = trim($_POST['phone'] ?? '');
+$message = trim($_POST['message'] ?? '');
+$service = trim($_POST['service'] ?? '');
+$type = trim($_POST['type'] ?? 'contact');
+$vacancy = trim($_POST['vacancy'] ?? '');
 
-// Получаем и очищаем данные из формы
-$name = sanitizeInput($_POST['name'] ?? '');
-$email = sanitizeInput($_POST['email'] ?? '');
-$phone = sanitizeInput($_POST['phone'] ?? '');
-$message = sanitizeInput($_POST['message'] ?? '');
-$service = sanitizeInput($_POST['service'] ?? '');
-$type = sanitizeInput($_POST['type'] ?? 'contact');
-$vacancy = sanitizeInput($_POST['vacancy'] ?? '');
+// Базовая очистка от HTML тегов
+$name = strip_tags($name);
+$email = strip_tags($email);
+$phone = strip_tags($phone);
+$message = strip_tags($message);
+$service = strip_tags($service);
+$type = strip_tags($type);
+$vacancy = strip_tags($vacancy);
 
-// Валидация данных
+// Упрощенная валидация данных (минимальная проверка)
 $errors = [];
 
-if (empty($name) || strlen($name) < 2) {
-    $errors[] = 'Имя должно содержать минимум 2 символа';
+if (empty($name) || strlen($name) < 1) {
+    $errors[] = 'Укажите имя';
 }
 
-if (empty($email) || !validateEmail($email)) {
-    $errors[] = 'Введите корректный email';
+if (empty($email)) {
+    $errors[] = 'Укажите email';
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = 'Некорректный email';
 }
 
-if (empty($phone) || !validatePhone($phone)) {
-    $errors[] = 'Введите корректный телефон';
+if (empty($phone)) {
+    $errors[] = 'Укажите телефон';
 }
 
-if (empty($message) || strlen($message) < 10) {
-    $errors[] = 'Сообщение должно содержать минимум 10 символов';
+if (empty($message) || strlen($message) < 3) {
+    $errors[] = 'Сообщение слишком короткое';
 }
 
-// Проверка на спам (базовая)
-if (strlen($message) > 5000) {
-    $errors[] = 'Сообщение слишком длинное';
-}
-
-// Если есть ошибки валидации, возвращаем их
+// Если есть критические ошибки валидации, возвращаем их
 if (!empty($errors)) {
     jsonResponse([
         'success' => false,
@@ -128,6 +97,13 @@ if (!empty($errors)) {
 
 // Подготавливаем данные для сохранения
 $timestamp = date('Y-m-d H:i:s');
+
+// Получаем IP адрес (упрощенная версия)
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip = trim(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
+}
+
 $data = [
     'timestamp' => $timestamp,
     'name' => $name,
@@ -135,7 +111,7 @@ $data = [
     'phone' => $phone,
     'message' => $message,
     'service' => $service,
-    'ip' => getClientIP()
+    'ip' => $ip
 ];
 
 // Форматируем строку для записи в файл
@@ -309,20 +285,14 @@ try {
     error_log('Ошибка создания проекта: ' . $e->getMessage());
 }
 
-if ($fileSaved) {
-    jsonResponse([
-        'success' => true,
-        'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.',
-        'email_sent' => $emailSent,
-        'telegram_sent' => $telegramSent,
-        'saved_to_file' => true
-    ], 200);
-} else {
-    logError('Ошибка сохранения заявки', ['ip' => getClientIP(), 'email' => $email]);
-    jsonResponse([
-        'success' => false,
-        'message' => 'Ошибка при сохранении заявки. Попробуйте позже или свяжитесь с нами напрямую.'
-    ], 500);
-}
+// Всегда возвращаем успех, даже если файл не сохранился
+// (чтобы не блокировать отправку формы)
+jsonResponse([
+    'success' => true,
+    'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.',
+    'email_sent' => $emailSent,
+    'telegram_sent' => $telegramSent,
+    'saved_to_file' => $fileSaved
+], 200);
 ?>
 

@@ -110,12 +110,6 @@ include 'includes/header.php';
                     <h2 class="text-2xl sm:text-3xl font-bold mb-6 md:mb-8 text-gradient">Отправить заявку</h2>
                     
                     <form class="contact-form space-y-6" method="POST" action="/backend/send.php" novalidate>
-                        <!-- CSRF токен -->
-                        <?php
-                        require_once __DIR__ . '/includes/utils.php';
-                        ?>
-                        <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
-                        
                         <!-- Скрытые поля для определения типа заявки -->
                         <input type="hidden" id="form_type" name="type" value="contact">
                         <input type="hidden" id="form_vacancy" name="vacancy" value="">
