@@ -1,11 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Редирект с .php на версию без расширения (301 - постоянный редирект)
-    # Только для файлов в корне сайта, исключая подпапки (admin, client, includes, backend и т.д.)
-    RewriteCond %{THE_REQUEST} \s/+([^/?\s]+)\.php[\s?] [NC]
-    RewriteCond %{REQUEST_URI} !^/(admin|client|includes|backend|assets|telegram_bot|data|adm)/ [NC]
-    RewriteRule ^ /%1? [R=301,L]
+    # Разрешаем прямой доступ к файлам админ-панели и другим системным папкам
+    RewriteCond %{REQUEST_URI} ^/(admin|client|includes|backend|assets|telegram_bot|data|cache|adm)/ [NC]
+    RewriteRule ^ - [L]
     
     # Правила для админ-панели через /adm
     # Все запросы к /adm перенаправляются в /admin/
@@ -13,6 +11,12 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^adm/?(.*)$ /admin/$1 [L]
+    
+    # Редирект с .php на версию без расширения (301 - постоянный редирект)
+    # Только для файлов в корне сайта, исключая подпапки
+    RewriteCond %{THE_REQUEST} \s/+([^/?\s]+)\.php[\s?] [NC]
+    RewriteCond %{REQUEST_URI} !^/(admin|client|includes|backend|assets|telegram_bot|data|cache|adm)/ [NC]
+    RewriteRule ^ /%1? [R=301,L]
     
     # Проверяем, что файл или директория не существуют
     RewriteCond %{REQUEST_FILENAME} !-f
