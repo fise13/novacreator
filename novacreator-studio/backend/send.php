@@ -48,21 +48,102 @@ $telegramSent = false;
 $telegramError = '';
 $telegramLogFile = __DIR__ . '/telegram_errors.log';
 
+// Функция для поиска файла по нескольким возможным путям
+function findTelegramFile($filename) {
+    $possiblePaths = [];
+    
+    // 1. Относительный путь от backend (самый распространенный случай)
+    $possiblePaths[] = __DIR__ . '/../telegram_bot/' . $filename;
+    
+    // 2. Через dirname
+    $possiblePaths[] = dirname(__DIR__) . '/telegram_bot/' . $filename;
+    
+    // 3. От корня документа (если DOCUMENT_ROOT указывает на корень проекта)
+    if (isset($_SERVER['DOCUMENT_ROOT'])) {
+        $possiblePaths[] = $_SERVER['DOCUMENT_ROOT'] . '/telegram_bot/' . $filename;
+        // Также пробуем с novacreator-studio в пути
+        if (strpos($_SERVER['DOCUMENT_ROOT'], 'novacreator-studio') === false) {
+            $possiblePaths[] = $_SERVER['DOCUMENT_ROOT'] . '/novacreator-studio/telegram_bot/' . $filename;
+        }
+    }
+    
+    // 4. От скрипта (если SCRIPT_FILENAME доступен)
+    if (isset($_SERVER['SCRIPT_FILENAME'])) {
+        $scriptDir = dirname($_SERVER['SCRIPT_FILENAME']);
+        $possiblePaths[] = $scriptDir . '/telegram_bot/' . $filename;
+        
+        // Пытаемся найти корень проекта (где находится index.php)
+        if (file_exists($scriptDir . '/index.php')) {
+            $possiblePaths[] = $scriptDir . '/telegram_bot/' . $filename;
+        }
+        // Если backend находится в подпапке
+        if (file_exists($scriptDir . '/../index.php')) {
+            $possiblePaths[] = dirname($scriptDir) . '/telegram_bot/' . $filename;
+        }
+        // Если мы в backend, идем на уровень выше
+        if (basename($scriptDir) === 'backend' && file_exists($scriptDir . '/../index.php')) {
+            $possiblePaths[] = dirname($scriptDir) . '/telegram_bot/' . $filename;
+        }
+    }
+    
+    // 5. Пробуем найти корень проекта, идя вверх от текущего файла
+    $currentDir = __DIR__;
+    for ($i = 0; $i < 3; $i++) {
+        if (file_exists($currentDir . '/index.php')) {
+            $possiblePaths[] = $currentDir . '/telegram_bot/' . $filename;
+            break;
+        }
+        $currentDir = dirname($currentDir);
+    }
+    
+    // Удаляем дубликаты и проверяем каждый путь
+    $possiblePaths = array_unique($possiblePaths);
+    
+    foreach ($possiblePaths as $path) {
+        // Нормализуем путь (убираем ../ и ./)
+        $normalizedPath = realpath($path);
+        if ($normalizedPath && file_exists($normalizedPath)) {
+            return $normalizedPath;
+        }
+        // Также пробуем без realpath (на случай проблем с правами)
+        if (file_exists($path)) {
+            return $path;
+        }
+    }
+    
+    return null;
+}
+
 // Сначала подключаем конфигурацию Telegram
-$configPath = __DIR__ . '/../telegram_bot/config.php';
-if (file_exists($configPath)) {
+$configPath = findTelegramFile('config.php');
+if ($configPath && file_exists($configPath)) {
     require_once $configPath;
+    $successLog = "[" . date('Y-m-d H:i:s') . "] ✅ Файл config.php найден и загружен: {$configPath}\n";
+    @file_put_contents($telegramLogFile, $successLog, FILE_APPEND | LOCK_EX);
 } else {
-    $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Файл config.php не найден по пути: {$configPath}\n";
+    $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Файл config.php не найден. Проверенные пути:\n";
+    $errorLog .= "   __DIR__: " . __DIR__ . "\n";
+    $errorLog .= "   SCRIPT_FILENAME: " . (isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['SCRIPT_FILENAME'] : 'не определен') . "\n";
+    $errorLog .= "   DOCUMENT_ROOT: " . (isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : 'не определен') . "\n";
+    $errorLog .= "   Попытка 1: " . __DIR__ . '/../telegram_bot/config.php' . " (существует: " . (file_exists(__DIR__ . '/../telegram_bot/config.php') ? 'ДА' : 'НЕТ') . ")\n";
+    $errorLog .= "   Попытка 2: " . dirname(__DIR__) . '/telegram_bot/config.php' . " (существует: " . (file_exists(dirname(__DIR__) . '/telegram_bot/config.php') ? 'ДА' : 'НЕТ') . ")\n";
+    if (isset($_SERVER['DOCUMENT_ROOT'])) {
+        $errorLog .= "   Попытка 3: " . $_SERVER['DOCUMENT_ROOT'] . '/telegram_bot/config.php' . " (существует: " . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/telegram_bot/config.php') ? 'ДА' : 'НЕТ') . ")\n";
+    }
     @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
 }
 
 // Подключаем функции отправки в Telegram
-$telegramIncludePath = __DIR__ . '/../telegram_bot/send_telegram.php';
-if (file_exists($telegramIncludePath)) {
+$telegramIncludePath = findTelegramFile('send_telegram.php');
+if ($telegramIncludePath && file_exists($telegramIncludePath)) {
     require_once $telegramIncludePath;
+    $successLog = "[" . date('Y-m-d H:i:s') . "] ✅ Файл send_telegram.php найден и загружен: {$telegramIncludePath}\n";
+    @file_put_contents($telegramLogFile, $successLog, FILE_APPEND | LOCK_EX);
 } else {
-    $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Файл send_telegram.php не найден по пути: {$telegramIncludePath}\n";
+    $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Файл send_telegram.php не найден. Проверенные пути:\n";
+    $errorLog .= "   __DIR__: " . __DIR__ . "\n";
+    $errorLog .= "   Попытка 1: " . __DIR__ . '/../telegram_bot/send_telegram.php' . " (существует: " . (file_exists(__DIR__ . '/../telegram_bot/send_telegram.php') ? 'ДА' : 'НЕТ') . ")\n";
+    $errorLog .= "   Попытка 2: " . dirname(__DIR__) . '/telegram_bot/send_telegram.php' . " (существует: " . (file_exists(dirname(__DIR__) . '/telegram_bot/send_telegram.php') ? 'ДА' : 'НЕТ') . ")\n";
     @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
 }
 
