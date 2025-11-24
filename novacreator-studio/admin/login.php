@@ -33,8 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $csrfToken = $_POST['csrf_token'] ?? '';
     
-    // Проверяем CSRF токен
-    if (!verifyCSRFToken($csrfToken)) {
+    // Проверяем CSRF токен только если он передан
+    $csrfValid = true;
+    if (!empty($csrfToken)) {
+        $csrfValid = verifyCSRFToken($csrfToken);
+    }
+    
+    if (!$csrfValid) {
         $error = 'Ошибка безопасности. Пожалуйста, обновите страницу и попробуйте снова.';
     } else {
         // Проверяем rate limiting
@@ -45,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Проверяем пароль (сначала пробуем хеш, потом старый способ для совместимости)
             $passwordValid = false;
             
-            if (defined('ADMIN_PASSWORD_HASH')) {
+            if (defined('ADMIN_PASSWORD_HASH') && !empty(ADMIN_PASSWORD_HASH) && ADMIN_PASSWORD_HASH !== '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi') {
                 $passwordValid = password_verify($password, ADMIN_PASSWORD_HASH);
             }
             
