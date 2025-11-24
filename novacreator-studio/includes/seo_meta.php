@@ -107,6 +107,14 @@ $pagesMeta = [
         'breadcrumb' => 'Блог',
         'canonical' => '/blog',
     ],
+    'faq' => [
+        'title' => 'Часто задаваемые вопросы | FAQ - NovaCreator Studio',
+        'description' => 'Ответы на популярные вопросы о SEO, разработке сайтов, Google Ads и маркетинге. Узнайте больше о наших услугах и процессе работы.',
+        'keywords' => 'FAQ, часто задаваемые вопросы, вопросы и ответы, помощь, поддержка',
+        'og_type' => 'website',
+        'breadcrumb' => 'FAQ',
+        'canonical' => '/faq',
+    ],
 ];
 
 $meta = array_merge($defaultMeta, $pagesMeta[$currentPage] ?? []);

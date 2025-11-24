@@ -1,43 +1,74 @@
 # Robots.txt для NovaCreator Studio
-# Обновите URL в строке Sitemap на ваш реальный домен
+# Все страницы доступны для индексации (редирект с .php на версию без расширения настроен в .htaccess)
 
 User-agent: *
 Allow: /
 Disallow: /backend/
 Disallow: /telegram_bot/
 Disallow: /node_modules/
+Disallow: /admin/
+Disallow: /client/
 Disallow: /*.txt$
 Disallow: /*.log$
 
-# Разрешаем индексацию важных страниц
-Allow: /index.php
-Allow: /services.php
-Allow: /seo.php
-Allow: /ads.php
-Allow: /portfolio.php
-Allow: /about.php
-Allow: /contact.php
-Allow: /vacancies.php
+# Блокируем индексацию .php файлов (используются версии без расширения через .htaccess)
+Disallow: /*.php$
+
+# Разрешаем индексацию всех основных страниц (без .php)
+Allow: /$
+Allow: /services$
+Allow: /seo$
+Allow: /ads$
+Allow: /portfolio$
+Allow: /about$
+Allow: /contact$
+Allow: /vacancies$
+Allow: /calculator$
+Allow: /blog$
+Allow: /faq$
+Allow: /blog-post
 
 Sitemap: https://novacreator-studio.com/sitemap.xml
 
-# Crawl-delay (опционально, для снижения нагрузки)
-# Crawl-delay: 1
-
-# Специальные правила для поисковых систем
+# Специальные правила для основных поисковых систем
 User-agent: Googlebot
 Allow: /
+Disallow: /backend/
+Disallow: /telegram_bot/
+Disallow: /node_modules/
+Disallow: /admin/
+Disallow: /client/
+Disallow: /*.php$
+
+User-agent: Googlebot-Image
+Allow: /assets/
 
 User-agent: Yandex
 Allow: /
+Disallow: /backend/
+Disallow: /telegram_bot/
+Disallow: /node_modules/
+Disallow: /admin/
+Disallow: /client/
+Disallow: /*.php$
 
 User-agent: Bingbot
 Allow: /
+Disallow: /backend/
+Disallow: /telegram_bot/
+Disallow: /node_modules/
+Disallow: /admin/
+Disallow: /client/
+Disallow: /*.php$
 
-# Блокируем ботов-спамеров
+# Блокируем ботов-спамеров или ограничиваем их
 User-agent: AhrefsBot
 Crawl-delay: 10
+Disallow: /backend/
+Disallow: /admin/
 
 User-agent: SemrushBot
 Crawl-delay: 10
+Disallow: /backend/
+Disallow: /admin/
 
