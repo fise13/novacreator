@@ -479,6 +479,19 @@
     padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   }
   
+  /* Blur эффект для overlay мобильного меню */
+  #mobileMenuOverlay {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    will-change: backdrop-filter;
+  }
+  
+  /* Улучшенный blur для самого меню */
+  #mobileMenu {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  
   /* Плавающие частицы на фоне (опционально) */
   .floating-particles {
     position: fixed;
