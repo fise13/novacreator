@@ -38,6 +38,36 @@
     user-select: text;
   }
   
+  /* Анимация иконки мобильного меню */
+  #menuIcon {
+    transition: transform 0.3s ease;
+  }
+  
+  #menuIcon.menu-open {
+    transform: rotate(90deg);
+  }
+  
+  #menuIcon path {
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  
+  /* Плавное появление элементов мобильного меню */
+  .mobile-menu-item {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  
+  /* Улучшение производительности для backdrop */
+  #mobileMenuBackdrop {
+    will-change: opacity;
+  }
+  
+  /* Улучшение производительности для мобильного меню */
+  #mobileMenu {
+    will-change: transform;
+  }
+  
   /* Улучшенные стили для touch устройств */
   .touch-device button,
   .touch-device .btn-neon,
