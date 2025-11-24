@@ -43,11 +43,16 @@ $logEntry = "[{$timestamp}] Имя: {$name} | Email: {$email} | Телефон: 
 $logFile = __DIR__ . '/requests.txt';
 @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX);
 
-// Пытаемся отправить в Telegram с логированием ошибок
+// Отправляем в Telegram с подробным логированием
 $telegramSent = false;
 $telegramError = '';
+$telegramLogFile = __DIR__ . '/telegram_errors.log';
+
+// Подключаем функции отправки в Telegram
 require_once __DIR__ . '/../telegram_bot/send_telegram.php';
+
 if (function_exists('formatContactMessage') && function_exists('sendTelegramMessage')) {
+    // Подготавливаем данные для Telegram
     $data = [
         'timestamp' => $timestamp,
         'name' => $name,
@@ -57,37 +62,58 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
         'service' => $service,
         'ip' => $ip
     ];
+    
     $messageType = ($type === 'vacancy' || !empty($vacancy)) ? 'vacancy' : 'contact';
+    
     if ($messageType === 'vacancy') {
         $data['vacancy'] = $vacancy ?: $service;
         $telegramMessage = formatVacancyMessage($data);
     } else {
         $telegramMessage = formatContactMessage($data);
     }
+    
+    // Отправляем сообщение в Telegram
     $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
     $telegramSent = isset($telegramResult['success']) ? $telegramResult['success'] : false;
     
-    // Логируем результат отправки в Telegram
-    if (function_exists('logError')) {
-        if ($telegramSent) {
-            logError('Telegram отправка успешна', ['type' => $messageType]);
-        } else {
-            $telegramError = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
-            logError('Telegram отправка не удалась', [
-                'error' => $telegramError,
+    // Логируем результат (всегда, даже если успешно)
+    $logTimestamp = date('Y-m-d H:i:s');
+    $chatId = defined('TELEGRAM_CHAT_ID') ? TELEGRAM_CHAT_ID : 'не определен';
+    
+    if ($telegramSent) {
+        $successLog = "[{$logTimestamp}] ✅ Telegram отправка УСПЕШНА | Тип: {$messageType} | Chat ID: {$chatId} | Имя: {$name} | Email: {$email}\n";
+        @file_put_contents($telegramLogFile, $successLog, FILE_APPEND | LOCK_EX);
+        
+        // Также логируем через функцию logError если доступна
+        if (function_exists('logError')) {
+            logError('Telegram отправка успешна', [
                 'type' => $messageType,
-                'chat_id' => defined('TELEGRAM_CHAT_ID') ? TELEGRAM_CHAT_ID : 'не определен'
+                'chat_id' => $chatId,
+                'name' => $name,
+                'email' => $email
             ]);
         }
     } else {
-        // Если функция logError недоступна, пишем в файл напрямую
-        $errorLogFile = __DIR__ . '/telegram_errors.log';
-        if (!$telegramSent) {
-            $errorMsg = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
-            $logEntry = "[" . date('Y-m-d H:i:s') . "] Ошибка отправки в Telegram: {$errorMsg}\n";
-            @file_put_contents($errorLogFile, $logEntry, FILE_APPEND | LOCK_EX);
+        $telegramError = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
+        $errorLog = "[{$logTimestamp}] ❌ Telegram отправка НЕ УДАЛАСЬ | Тип: {$messageType} | Chat ID: {$chatId} | Ошибка: {$telegramError} | Имя: {$name} | Email: {$email}\n";
+        @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
+        
+        // Также логируем через функцию logError если доступна
+        if (function_exists('logError')) {
+            logError('Telegram отправка не удалась', [
+                'error' => $telegramError,
+                'type' => $messageType,
+                'chat_id' => $chatId,
+                'name' => $name,
+                'email' => $email
+            ]);
         }
     }
+} else {
+    // Функции не найдены
+    $logTimestamp = date('Y-m-d H:i:s');
+    $errorLog = "[{$logTimestamp}] ❌ Функции Telegram не найдены (formatContactMessage или sendTelegramMessage)\n";
+    @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
 }
 
 // Пытаемся отправить email (без проверки ошибок)

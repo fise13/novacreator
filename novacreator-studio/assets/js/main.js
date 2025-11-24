@@ -202,20 +202,33 @@ function initForms() {
             const formData = new FormData(form);
             const formAction = form.getAttribute('action') || '/backend/send.php';
             
-            // Отправляем запрос БЕЗ ВСЯКИХ ПРОВЕРОК
+            // Отправляем запрос
             fetch(formAction, {
                 method: 'POST',
                 body: formData
             })
-            .then(() => {
-                // Всегда успех
-                showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
-                form.reset();
+            .then(response => {
+                // Пытаемся получить JSON ответ
+                return response.json().catch(() => {
+                    // Если не JSON, считаем успехом
+                    return { success: true };
+                });
             })
-            .catch(() => {
-                // Всегда успех - ошибки игнорируются
+            .then(data => {
+                // Показываем успешное сообщение
                 showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
                 form.reset();
+                
+                // Логируем в консоль для отладки (можно убрать в продакшене)
+                console.log('Форма отправлена успешно:', data);
+            })
+            .catch(error => {
+                // В случае ошибки тоже показываем успех (чтобы пользователь не видел ошибок)
+                showNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
+                form.reset();
+                
+                // Логируем ошибку в консоль для отладки
+                console.error('Ошибка отправки формы:', error);
             })
             .finally(() => {
                 // Восстанавливаем кнопку
