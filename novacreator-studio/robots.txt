@@ -19,8 +19,7 @@ Allow: /about.php
 Allow: /contact.php
 Allow: /vacancies.php
 
-# Sitemap (обновите на ваш реальный домен)
-# Sitemap: https://ваш-домен.com/sitemap.xml
+Sitemap: https://novacreator-studio.com/sitemap.xml
 
 # Crawl-delay (опционально, для снижения нагрузки)
 # Crawl-delay: 1

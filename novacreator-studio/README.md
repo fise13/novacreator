@@ -83,7 +83,7 @@ novacreator-studio/
 │   ├── js/
 │   │   └── main.js        # Основной JavaScript
 │   └── img/
-│       └── NCS.svg        # Логотип
+│       └── logo.svg       # Логотип
 │
 ├── backend/               # Backend логика
 │   ├── send.php           # Обработка форм

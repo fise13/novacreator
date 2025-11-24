@@ -59,7 +59,7 @@ npm run build-css-prod
 │   ├── js/
 │   │   └── main.js
 │   └── img/
-│       └── NCS.svg
+│       └── logo.svg
 ├── backend/
 │   ├── send.php
 │   └── requests.txt

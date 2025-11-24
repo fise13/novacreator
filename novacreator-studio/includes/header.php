@@ -38,6 +38,10 @@
     <!-- Preconnect для ускорения загрузки -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
     <!-- Tailwind CSS -->
     <?php
@@ -62,11 +66,18 @@
     $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
     $baseDir = rtrim($baseDir, '/\\');
     
-    // Формируем путь к CSS
+    // Формируем путь к CSS и JS
     $cssPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/css/output.css';
     $cssPath = preg_replace('#/+#', '/', $cssPath);
+    $jsPreloadPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
+    $jsPreloadPath = preg_replace('#/+#', '/', $jsPreloadPath);
     ?>
+    <link rel="preload" as="style" href="<?php echo $cssPath; ?>">
     <link href="<?php echo $cssPath; ?>" rel="stylesheet">
+    <link rel="preload" as="image" type="image/svg+xml" href="/assets/img/logo.svg">
+    <link rel="preload" as="image" type="image/webp" href="/assets/img/og-default.webp">
+    <link rel="preload" as="script" href="<?php echo $jsPreloadPath; ?>">
+    <meta name="color-scheme" content="dark light">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -84,8 +95,8 @@
         <div class="container mx-auto px-4 md:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 md:h-20">
                 <!-- Логотип -->
-                <a href="/" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation">
-                    <img src="./assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство в Казахстане" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" />
+                <a href="/" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation" aria-label="На главную NovaCreator Studio">
+                    <img src="./assets/img/logo.svg" alt="Логотип NovaCreator Studio - Digital агентство в Казахстане" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" decoding="async" fetchpriority="high" />
                     <span class="text-lg md:text-2xl font-bold text-gradient">NovaCreator Studio</span>
                 </a>
                 

@@ -7,16 +7,17 @@
 // Определяем текущую страницу
 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 
-// Массив с названиями страниц
-$pageNames = [
-    'index' => 'Главная',
-    'services' => 'Услуги',
-    'seo' => 'SEO-оптимизация',
-    'ads' => 'Google Ads',
-    'portfolio' => 'Портфолио',
-    'about' => 'О нас',
-    'contact' => 'Контакты',
-    'vacancies' => 'Вакансии'
+// Словарь с названиями и человекочитаемыми URL
+$pageMap = [
+    'services' => ['name' => 'Услуги', 'url' => '/services'],
+    'seo' => ['name' => 'SEO-оптимизация', 'url' => '/seo'],
+    'ads' => ['name' => 'Google Ads', 'url' => '/ads'],
+    'portfolio' => ['name' => 'Портфолио', 'url' => '/portfolio'],
+    'about' => ['name' => 'О нас', 'url' => '/about'],
+    'contact' => ['name' => 'Контакты', 'url' => '/contact'],
+    'vacancies' => ['name' => 'Вакансии', 'url' => '/vacancies'],
+    'calculator' => ['name' => 'Калькулятор', 'url' => '/calculator'],
+    'blog' => ['name' => 'Блог', 'url' => '/blog']
 ];
 
 // Формируем breadcrumbs
@@ -24,9 +25,10 @@ $breadcrumbs = [
     ['name' => 'Главная', 'url' => '/']
 ];
 
-// Добавляем текущую страницу (если не главная)
-if ($currentPage !== 'index' && isset($pageNames[$currentPage])) {
-    $breadcrumbs[] = ['name' => $pageNames[$currentPage], 'url' => '/' . $currentPage];
+if (!empty($pageBreadcrumbs) && is_array($pageBreadcrumbs)) {
+    $breadcrumbs = $pageBreadcrumbs;
+} elseif ($currentPage !== 'index' && isset($pageMap[$currentPage])) {
+    $breadcrumbs[] = $pageMap[$currentPage];
 }
 ?>
 
@@ -36,7 +38,7 @@ if ($currentPage !== 'index' && isset($pageNames[$currentPage])) {
         <?php foreach ($breadcrumbs as $index => $crumb): ?>
             <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center">
                 <?php if ($index < count($breadcrumbs) - 1): ?>
-                    <a href="<?php echo $crumb['url']; ?>" itemprop="item" class="hover:text-neon-purple transition-colors">
+                    <a href="<?php echo htmlspecialchars($crumb['url']); ?>" itemprop="item" class="hover:text-neon-purple transition-colors">
                         <span itemprop="name"><?php echo htmlspecialchars($crumb['name']); ?></span>
                     </a>
                     <meta itemprop="position" content="<?php echo $index + 1; ?>">
@@ -44,7 +46,7 @@ if ($currentPage !== 'index' && isset($pageNames[$currentPage])) {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 <?php else: ?>
-                    <span itemprop="name" class="text-gray-300"><?php echo htmlspecialchars($crumb['name']); ?></span>
+                    <span itemprop="name" class="text-gray-300" aria-current="page"><?php echo htmlspecialchars($crumb['name']); ?></span>
                     <meta itemprop="position" content="<?php echo $index + 1; ?>">
                 <?php endif; ?>
             </li>

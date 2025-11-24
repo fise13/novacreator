@@ -35,10 +35,56 @@ if (!$article) {
     exit;
 }
 
+$host = $_SERVER['HTTP_HOST'] ?? 'novacreator-studio.com';
+$isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
+$scheme = $isSecure ? 'https' : 'http';
+$siteBase = $scheme . '://' . $host;
+$absoluteUrl = static function (?string $path) use ($siteBase): string {
+    if (!$path) {
+        return $siteBase;
+    }
+    if (preg_match('#^https?://#i', $path)) {
+        return $path;
+    }
+    return rtrim($siteBase, '/') . '/' . ltrim($path, '/');
+};
+$articleUrl = $siteBase . '/blog-post?slug=' . urlencode($article['slug']);
+$articleImage = $absoluteUrl($article['image'] ?? '/assets/img/og-default.webp');
+
 $pageTitle = $article['title'];
 $pageMetaTitle = $article['title'] . ' - NovaCreator Studio';
 $pageMetaDescription = $article['excerpt'];
 $pageMetaKeywords = $article['category'] . ', ' . strtolower($article['category']) . ' статьи, digital маркетинг';
+$pageMetaImage = $articleImage;
+$pageMetaCanonical = $articleUrl;
+$pageMetaOgType = 'article';
+$pageBreadcrumbs = [
+    ['name' => 'Главная', 'url' => $siteBase . '/'],
+    ['name' => 'Блог', 'url' => $siteBase . '/blog'],
+    ['name' => $article['title'], 'url' => $articleUrl]
+];
+$pageStructuredData = [
+    '@type' => 'BlogPosting',
+    'headline' => $article['title'],
+    'description' => $article['excerpt'],
+    'image' => $articleImage,
+    'datePublished' => $article['date'],
+    'dateModified' => $article['date'],
+    'author' => [
+        '@type' => 'Organization',
+        'name' => 'NovaCreator Studio',
+        'url' => $siteBase
+    ],
+    'publisher' => [
+        '@type' => 'Organization',
+        'name' => 'NovaCreator Studio',
+        'logo' => [
+            '@type' => 'ImageObject',
+            'url' => $siteBase . '/assets/img/logo.svg'
+        ]
+    ],
+    'mainEntityOfPage' => $articleUrl
+];
 
 include 'includes/header.php';
 

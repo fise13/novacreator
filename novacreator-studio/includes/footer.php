@@ -10,7 +10,7 @@
                 <!-- О компании -->
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <img src="./assets/img/NCS.svg" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" />
+                        <img src="./assets/img/logo.svg" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" decoding="async" />
                         <span class="text-xl font-bold text-gradient">NovaCreator Studio</span>
                     </div>
                     <p class="text-gray-400 mb-4">
@@ -125,10 +125,10 @@
     $baseDir = rtrim($baseDir, '/\\');
     
     // Формируем путь к JS
-    $jsPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.js';
+    $jsPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
     $jsPath = preg_replace('#/+#', '/', $jsPath);
     ?>
-    <script src="<?php echo $jsPath; ?>"></script>
+    <script src="<?php echo $jsPath; ?>" defer></script>
     
     <!-- Дополнительная структурированная разметка для сайта -->
     <script type="application/ld+json">
