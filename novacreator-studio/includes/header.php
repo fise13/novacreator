@@ -126,10 +126,10 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
         
         <!-- Затемнение фона для мобильного меню -->
-        <div class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300" id="mobileMenuOverlay"></div>
+        <div class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 opacity-0" id="mobileMenuOverlay"></div>
         
         <!-- Мобильное меню - оптимизировано для touch -->
-        <div class="hidden fixed top-16 left-0 right-0 bottom-0 border-t border-dark-border bg-dark-bg/98 backdrop-blur-md z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto" id="mobileMenu" style="transform: translateY(-100%);">
+        <div class="hidden fixed top-16 left-0 right-0 bottom-0 border-t border-dark-border bg-dark-bg/98 backdrop-blur-md z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto translate-y-[-100%]" id="mobileMenu">
             <div class="container mx-auto px-4 py-6 space-y-2 pb-safe">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
@@ -156,16 +156,18 @@ if (session_status() === PHP_SESSION_NONE) {
                 // Функция открытия меню
                 function openMenu() {
                     isMenuOpen = true;
+                    // Показываем элементы
                     mobileMenu.classList.remove('hidden');
                     mobileMenuOverlay.classList.remove('hidden');
                     // Предотвращаем скролл body при открытом меню
                     document.body.style.overflow = 'hidden';
                     
-                    // Анимация появления
-                    requestAnimationFrame(() => {
+                    // Небольшая задержка для применения стилей перед анимацией
+                    setTimeout(() => {
                         mobileMenuOverlay.style.opacity = '1';
                         mobileMenu.style.transform = 'translateY(0)';
-                    });
+                        mobileMenu.style.transition = 'transform 0.3s ease-in-out';
+                    }, 10);
                     
                     // Меняем иконку на крестик
                     const icon = mobileMenuBtn.querySelector('svg');
@@ -188,6 +190,9 @@ if (session_status() === PHP_SESSION_NONE) {
                     setTimeout(() => {
                         mobileMenu.classList.add('hidden');
                         mobileMenuOverlay.classList.add('hidden');
+                        // Сбрасываем стили для следующего открытия
+                        mobileMenu.style.transform = 'translateY(-100%)';
+                        mobileMenuOverlay.style.opacity = '0';
                     }, 300);
                     
                     // Меняем иконку на гамбургер
