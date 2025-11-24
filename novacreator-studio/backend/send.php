@@ -43,9 +43,10 @@ $logEntry = "[{$timestamp}] Имя: {$name} | Email: {$email} | Телефон: 
 $logFile = __DIR__ . '/requests.txt';
 @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX);
 
-// Пытаемся отправить в Telegram (без проверки ошибок)
+// Пытаемся отправить в Telegram с логированием ошибок
 $telegramSent = false;
-@require_once __DIR__ . '/../telegram_bot/send_telegram.php';
+$telegramError = '';
+require_once __DIR__ . '/../telegram_bot/send_telegram.php';
 if (function_exists('formatContactMessage') && function_exists('sendTelegramMessage')) {
     $data = [
         'timestamp' => $timestamp,
@@ -63,8 +64,30 @@ if (function_exists('formatContactMessage') && function_exists('sendTelegramMess
     } else {
         $telegramMessage = formatContactMessage($data);
     }
-    $telegramResult = @sendTelegramMessage($telegramMessage, $messageType);
+    $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
     $telegramSent = isset($telegramResult['success']) ? $telegramResult['success'] : false;
+    
+    // Логируем результат отправки в Telegram
+    if (function_exists('logError')) {
+        if ($telegramSent) {
+            logError('Telegram отправка успешна', ['type' => $messageType]);
+        } else {
+            $telegramError = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
+            logError('Telegram отправка не удалась', [
+                'error' => $telegramError,
+                'type' => $messageType,
+                'chat_id' => defined('TELEGRAM_CHAT_ID') ? TELEGRAM_CHAT_ID : 'не определен'
+            ]);
+        }
+    } else {
+        // Если функция logError недоступна, пишем в файл напрямую
+        $errorLogFile = __DIR__ . '/telegram_errors.log';
+        if (!$telegramSent) {
+            $errorMsg = isset($telegramResult['message']) ? $telegramResult['message'] : 'Неизвестная ошибка';
+            $logEntry = "[" . date('Y-m-d H:i:s') . "] Ошибка отправки в Telegram: {$errorMsg}\n";
+            @file_put_contents($errorLogFile, $logEntry, FILE_APPEND | LOCK_EX);
+        }
+    }
 }
 
 // Пытаемся отправить email (без проверки ошибок)

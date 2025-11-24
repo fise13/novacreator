@@ -55,7 +55,9 @@ function sendTelegramMessage($message, $type = 'contact') {
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -70,9 +72,17 @@ function sendTelegramMessage($message, $type = 'contact') {
         }
         
         if ($httpCode !== 200) {
+            // Пытаемся получить детали ошибки из ответа
+            $errorDetails = '';
+            if ($result) {
+                $errorResponse = json_decode($result, true);
+                if (isset($errorResponse['description'])) {
+                    $errorDetails = ': ' . $errorResponse['description'];
+                }
+            }
             return [
                 'success' => false,
-                'message' => 'HTTP ошибка: ' . $httpCode
+                'message' => 'HTTP ошибка ' . $httpCode . $errorDetails
             ];
         }
     } else {
@@ -108,9 +118,20 @@ function sendTelegramMessage($message, $type = 'contact') {
             ];
         } else {
             $errorMessage = isset($response['description']) ? $response['description'] : 'Неизвестная ошибка';
+            $errorCode = isset($response['error_code']) ? $response['error_code'] : 'неизвестен';
+            
+            // Специальные сообщения для частых ошибок
+            if (strpos($errorMessage, 'chat not found') !== false || strpos($errorMessage, 'Chat not found') !== false) {
+                $errorMessage = 'Чат не найден. Убедитесь, что бот добавлен в группу и имеет права на отправку сообщений.';
+            } elseif (strpos($errorMessage, 'bot was blocked') !== false || strpos($errorMessage, 'bot was kicked') !== false) {
+                $errorMessage = 'Бот был заблокирован или удален из группы. Добавьте бота обратно в группу.';
+            } elseif (strpos($errorMessage, 'Forbidden') !== false) {
+                $errorMessage = 'Бот не имеет прав на отправку сообщений в эту группу. Проверьте права бота.';
+            }
+            
             return [
                 'success' => false,
-                'message' => 'Ошибка Telegram API: ' . $errorMessage
+                'message' => 'Ошибка Telegram API (код ' . $errorCode . '): ' . $errorMessage
             ];
         }
     } catch (Exception $e) {
