@@ -4,8 +4,22 @@
  * Принимает POST запросы, сохраняет данные в файл и отправляет на email
  */
 
+// Включаем обработку ошибок для отладки (в продакшене можно отключить)
+error_reporting(E_ALL);
+ini_set('display_errors', 0); // Не показываем ошибки пользователю, только логируем
+
 // Подключаем утилиты
-require_once __DIR__ . '/../includes/utils.php';
+try {
+    require_once __DIR__ . '/../includes/utils.php';
+} catch (Exception $e) {
+    http_response_code(500);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode([
+        'success' => false,
+        'message' => 'Ошибка инициализации сервера. Попробуйте позже или свяжитесь с нами напрямую.'
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    exit;
+}
 
 // Устанавливаем заголовок для JSON ответа
 header('Content-Type: application/json; charset=utf-8');
@@ -15,21 +29,42 @@ $allowedOrigins = [
     'https://novacreator-studio.com',
     'https://www.novacreator-studio.com',
     'http://localhost:8000',
-    'http://localhost'
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://127.0.0.1:8000'
 ];
+
+// Получаем origin из заголовков
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (in_array($origin, $allowedOrigins)) {
-    header('Access-Control-Allow-Origin: ' . $origin);
+if (empty($origin)) {
+    // Если нет Origin заголовка, проверяем Referer (для запросов с того же домена)
+    $referer = $_SERVER['HTTP_REFERER'] ?? '';
+    if (!empty($referer)) {
+        $parsedUrl = parse_url($referer);
+        $origin = ($parsedUrl['scheme'] ?? 'http') . '://' . ($parsedUrl['host'] ?? '');
+        if (!empty($parsedUrl['port'])) {
+            $origin .= ':' . $parsedUrl['port'];
+        }
+    }
 }
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+
+// Если origin в списке разрешенных или запрос с того же домена
+if (in_array($origin, $allowedOrigins) || empty($origin)) {
+    if (!empty($origin)) {
+        header('Access-Control-Allow-Origin: ' . $origin);
+    }
+    header('Access-Control-Allow-Methods: POST');
+    header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
+    header('Access-Control-Allow-Credentials: true');
+}
 
 // Обрабатываем только POST запросы
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse([
         'success' => false,
-        'message' => 'Метод не разрешен'
+        'message' => 'Метод не разрешен. Используйте POST запрос.'
     ], 405);
+    exit;
 }
 
 // Проверяем CSRF токен (если передан)
@@ -122,10 +157,25 @@ $logFile = __DIR__ . '/requests.txt';
 // Сохраняем данные в файл
 $fileSaved = false;
 try {
+    // Проверяем, существует ли директория
+    $logDir = dirname($logFile);
+    if (!is_dir($logDir)) {
+        @mkdir($logDir, 0755, true);
+    }
+    
     // Создаем файл, если его нет, и добавляем данные в конец
-    $fileSaved = file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX) !== false;
+    $fileSaved = @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX) !== false;
+    
+    if (!$fileSaved) {
+        error_log('Не удалось сохранить заявку в файл: ' . $logFile);
+        // Проверяем права доступа
+        if (!is_writable($logDir)) {
+            error_log('Директория не доступна для записи: ' . $logDir);
+        }
+    }
 } catch (Exception $e) {
     error_log('Ошибка записи в файл: ' . $e->getMessage());
+    logError('Ошибка сохранения заявки в файл', ['error' => $e->getMessage(), 'file' => $logFile]);
 }
 
 // Отправляем уведомление в Telegram

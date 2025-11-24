@@ -301,18 +301,50 @@ function initForms() {
             
             try {
                 // Отправляем запрос на сервер
-                const formAction = form.getAttribute('action') || './backend/send.php';
+                const formAction = form.getAttribute('action') || '/backend/send.php';
+                console.log('Отправка формы на:', formAction);
+                
                 const response = await fetch(formAction, {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
                 });
+                
+                console.log('Статус ответа:', response.status, response.statusText);
+                
+                // Получаем текст ответа один раз
+                const responseText = await response.text();
+                console.log('Ответ сервера:', responseText.substring(0, 500)); // Логируем первые 500 символов
+                
+                // Проверяем статус ответа
+                if (!response.ok) {
+                    // Если ответ не OK, пытаемся распарсить как JSON
+                    let errorResult;
+                    try {
+                        errorResult = JSON.parse(responseText);
+                        throw new Error(errorResult.message || `Ошибка сервера: ${response.status}`);
+                    } catch (parseError) {
+                        if (parseError.message && parseError.message.includes('Ошибка сервера')) {
+                            throw parseError;
+                        }
+                        // Если не JSON, показываем общую ошибку
+                        throw new Error(`Ошибка сервера (${response.status}). Попробуйте позже или свяжитесь с нами напрямую.`);
+                    }
+                }
                 
                 // Парсим JSON ответ
                 let result;
                 try {
-                    result = await response.json();
+                    if (!responseText.trim()) {
+                        throw new Error('Пустой ответ от сервера');
+                    }
+                    result = JSON.parse(responseText);
                 } catch (parseError) {
-                    throw new Error('Ошибка обработки ответа сервера');
+                    console.error('Ошибка парсинга JSON:', parseError);
+                    console.error('Полный ответ сервера:', responseText);
+                    throw new Error('Ошибка обработки ответа сервера. Попробуйте позже или свяжитесь с нами напрямую.');
                 }
                 
                 if (result.success) {
@@ -332,7 +364,8 @@ function initForms() {
             } catch (error) {
                 // Ошибка сети или другая ошибка
                 console.error('Ошибка отправки формы:', error);
-                showNotification('Ошибка соединения. Проверьте интернет и попробуйте снова.', 'error');
+                const errorMessage = error.message || 'Ошибка соединения. Проверьте интернет и попробуйте снова.';
+                showNotification(errorMessage, 'error');
             } finally {
                 // Восстанавливаем кнопку
                 submitBtn.disabled = originalDisabled;
