@@ -102,40 +102,6 @@ include 'includes/header.php';
             </p>
         </div>
         
-        <!-- Метрики результатов -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-16 px-4 md:px-0 animate-on-scroll">
-            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-400 text-sm md:text-base mb-2">Органический трафик</p>
-                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-purple">
-                            <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-400 text-sm md:text-base mb-2">Позиции в топ-10</p>
-                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-blue">
-                            <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-400 text-sm md:text-base mb-2">Конверсии</p>
-                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-purple">
-                            <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <!-- Карточки услуг - оптимизированы для мобильных -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8 px-4 md:px-0">
             <!-- SEO-оптимизация -->
@@ -241,6 +207,40 @@ include 'includes/header.php';
                 <a href="/services#conversion" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                     Узнать больше →
                 </a>
+            </div>
+        </div>
+        
+        <!-- Метрики результатов -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-12 md:mt-16 px-4 md:px-0 animate-on-scroll">
+            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm md:text-base mb-2">Органический трафик</p>
+                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-purple">
+                            <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm md:text-base mb-2">Позиции в топ-10</p>
+                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-blue">
+                            <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm md:text-base mb-2">Конверсии</p>
+                        <p class="text-3xl md:text-4xl lg:text-5xl font-bold text-neon-purple">
+                            <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
