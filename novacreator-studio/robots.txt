@@ -4,7 +4,6 @@
 User-agent: *
 Allow: /
 Disallow: /backend/
-Disallow: /telegram_bot/
 Disallow: /node_modules/
 Disallow: /admin/
 Disallow: /client/
@@ -34,7 +33,6 @@ Sitemap: https://novacreator-studio.com/sitemap.xml
 User-agent: Googlebot
 Allow: /
 Disallow: /backend/
-Disallow: /telegram_bot/
 Disallow: /node_modules/
 Disallow: /admin/
 Disallow: /client/
@@ -46,7 +44,6 @@ Allow: /assets/
 User-agent: Yandex
 Allow: /
 Disallow: /backend/
-Disallow: /telegram_bot/
 Disallow: /node_modules/
 Disallow: /admin/
 Disallow: /client/
@@ -55,7 +52,6 @@ Disallow: /*.php$
 User-agent: Bingbot
 Allow: /
 Disallow: /backend/
-Disallow: /telegram_bot/
 Disallow: /node_modules/
 Disallow: /admin/
 Disallow: /client/

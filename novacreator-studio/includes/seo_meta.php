@@ -77,7 +77,7 @@ $pagesMeta = [
     ],
     'contact' => [
         'title' => 'Контакты NovaCreator Studio — получить консультацию',
-        'description' => 'Пишите в Telegram или на email, звоните по номеру +7 706 606 39 21. Ответим в день обращения и обсудим задачи.',
+        'description' => 'Пишите на email или звоните по номеру +7 706 606 39 21. Ответим в день обращения и обсудим задачи.',
         'keywords' => 'контакты seo агентства, связаться с digital студией',
         'og_type' => 'website',
         'breadcrumb' => 'Контакты',
@@ -200,9 +200,7 @@ $organizationSchema = [
         'contactType' => 'customer service',
         'availableLanguage' => ['ru', 'en'],
     ],
-    'sameAs' => [
-        'https://t.me/novacreator_studio',
-    ],
+    'sameAs' => [],
     'address' => [
         '@type' => 'PostalAddress',
         'addressCountry' => 'KZ',

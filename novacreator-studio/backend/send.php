@@ -1,7 +1,7 @@
 <?php
 /**
  * Обработчик формы обратной связи
- * Принимает POST запросы, сохраняет данные в файл и отправляет на email
+ * Отправляет заявки на email компании
  */
 
 // Устанавливаем заголовок для JSON ответа
@@ -60,189 +60,171 @@ if (!empty($errors)) {
     exit;
 }
 
-// Подготавливаем данные для сохранения
+// Подготавливаем данные
 $timestamp = date('Y-m-d H:i:s');
-$data = [
-    'timestamp' => $timestamp,
-    'name' => $name,
-    'email' => $email,
-    'phone' => $phone,
-    'message' => $message,
-    'service' => $service,
-    'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
-];
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 
-// Форматируем строку для записи в файл
-$logEntry = sprintf(
-    "[%s] Имя: %s | Email: %s | Телефон: %s | Услуга: %s | IP: %s\nСообщение: %s\n%s\n",
-    $timestamp,
-    $name,
-    $email,
-    $phone,
-    $service ?: 'Не указана',
-    $data['ip'],
-    $message,
-    str_repeat('-', 80)
-);
-
-// Путь к файлу для сохранения заявок
-$logFile = __DIR__ . '/requests.txt';
-
-// Сохраняем данные в файл
-$fileSaved = false;
-try {
-    // Создаем файл, если его нет, и добавляем данные в конец
-    $fileSaved = file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX) !== false;
-} catch (Exception $e) {
-    error_log('Ошибка записи в файл: ' . $e->getMessage());
-}
-
-// Отправляем уведомление в Telegram
-$telegramSent = false;
-try {
-    // Подключаем функции для работы с Telegram
-    require_once __DIR__ . '/../telegram_bot/send_telegram.php';
-    
-    // Определяем тип сообщения (вакансия или контакт)
-    $messageType = ($type === 'vacancy' || !empty($vacancy)) ? 'vacancy' : 'contact';
-    
-    // Форматируем сообщение для Telegram
-    if ($messageType === 'vacancy') {
-        // Добавляем информацию о вакансии в данные
-        $data['vacancy'] = $vacancy ?: $service;
-        $telegramMessage = formatVacancyMessage($data);
-    } else {
-        $telegramMessage = formatContactMessage($data);
-    }
-    
-    // Отправляем в Telegram
-    $telegramResult = sendTelegramMessage($telegramMessage, $messageType);
-    $telegramSent = $telegramResult['success'];
-    
-    // Логируем результат
-    if (!$telegramSent) {
-        error_log('Telegram отправка не удалась: ' . $telegramResult['message']);
-        // Также сохраняем в файл для отладки
-        @file_put_contents(__DIR__ . '/telegram_errors.log', date('Y-m-d H:i:s') . ' - ' . $telegramResult['message'] . "\n", FILE_APPEND);
-    } else {
-        error_log('Telegram сообщение успешно отправлено');
-    }
-} catch (Exception $e) {
-    error_log('Ошибка при отправке в Telegram: ' . $e->getMessage());
-}
-
-// Отправляем email на contact@novacreatorstudio.com
-$emailSent = false;
-$emailTo = 'contact@novacreatorstudio.com'; // Email для получения всех заявок
+// Email компании для получения заявок
+$emailTo = 'contact@novacreatorstudio.com';
 
 // Формируем тему письма
-$subject = "Новая заявка с сайта NovaCreator Studio - " . ($service ?: 'Общий запрос');
+if ($type === 'vacancy' && !empty($vacancy)) {
+    $subject = "Новая заявка на вакансию: " . $vacancy;
+} else {
+    $subject = "Новая заявка с сайта NovaCreator Studio" . ($service ? " - " . $service : "");
+}
 
-// Формируем тело письма (более читаемый формат)
-$emailMessage = "Новая заявка с сайта NovaCreator Studio\n\n";
-$emailMessage .= "═══════════════════════════════════════\n";
-$emailMessage .= "ДАТА И ВРЕМЯ: {$timestamp}\n";
-$emailMessage .= "═══════════════════════════════════════\n\n";
-$emailMessage .= "ИМЯ: {$name}\n";
-$emailMessage .= "EMAIL: {$email}\n";
-$emailMessage .= "ТЕЛЕФОН: {$phone}\n";
-$emailMessage .= "УСЛУГА: " . ($service ?: 'Не указана') . "\n";
-$emailMessage .= "IP АДРЕС: {$data['ip']}\n\n";
-$emailMessage .= "═══════════════════════════════════════\n";
-$emailMessage .= "СООБЩЕНИЕ:\n";
-$emailMessage .= "═══════════════════════════════════════\n";
-$emailMessage .= "{$message}\n\n";
-$emailMessage .= "═══════════════════════════════════════\n";
-$emailMessage .= "Это автоматическое письмо с сайта NovaCreator Studio\n";
-$emailMessage .= "Для ответа используйте email клиента: {$email}\n";
+// Формируем тело письма в HTML формате для лучшей читаемости
+$emailMessageHTML = "
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 5px 5px 0 0; }
+        .content { background: #f9f9f9; padding: 20px; border: 1px solid #ddd; }
+        .field { margin-bottom: 15px; }
+        .label { font-weight: bold; color: #667eea; }
+        .value { margin-top: 5px; }
+        .message-box { background: white; padding: 15px; border-left: 4px solid #667eea; margin-top: 15px; }
+        .footer { background: #f0f0f0; padding: 15px; text-align: center; font-size: 12px; color: #666; border-radius: 0 0 5px 5px; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h2>Новая заявка с сайта NovaCreator Studio</h2>
+        </div>
+        <div class='content'>
+            <div class='field'>
+                <div class='label'>Дата и время:</div>
+                <div class='value'>{$timestamp}</div>
+            </div>
+            <div class='field'>
+                <div class='label'>Имя:</div>
+                <div class='value'>{$name}</div>
+            </div>
+            <div class='field'>
+                <div class='label'>Email:</div>
+                <div class='value'><a href='mailto:{$email}'>{$email}</a></div>
+            </div>
+            <div class='field'>
+                <div class='label'>Телефон:</div>
+                <div class='value'><a href='tel:{$phone}'>{$phone}</a></div>
+            </div>";
+
+if ($type === 'vacancy' && !empty($vacancy)) {
+    $emailMessageHTML .= "
+            <div class='field'>
+                <div class='label'>Вакансия:</div>
+                <div class='value'>{$vacancy}</div>
+            </div>";
+} else {
+    $emailMessageHTML .= "
+            <div class='field'>
+                <div class='label'>Услуга:</div>
+                <div class='value'>" . ($service ?: 'Не указана') . "</div>
+            </div>";
+}
+
+$emailMessageHTML .= "
+            <div class='field'>
+                <div class='label'>IP адрес:</div>
+                <div class='value'>{$ip}</div>
+            </div>
+            <div class='message-box'>
+                <div class='label'>Сообщение:</div>
+                <div class='value'>" . nl2br(htmlspecialchars($message)) . "</div>
+            </div>
+        </div>
+        <div class='footer'>
+            <p>Это автоматическое письмо с сайта NovaCreator Studio</p>
+            <p>Для ответа используйте email клиента: <a href='mailto:{$email}'>{$email}</a></p>
+        </div>
+    </div>
+</body>
+</html>";
+
+// Текстовая версия для почтовых клиентов без поддержки HTML
+$emailMessageText = "Новая заявка с сайта NovaCreator Studio\n\n";
+$emailMessageText .= "═══════════════════════════════════════\n";
+$emailMessageText .= "ДАТА И ВРЕМЯ: {$timestamp}\n";
+$emailMessageText .= "═══════════════════════════════════════\n\n";
+$emailMessageText .= "ИМЯ: {$name}\n";
+$emailMessageText .= "EMAIL: {$email}\n";
+$emailMessageText .= "ТЕЛЕФОН: {$phone}\n";
+
+if ($type === 'vacancy' && !empty($vacancy)) {
+    $emailMessageText .= "ВАКАНСИЯ: {$vacancy}\n";
+} else {
+    $emailMessageText .= "УСЛУГА: " . ($service ?: 'Не указана') . "\n";
+}
+
+$emailMessageText .= "IP АДРЕС: {$ip}\n\n";
+$emailMessageText .= "═══════════════════════════════════════\n";
+$emailMessageText .= "СООБЩЕНИЕ:\n";
+$emailMessageText .= "═══════════════════════════════════════\n";
+$emailMessageText .= "{$message}\n\n";
+$emailMessageText .= "═══════════════════════════════════════\n";
+$emailMessageText .= "Это автоматическое письмо с сайта NovaCreator Studio\n";
+$emailMessageText .= "Для ответа используйте email клиента: {$email}\n";
+
+// Генерируем уникальный разделитель для multipart сообщения
+$boundary = md5(uniqid(time()));
+
+// Формируем multipart сообщение (HTML + текст)
+$emailBody = "--{$boundary}\r\n";
+$emailBody .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$emailBody .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+$emailBody .= $emailMessageText . "\r\n\r\n";
+$emailBody .= "--{$boundary}\r\n";
+$emailBody .= "Content-Type: text/html; charset=UTF-8\r\n";
+$emailBody .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+$emailBody .= $emailMessageHTML . "\r\n\r\n";
+$emailBody .= "--{$boundary}--";
 
 // Заголовки для email
 $headers = [
+    'MIME-Version: 1.0',
+    'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
     'From: NovaCreator Studio <noreply@novacreator-studio.com>',
     'Reply-To: ' . $email,
     'X-Mailer: PHP/' . phpversion(),
-    'Content-Type: text/plain; charset=utf-8',
-    'MIME-Version: 1.0'
+    'X-Priority: 1',
+    'Importance: High'
 ];
 
-// Пытаемся отправить email
+// Отправляем email
+$emailSent = false;
 try {
-    // ВАЖНО: Функция mail() работает только если на сервере настроена почта
-    // На локальном сервере (localhost) может не работать без настройки SMTP
-    // На хостинге обычно работает автоматически
-    $emailSent = @mail($emailTo, $subject, $emailMessage, implode("\r\n", $headers));
+    // Кодируем тему письма для поддержки кириллицы
+    $subjectEncoded = '=?UTF-8?B?' . base64_encode($subject) . '?=';
     
-    // Логируем результат для отладки
+    $emailSent = @mail($emailTo, $subjectEncoded, $emailBody, implode("\r\n", $headers));
+    
     if (!$emailSent) {
         error_log("Не удалось отправить email на {$emailTo}. Проверьте настройки сервера.");
+        // Пробуем альтернативный способ без кодирования темы
+        $emailSent = @mail($emailTo, $subject, $emailBody, implode("\r\n", $headers));
     }
 } catch (Exception $e) {
     error_log('Ошибка отправки email: ' . $e->getMessage());
 }
 
-try {
-    require_once __DIR__ . '/../client/config.php';
-    
-    $users = loadUsers();
-    $clientId = null;
-    
-    foreach ($users as $user) {
-        if ($user['email'] === $email) {
-            $clientId = $user['id'];
-            break;
-        }
-    }
-    
-    if (!$clientId && !empty($service)) {
-        $newUser = [
-            'id' => time(),
-            'name' => $name,
-            'email' => $email,
-            'phone' => $phone,
-            'password' => password_hash('temp' . time(), PASSWORD_DEFAULT),
-            'created_at' => date('Y-m-d H:i:s')
-        ];
-        
-        $users[] = $newUser;
-        saveUsers($users);
-        $clientId = $newUser['id'];
-        
-        $projects = loadProjects();
-        $newProject = [
-            'id' => time() + 1,
-            'name' => $service . ' - ' . $name,
-            'type' => $service,
-            'client_id' => $clientId,
-            'current_stage' => 'planning',
-            'progress' => 5,
-            'stages' => [],
-            'files' => [],
-            'created_at' => date('Y-m-d H:i:s'),
-            'deadline' => date('Y-m-d', strtotime('+30 days'))
-        ];
-        
-        $projects[] = $newProject;
-        saveProjects($projects);
-    }
-} catch (Exception $e) {
-    error_log('Ошибка создания проекта: ' . $e->getMessage());
-}
-
-if ($fileSaved) {
+// Возвращаем результат
+if ($emailSent) {
     http_response_code(200);
     echo json_encode([
         'success' => true,
-        'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.',
-        'email_sent' => $emailSent,
-        'telegram_sent' => $telegramSent,
-        'saved_to_file' => true
+        'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.'
     ]);
 } else {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Ошибка при сохранении заявки. Попробуйте позже или свяжитесь с нами напрямую.'
+        'message' => 'Ошибка при отправке заявки. Попробуйте позже или свяжитесь с нами напрямую.'
     ]);
 }
 ?>
-
