@@ -126,10 +126,10 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
         
         <!-- Затемнение фона для мобильного меню -->
-        <div class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 opacity-0" id="mobileMenuOverlay"></div>
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay"></div>
         
         <!-- Мобильное меню - оптимизировано для touch -->
-        <div class="hidden fixed top-16 left-0 right-0 bottom-0 border-t border-dark-border bg-dark-bg/98 backdrop-blur-md z-50 overflow-y-auto" id="mobileMenu" style="transform: translateY(-100%); transition: transform 0.3s ease-in-out;">
+        <div class="fixed top-16 left-0 right-0 bottom-0 border-t border-dark-border bg-dark-bg/98 backdrop-blur-md z-50 overflow-y-auto hidden" id="mobileMenu">
             <div class="container mx-auto px-4 py-6 space-y-2 pb-safe">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
@@ -155,20 +155,21 @@ if (session_status() === PHP_SESSION_NONE) {
             if (mobileMenuBtn && mobileMenu && mobileMenuOverlay) {
                 // Функция открытия меню
                 function openMenu() {
+                    console.log('Opening menu...'); // Отладка
                     isMenuOpen = true;
-                    // Показываем элементы
-                    mobileMenu.classList.remove('hidden');
+                    
+                    // Показываем overlay
                     mobileMenuOverlay.classList.remove('hidden');
+                    setTimeout(() => {
+                        mobileMenuOverlay.style.opacity = '1';
+                    }, 10);
+                    
+                    // Показываем меню
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.style.display = 'block';
+                    
                     // Предотвращаем скролл body при открытом меню
                     document.body.style.overflow = 'hidden';
-                    
-                    // Устанавливаем opacity для overlay
-                    mobileMenuOverlay.style.opacity = '1';
-                    
-                    // Небольшая задержка для применения стилей перед анимацией меню
-                    setTimeout(() => {
-                        mobileMenu.style.transform = 'translateY(0)';
-                    }, 10);
                     
                     // Меняем иконку на крестик
                     const icon = mobileMenuBtn.querySelector('svg');
@@ -176,13 +177,14 @@ if (session_status() === PHP_SESSION_NONE) {
                         icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
                         icon.classList.add('rotate-90');
                     }
+                    
+                    console.log('Menu should be visible now'); // Отладка
                 }
                 
                 // Функция закрытия меню
                 function closeMenu() {
                     isMenuOpen = false;
                     mobileMenuOverlay.style.opacity = '0';
-                    mobileMenu.style.transform = 'translateY(-100%)';
                     
                     // Восстанавливаем скролл
                     document.body.style.overflow = '';
@@ -190,6 +192,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     // Закрываем после завершения анимации
                     setTimeout(() => {
                         mobileMenu.classList.add('hidden');
+                        mobileMenu.style.display = 'none';
                         mobileMenuOverlay.classList.add('hidden');
                     }, 300);
                     
