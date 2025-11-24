@@ -45,14 +45,14 @@ include 'includes/header.php';
                     <div class="space-y-6">
                         <!-- Вопрос 1 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Сколько времени нужно для выхода сайта в топ поисковых систем?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Сколько времени нужно для выхода сайта в топ поисковых систем?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Первые результаты SEO-оптимизации обычно видны через 3-6 месяцев после начала работы. 
                                     Выход в топ-10 по высокочастотным запросам может занять 6-12 месяцев. 
                                     Скорость зависит от конкуренции в вашей нише, текущего состояния сайта и объема работ. 
@@ -63,14 +63,14 @@ include 'includes/header.php';
                         
                         <!-- Вопрос 2 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Что входит в стоимость SEO-продвижения?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Что входит в стоимость SEO-продвижения?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Стоимость зависит от объема работ и сложности проекта. В базовый пакет входит: 
                                     технический аудит, оптимизация контента, работа с мета-тегами, внутренняя перелинковка, 
                                     создание карты сайта, настройка аналитики. Расширенные пакеты включают ссылочное продвижение, 
@@ -81,14 +81,14 @@ include 'includes/header.php';
                         
                         <!-- Вопрос 3 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Гарантируете ли вы попадание в топ-10?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Гарантируете ли вы попадание в топ-10?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Мы гарантируем профессиональную работу и постоянное улучшение позиций сайта. 
                                     Однако честные SEO-специалисты не могут гарантировать конкретные позиции, 
                                     так как алгоритмы поисковых систем постоянно меняются. Мы гарантируем: 
@@ -112,14 +112,14 @@ include 'includes/header.php';
                     <div class="space-y-6">
                         <!-- Вопрос 1 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Сколько времени занимает разработка сайта?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Сколько времени занимает разработка сайта?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Срок разработки зависит от сложности проекта. Лендинг можно создать за 1-2 недели, 
                                     корпоративный сайт — за 3-6 недель, интернет-магазин — за 6-12 недель. 
                                     Мы всегда согласовываем сроки на этапе планирования и соблюдаем дедлайны.
@@ -129,14 +129,14 @@ include 'includes/header.php';
                         
                         <!-- Вопрос 2 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Можно ли вносить изменения после запуска сайта?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Можно ли вносить изменения после запуска сайта?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Да, конечно! Мы предоставляем пожизненную гарантию на все наши работы. 
                                     Если возникнут проблемы или потребуются доработки, мы исправим их бесплатно. 
                                     Также мы предлагаем услуги поддержки и обновления контента.
@@ -158,14 +158,14 @@ include 'includes/header.php';
                     <div class="space-y-6">
                         <!-- Вопрос 1 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Сколько стоит настройка рекламной кампании?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Сколько стоит настройка рекламной кампании?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Стоимость настройки зависит от сложности кампании и количества ключевых слов. 
                                     Базовая настройка стоит от 15 000 тенге, комплексная кампания — от 50 000 тенге. 
                                     Также мы берем процент от бюджета на рекламу за управление кампанией. 
@@ -176,14 +176,14 @@ include 'includes/header.php';
                         
                         <!-- Вопрос 2 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Когда появятся первые результаты?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Когда появятся первые результаты?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Реклама начинает работать сразу после запуска кампании. Первые клики и заявки 
                                     обычно появляются в течение первых дней. Мы постоянно оптимизируем кампанию для 
                                     улучшения результатов и снижения стоимости клика.
@@ -204,14 +204,14 @@ include 'includes/header.php';
                     <div class="space-y-6">
                         <!-- Вопрос 1 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Работаете ли вы с клиентами из других городов?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Работаете ли вы с клиентами из других городов?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Да, мы работаем онлайн по всему миру. Все коммуникации проходят через интернет: 
                                     видеозвонки, мессенджеры, email. Мы успешно работаем с клиентами из разных городов 
                                     Казахстана и других стран.
@@ -221,14 +221,14 @@ include 'includes/header.php';
                         
                         <!-- Вопрос 2 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Как происходит оплата?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Как происходит оплата?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Мы принимаем оплату банковским переводом, картой или через платежные системы. 
                                     Для крупных проектов возможна оплата поэтапно: предоплата 50%, остальное после завершения. 
                                     Все детали обсуждаются индивидуально.
@@ -238,14 +238,14 @@ include 'includes/header.php';
                         
                         <!-- Вопрос 3 -->
                         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
-                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between" onclick="toggleFAQ(this)">
-                                Предоставляете ли вы гарантии?
-                                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient cursor-pointer flex items-center justify-between group" onclick="toggleFAQ(this)">
+                                <span class="group-hover:text-neon-purple transition-colors duration-300">Предоставляете ли вы гарантии?</span>
+                                <svg class="w-6 h-6 transform transition-transform duration-500 ease-in-out text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </h3>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer hidden">
-                                <p itemprop="text" class="text-gray-400 leading-relaxed">
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="faq-answer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                                <p itemprop="text" class="text-gray-400 leading-relaxed pt-0">
                                     Да, мы предоставляем <strong class="text-white">пожизненную гарантию</strong> на все наши работы. 
                                     Если возникнут проблемы с сайтом или продвижением, мы исправим их бесплатно. 
                                     Первым клиентам мы также предоставляем 6 месяцев бесплатной поддержки.
@@ -273,13 +273,34 @@ include 'includes/header.php';
 function toggleFAQ(element) {
     const answer = element.nextElementSibling;
     const icon = element.querySelector('svg');
+    const isOpen = answer.classList.contains('max-h-0');
     
-    if (answer.classList.contains('hidden')) {
-        answer.classList.remove('hidden');
+    if (isOpen) {
+        // Открываем
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        answer.classList.remove('max-h-0', 'opacity-0');
+        answer.classList.add('opacity-100', 'pt-4');
         icon.classList.add('rotate-180');
+        
+        // Убираем max-height после завершения анимации для возможности дальнейшего изменения размера
+        setTimeout(() => {
+            answer.style.maxHeight = 'none';
+        }, 500);
     } else {
-        answer.classList.add('hidden');
+        // Закрываем
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        // Небольшая задержка для начала анимации
+        setTimeout(() => {
+            answer.style.maxHeight = '0px';
+            answer.classList.remove('opacity-100', 'pt-4');
+            answer.classList.add('opacity-0');
+        }, 10);
         icon.classList.remove('rotate-180');
+        
+        // Убираем классы после завершения анимации
+        setTimeout(() => {
+            answer.classList.add('max-h-0');
+        }, 500);
     }
 }
 </script>
