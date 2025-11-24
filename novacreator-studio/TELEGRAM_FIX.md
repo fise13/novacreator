@@ -2,10 +2,47 @@
 
 ## ⚠️ ВАЖНО: Проверьте наличие файла config.php на сервере!
 
-Если вы видите ошибку "Файл config.php не найден", убедитесь, что:
-1. Файл `telegram_bot/config.php` существует на сервере
-2. Файл имеет правильные права доступа (читаемый для PHP)
-3. Путь к файлу правильный (обычно: `/путь/к/проекту/telegram_bot/config.php`)
+Если вы видите ошибку "Конфигурация Telegram не загружена", это означает, что файл `config.php` не найден или не может быть загружен.
+
+### Проверка на сервере:
+
+1. **Убедитесь, что файл существует:**
+   ```bash
+   ls -la /var/www/vhosts/novacreatorstudio.com/novacreator-studio/telegram_bot/config.php
+   ```
+
+2. **Если файл не существует, создайте его:**
+   ```bash
+   # Скопируйте с примера
+   cp /var/www/vhosts/novacreatorstudio.com/novacreator-studio/telegram_bot/config.example.php \
+      /var/www/vhosts/novacreatorstudio.com/novacreator-studio/telegram_bot/config.php
+   
+   # Или загрузите файл с локального компьютера
+   ```
+
+3. **Проверьте права доступа:**
+   ```bash
+   chmod 644 /var/www/vhosts/novacreatorstudio.com/novacreator-studio/telegram_bot/config.php
+   ```
+
+4. **Проверьте содержимое файла:**
+   ```bash
+   cat /var/www/vhosts/novacreatorstudio.com/novacreator-studio/telegram_bot/config.php
+   ```
+   
+   Файл должен содержать:
+   ```php
+   define('TELEGRAM_BOT_TOKEN', 'ваш_токен');
+   define('TELEGRAM_CHAT_ID', 'ваш_chat_id');
+   define('TELEGRAM_ENABLED', true);
+   ```
+
+### После исправления:
+
+После того как файл будет загружен на сервер, отправьте тестовую заявку и проверьте логи. В логах должно появиться сообщение:
+```
+✅ Файл config.php загружен из директории send_telegram.php: /путь/к/файлу
+```
 
 ## Что было исправлено:
 

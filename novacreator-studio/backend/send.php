@@ -139,6 +139,20 @@ if ($telegramIncludePath && file_exists($telegramIncludePath)) {
     require_once $telegramIncludePath;
     $successLog = "[" . date('Y-m-d H:i:s') . "] ✅ Файл send_telegram.php найден и загружен: {$telegramIncludePath}\n";
     @file_put_contents($telegramLogFile, $successLog, FILE_APPEND | LOCK_EX);
+    
+    // Если config.php еще не загружен, пробуем загрузить из той же директории, что и send_telegram.php
+    if (!defined('TELEGRAM_BOT_TOKEN')) {
+        $telegramDir = dirname($telegramIncludePath);
+        $configPathFromTelegram = $telegramDir . '/config.php';
+        if (file_exists($configPathFromTelegram)) {
+            require_once $configPathFromTelegram;
+            $successLog = "[" . date('Y-m-d H:i:s') . "] ✅ Файл config.php загружен из директории send_telegram.php: {$configPathFromTelegram}\n";
+            @file_put_contents($telegramLogFile, $successLog, FILE_APPEND | LOCK_EX);
+        } else {
+            $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Файл config.php не найден в директории send_telegram.php: {$configPathFromTelegram}\n";
+            @file_put_contents($telegramLogFile, $errorLog, FILE_APPEND | LOCK_EX);
+        }
+    }
 } else {
     $errorLog = "[" . date('Y-m-d H:i:s') . "] ❌ Файл send_telegram.php не найден. Проверенные пути:\n";
     $errorLog .= "   __DIR__: " . __DIR__ . "\n";
