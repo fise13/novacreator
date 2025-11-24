@@ -129,8 +129,8 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay"></div>
         
         <!-- Мобильное меню - оптимизировано для touch -->
-        <div class="fixed top-16 left-0 right-0 bottom-0 border-t border-dark-border bg-dark-bg/98 backdrop-blur-md z-50 overflow-y-auto hidden" id="mobileMenu">
-            <div class="container mx-auto px-4 py-6 space-y-2 pb-safe">
+        <div class="fixed top-16 left-0 right-0 max-h-[calc(100vh-4rem)] border-t border-dark-border bg-dark-bg/98 backdrop-blur-md z-50 overflow-y-auto hidden" id="mobileMenu">
+            <div class="container mx-auto px-4 py-6 space-y-2">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 ?>
