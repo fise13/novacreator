@@ -3,10 +3,13 @@
  * Страница контактов
  * Форма обратной связи и контактная информация
  */
-$pageTitle = 'Контакты';
-$pageMetaTitle = 'Контакты NovaCreator Studio | Связаться с нами';
-$pageMetaDescription = 'Свяжитесь с NovaCreator Studio. Телефон: +7 706 606 39 21, Email: contact@novacreatorstudio.com. Работаем каждый день, онлайн по всему миру. Бесплатная консультация.';
-$pageMetaKeywords = 'контакты, связаться, заявка, обратная связь, телефон, email, связаться с агентством';
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
+$pageTitle = t('pages.contact.breadcrumb');
+$pageMetaTitle = t('seo.pages.contact.title');
+$pageMetaDescription = t('seo.pages.contact.description');
+$pageMetaKeywords = t('seo.pages.contact.keywords');
 include 'includes/header.php';
 ?>
 
@@ -15,11 +18,10 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient">Свяжитесь с нами</span>
+                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.contact.title')); ?></span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                Готовы обсудить ваш проект? Заполните форму ниже или свяжитесь 
-                с нами напрямую. Мы ответим в течение 24 часов.
+                <?php echo htmlspecialchars(t('pages.contact.subtitle')); ?>
             </p>
         </div>
     </div>
@@ -31,7 +33,7 @@ include 'includes/header.php';
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Контактная информация -->
             <div class="animate-on-scroll">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 md:mb-8 text-gradient">Контактная информация</h2>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 md:mb-8 text-gradient"><?php echo htmlspecialchars(t('pages.contact.contactInfo')); ?></h2>
                 
                 <div class="space-y-6 md:space-y-8 mb-8 md:mb-12">
                     <!-- Email -->
@@ -42,7 +44,7 @@ include 'includes/header.php';
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-lg md:text-xl font-bold mb-1 md:mb-2 text-gradient">Email</h3>
+                            <h3 class="text-lg md:text-xl font-bold mb-1 md:mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.contact.email')); ?></h3>
                             <a href="mailto:contact@novacreatorstudio.com" class="text-sm md:text-base text-gray-400 hover:text-neon-purple transition-colors break-all">
                                 contact@novacreatorstudio.com
                             </a>
@@ -57,7 +59,7 @@ include 'includes/header.php';
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-lg md:text-xl font-bold mb-1 md:mb-2 text-gradient">Телефон</h3>
+                            <h3 class="text-lg md:text-xl font-bold mb-1 md:mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.contact.phone')); ?></h3>
                             <a href="tel:+77066063921" class="text-sm md:text-base text-gray-400 hover:text-neon-purple transition-colors touch-manipulation">
                                 +7 706 606 39 21
                             </a>
@@ -72,10 +74,9 @@ include 'includes/header.php';
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-lg md:text-xl font-bold mb-1 md:mb-2 text-gradient">Время работы</h3>
+                            <h3 class="text-lg md:text-xl font-bold mb-1 md:mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.contact.workingHours')); ?></h3>
                             <p class="text-sm md:text-base text-gray-400">
-                                Работаем каждый день<br>
-                                Онлайн по всему миру
+                                <?php echo htmlspecialchars(t('pages.contact.workingHoursText')); ?>
                             </p>
                         </div>
                     </div>
@@ -83,7 +84,7 @@ include 'includes/header.php';
                 
                 <!-- Социальные сети -->
                 <div>
-                    <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4 text-gradient">Мы в соцсетях</h3>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.contact.social')); ?></h3>
                     <div class="flex space-x-3 md:space-x-4">
                         <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-dark-surface border border-dark-border rounded-lg flex items-center justify-center hover:border-neon-purple hover:text-neon-purple transition-all duration-300 min-w-[40px] md:min-w-[48px] touch-manipulation">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -107,13 +108,13 @@ include 'includes/header.php';
             <!-- Форма обратной связи -->
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-4 md:p-6 lg:p-8">
-                    <h2 class="text-2xl sm:text-3xl font-bold mb-6 md:mb-8 text-gradient">Отправить заявку</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-6 md:mb-8 text-gradient"><?php echo htmlspecialchars(t('pages.contact.form.title')); ?></h2>
                     
                     <form class="contact-form space-y-6" method="POST" action="backend/send.php">
                         <!-- Скрытые поля для определения типа заявки -->
                         <input type="hidden" id="form_type" name="type" value="contact">
                         <input type="hidden" id="form_vacancy" name="vacancy" value="">
-                        <input type="hidden" name="form_name" value="Форма обратной связи">
+                        <input type="hidden" name="form_name" value="<?php echo htmlspecialchars(t('pages.contact.form.title')); ?>">
                         
                         <!-- Honeypot поле для защиты от спама (должно быть скрыто и пусто) -->
                         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px;" aria-hidden="true">
@@ -121,14 +122,14 @@ include 'includes/header.php';
                         <!-- Имя -->
                         <div>
                             <label for="name" class="block text-gray-300 mb-2 font-medium">
-                                Имя <span class="text-red-500">*</span>
+                                <?php echo htmlspecialchars(t('pages.contact.form.name')); ?> <span class="text-red-500">*</span>
                             </label>
                             <input 
                                 type="text" 
                                 id="name" 
                                 name="name" 
                                 class="form-input" 
-                                placeholder="Ваше имя"
+                                placeholder="<?php echo htmlspecialchars(t('pages.contact.form.namePlaceholder')); ?>"
                                 required
                             >
                         </div>
@@ -136,14 +137,14 @@ include 'includes/header.php';
                         <!-- Email -->
                         <div>
                             <label for="email" class="block text-gray-300 mb-2 font-medium">
-                                Email <span class="text-red-500">*</span>
+                                <?php echo htmlspecialchars(t('pages.contact.form.email')); ?> <span class="text-red-500">*</span>
                             </label>
                             <input 
                                 type="email" 
                                 id="email" 
                                 name="email" 
                                 class="form-input" 
-                                placeholder="your@email.com"
+                                placeholder="<?php echo htmlspecialchars(t('pages.contact.form.emailPlaceholder')); ?>"
                                 required
                             >
                         </div>
@@ -151,14 +152,14 @@ include 'includes/header.php';
                         <!-- Телефон -->
                         <div>
                             <label for="phone" class="block text-gray-300 mb-2 font-medium">
-                                Телефон <span class="text-red-500">*</span>
+                                <?php echo htmlspecialchars(t('pages.contact.form.phone')); ?> <span class="text-red-500">*</span>
                             </label>
                             <input 
                                 type="tel" 
                                 id="phone" 
                                 name="phone" 
                                 class="form-input" 
-                                placeholder="+7 (XXX) XXX-XX-XX"
+                                placeholder="<?php echo htmlspecialchars(t('pages.contact.form.phonePlaceholder')); ?>"
                                 required
                             >
                         </div>
@@ -166,45 +167,44 @@ include 'includes/header.php';
                         <!-- Услуга / Вакансия -->
                         <div id="service_field">
                             <label for="service" class="block text-gray-300 mb-2 font-medium">
-                                <span id="service_label">Интересует услуга</span>
+                                <span id="service_label"><?php echo htmlspecialchars(t('pages.contact.form.service')); ?></span>
                             </label>
                             <select 
                                 id="service" 
                                 name="service" 
                                 class="form-input"
                             >
-                                <option value="">Выберите услугу</option>
-                                <option value="SEO-оптимизация">SEO-оптимизация</option>
-                                <option value="Разработка сайтов">Разработка сайтов</option>
-                                <option value="Google Ads">Google Ads</option>
-                                <option value="Маркетинг">Маркетинг</option>
-                                <option value="Аналитика">Аналитика</option>
-                                <option value="Комплексное продвижение">Комплексное продвижение</option>
+                                <option value=""><?php echo htmlspecialchars(t('pages.contact.form.servicePlaceholder')); ?></option>
+                                <option value="<?php echo htmlspecialchars(t('pages.services.seo.title')); ?>"><?php echo htmlspecialchars(t('pages.services.seo.title')); ?></option>
+                                <option value="<?php echo htmlspecialchars(t('pages.services.development.title')); ?>"><?php echo htmlspecialchars(t('pages.services.development.title')); ?></option>
+                                <option value="<?php echo htmlspecialchars(t('pages.services.ads.title')); ?>"><?php echo htmlspecialchars(t('pages.services.ads.title')); ?></option>
+                                <option value="<?php echo htmlspecialchars(t('pages.services.marketing.title')); ?>"><?php echo htmlspecialchars(t('pages.services.marketing.title')); ?></option>
+                                <option value="<?php echo htmlspecialchars(t('pages.services.analytics.title')); ?>"><?php echo htmlspecialchars(t('pages.services.analytics.title')); ?></option>
                             </select>
                         </div>
                         
                         <!-- Сообщение -->
                         <div>
                             <label for="message" class="block text-gray-300 mb-2 font-medium">
-                                <span id="message_label">Сообщение</span> <span class="text-red-500">*</span>
+                                <span id="message_label"><?php echo htmlspecialchars(t('pages.contact.form.message')); ?></span> <span class="text-red-500">*</span>
                             </label>
                             <textarea 
                                 id="message" 
                                 name="message" 
                                 rows="5" 
                                 class="form-textarea" 
-                                placeholder="Расскажите о вашем проекте..."
+                                placeholder="<?php echo htmlspecialchars(t('pages.contact.form.messagePlaceholder')); ?>"
                                 required
                             ></textarea>
                         </div>
                         
                         <!-- Кнопка отправки -->
                         <button type="submit" class="btn-neon w-full" id="submit_btn">
-                            Отправить заявку
+                            <?php echo htmlspecialchars(t('pages.contact.form.send')); ?>
                         </button>
                         
                         <p class="text-sm text-gray-500 text-center">
-                            Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+                            <?php echo htmlspecialchars(t('pages.contact.form.privacy')); ?>
                         </p>
                     </form>
                 </div>
@@ -218,88 +218,74 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Часто задаваемые вопросы</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.title')); ?></h2>
                 <p class="text-xl text-gray-400">
-                    Ответы на популярные вопросы о нашей работе
+                    <?php echo htmlspecialchars(t('pages.contact.faq.subtitle')); ?>
                 </p>
             </div>
             
             <div class="space-y-6">
                 <!-- FAQ 1 -->
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll">
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Сколько времени занимает ответ на заявку?</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.items.response.question')); ?></h3>
                     <p class="text-gray-400">
-                        Мы отвечаем на все заявки в течение 24 часов. Работаем каждый день, 
-                        поэтому вы получите ответ быстро, независимо от дня недели.
+                        <?php echo htmlspecialchars(t('pages.contact.faq.items.response.answer')); ?>
                     </p>
                 </div>
                 
                 <!-- FAQ 2 -->
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll" style="animation-delay: 0.1s;">
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Предоставляете ли вы бесплатную консультацию?</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.items.consultation.question')); ?></h3>
                     <p class="text-gray-400">
-                        Да, мы предоставляем бесплатную первичную консультацию для всех 
-                        потенциальных клиентов. Заполните форму выше, и мы свяжемся с вами 
-                        для обсуждения вашего проекта.
+                        <?php echo htmlspecialchars(t('pages.contact.faq.items.consultation.answer')); ?>
                     </p>
                 </div>
                 
                 <!-- FAQ 3 -->
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll" style="animation-delay: 0.2s;">
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Работаете ли вы с небольшими компаниями?</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.items.small.question')); ?></h3>
                     <p class="text-gray-400">
-                        Конечно! Мы работаем с бизнесами любого масштаба — от стартапов 
-                        до крупных корпораций. Для каждого клиента мы подбираем оптимальное решение 
-                        с учетом бюджета и целей.
+                        <?php echo htmlspecialchars(t('pages.contact.faq.items.small.answer')); ?>
                     </p>
                 </div>
                 
                 <!-- FAQ 4 -->
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll" style="animation-delay: 0.3s;">
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Как вы работаете удаленно?</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.items.remote.question')); ?></h3>
                     <p class="text-gray-400">
-                        Мы работаем полностью онлайн, используя современные инструменты для коммуникации 
-                        и управления проектами. Это позволяет нам быть доступными для клиентов по всему миру 
-                        и работать эффективно в любое время.
+                        <?php echo htmlspecialchars(t('pages.contact.faq.items.remote.answer')); ?>
                     </p>
                 </div>
                 
                 <!-- FAQ 5 -->
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll" style="animation-delay: 0.4s;">
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Какой у вас опыт работы?</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.items.experience.question')); ?></h3>
                     <p class="text-gray-400">
-                        Мы молодая компания, но у нашей команды большой стаж работы в digital-сфере. 
-                        Каждый из нас имеет многолетний опыт работы с различными проектами, 
-                        где мы достигли отличных результатов в продвижении и развитии бизнеса.
+                        <?php echo htmlspecialchars(t('pages.contact.faq.items.experience.answer')); ?>
                     </p>
                 </div>
                 
                 <!-- FAQ 6 -->
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll" style="animation-delay: 0.5s;">
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Какие услуги вы предоставляете?</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.items.services.question')); ?></h3>
                     <p class="text-gray-400">
-                        Мы предоставляем полный спектр digital-услуг: SEO-оптимизация, разработка сайтов, 
-                        настройка Google Ads, маркетинговые стратегии, аналитика и рост конверсий. 
-                        Можем работать как по отдельным направлениям, так и комплексно.
+                        <?php echo htmlspecialchars(t('pages.contact.faq.items.services.answer')); ?>
                     </p>
                 </div>
                 
                 <!-- FAQ 7 -->
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll" style="animation-delay: 0.6s;">
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Сколько стоит ваша работа?</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.items.price.question')); ?></h3>
                     <p class="text-gray-400">
-                        Стоимость зависит от объема работ и сложности проекта. Мы предлагаем индивидуальный 
-                        подход к каждому клиенту и честные цены без скрытых платежей. 
-                        Свяжитесь с нами для получения персонального предложения.
+                        <?php echo htmlspecialchars(t('pages.contact.faq.items.price.answer')); ?>
                     </p>
                 </div>
                 
                 <!-- FAQ 8 -->
                 <div class="bg-dark-bg border border-dark-border rounded-xl p-6 animate-on-scroll" style="animation-delay: 0.7s;">
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Как начать работу с вами?</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.contact.faq.items.start.question')); ?></h3>
                     <p class="text-gray-400">
-                        Просто заполните форму на этой странице или свяжитесь с нами по телефону или email. 
-                        Мы проведем бесплатную консультацию, обсудим ваш проект и предложим оптимальное решение.
+                        <?php echo htmlspecialchars(t('pages.contact.faq.items.start.answer')); ?>
                     </p>
                 </div>
             </div>

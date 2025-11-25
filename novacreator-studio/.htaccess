@@ -18,36 +18,38 @@
     # Исключаем системные директории и файлы
     RewriteCond %{REQUEST_URI} !^/(admin|client|includes|backend|assets|telegram_bot|data|adm|lang|favicon\.ico|robots\.txt|sitemap\.xml) [NC]
     
-    # Если запрос к корню без языкового префикса - перенаправляем на /ru/ (или просто /)
-    RewriteCond %{REQUEST_URI} ^/$ [NC]
-    RewriteRule ^$ /index.php [L]
-    
-    # Обработка языковых префиксов ru/ и en/
+    # Обработка языковых префиксов ru/ и en/ для всех страниц
     # Формат: /ru/services, /en/services и т.д.
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(ru|en)/(services|seo|ads|about|contact|portfolio|vacancies|calculator|blog|faq|)$ /$2.php?lang=$1 [L,QSA]
+    RewriteRule ^(ru|en)/(services|seo|ads|about|contact|portfolio|vacancies|calculator|blog|faq|blog-post)$ /$2.php?lang=$1 [L,QSA]
     
     # Обработка корня с языковым префиксом: /ru/ или /en/
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(ru|en)/?$ /index.php?lang=$1 [L,QSA]
     
+    # Если запрос к корню без языкового префикса - перенаправляем на index.php
+    RewriteCond %{REQUEST_URI} ^/$ [NC]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^$ /index.php [L]
+    
     # Проверяем, что файл или директория не существуют
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     
-    # Правила для основных страниц сайта (без языкового префикса)
-    RewriteRule ^services$ /services.php [L]
-    RewriteRule ^seo$ /seo.php [L]
-    RewriteRule ^ads$ /ads.php [L]
-    RewriteRule ^about$ /about.php [L]
-    RewriteRule ^contact$ /contact.php [L]
-    RewriteRule ^portfolio$ /portfolio.php [L]
-    RewriteRule ^vacancies$ /vacancies.php [L]
-    RewriteRule ^calculator$ /calculator.php [L]
-    RewriteRule ^blog$ /blog.php [L]
-    RewriteRule ^faq$ /faq.php [L]
+    # Правила для основных страниц сайта (без языкового префикса) - редирект на /ru/
+    RewriteRule ^services$ /ru/services [R=301,L]
+    RewriteRule ^seo$ /ru/seo [R=301,L]
+    RewriteRule ^ads$ /ru/ads [R=301,L]
+    RewriteRule ^about$ /ru/about [R=301,L]
+    RewriteRule ^contact$ /ru/contact [R=301,L]
+    RewriteRule ^portfolio$ /ru/portfolio [R=301,L]
+    RewriteRule ^vacancies$ /ru/vacancies [R=301,L]
+    RewriteRule ^calculator$ /ru/calculator [R=301,L]
+    RewriteRule ^blog$ /ru/blog [R=301,L]
+    RewriteRule ^faq$ /ru/faq [R=301,L]
     
     # Правила для клиентской части
     RewriteRule ^client/login$ /client/login.php [L]

@@ -3,10 +3,13 @@
  * Страница услуг
  * Подробное описание всех услуг агентства
  */
-$pageTitle = 'Услуги';
-$pageMetaTitle = 'Услуги Digital-агентства | SEO, разработка, маркетинг - NovaCreator Studio';
-$pageMetaDescription = 'Комплексные digital-услуги: SEO-оптимизация, разработка сайтов, Google Ads, маркетинг и аналитика. Полный цикл услуг для роста вашего бизнеса в интернете.';
-$pageMetaKeywords = 'услуги digital агентства, SEO услуги, разработка сайтов, контекстная реклама, маркетинговые услуги, веб-разработка, digital услуги';
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
+$pageTitle = t('pages.services.breadcrumb');
+$pageMetaTitle = t('seo.pages.services.title');
+$pageMetaDescription = t('seo.pages.services.description');
+$pageMetaKeywords = t('seo.pages.services.keywords');
 include 'includes/header.php';
 ?>
 
@@ -15,11 +18,10 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient">Наши услуги</span>
+                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.services.title')); ?></span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                Комплексные решения для digital-продвижения вашего бизнеса. 
-                От разработки до продвижения — всё в одном месте.
+                <?php echo htmlspecialchars(t('pages.services.subtitle')); ?>
             </p>
         </div>
     </div>
@@ -35,59 +37,57 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">SEO-оптимизация</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.seo.title')); ?></h2>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
-                    Выводим ваш сайт в топ поисковых систем Яндекс и Google. 
-                    Комплексная оптимизация включает технический аудит, работу с контентом, 
-                    построение ссылочной массы и постоянный мониторинг позиций.
+                    <?php echo htmlspecialchars(t('pages.services.seo.description')); ?>
                 </p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Технический аудит и исправление ошибок</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.seo.features.technical')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Оптимизация контента и мета-тегов</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.seo.features.content')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Построение ссылочной массы</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.seo.features.links')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Ежемесячная отчетность и аналитика</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.seo.features.reporting')); ?></span>
                     </li>
                 </ul>
-                <a href="/seo" class="btn-neon inline-block">
-                    Подробнее о SEO
+                <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="btn-neon inline-block">
+                    <?php echo htmlspecialchars(t('pages.services.seo.learnMore')); ?>
                 </a>
             </div>
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-8 h-full">
                     <div class="space-y-6">
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-400">Органический трафик</span>
+                            <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.seo.stats.traffic')); ?></span>
                             <span class="text-2xl font-bold text-neon-purple">
                                 <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
                             </span>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-400">Позиции в топ-10</span>
+                            <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.seo.stats.positions')); ?></span>
                             <span class="text-2xl font-bold text-neon-blue">
                                 <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
                             </span>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-400">Конверсии</span>
+                            <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.seo.stats.conversions')); ?></span>
                             <span class="text-2xl font-bold text-neon-purple">
                                 <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
                             </span>
@@ -108,19 +108,19 @@ include 'includes/header.php';
                     <div class="space-y-4">
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-purple rounded-full"></div>
-                            <span class="text-gray-300">Адаптивный дизайн</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.development.features.responsive')); ?></span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-blue rounded-full"></div>
-                            <span class="text-gray-300">Высокая скорость загрузки</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.development.features.speed')); ?></span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-purple rounded-full"></div>
-                            <span class="text-gray-300">SEO-оптимизация из коробки</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.development.features.seo')); ?></span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-blue rounded-full"></div>
-                            <span class="text-gray-300">Интеграции и API</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.development.features.integrations')); ?></span>
                         </div>
                     </div>
                 </div>
@@ -131,40 +131,38 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                     </svg>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Разработка сайтов</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.development.title')); ?></h2>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
-                    Создаем современные, быстрые и функциональные сайты. От простых 
-                    лендингов до сложных веб-приложений. Используем актуальные технологии 
-                    и лучшие практики разработки.
+                    <?php echo htmlspecialchars(t('pages.services.development.description')); ?>
                 </p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-blue mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Лендинги и корпоративные сайты</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.development.types.landing')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-blue mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Интернет-магазины и каталоги</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.development.types.shop')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-blue mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Веб-приложения и порталы</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.development.types.app')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-blue mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Поддержка и обновления</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.development.types.support')); ?></span>
                     </li>
                 </ul>
-                <a href="/contact" class="btn-neon inline-block">
-                    Обсудить проект
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                    <?php echo htmlspecialchars(t('pages.services.development.discuss')); ?>
                 </a>
             </div>
         </div>
@@ -182,49 +180,47 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
                     </svg>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Google Ads</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.ads.title')); ?></h2>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
-                    Настройка и ведение контекстной рекламы в Google. Создаем эффективные 
-                    кампании, которые приносят целевой трафик и конверсии. Постоянная 
-                    оптимизация для максимального ROI.
+                    <?php echo htmlspecialchars(t('pages.services.ads.description')); ?>
                 </p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Настройка кампаний с нуля</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.ads.features.setup')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Создание рекламных объявлений</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.ads.features.ads')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Работа с ключевыми словами и аудиториями</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.ads.features.keywords')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Ежедневный мониторинг и оптимизация</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.ads.features.monitoring')); ?></span>
                     </li>
                 </ul>
-                <a href="/ads" class="btn-neon inline-block">
-                    Подробнее о Google Ads
+                <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="btn-neon inline-block">
+                    <?php echo htmlspecialchars(t('pages.services.ads.learnMore')); ?>
                 </a>
             </div>
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-8">
-                    <h3 class="text-2xl font-bold mb-6 text-gradient">Результаты наших клиентов</h3>
+                    <h3 class="text-2xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.ads.results.title')); ?></h3>
                     <div class="space-y-6">
                         <div class="progress-item">
                             <div class="flex justify-between mb-2">
-                                <span class="text-gray-400">CTR</span>
+                                <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.ads.results.ctr')); ?></span>
                                 <div class="relative inline-block">
                                     <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                     <span class="relative text-neon-purple font-bold counter-wrapper">
@@ -238,7 +234,7 @@ include 'includes/header.php';
                         </div>
                         <div class="progress-item" style="animation-delay: 0.1s;">
                             <div class="flex justify-between mb-2">
-                                <span class="text-gray-400">Конверсии</span>
+                                <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.ads.results.conversions')); ?></span>
                                 <div class="relative inline-block">
                                     <div class="absolute inset-0 bg-gradient-to-r from-neon-blue/30 to-neon-purple/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                     <span class="relative text-neon-blue font-bold counter-wrapper">
@@ -252,7 +248,7 @@ include 'includes/header.php';
                         </div>
                         <div class="progress-item" style="animation-delay: 0.2s;">
                             <div class="flex justify-between mb-2">
-                                <span class="text-gray-400">Снижение стоимости клика</span>
+                                <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.ads.results.cost')); ?></span>
                                 <div class="relative inline-block">
                                     <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                     <span class="relative text-neon-purple font-bold counter-wrapper">
@@ -276,22 +272,22 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="order-2 lg:order-1 animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-2 gap-4">
                     <div class="bg-dark-bg border border-dark-border rounded-xl p-6 text-center">
-                        <div class="text-3xl font-bold text-neon-purple mb-2">SMM</div>
-                        <p class="text-sm text-gray-400">Социальные сети</p>
+                        <div class="text-3xl font-bold text-neon-purple mb-2"><?php echo htmlspecialchars(t('pages.services.marketing.types.smm')); ?></div>
+                        <p class="text-sm text-gray-400"><?php echo htmlspecialchars(t('pages.services.marketing.types.smmDesc')); ?></p>
                     </div>
                     <div class="bg-dark-bg border border-dark-border rounded-xl p-6 text-center">
-                        <div class="text-3xl font-bold text-neon-blue mb-2">Email</div>
-                        <p class="text-sm text-gray-400">Рассылки</p>
+                        <div class="text-3xl font-bold text-neon-blue mb-2"><?php echo htmlspecialchars(t('pages.services.marketing.types.email')); ?></div>
+                        <p class="text-sm text-gray-400"><?php echo htmlspecialchars(t('pages.services.marketing.types.emailDesc')); ?></p>
                     </div>
                     <div class="bg-dark-bg border border-dark-border rounded-xl p-6 text-center">
-                        <div class="text-3xl font-bold text-neon-purple mb-2">Контент</div>
-                        <p class="text-sm text-gray-400">Маркетинг</p>
+                        <div class="text-3xl font-bold text-neon-purple mb-2"><?php echo htmlspecialchars(t('pages.services.marketing.types.content')); ?></div>
+                        <p class="text-sm text-gray-400"><?php echo htmlspecialchars(t('pages.services.marketing.types.contentDesc')); ?></p>
                     </div>
                     <div class="bg-dark-bg border border-dark-border rounded-xl p-6 text-center">
-                        <div class="text-3xl font-bold text-neon-blue mb-2">Бренд</div>
-                        <p class="text-sm text-gray-400">Позиционирование</p>
+                        <div class="text-3xl font-bold text-neon-blue mb-2"><?php echo htmlspecialchars(t('pages.services.marketing.types.brand')); ?></div>
+                        <p class="text-sm text-gray-400"><?php echo htmlspecialchars(t('pages.services.marketing.types.brandDesc')); ?></p>
                     </div>
                 </div>
             </div>
@@ -301,40 +297,38 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
                     </svg>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Маркетинг</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.marketing.title')); ?></h2>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
-                    Разработка и внедрение комплексных маркетинговых стратегий. 
-                    От SMM до контент-маркетинга — помогаем вашему бренду занять 
-                    лидирующие позиции на рынке.
+                    <?php echo htmlspecialchars(t('pages.services.marketing.description')); ?>
                 </p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-blue mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">SMM и продвижение в соцсетях</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.marketing.features.smm')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-blue mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Контент-маркетинг и блогинг</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.marketing.features.content')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-blue mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Email-маркетинг и рассылки</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.marketing.features.email')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-blue mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Брендинг и позиционирование</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.marketing.features.branding')); ?></span>
                     </li>
                 </ul>
-                <a href="/contact" class="btn-neon inline-block">
-                    Обсудить стратегию
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                    <?php echo htmlspecialchars(t('pages.services.marketing.discuss')); ?>
                 </a>
             </div>
         </div>
@@ -351,64 +345,62 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Аналитика и конверсии</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.analytics.title')); ?></h2>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
-                    Глубокий анализ данных и метрик для принятия обоснованных решений. 
-                    Настраиваем системы аналитики, отслеживаем конверсии и оптимизируем 
-                    воронки продаж для максимальной эффективности.
+                    <?php echo htmlspecialchars(t('pages.services.analytics.description')); ?>
                 </p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Настройка Google Analytics и Яндекс.Метрики</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.features.setup')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Отслеживание конверсий и целей</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.features.tracking')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">A/B тестирование и оптимизация</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.features.testing')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Ежемесячные отчеты и рекомендации</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.features.reports')); ?></span>
                     </li>
                 </ul>
-                <a href="/contact" class="btn-neon inline-block">
-                    Настроить аналитику
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                    <?php echo htmlspecialchars(t('pages.services.analytics.setup')); ?>
                 </a>
             </div>
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-8">
-                    <h3 class="text-2xl font-bold mb-6 text-gradient">Что мы отслеживаем</h3>
+                    <h3 class="text-2xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.analytics.tracking.title')); ?></h3>
                     <div class="space-y-4">
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-300">Посетители и сессии</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.tracking.visitors')); ?></span>
                             <span class="text-neon-purple">✓</span>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-300">Конверсии и цели</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.tracking.conversions')); ?></span>
                             <span class="text-neon-blue">✓</span>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-300">Поведение пользователей</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.tracking.behavior')); ?></span>
                             <span class="text-neon-purple">✓</span>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-300">Источники трафика</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.tracking.sources')); ?></span>
                             <span class="text-neon-blue">✓</span>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-300">ROI и эффективность</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.analytics.tracking.roi')); ?></span>
                             <span class="text-neon-purple">✓</span>
                         </div>
                     </div>
@@ -422,9 +414,9 @@ include 'includes/header.php';
 <section class="py-20 bg-dark-surface">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Наши гарантии</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.guarantees.title')); ?></h2>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Мы уверены в качестве нашей работы и готовы это доказать
+                <?php echo htmlspecialchars(t('pages.services.guarantees.subtitle')); ?>
             </p>
         </div>
         
@@ -437,12 +429,10 @@ include 'includes/header.php';
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">Пожизненная гарантия</h3>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient"><?php echo htmlspecialchars(t('pages.services.guarantees.lifetime.title')); ?></h3>
                 </div>
                 <p class="text-gray-300 leading-relaxed text-lg">
-                    Мы даем <strong class="text-white">пожизненную гарантию</strong> на все наши работы. 
-                    Если возникнут проблемы с сайтом или продвижением, мы исправим их бесплатно. 
-                    Ваш успех — наш приоритет.
+                    <?php echo htmlspecialchars(t('pages.services.guarantees.lifetime.description')); ?>
                 </p>
             </div>
             
@@ -454,16 +444,14 @@ include 'includes/header.php';
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">6 месяцев поддержки</h3>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient"><?php echo htmlspecialchars(t('pages.services.guarantees.support.title')); ?></h3>
                 </div>
                 <p class="text-gray-300 leading-relaxed text-lg">
-                    В честь открытия нашей компании, <strong class="text-white">первым клиентам</strong> мы предоставляем 
-                    <strong class="text-white">бесплатную поддержку в течение 6 месяцев</strong>. 
-                    Консультации, доработки и помощь — всё включено!
+                    <?php echo htmlspecialchars(t('pages.services.guarantees.support.description')); ?>
                 </p>
                 <div class="mt-6 pt-6 border-t border-neon-blue/30">
                     <span class="inline-block bg-neon-blue/20 text-neon-blue px-4 py-2 rounded-full text-sm font-semibold">
-                        Ограниченное предложение
+                        <?php echo htmlspecialchars(t('pages.services.guarantees.support.badge')); ?>
                     </span>
                 </div>
             </div>
@@ -476,13 +464,13 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto animate-on-scroll">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Готовы начать?
+                <?php echo htmlspecialchars(t('pages.services.cta.title')); ?>
             </h2>
             <p class="text-xl text-gray-300 mb-12">
-                Свяжитесь с нами и получите бесплатную консультацию по вашему проекту
+                <?php echo htmlspecialchars(t('pages.services.cta.subtitle')); ?>
             </p>
-            <a href="/contact" class="btn-neon inline-block">
-                Связаться с нами
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                <?php echo htmlspecialchars(t('pages.services.cta.button')); ?>
             </a>
         </div>
     </div>

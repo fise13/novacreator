@@ -3,10 +3,13 @@
  * Страница о компании
  * Информация о команде и ценностях агентства
  */
-$pageTitle = 'О нас';
-$pageMetaTitle = 'О компании NovaCreator Studio | Команда Digital-агентства';
-$pageMetaDescription = 'NovaCreator Studio - новое digital-агентство с большим опытом команды. Мишкин Виктор и Амири Искандер. Молодая компания с большим стажем работы. Работаем онлайн, помогаем бизнесу расти в интернете.';
-$pageMetaKeywords = 'о компании, digital агентство, команда разработчиков, команда маркетологов, о нас, история компании';
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
+$pageTitle = t('pages.about.breadcrumb');
+$pageMetaTitle = t('seo.pages.about.title');
+$pageMetaDescription = t('seo.pages.about.description');
+$pageMetaKeywords = t('seo.pages.about.keywords');
 include 'includes/header.php';
 ?>
 
@@ -15,12 +18,10 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient">О нас</span>
+                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.about.title')); ?></span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                Мы — новая компания, которая только открылась, но у нас за плечами 
-                огромный опыт в digital. Команда из двух профессионалов, работаем онлайн по всему миру.
-                Работаем с клиентами по всему Казахстану: Алматы, Астана, Шымкент, Караганда, Актобе и другие города.
+                <?php echo htmlspecialchars(t('pages.about.subtitle')); ?>
             </p>
         </div>
     </div>
@@ -31,43 +32,35 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="animate-on-scroll">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Кто мы такие</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.about.whoWeAre.title')); ?></h2>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
-                    NovaCreator Studio — это новое digital-агентство полного цикла, которое только 
-                    открылось, но у нас за плечами огромный опыт в SEO-продвижении, разработке сайтов 
-                    и маркетинговых стратегиях. Мы работаем онлайн с бизнесами любого масштаба: 
-                    от стартапов до крупных корпораций.
+                    <?php echo htmlspecialchars(t('pages.about.whoWeAre.description1')); ?>
                 </p>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
-                    Мы молодая компания, но каждый из нас имеет большой стаж работы в digital-сфере. 
-                    Мы объединили свои многолетние знания и навыки, чтобы создать агентство, которое помогает 
-                    компаниям достигать своих целей в интернете через эффективные решения. 
-                    Наш опыт позволяет нам подходить к каждому проекту профессионально и достигать отличных результатов.
+                    <?php echo htmlspecialchars(t('pages.about.whoWeAre.description2')); ?>
                 </p>
                 <p class="text-lg text-gray-400 leading-relaxed">
-                    Мы работаем удаленно, что позволяет нам быть гибкими и доступными для клиентов 
-                    в любое время. Каждый проект для нас важен, и мы вкладываем максимум усилий 
-                    в достижение результата. Наш опыт + свежий взгляд = идеальное сочетание для вашего бизнеса.
+                    <?php echo htmlspecialchars(t('pages.about.whoWeAre.description3')); ?>
                 </p>
             </div>
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-8">
                     <div class="grid grid-cols-2 gap-6">
                         <div class="text-center">
-                            <div class="text-4xl font-bold text-gradient mb-2">Новая</div>
-                            <p class="text-gray-400 text-sm">Компания</p>
+                            <div class="text-4xl font-bold text-gradient mb-2"><?php echo htmlspecialchars(t('pages.about.stats.new')); ?></div>
+                            <p class="text-gray-400 text-sm"><?php echo htmlspecialchars(t('pages.about.stats.company')); ?></p>
                         </div>
                         <div class="text-center">
                             <div class="text-4xl font-bold text-gradient mb-2">10+</div>
-                            <p class="text-gray-400 text-sm">Лет опыта команды</p>
+                            <p class="text-gray-400 text-sm"><?php echo htmlspecialchars(t('pages.about.stats.experience')); ?></p>
                         </div>
                         <div class="text-center">
                             <div class="text-4xl font-bold text-gradient mb-2">2</div>
-                            <p class="text-gray-400 text-sm">Профессионала</p>
+                            <p class="text-gray-400 text-sm"><?php echo htmlspecialchars(t('pages.about.stats.professionals')); ?></p>
                         </div>
                         <div class="text-center">
                             <div class="text-4xl font-bold text-gradient mb-2">100%</div>
-                            <p class="text-gray-400 text-sm">Онлайн</p>
+                            <p class="text-gray-400 text-sm"><?php echo htmlspecialchars(t('pages.about.stats.online')); ?></p>
                         </div>
                     </div>
                 </div>
@@ -80,9 +73,9 @@ include 'includes/header.php';
 <section class="py-20 bg-dark-surface">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Наши ценности</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.about.values.title')); ?></h2>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Принципы, которыми мы руководствуемся в работе
+                <?php echo htmlspecialchars(t('pages.about.values.subtitle')); ?>
             </p>
         </div>
         
@@ -93,9 +86,9 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-4 text-gradient">Качество</h3>
+                <h3 class="text-xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.about.values.quality.title')); ?></h3>
                 <p class="text-gray-400">
-                    Мы не идем на компромиссы. Каждый проект выполняется на высшем уровне.
+                    <?php echo htmlspecialchars(t('pages.about.values.quality.description')); ?>
                 </p>
             </div>
             
@@ -105,9 +98,9 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-4 text-gradient">Скорость</h3>
+                <h3 class="text-xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.about.values.speed.title')); ?></h3>
                 <p class="text-gray-400">
-                    Быстро реагируем на изменения и оперативно решаем задачи клиентов.
+                    <?php echo htmlspecialchars(t('pages.about.values.speed.description')); ?>
                 </p>
             </div>
             
@@ -117,9 +110,9 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-4 text-gradient">Прозрачность</h3>
+                <h3 class="text-xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.about.values.transparency.title')); ?></h3>
                 <p class="text-gray-400">
-                    Открытость в коммуникации и честность в отчетности — основа доверия.
+                    <?php echo htmlspecialchars(t('pages.about.values.transparency.description')); ?>
                 </p>
             </div>
             
@@ -129,9 +122,9 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-4 text-gradient">Результат</h3>
+                <h3 class="text-xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.about.values.result.title')); ?></h3>
                 <p class="text-gray-400">
-                    Мы фокусируемся на достижении измеримых результатов для бизнеса.
+                    <?php echo htmlspecialchars(t('pages.about.values.result.description')); ?>
                 </p>
             </div>
         </div>
@@ -142,9 +135,9 @@ include 'includes/header.php';
 <section class="py-20">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Наша команда</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.about.team.title')); ?></h2>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Профессионалы с опытом работы в digital-маркетинге и веб-разработке
+                <?php echo htmlspecialchars(t('pages.about.team.subtitle')); ?>
             </p>
         </div>
         
@@ -153,11 +146,10 @@ include 'includes/header.php';
                 <div class="w-32 h-32 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold">
                     МВ
                 </div>
-                <h3 class="text-2xl font-bold mb-2 text-gradient">Мишкин Виктор</h3>
-                <p class="text-neon-purple mb-4">Сооснователь & Разработчик</p>
+                <h3 class="text-2xl font-bold mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.about.team.victor.name')); ?></h3>
+                <p class="text-neon-purple mb-4"><?php echo htmlspecialchars(t('pages.about.team.victor.role')); ?></p>
                 <p class="text-gray-400">
-                    Специалист по веб-разработке и digital-решениям с многолетним опытом. 
-                    Создает современные и функциональные сайты, которые приносят результат.
+                    <?php echo htmlspecialchars(t('pages.about.team.victor.description')); ?>
                 </p>
             </div>
             
@@ -165,11 +157,10 @@ include 'includes/header.php';
                 <div class="w-32 h-32 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold">
                     АИ
                 </div>
-                <h3 class="text-2xl font-bold mb-2 text-gradient">Амири Искандер</h3>
-                <p class="text-neon-blue mb-4">Сооснователь & Маркетолог</p>
+                <h3 class="text-2xl font-bold mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.about.team.iskander.name')); ?></h3>
+                <p class="text-neon-blue mb-4"><?php echo htmlspecialchars(t('pages.about.team.iskander.role')); ?></p>
                 <p class="text-gray-400">
-                    Эксперт по SEO, маркетингу и продвижению в интернете с богатым опытом. 
-                    Помогает бизнесу расти через эффективные стратегии и оптимизацию.
+                    <?php echo htmlspecialchars(t('pages.about.team.iskander.description')); ?>
                 </p>
             </div>
         </div>
@@ -180,7 +171,7 @@ include 'includes/header.php';
 <section class="py-20 bg-dark-surface">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Почему выбирают нас</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.about.why.title')); ?></h2>
         </div>
         
         <div class="max-w-4xl mx-auto space-y-8">
@@ -191,10 +182,9 @@ include 'includes/header.php';
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-3 text-gradient">Индивидуальный подход</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.about.why.individual.title')); ?></h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Каждый проект уникален. Мы изучаем специфику вашего бизнеса и создаем 
-                        стратегию, которая работает именно для вас.
+                        <?php echo htmlspecialchars(t('pages.about.why.individual.description')); ?>
                     </p>
                 </div>
             </div>
@@ -206,10 +196,9 @@ include 'includes/header.php';
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-3 text-gradient">Прозрачная отчетность</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.about.why.transparency.title')); ?></h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Регулярные отчеты с понятными метриками и рекомендациями. Вы всегда 
-                        знаете, что происходит с вашим проектом.
+                        <?php echo htmlspecialchars(t('pages.about.why.transparency.description')); ?>
                     </p>
                 </div>
             </div>
@@ -221,10 +210,9 @@ include 'includes/header.php';
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-3 text-gradient">Быстрые результаты</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.about.why.fast.title')); ?></h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Мы не обещаем мгновенных результатов, но работаем максимально эффективно, 
-                        чтобы вы увидели прогресс как можно скорее.
+                        <?php echo htmlspecialchars(t('pages.about.why.fast.description')); ?>
                     </p>
                 </div>
             </div>
@@ -236,10 +224,9 @@ include 'includes/header.php';
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-3 text-gradient">Честные цены</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.about.why.honest.title')); ?></h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Прозрачное ценообразование без скрытых платежей. Вы платите только за 
-                        реальную работу и результаты.
+                        <?php echo htmlspecialchars(t('pages.about.why.honest.description')); ?>
                     </p>
                 </div>
             </div>
@@ -252,13 +239,13 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto animate-on-scroll">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Готовы работать с нами?
+                <?php echo htmlspecialchars(t('pages.about.cta.title')); ?>
             </h2>
             <p class="text-xl text-gray-300 mb-12">
-                Свяжитесь с нами и обсудим, как мы можем помочь вашему бизнесу
+                <?php echo htmlspecialchars(t('pages.about.cta.subtitle')); ?>
             </p>
-            <a href="/contact" class="btn-neon inline-block">
-                Связаться с нами
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                <?php echo htmlspecialchars(t('pages.about.cta.button')); ?>
             </a>
         </div>
     </div>

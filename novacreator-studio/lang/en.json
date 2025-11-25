@@ -183,6 +183,256 @@
     "faq": {
       "title": "Frequently Asked Questions",
       "subtitle": "Answers to popular questions about our services and work process"
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "Comprehensive solutions for digital promotion of your business. From development to promotion — everything in one place.",
+      "seo": {
+        "title": "SEO Optimization",
+        "description": "We rank your website in search engines Yandex and Google. Comprehensive optimization includes technical audit, content work, link building and constant position monitoring.",
+        "features": {
+          "technical": "Technical audit and error correction",
+          "content": "Content and meta tags optimization",
+          "links": "Link building",
+          "reporting": "Monthly reporting and analytics"
+        },
+        "stats": {
+          "traffic": "Organic traffic",
+          "positions": "Top-10 positions",
+          "conversions": "Conversions"
+        },
+        "learnMore": "Learn more about SEO"
+      },
+      "development": {
+        "title": "Website Development",
+        "description": "We create modern, fast and functional websites. From simple landing pages to complex web applications. We use current technologies and best development practices.",
+        "features": {
+          "responsive": "Responsive design",
+          "speed": "High loading speed",
+          "seo": "SEO optimization out of the box",
+          "integrations": "Integrations and API"
+        },
+        "types": {
+          "landing": "Landing pages and corporate websites",
+          "shop": "Online stores and catalogs",
+          "app": "Web applications and portals",
+          "support": "Support and updates"
+        },
+        "discuss": "Discuss project"
+      },
+      "ads": {
+        "title": "Google Ads",
+        "description": "Setup and management of contextual advertising in Google. We create effective campaigns that bring targeted traffic and conversions. Constant optimization for maximum ROI.",
+        "features": {
+          "setup": "Campaign setup from scratch",
+          "ads": "Ad creation",
+          "keywords": "Keyword and audience work",
+          "monitoring": "Daily monitoring and optimization"
+        },
+        "results": {
+          "title": "Our clients' results",
+          "ctr": "CTR",
+          "conversions": "Conversions",
+          "cost": "Cost per click reduction"
+        },
+        "learnMore": "Learn more about Google Ads"
+      },
+      "marketing": {
+        "title": "Marketing",
+        "description": "Development and implementation of comprehensive marketing strategies. From SMM to content marketing — we help your brand take leading positions in the market.",
+        "types": {
+          "smm": "SMM",
+          "smmDesc": "Social networks",
+          "email": "Email",
+          "emailDesc": "Newsletters",
+          "content": "Content",
+          "contentDesc": "Marketing",
+          "brand": "Brand",
+          "brandDesc": "Positioning"
+        },
+        "features": {
+          "smm": "SMM and social media promotion",
+          "content": "Content marketing and blogging",
+          "email": "Email marketing and newsletters",
+          "branding": "Branding and positioning"
+        },
+        "discuss": "Discuss strategy"
+      },
+      "analytics": {
+        "title": "Analytics and Conversions",
+        "description": "Deep analysis of data and metrics for informed decision making. We set up analytics systems, track conversions and optimize sales funnels for maximum efficiency.",
+        "features": {
+          "setup": "Google Analytics and Yandex.Metrica setup",
+          "tracking": "Conversion and goal tracking",
+          "testing": "A/B testing and optimization",
+          "reports": "Monthly reports and recommendations"
+        },
+        "tracking": {
+          "title": "What we track",
+          "visitors": "Visitors and sessions",
+          "conversions": "Conversions and goals",
+          "behavior": "User behavior",
+          "sources": "Traffic sources",
+          "roi": "ROI and efficiency"
+        },
+        "setup": "Setup analytics"
+      },
+      "guarantees": {
+        "title": "Our Guarantees",
+        "subtitle": "We are confident in the quality of our work and ready to prove it",
+        "lifetime": {
+          "title": "Lifetime Guarantee",
+          "description": "We provide a lifetime guarantee on all our work. If problems arise with the website or promotion, we will fix them for free. Your success is our priority."
+        },
+        "support": {
+          "title": "6 Months Support",
+          "description": "In honor of the opening of our company, we provide first clients with free support for 6 months. Consultations, improvements and assistance — everything is included!",
+          "badge": "Limited offer"
+        }
+      },
+      "cta": {
+        "title": "Ready to start?",
+        "subtitle": "Contact us and get a free consultation on your project",
+        "button": "Contact us"
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "subtitle": "Ready to discuss your project? Fill out the form below or contact us directly. We will respond within 24 hours.",
+      "contactInfo": "Contact Information",
+      "email": "Email",
+      "phone": "Phone",
+      "workingHours": "Working Hours",
+      "workingHoursText": "We work every day, online worldwide",
+      "social": "We are on social media",
+      "form": {
+        "title": "Send Message",
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "email": "Email",
+        "emailPlaceholder": "your@email.com",
+        "phone": "Phone",
+        "phonePlaceholder": "+7 (XXX) XXX-XX-XX",
+        "service": "Service of interest",
+        "servicePlaceholder": "Select service",
+        "message": "Message",
+        "messagePlaceholder": "Tell us about your project...",
+        "send": "Send Message",
+        "privacy": "By clicking the button, you agree to the processing of personal data"
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "Answers to popular questions about our work",
+        "items": {
+          "response": {
+            "question": "How long does it take to respond to an application?",
+            "answer": "We respond to all applications within 24 hours. We work every day, so you will receive a response quickly, regardless of the day of the week."
+          },
+          "consultation": {
+            "question": "Do you provide free consultation?",
+            "answer": "Yes, we provide free initial consultation for all potential clients. Fill out the form above, and we will contact you to discuss your project."
+          },
+          "small": {
+            "question": "Do you work with small companies?",
+            "answer": "Of course! We work with businesses of any scale — from startups to large corporations. For each client, we select the optimal solution taking into account budget and goals."
+          },
+          "remote": {
+            "question": "How do you work remotely?",
+            "answer": "We work completely online, using modern tools for communication and project management. This allows us to be available to clients worldwide and work efficiently at any time."
+          },
+          "experience": {
+            "question": "What is your work experience?",
+            "answer": "We are a young company, but our team has extensive experience in the digital sphere. Each of us has years of experience working with various projects where we achieved excellent results in promotion and business development."
+          },
+          "services": {
+            "question": "What services do you provide?",
+            "answer": "We provide a full range of digital services: SEO optimization, website development, Google Ads setup, marketing strategies, analytics and conversion growth. We can work both on individual areas and comprehensively."
+          },
+          "price": {
+            "question": "How much does your work cost?",
+            "answer": "The cost depends on the scope of work and project complexity. We offer an individual approach to each client and honest prices without hidden fees. Contact us for a personal quote."
+          },
+          "start": {
+            "question": "How to start working with you?",
+            "answer": "Simply fill out the form on this page or contact us by phone or email. We will conduct a free consultation, discuss your project and offer an optimal solution."
+          }
+        }
+      }
+    },
+    "about": {
+      "title": "About Us",
+      "subtitle": "We are a new company that has just opened, but we have extensive experience in digital. A team of two professionals, we work online worldwide. We work with clients throughout Kazakhstan: Almaty, Astana, Shymkent, Karaganda, Aktobe and other cities.",
+      "whoWeAre": {
+        "title": "Who We Are",
+        "description1": "NovaCreator Studio is a new full-cycle digital agency that has just opened, but we have extensive experience in SEO promotion, website development and marketing strategies. We work online with businesses of any scale: from startups to large corporations.",
+        "description2": "We are a young company, but each of us has extensive experience in the digital sphere. We combined our years of knowledge and skills to create an agency that helps companies achieve their goals online through effective solutions. Our experience allows us to approach each project professionally and achieve excellent results.",
+        "description3": "We work remotely, which allows us to be flexible and available to clients at any time. Every project is important to us, and we put maximum effort into achieving results. Our experience + fresh perspective = perfect combination for your business."
+      },
+      "stats": {
+        "new": "New",
+        "company": "Company",
+        "experience": "Years of team experience",
+        "professionals": "Professionals",
+        "online": "Online"
+      },
+      "values": {
+        "title": "Our Values",
+        "subtitle": "Principles we follow in our work",
+        "quality": {
+          "title": "Quality",
+          "description": "We don't compromise. Every project is executed at the highest level."
+        },
+        "speed": {
+          "title": "Speed",
+          "description": "We quickly respond to changes and promptly solve client tasks."
+        },
+        "transparency": {
+          "title": "Transparency",
+          "description": "Openness in communication and honesty in reporting — the foundation of trust."
+        },
+        "result": {
+          "title": "Result",
+          "description": "We focus on achieving measurable results for business."
+        }
+      },
+      "team": {
+        "title": "Our Team",
+        "subtitle": "Professionals with experience in digital marketing and web development",
+        "victor": {
+          "name": "Mishkin Victor",
+          "role": "Co-founder & Developer",
+          "description": "Specialist in web development and digital solutions with years of experience. Creates modern and functional websites that deliver results."
+        },
+        "iskander": {
+          "name": "Amiri Iskander",
+          "role": "Co-founder & Marketer",
+          "description": "Expert in SEO, marketing and online promotion with rich experience. Helps businesses grow through effective strategies and optimization."
+        }
+      },
+      "why": {
+        "title": "Why Choose Us",
+        "individual": {
+          "title": "Individual Approach",
+          "description": "Every project is unique. We study the specifics of your business and create a strategy that works specifically for you."
+        },
+        "transparency": {
+          "title": "Transparent Reporting",
+          "description": "Regular reports with clear metrics and recommendations. You always know what's happening with your project."
+        },
+        "fast": {
+          "title": "Fast Results",
+          "description": "We don't promise instant results, but we work as efficiently as possible so you see progress as soon as possible."
+        },
+        "honest": {
+          "title": "Honest Prices",
+          "description": "Transparent pricing without hidden fees. You only pay for real work and results."
+        }
+      },
+      "cta": {
+        "title": "Ready to work with us?",
+        "subtitle": "Contact us and let's discuss how we can help your business",
+        "button": "Contact us"
+      }
     }
   },
   "seo": {
