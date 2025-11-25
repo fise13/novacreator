@@ -5,7 +5,27 @@
  */
 
 // Подключаем конфигурацию Telegram
-require_once __DIR__ . '/telegram_config.php';
+$configPath = __DIR__ . '/telegram_config.php';
+if (!file_exists($configPath)) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Ошибка конфигурации: файл telegram_config.php не найден'
+    ]);
+    exit;
+}
+
+require_once $configPath;
+
+// Проверяем, что константы определены
+if (!defined('TELEGRAM_BOT_TOKEN')) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Ошибка конфигурации: TELEGRAM_BOT_TOKEN не определен'
+    ]);
+    exit;
+}
 
 // Запускаем сессию ДО отправки заголовков
 if (session_status() === PHP_SESSION_NONE) {
@@ -168,9 +188,24 @@ $telegramMessage .= "🌐 *IP адрес:* `" . escapeMarkdown($ip) . "`\n";
 $telegramMessage .= "🕐 *Время:* " . escapeMarkdown($timestamp) . "\n";
 
 // Получаем Chat ID (если не указан в конфиге, пытаемся получить автоматически)
+// Проверяем, определена ли константа
+if (!defined('TELEGRAM_CHAT_ID')) {
+    logMessage('ERROR: TELEGRAM_CHAT_ID constant not defined');
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Ошибка конфигурации: TELEGRAM_CHAT_ID не определен'
+    ]);
+    exit;
+}
+
 $chatId = TELEGRAM_CHAT_ID;
 
+// Логируем полученный Chat ID для отладки
+logMessage('DEBUG: Chat ID from config: ' . var_export($chatId, true) . ' (type: ' . gettype($chatId) . ')');
+
 if (empty($chatId)) {
+    logMessage('WARNING: Chat ID not set in config, trying to get automatically');
     // Пытаемся получить Chat ID автоматически из последних обновлений
     $apiUrl = TELEGRAM_API_URL . 'getUpdates';
     $ch = curl_init($apiUrl);
@@ -179,13 +214,23 @@ if (empty($chatId)) {
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
     
     $response = curl_exec($ch);
+    $curlError = curl_error($ch);
     curl_close($ch);
     
-    $data = json_decode($response, true);
-    if ($data && isset($data['ok']) && $data['ok'] && !empty($data['result'])) {
-        $lastUpdate = end($data['result']);
-        if (isset($lastUpdate['message']['chat']['id'])) {
-            $chatId = $lastUpdate['message']['chat']['id'];
+    if ($response === false || !empty($curlError)) {
+        logMessage('ERROR: Failed to get updates: ' . $curlError);
+    } else {
+        $data = json_decode($response, true);
+        if ($data && isset($data['ok']) && $data['ok'] && !empty($data['result'])) {
+            $lastUpdate = end($data['result']);
+            if (isset($lastUpdate['message']['chat']['id'])) {
+                $chatId = $lastUpdate['message']['chat']['id'];
+                logMessage('SUCCESS: Auto-detected Chat ID: ' . $chatId);
+            } else {
+                logMessage('ERROR: No chat ID found in updates');
+            }
+        } else {
+            logMessage('ERROR: Invalid response from getUpdates: ' . ($response ?: 'empty'));
         }
     }
 }
@@ -199,6 +244,8 @@ if (empty($chatId)) {
     ]);
     exit;
 }
+
+logMessage('DEBUG: Using Chat ID: ' . $chatId);
 
 // Отправляем сообщение в Telegram
 $apiUrl = TELEGRAM_API_URL . 'sendMessage';
@@ -238,9 +285,15 @@ if ($response === false || !empty($curlError)) {
 
 $responseData = json_decode($response, true);
 
+// Логируем полный ответ для отладки
+logMessage('DEBUG: Telegram API response - HTTP: ' . $httpCode . ', Response: ' . substr($response, 0, 500));
+
 if ($httpCode !== 200 || !$responseData || !isset($responseData['ok']) || !$responseData['ok']) {
     $errorMessage = $responseData['description'] ?? 'Неизвестная ошибка';
     $errorCode = $responseData['error_code'] ?? 0;
+    
+    // Логируем детали ошибки
+    logMessage('ERROR: Telegram API error - Code: ' . $errorCode . ', Message: ' . $errorMessage . ', Full response: ' . json_encode($responseData));
     
     // Обработка миграции группы в супергруппу
     if ($errorCode === 400 && isset($responseData['parameters']['migrate_to_chat_id'])) {
