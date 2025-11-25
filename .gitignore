@@ -11,6 +11,7 @@ novacreator-studio/backend/telegram_errors.log
 
 # Конфиденциальные данные Telegram бота
 novacreator-studio/telegram_bot/config.php
+novacreator-studio/backend/telegram_config.php
 
 # Системные файлы
 .DS_Store

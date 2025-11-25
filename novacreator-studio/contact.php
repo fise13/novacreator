@@ -113,6 +113,10 @@ include 'includes/header.php';
                         <!-- Скрытые поля для определения типа заявки -->
                         <input type="hidden" id="form_type" name="type" value="contact">
                         <input type="hidden" id="form_vacancy" name="vacancy" value="">
+                        <input type="hidden" name="form_name" value="Форма обратной связи">
+                        
+                        <!-- Honeypot поле для защиты от спама (должно быть скрыто и пусто) -->
+                        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px;" aria-hidden="true">
                         
                         <!-- Имя -->
                         <div>
@@ -316,6 +320,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Устанавливаем скрытые поля
         document.getElementById('form_type').value = 'vacancy';
         document.getElementById('form_vacancy').value = decodeURIComponent(vacancy);
+        
+        // Устанавливаем название формы
+        const formNameInput = document.querySelector('input[name="form_name"]');
+        if (formNameInput) {
+            formNameInput.value = 'Отклик на вакансию: ' + decodeURIComponent(vacancy);
+        }
         
         // Меняем интерфейс формы
         const serviceField = document.getElementById('service_field');

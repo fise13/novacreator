@@ -1,13 +1,16 @@
 <?php
 /**
  * Обработчик формы обратной связи
- * Отправляет заявки на email компании
+ * Отправляет заявки в Telegram через Bot API
  */
+
+// Подключаем конфигурацию Telegram
+require_once __DIR__ . '/telegram_config.php';
 
 // Устанавливаем заголовок для JSON ответа
 header('Content-Type: application/json; charset=utf-8');
 
-// Разрешаем CORS запросы (для разработки)
+// Разрешаем CORS запросы
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -22,6 +25,60 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Функция логирования
+function logMessage($message) {
+    if (TELEGRAM_ENABLE_LOGGING) {
+        $logEntry = date('Y-m-d H:i:s') . ' - ' . $message . "\n";
+        @file_put_contents(TELEGRAM_LOG_FILE, $logEntry, FILE_APPEND | LOCK_EX);
+    }
+}
+
+// Функция получения IP адреса
+function getClientIP() {
+    $ipKeys = ['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'];
+    foreach ($ipKeys as $key) {
+        if (array_key_exists($key, $_SERVER) === true) {
+            foreach (explode(',', $_SERVER[$key]) as $ip) {
+                $ip = trim($ip);
+                if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
+                    return $ip;
+                }
+            }
+        }
+    }
+    return $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+}
+
+// Защита от спама: проверка honeypot поля
+$honeypot = isset($_POST['website']) ? trim($_POST['website']) : '';
+if (!empty($honeypot)) {
+    // Если honeypot заполнен - это бот, блокируем
+    logMessage('SPAM DETECTED: Honeypot field filled. IP: ' . getClientIP());
+    http_response_code(403);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Доступ запрещен'
+    ]);
+    exit;
+}
+
+// Защита от спама: проверка времени между отправками
+session_start();
+$lastSubmitTime = $_SESSION['last_form_submit_time'] ?? 0;
+$currentTime = time();
+$timeSinceLastSubmit = $currentTime - $lastSubmitTime;
+
+if ($timeSinceLastSubmit < TELEGRAM_MIN_SEND_INTERVAL) {
+    $remainingTime = TELEGRAM_MIN_SEND_INTERVAL - $timeSinceLastSubmit;
+    logMessage('SPAM PROTECTION: Too frequent submission. IP: ' . getClientIP() . ', Remaining: ' . $remainingTime . 's');
+    http_response_code(429);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Пожалуйста, подождите ' . $remainingTime . ' секунд перед повторной отправкой'
+    ]);
+    exit;
+}
+
 // Получаем данные из формы
 $name = isset($_POST['name']) ? trim($_POST['name']) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
@@ -30,6 +87,7 @@ $message = isset($_POST['message']) ? trim($_POST['message']) : '';
 $service = isset($_POST['service']) ? trim($_POST['service']) : '';
 $type = isset($_POST['type']) ? trim($_POST['type']) : 'contact'; // 'contact' или 'vacancy'
 $vacancy = isset($_POST['vacancy']) ? trim($_POST['vacancy']) : '';
+$formName = isset($_POST['form_name']) ? trim($_POST['form_name']) : '';
 
 // Валидация данных
 $errors = [];
@@ -62,325 +120,114 @@ if (!empty($errors)) {
 
 // Подготавливаем данные
 $timestamp = date('Y-m-d H:i:s');
-$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$ip = getClientIP();
 
-// Email компании для получения заявок
-$emailTo = 'contact@novacreatorstudio.com';
-
-// Формируем тему письма
-if ($type === 'vacancy' && !empty($vacancy)) {
-    $subject = "Новая заявка на вакансию: " . $vacancy;
-} else {
-    $subject = "Новая заявка с сайта NovaCreator Studio" . ($service ? " - " . $service : "");
+// Определяем название формы
+if (empty($formName)) {
+    if ($type === 'vacancy' && !empty($vacancy)) {
+        $formName = 'Отклик на вакансию: ' . $vacancy;
+    } else {
+        $formName = 'Форма обратной связи';
+        if (!empty($service)) {
+            $formName .= ' - ' . $service;
+        }
+    }
 }
 
-// Формируем тело письма в HTML формате для лучшей читаемости
-$emailMessageHTML = "
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='UTF-8'>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 5px 5px 0 0; }
-        .content { background: #f9f9f9; padding: 20px; border: 1px solid #ddd; }
-        .field { margin-bottom: 15px; }
-        .label { font-weight: bold; color: #667eea; }
-        .value { margin-top: 5px; }
-        .message-box { background: white; padding: 15px; border-left: 4px solid #667eea; margin-top: 15px; }
-        .footer { background: #f0f0f0; padding: 15px; text-align: center; font-size: 12px; color: #666; border-radius: 0 0 5px 5px; }
-    </style>
-</head>
-<body>
-    <div class='container'>
-        <div class='header'>
-            <h2>Новая заявка с сайта NovaCreator Studio</h2>
-        </div>
-        <div class='content'>
-            <div class='field'>
-                <div class='label'>Дата и время:</div>
-                <div class='value'>{$timestamp}</div>
-            </div>
-            <div class='field'>
-                <div class='label'>Имя:</div>
-                <div class='value'>{$name}</div>
-            </div>
-            <div class='field'>
-                <div class='label'>Email:</div>
-                <div class='value'><a href='mailto:{$email}'>{$email}</a></div>
-            </div>
-            <div class='field'>
-                <div class='label'>Телефон:</div>
-                <div class='value'><a href='tel:{$phone}'>{$phone}</a></div>
-            </div>";
+// Формируем сообщение для Telegram
+$telegramMessage = "🔔 *Новая заявка с сайта*\n\n";
+$telegramMessage .= "📋 *Форма:* " . $formName . "\n\n";
+$telegramMessage .= "👤 *Имя:* " . $name . "\n";
+$telegramMessage .= "📧 *Email:* " . $email . "\n";
+$telegramMessage .= "📱 *Телефон:* " . $phone . "\n";
 
 if ($type === 'vacancy' && !empty($vacancy)) {
-    $emailMessageHTML .= "
-            <div class='field'>
-                <div class='label'>Вакансия:</div>
-                <div class='value'>{$vacancy}</div>
-            </div>";
-} else {
-    $emailMessageHTML .= "
-            <div class='field'>
-                <div class='label'>Услуга:</div>
-                <div class='value'>" . ($service ?: 'Не указана') . "</div>
-            </div>";
+    $telegramMessage .= "💼 *Вакансия:* " . $vacancy . "\n";
+} elseif (!empty($service)) {
+    $telegramMessage .= "🎯 *Услуга:* " . $service . "\n";
 }
 
-$emailMessageHTML .= "
-            <div class='field'>
-                <div class='label'>IP адрес:</div>
-                <div class='value'>{$ip}</div>
-            </div>
-            <div class='message-box'>
-                <div class='label'>Сообщение:</div>
-                <div class='value'>" . nl2br(htmlspecialchars($message)) . "</div>
-            </div>
-        </div>
-        <div class='footer'>
-            <p>Это автоматическое письмо с сайта NovaCreator Studio</p>
-            <p>Для ответа используйте email клиента: <a href='mailto:{$email}'>{$email}</a></p>
-        </div>
-    </div>
-</body>
-</html>";
+$telegramMessage .= "\n💬 *Сообщение:*\n" . $message . "\n\n";
+$telegramMessage .= "━━━━━━━━━━━━━━━━━━━━\n";
+$telegramMessage .= "🌐 *IP адрес:* `" . $ip . "`\n";
+$telegramMessage .= "🕐 *Время:* " . $timestamp . "\n";
 
-// Текстовая версия для почтовых клиентов без поддержки HTML
-$emailMessageText = "Новая заявка с сайта NovaCreator Studio\n\n";
-$emailMessageText .= "═══════════════════════════════════════\n";
-$emailMessageText .= "ДАТА И ВРЕМЯ: {$timestamp}\n";
-$emailMessageText .= "═══════════════════════════════════════\n\n";
-$emailMessageText .= "ИМЯ: {$name}\n";
-$emailMessageText .= "EMAIL: {$email}\n";
-$emailMessageText .= "ТЕЛЕФОН: {$phone}\n";
+// Получаем Chat ID (если не указан в конфиге, пытаемся получить автоматически)
+$chatId = TELEGRAM_CHAT_ID;
 
-if ($type === 'vacancy' && !empty($vacancy)) {
-    $emailMessageText .= "ВАКАНСИЯ: {$vacancy}\n";
-} else {
-    $emailMessageText .= "УСЛУГА: " . ($service ?: 'Не указана') . "\n";
+if (empty($chatId)) {
+    // Пытаемся получить Chat ID автоматически из последних обновлений
+    $apiUrl = TELEGRAM_API_URL . 'getUpdates';
+    $ch = curl_init($apiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    $data = json_decode($response, true);
+    if ($data && isset($data['ok']) && $data['ok'] && !empty($data['result'])) {
+        $lastUpdate = end($data['result']);
+        if (isset($lastUpdate['message']['chat']['id'])) {
+            $chatId = $lastUpdate['message']['chat']['id'];
+        }
+    }
 }
 
-$emailMessageText .= "IP АДРЕС: {$ip}\n\n";
-$emailMessageText .= "═══════════════════════════════════════\n";
-$emailMessageText .= "СООБЩЕНИЕ:\n";
-$emailMessageText .= "═══════════════════════════════════════\n";
-$emailMessageText .= "{$message}\n\n";
-$emailMessageText .= "═══════════════════════════════════════\n";
-$emailMessageText .= "Это автоматическое письмо с сайта NovaCreator Studio\n";
-$emailMessageText .= "Для ответа используйте email клиента: {$email}\n";
-
-// Генерируем уникальный разделитель для multipart сообщения
-$boundary = md5(uniqid(time()));
-
-// Формируем multipart сообщение (HTML + текст)
-$emailBody = "--{$boundary}\r\n";
-$emailBody .= "Content-Type: text/plain; charset=UTF-8\r\n";
-$emailBody .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-$emailBody .= $emailMessageText . "\r\n\r\n";
-$emailBody .= "--{$boundary}\r\n";
-$emailBody .= "Content-Type: text/html; charset=UTF-8\r\n";
-$emailBody .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-$emailBody .= $emailMessageHTML . "\r\n\r\n";
-$emailBody .= "--{$boundary}--";
-
-// Заголовки для email
-$headers = [
-    'MIME-Version: 1.0',
-    'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
-    'From: NovaCreator Studio <noreply@novacreator-studio.com>',
-    'Reply-To: ' . $email,
-    'X-Mailer: PHP/' . phpversion(),
-    'X-Priority: 1',
-    'Importance: High'
-];
-
-// Настраиваем параметры отправки email для максимальной надежности
-// Пытаемся использовать локальный SMTP сервер
-$originalSendmailPath = ini_get('sendmail_path');
-$originalSMTP = ini_get('SMTP');
-$originalSMTPServer = ini_get('smtp_port');
-
-// Пробуем настроить SMTP (если возможно)
-if (function_exists('ini_set')) {
-    // Настройки для локального SMTP (если доступны)
-    @ini_set('sendmail_path', '/usr/sbin/sendmail -t -i');
-    @ini_set('SMTP', 'localhost');
-    @ini_set('smtp_port', '25');
-}
-
-// Сохраняем заявку в файл как резервный вариант
-$logFile = __DIR__ . '/requests.txt';
-$logEntry = sprintf(
-    "[%s] Имя: %s | Email: %s | Телефон: %s | Услуга: %s | IP: %s\nСообщение: %s\n%s\n",
-    $timestamp,
-    $name,
-    $email,
-    $phone,
-    $service ?: ($vacancy ?: 'Не указана'),
-    $ip,
-    $message,
-    str_repeat('-', 80)
-);
-
-$fileSaved = false;
-try {
-    $fileSaved = @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX) !== false;
-} catch (Exception $e) {
-    error_log('Ошибка записи в файл: ' . $e->getMessage());
-}
-
-// Проверяем, доступна ли функция mail()
-if (!function_exists('mail')) {
-    error_log("КРИТИЧЕСКАЯ ОШИБКА: Функция mail() недоступна на этом сервере!");
+if (empty($chatId)) {
+    logMessage('ERROR: Chat ID not configured. Please set TELEGRAM_CHAT_ID in telegram_config.php');
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Ошибка конфигурации сервера. Пожалуйста, свяжитесь с нами напрямую.'
+        'message' => 'Ошибка конфигурации. Пожалуйста, свяжитесь с администратором.'
     ]);
     exit;
 }
 
-// Отправляем email - используем самый надежный способ
-$emailSent = false;
-$lastError = '';
-$emailDebug = [];
-
-// Логируем попытку отправки
-error_log("=== ПОПЫТКА ОТПРАВКИ EMAIL ===");
-error_log("Получатель: {$emailTo}");
-error_log("Тема: {$subject}");
-error_log("Отправитель формы: {$email}");
-
-// Кодируем тему письма для поддержки кириллицы
-$subjectEncoded = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-
-// Используем более простой и надежный формат заголовков
-$finalHeaders = [
-    'MIME-Version: 1.0',
-    'Content-Type: text/html; charset=UTF-8',
-    'From: NovaCreator Studio <noreply@novacreator-studio.com>',
-    'Reply-To: ' . $email,
-    'X-Mailer: PHP/' . phpversion(),
-    'Date: ' . date('r')
+// Отправляем сообщение в Telegram
+$apiUrl = TELEGRAM_API_URL . 'sendMessage';
+$postData = [
+    'chat_id' => $chatId,
+    'text' => $telegramMessage,
+    'parse_mode' => 'Markdown',
+    'disable_web_page_preview' => true
 ];
 
-// Пробуем отправить email несколько раз с разными настройками
-// Подготавливаем заголовки для текстового письма
-$textHeaders = array_filter($finalHeaders, function($header) {
-    return strpos($header, 'Content-Type: text/html') === false;
-});
-$textHeaders[] = 'Content-Type: text/plain; charset=UTF-8';
+$ch = curl_init($apiUrl);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 
-$attempts = [
-    ['subject' => $subjectEncoded, 'body' => $emailMessageHTML, 'headers' => $finalHeaders],
-    ['subject' => $subject, 'body' => $emailMessageHTML, 'headers' => $finalHeaders],
-    ['subject' => $subjectEncoded, 'body' => $emailMessageText, 'headers' => $textHeaders],
-];
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
 
-foreach ($attempts as $index => $attempt) {
-    if ($emailSent) break;
+$responseData = json_decode($response, true);
+
+if ($httpCode !== 200 || !$responseData || !isset($responseData['ok']) || !$responseData['ok']) {
+    $errorMessage = $responseData['description'] ?? 'Неизвестная ошибка';
+    logMessage('ERROR sending to Telegram: ' . $errorMessage . ' | HTTP: ' . $httpCode);
     
-    try {
-        error_log("--- Попытка " . ($index + 1) . " из " . count($attempts) . " ---");
-        error_log("Тема: " . substr($attempt['subject'], 0, 50) . "...");
-        error_log("Размер тела письма: " . strlen($attempt['body']) . " байт");
-        
-        // Отключаем вывод ошибок для этой попытки
-        $oldErrorReporting = error_reporting(0);
-        
-        // Отправляем письмо
-        $result = @mail($emailTo, $attempt['subject'], $attempt['body'], implode("\r\n", $attempt['headers']));
-        
-        // Восстанавливаем уровень ошибок
-        error_reporting($oldErrorReporting);
-        
-        $emailDebug[] = [
-            'attempt' => $index + 1,
-            'result' => $result ? 'success' : 'failed',
-            'subject' => substr($attempt['subject'], 0, 30)
-        ];
-        
-        if ($result) {
-            $emailSent = true;
-            error_log("✓ Email успешно отправлен на {$emailTo} (попытка " . ($index + 1) . ")");
-            break;
-        } else {
-            $errorInfo = error_get_last();
-            if ($errorInfo && isset($errorInfo['message'])) {
-                $lastError = $errorInfo['message'];
-                error_log("✗ Ошибка: " . $lastError);
-            } else {
-                error_log("✗ Функция mail() вернула false без ошибки");
-            }
-        }
-    } catch (Exception $e) {
-        $lastError = $e->getMessage();
-        error_log('✗ Исключение при отправке email (попытка ' . ($index + 1) . '): ' . $lastError);
-        $emailDebug[] = [
-            'attempt' => $index + 1,
-            'result' => 'exception',
-            'error' => $lastError
-        ];
-    }
-    
-    // Небольшая задержка между попытками
-    if (!$emailSent && $index < count($attempts) - 1) {
-        usleep(500000); // 0.5 секунды
-    }
-}
-
-// Восстанавливаем оригинальные настройки
-if (function_exists('ini_set')) {
-    if ($originalSendmailPath !== false) @ini_set('sendmail_path', $originalSendmailPath);
-    if ($originalSMTP !== false) @ini_set('SMTP', $originalSMTP);
-    if ($originalSMTPServer !== false) @ini_set('smtp_port', $originalSMTPServer);
-}
-
-// Если email не отправился, логируем детали
-if (!$emailSent) {
-    error_log("=== EMAIL НЕ ОТПРАВЛЕН ===");
-    error_log("Получатель: {$emailTo}");
-    error_log("Последняя ошибка: " . ($lastError ?: 'Неизвестная ошибка'));
-    error_log("Заявка сохранена в файл: {$logFile}");
-    error_log("Детали попыток: " . json_encode($emailDebug, JSON_UNESCAPED_UNICODE));
-    error_log("Проверьте настройки SMTP сервера или используйте внешний SMTP сервис");
-    
-    // Сохраняем детальную информацию об ошибке в файл
-    $errorLogFile = __DIR__ . '/email_errors.log';
-    $errorLogEntry = date('Y-m-d H:i:s') . " - Не удалось отправить email на {$emailTo}\n";
-    $errorLogEntry .= "Ошибка: " . ($lastError ?: 'Неизвестная ошибка') . "\n";
-    $errorLogEntry .= "Детали: " . json_encode($emailDebug, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . "\n";
-    $errorLogEntry .= str_repeat('-', 80) . "\n";
-    @file_put_contents($errorLogFile, $errorLogEntry, FILE_APPEND | LOCK_EX);
-}
-
-// Возвращаем результат
-// ВАЖНО: Считаем успехом ТОЛЬКО если email отправлен
-// Файл - это резервный вариант для ручной обработки
-if ($emailSent) {
-    http_response_code(200);
+    http_response_code(500);
     echo json_encode([
-        'success' => true,
-        'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.'
+        'success' => false,
+        'message' => 'Ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.'
     ]);
-} else {
-    // Если email не отправился, но файл сохранен - все равно возвращаем успех
-    // но с предупреждением, что нужно проверить email настройки
-    if ($fileSaved) {
-        http_response_code(200);
-        echo json_encode([
-            'success' => true,
-            'message' => 'Заявка получена! Мы свяжемся с вами в ближайшее время.'
-        ]);
-        error_log("ВНИМАНИЕ: Email не отправлен, но заявка сохранена в файл. Необходимо проверить настройки SMTP сервера.");
-    } else {
-        http_response_code(500);
-        echo json_encode([
-            'success' => false,
-            'message' => 'Ошибка при отправке заявки. Пожалуйста, свяжитесь с нами напрямую по телефону или email.'
-        ]);
-    }
+    exit;
 }
-?>
+
+// Сохраняем время последней отправки
+$_SESSION['last_form_submit_time'] = $currentTime;
+
+// Логируем успешную отправку
+logMessage('SUCCESS: Form submitted. Name: ' . $name . ', Email: ' . $email . ', IP: ' . $ip);
+
+// Возвращаем успешный результат
+http_response_code(200);
+echo json_encode([
+    'success' => true,
+    'message' => 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.'
+]);
