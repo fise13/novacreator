@@ -45,3 +45,23 @@
         Header set Content-Type "application/json"
     </IfModule>
 </FilesMatch>
+
+# Разрешаем доступ к backend файлам
+<DirectoryMatch "^.*/backend/">
+    <IfModule mod_headers.c>
+        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+        Header set Access-Control-Allow-Headers "Content-Type"
+    </IfModule>
+    Options +ExecCGI
+    AllowOverride All
+</DirectoryMatch>
+
+# Разрешаем выполнение PHP в backend
+<Files "backend/*.php">
+    <IfModule mod_headers.c>
+        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+        Header set Access-Control-Allow-Headers "Content-Type"
+    </IfModule>
+</Files>

@@ -43,8 +43,15 @@ header('Content-Type: application/json; charset=utf-8');
 
 // Разрешаем CORS запросы
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
+header('Access-Control-Max-Age: 86400');
+
+// Обрабатываем OPTIONS запросы для CORS preflight
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 // Обрабатываем только POST запросы
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
