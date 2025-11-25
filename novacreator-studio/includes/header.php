@@ -110,7 +110,7 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                 <!-- Логотип -->
                 <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>">
                     <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" decoding="async" fetchpriority="high" />
-                    <span class="text-lg md:text-2xl font-bold text-gradient"><?php echo htmlspecialchars(t('site.name')); ?></span>
+                    <span class="text-lg md:text-2xl font-semibold text-gradient"><?php echo htmlspecialchars(t('site.name')); ?></span>
                 </a>
                 
                 <!-- Меню для десктопа -->
@@ -134,14 +134,14 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                 </div>
                 
                 <!-- Переключатель языка и кнопка мобильного меню -->
-                <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
                     <!-- Переключатель языка для мобильных -->
-                    <div class="flex items-center space-x-1 md:hidden">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="text-xs px-2 py-1 rounded <?php echo $currentLang === 'ru' ? 'bg-neon-purple/20 text-neon-purple font-semibold' : 'text-gray-400 hover:text-neon-purple'; ?> transition-colors">RU</a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="text-xs px-2 py-1 rounded <?php echo $currentLang === 'en' ? 'bg-neon-purple/20 text-neon-purple font-semibold' : 'text-gray-400 hover:text-neon-purple'; ?> transition-colors">EN</a>
+                    <div class="flex items-center space-x-1 md:hidden border-r border-dark-border pr-2 mr-1">
+                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="text-xs px-2 py-1 rounded <?php echo $currentLang === 'ru' ? 'bg-neon-purple/20 text-neon-purple font-semibold' : 'text-gray-400 hover:text-neon-purple'; ?> transition-colors whitespace-nowrap">RU</a>
+                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="text-xs px-2 py-1 rounded <?php echo $currentLang === 'en' ? 'bg-neon-purple/20 text-neon-purple font-semibold' : 'text-gray-400 hover:text-neon-purple'; ?> transition-colors whitespace-nowrap">EN</a>
                     </div>
                     <!-- Кнопка мобильного меню - оптимизирована для touch -->
-                    <button class="md:hidden text-gray-300 hover:text-neon-purple transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation" id="mobileMenuBtn" aria-label="<?php echo htmlspecialchars(t('nav.menu')); ?>">
+                    <button class="md:hidden text-gray-300 hover:text-neon-purple transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0" id="mobileMenuBtn" aria-label="<?php echo htmlspecialchars(t('nav.menu')); ?>">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
