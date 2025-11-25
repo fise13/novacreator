@@ -15,7 +15,10 @@
     "faq": "FAQ",
     "calculator": "Calculator",
     "vacancies": "Vacancies",
-    "menu": "Open menu"
+    "menu": "Open menu",
+    "closeMenu": "Close menu",
+    "main": "Main navigation",
+    "language": "Language selection"
   },
   "months": {
     "01": "January",
