@@ -203,20 +203,68 @@ curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 
 $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curlError = curl_error($ch);
 curl_close($ch);
+
+// Проверяем ошибки curl
+if ($response === false || !empty($curlError)) {
+    logMessage('ERROR: cURL error - ' . $curlError);
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Ошибка соединения с сервером. Пожалуйста, попробуйте позже.'
+    ]);
+    exit;
+}
 
 $responseData = json_decode($response, true);
 
 if ($httpCode !== 200 || !$responseData || !isset($responseData['ok']) || !$responseData['ok']) {
     $errorMessage = $responseData['description'] ?? 'Неизвестная ошибка';
-    logMessage('ERROR sending to Telegram: ' . $errorMessage . ' | HTTP: ' . $httpCode);
+    $errorCode = $responseData['error_code'] ?? 0;
     
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.'
-    ]);
-    exit;
+    // Обработка миграции группы в супергруппу
+    if ($errorCode === 400 && isset($responseData['parameters']['migrate_to_chat_id'])) {
+        $newChatId = $responseData['parameters']['migrate_to_chat_id'];
+        logMessage('WARNING: Group migrated to supergroup. New Chat ID: ' . $newChatId);
+        
+        // Пытаемся отправить с новым Chat ID
+        $postData['chat_id'] = $newChatId;
+        $ch = curl_init($apiUrl);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        
+        $responseData = json_decode($response, true);
+        
+        if ($httpCode === 200 && $responseData && isset($responseData['ok']) && $responseData['ok']) {
+            logMessage('SUCCESS: Message sent with migrated Chat ID: ' . $newChatId);
+            // Продолжаем выполнение - сообщение отправлено успешно
+        } else {
+            logMessage('ERROR sending to Telegram after migration: ' . ($responseData['description'] ?? 'Unknown error') . ' | HTTP: ' . $httpCode);
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.'
+            ]);
+            exit;
+        }
+    } else {
+        logMessage('ERROR sending to Telegram: ' . $errorMessage . ' | HTTP: ' . $httpCode . ' | Error Code: ' . $errorCode);
+        
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.'
+        ]);
+        exit;
+    }
 }
 
 // Сохраняем время последней отправки

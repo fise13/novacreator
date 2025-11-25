@@ -206,8 +206,28 @@ function initForms() {
                     body: formData
                 });
                 
+                // Проверяем статус ответа
+                if (!response.ok) {
+                    // Пытаемся получить JSON с ошибкой
+                    try {
+                        const errorResult = await response.json();
+                        showNotification(errorResult.message || 'Произошла ошибка при отправке. Попробуйте позже.', 'error');
+                    } catch (e) {
+                        // Если не удалось распарсить JSON, показываем общую ошибку
+                        showNotification('Ошибка сервера (код ' + response.status + '). Попробуйте позже.', 'error');
+                    }
+                    return;
+                }
+                
                 // Парсим JSON ответ
-                const result = await response.json();
+                let result;
+                try {
+                    result = await response.json();
+                } catch (e) {
+                    console.error('Ошибка парсинга JSON:', e);
+                    showNotification('Ошибка обработки ответа сервера. Попробуйте позже.', 'error');
+                    return;
+                }
                 
                 if (result.success) {
                     // Успешная отправка
