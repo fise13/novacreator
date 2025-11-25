@@ -7,6 +7,11 @@
 // Подключаем конфигурацию Telegram
 require_once __DIR__ . '/telegram_config.php';
 
+// Запускаем сессию ДО отправки заголовков
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Устанавливаем заголовок для JSON ответа
 header('Content-Type: application/json; charset=utf-8');
 
@@ -49,6 +54,16 @@ function getClientIP() {
     return $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 }
 
+// Функция экранирования специальных символов для Markdown
+function escapeMarkdown($text) {
+    // Экранируем специальные символы Markdown
+    $specialChars = ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'];
+    foreach ($specialChars as $char) {
+        $text = str_replace($char, '\\' . $char, $text);
+    }
+    return $text;
+}
+
 // Защита от спама: проверка honeypot поля
 $honeypot = isset($_POST['website']) ? trim($_POST['website']) : '';
 if (!empty($honeypot)) {
@@ -63,7 +78,6 @@ if (!empty($honeypot)) {
 }
 
 // Защита от спама: проверка времени между отправками
-session_start();
 $lastSubmitTime = $_SESSION['last_form_submit_time'] ?? 0;
 $currentTime = time();
 $timeSinceLastSubmit = $currentTime - $lastSubmitTime;
@@ -134,23 +148,24 @@ if (empty($formName)) {
     }
 }
 
-// Формируем сообщение для Telegram
+// Формируем сообщение для Telegram с экранированием специальных символов
+// Экранируем пользовательские данные, но оставляем форматирование для заголовков
 $telegramMessage = "🔔 *Новая заявка с сайта*\n\n";
-$telegramMessage .= "📋 *Форма:* " . $formName . "\n\n";
-$telegramMessage .= "👤 *Имя:* " . $name . "\n";
-$telegramMessage .= "📧 *Email:* " . $email . "\n";
-$telegramMessage .= "📱 *Телефон:* " . $phone . "\n";
+$telegramMessage .= "📋 *Форма:* " . escapeMarkdown($formName) . "\n\n";
+$telegramMessage .= "👤 *Имя:* " . escapeMarkdown($name) . "\n";
+$telegramMessage .= "📧 *Email:* " . escapeMarkdown($email) . "\n";
+$telegramMessage .= "📱 *Телефон:* " . escapeMarkdown($phone) . "\n";
 
 if ($type === 'vacancy' && !empty($vacancy)) {
-    $telegramMessage .= "💼 *Вакансия:* " . $vacancy . "\n";
+    $telegramMessage .= "💼 *Вакансия:* " . escapeMarkdown($vacancy) . "\n";
 } elseif (!empty($service)) {
-    $telegramMessage .= "🎯 *Услуга:* " . $service . "\n";
+    $telegramMessage .= "🎯 *Услуга:* " . escapeMarkdown($service) . "\n";
 }
 
-$telegramMessage .= "\n💬 *Сообщение:*\n" . $message . "\n\n";
+$telegramMessage .= "\n💬 *Сообщение:*\n" . escapeMarkdown($message) . "\n\n";
 $telegramMessage .= "━━━━━━━━━━━━━━━━━━━━\n";
-$telegramMessage .= "🌐 *IP адрес:* `" . $ip . "`\n";
-$telegramMessage .= "🕐 *Время:* " . $timestamp . "\n";
+$telegramMessage .= "🌐 *IP адрес:* `" . escapeMarkdown($ip) . "`\n";
+$telegramMessage .= "🕐 *Время:* " . escapeMarkdown($timestamp) . "\n";
 
 // Получаем Chat ID (если не указан в конфиге, пытаемся получить автоматически)
 $chatId = TELEGRAM_CHAT_ID;
@@ -196,10 +211,14 @@ $postData = [
 
 $ch = curl_init($apiUrl);
 curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen(json_encode($postData))
+]);
 
 $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -232,10 +251,14 @@ if ($httpCode !== 200 || !$responseData || !isset($responseData['ok']) || !$resp
         $postData['chat_id'] = $newChatId;
         $ch = curl_init($apiUrl);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen(json_encode($postData))
+        ]);
         
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -256,14 +279,73 @@ if ($httpCode !== 200 || !$responseData || !isset($responseData['ok']) || !$resp
             exit;
         }
     } else {
-        logMessage('ERROR sending to Telegram: ' . $errorMessage . ' | HTTP: ' . $httpCode . ' | Error Code: ' . $errorCode);
-        
-        http_response_code(500);
-        echo json_encode([
-            'success' => false,
-            'message' => 'Ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.'
-        ]);
-        exit;
+        // Если ошибка парсинга Markdown, пробуем отправить без форматирования
+        if ($errorCode === 400 && (strpos($errorMessage, 'parse') !== false || strpos($errorMessage, 'Markdown') !== false)) {
+            logMessage('WARNING: Markdown parse error, retrying without parse_mode');
+            
+            // Формируем сообщение без Markdown форматирования
+            $plainMessage = "🔔 Новая заявка с сайта\n\n";
+            $plainMessage .= "📋 Форма: " . $formName . "\n\n";
+            $plainMessage .= "👤 Имя: " . $name . "\n";
+            $plainMessage .= "📧 Email: " . $email . "\n";
+            $plainMessage .= "📱 Телефон: " . $phone . "\n";
+            
+            if ($type === 'vacancy' && !empty($vacancy)) {
+                $plainMessage .= "💼 Вакансия: " . $vacancy . "\n";
+            } elseif (!empty($service)) {
+                $plainMessage .= "🎯 Услуга: " . $service . "\n";
+            }
+            
+            $plainMessage .= "\n💬 Сообщение:\n" . $message . "\n\n";
+            $plainMessage .= "━━━━━━━━━━━━━━━━━━━━\n";
+            $plainMessage .= "🌐 IP адрес: " . $ip . "\n";
+            $plainMessage .= "🕐 Время: " . $timestamp . "\n";
+            
+            $postDataPlain = [
+                'chat_id' => $chatId,
+                'text' => $plainMessage,
+                'disable_web_page_preview' => true
+            ];
+            
+            $ch = curl_init($apiUrl);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postDataPlain));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen(json_encode($postDataPlain))
+            ]);
+            
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            
+            $responseData = json_decode($response, true);
+            
+            if ($httpCode === 200 && $responseData && isset($responseData['ok']) && $responseData['ok']) {
+                logMessage('SUCCESS: Message sent without Markdown formatting');
+                // Продолжаем выполнение - сообщение отправлено успешно
+            } else {
+                logMessage('ERROR sending to Telegram (plain text): ' . ($responseData['description'] ?? 'Unknown error') . ' | HTTP: ' . $httpCode);
+                http_response_code(500);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.'
+                ]);
+                exit;
+            }
+        } else {
+            logMessage('ERROR sending to Telegram: ' . $errorMessage . ' | HTTP: ' . $httpCode . ' | Error Code: ' . $errorCode);
+            
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.'
+            ]);
+            exit;
+        }
     }
 }
 
