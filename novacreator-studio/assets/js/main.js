@@ -199,8 +199,24 @@ function initForms() {
             
             try {
                 // Отправляем запрос на сервер
-                // Используем относительный путь для корректной работы на всех страницах
-                const formAction = form.getAttribute('action') || './backend/send.php';
+                // Автоматически определяем правильный путь к обработчику
+                let formAction = form.getAttribute('action');
+                
+                // Если action не указан или начинается с "/", используем относительный путь
+                if (!formAction || formAction.startsWith('/')) {
+                    // Определяем базовый путь относительно текущей страницы
+                    const currentPath = window.location.pathname;
+                    const pathParts = currentPath.split('/').filter(p => p && !p.endsWith('.php'));
+                    
+                    // Если мы в корне, путь будет "backend/send.php"
+                    // Если в подпапке, путь будет "../backend/send.php"
+                    if (pathParts.length === 0) {
+                        formAction = 'backend/send.php';
+                    } else {
+                        formAction = '../backend/send.php';
+                    }
+                }
+                
                 const response = await fetch(formAction, {
                     method: 'POST',
                     body: formData
