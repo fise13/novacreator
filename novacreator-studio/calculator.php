@@ -3,10 +3,13 @@
  * Калькулятор стоимости услуг
  * Позволяет рассчитать примерную стоимость услуг
  */
-$pageTitle = 'Калькулятор стоимости';
-$pageMetaTitle = 'Калькулятор стоимости услуг | Рассчитать цену - NovaCreator Studio';
-$pageMetaDescription = 'Рассчитайте стоимость услуг digital-агентства: SEO-продвижение, разработка сайтов, Google Ads. Быстрый расчет цены онлайн.';
-$pageMetaKeywords = 'калькулятор стоимости, рассчитать цену, стоимость SEO, цена разработки сайта, стоимость рекламы, калькулятор услуг';
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
+$pageTitle = t('pages.calculator.breadcrumb');
+$pageMetaTitle = t('seo.pages.calculator.title');
+$pageMetaDescription = t('seo.pages.calculator.description');
+$pageMetaKeywords = t('seo.pages.calculator.keywords');
 include 'includes/header.php';
 ?>
 
@@ -15,10 +18,10 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                <span class="text-gradient">Калькулятор стоимости</span>
+                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.calculator.title')); ?></span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                Рассчитайте примерную стоимость услуг для вашего проекта
+                <?php echo htmlspecialchars(t('pages.calculator.subtitle')); ?>
             </p>
         </div>
     </div>
@@ -32,27 +35,27 @@ include 'includes/header.php';
                 <form id="calculatorForm" class="space-y-8">
                     <!-- Выбор услуги -->
                     <div>
-                        <label class="block text-lg font-semibold mb-4 text-gradient">Выберите услугу</label>
+                        <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.selectService')); ?></label>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <label class="service-option cursor-pointer">
                                 <input type="radio" name="service" value="seo" class="hidden service-radio" checked>
                                 <div class="bg-dark-bg border-2 border-dark-border rounded-xl p-4 text-center hover:border-neon-purple transition-all duration-300 service-card-option">
                                     <div class="text-2xl mb-2">🔍</div>
-                                    <div class="font-semibold">SEO-продвижение</div>
+                                    <div class="font-semibold"><?php echo htmlspecialchars(t('pages.calculator.services.seo')); ?></div>
                                 </div>
                             </label>
                             <label class="service-option cursor-pointer">
                                 <input type="radio" name="service" value="development" class="hidden service-radio">
                                 <div class="bg-dark-bg border-2 border-dark-border rounded-xl p-4 text-center hover:border-neon-purple transition-all duration-300 service-card-option">
                                     <div class="text-2xl mb-2">💻</div>
-                                    <div class="font-semibold">Разработка сайта</div>
+                                    <div class="font-semibold"><?php echo htmlspecialchars(t('pages.calculator.services.development')); ?></div>
                                 </div>
                             </label>
                             <label class="service-option cursor-pointer">
                                 <input type="radio" name="service" value="ads" class="hidden service-radio">
                                 <div class="bg-dark-bg border-2 border-dark-border rounded-xl p-4 text-center hover:border-neon-purple transition-all duration-300 service-card-option">
                                     <div class="text-2xl mb-2">📢</div>
-                                    <div class="font-semibold">Google Ads</div>
+                                    <div class="font-semibold"><?php echo htmlspecialchars(t('pages.calculator.services.ads')); ?></div>
                                 </div>
                             </label>
                         </div>
@@ -61,29 +64,29 @@ include 'includes/header.php';
                     <!-- Параметры для SEO -->
                     <div id="seo-options" class="service-options">
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Тип сайта</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.seo.siteType')); ?></label>
                             <select name="site_type" class="form-input">
-                                <option value="small">Небольшой сайт (до 50 страниц)</option>
-                                <option value="medium" selected>Средний сайт (50-200 страниц)</option>
-                                <option value="large">Крупный сайт (200+ страниц)</option>
-                                <option value="shop">Интернет-магазин</option>
+                                <option value="small"><?php echo htmlspecialchars(t('pages.calculator.seo.siteTypes.small')); ?></option>
+                                <option value="medium" selected><?php echo htmlspecialchars(t('pages.calculator.seo.siteTypes.medium')); ?></option>
+                                <option value="large"><?php echo htmlspecialchars(t('pages.calculator.seo.siteTypes.large')); ?></option>
+                                <option value="shop"><?php echo htmlspecialchars(t('pages.calculator.seo.siteTypes.shop')); ?></option>
                             </select>
                         </div>
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Регион продвижения</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.seo.region')); ?></label>
                             <select name="region" class="form-input">
-                                <option value="local">Локальный (один город)</option>
-                                <option value="regional" selected>Региональный (область/регион)</option>
-                                <option value="national">По всему Казахстану</option>
-                                <option value="international">Международное</option>
+                                <option value="local"><?php echo htmlspecialchars(t('pages.calculator.seo.regions.local')); ?></option>
+                                <option value="regional" selected><?php echo htmlspecialchars(t('pages.calculator.seo.regions.regional')); ?></option>
+                                <option value="national"><?php echo htmlspecialchars(t('pages.calculator.seo.regions.national')); ?></option>
+                                <option value="international"><?php echo htmlspecialchars(t('pages.calculator.seo.regions.international')); ?></option>
                             </select>
                         </div>
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Конкуренция в нише</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.seo.competition')); ?></label>
                             <select name="competition" class="form-input">
-                                <option value="low">Низкая</option>
-                                <option value="medium" selected>Средняя</option>
-                                <option value="high">Высокая</option>
+                                <option value="low"><?php echo htmlspecialchars(t('pages.calculator.seo.competitions.low')); ?></option>
+                                <option value="medium" selected><?php echo htmlspecialchars(t('pages.calculator.seo.competitions.medium')); ?></option>
+                                <option value="high"><?php echo htmlspecialchars(t('pages.calculator.seo.competitions.high')); ?></option>
                             </select>
                         </div>
                     </div>
@@ -91,36 +94,36 @@ include 'includes/header.php';
                     <!-- Параметры для разработки -->
                     <div id="development-options" class="service-options hidden">
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Тип сайта</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.development.siteType')); ?></label>
                             <select name="dev_type" class="form-input">
-                                <option value="landing">Лендинг (одна страница)</option>
-                                <option value="corporate" selected>Корпоративный сайт</option>
-                                <option value="shop">Интернет-магазин</option>
-                                <option value="webapp">Веб-приложение</option>
+                                <option value="landing"><?php echo htmlspecialchars(t('pages.calculator.development.siteTypes.landing')); ?></option>
+                                <option value="corporate" selected><?php echo htmlspecialchars(t('pages.calculator.development.siteTypes.corporate')); ?></option>
+                                <option value="shop"><?php echo htmlspecialchars(t('pages.calculator.development.siteTypes.shop')); ?></option>
+                                <option value="webapp"><?php echo htmlspecialchars(t('pages.calculator.development.siteTypes.webapp')); ?></option>
                             </select>
                         </div>
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Количество страниц</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.development.pages')); ?></label>
                             <input type="number" name="pages" value="10" min="1" max="100" class="form-input">
                         </div>
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Дополнительные функции</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.development.features')); ?></label>
                             <div class="space-y-2">
                                 <label class="flex items-center space-x-3 cursor-pointer">
                                     <input type="checkbox" name="features[]" value="cms" class="w-5 h-5 rounded border-dark-border bg-dark-surface text-neon-purple focus:ring-neon-purple">
-                                    <span>Система управления контентом (CMS)</span>
+                                    <span><?php echo htmlspecialchars(t('pages.calculator.development.featuresList.cms')); ?></span>
                                 </label>
                                 <label class="flex items-center space-x-3 cursor-pointer">
                                     <input type="checkbox" name="features[]" value="payment" class="w-5 h-5 rounded border-dark-border bg-dark-surface text-neon-purple focus:ring-neon-purple">
-                                    <span>Интеграция платежных систем</span>
+                                    <span><?php echo htmlspecialchars(t('pages.calculator.development.featuresList.payment')); ?></span>
                                 </label>
                                 <label class="flex items-center space-x-3 cursor-pointer">
                                     <input type="checkbox" name="features[]" value="api" class="w-5 h-5 rounded border-dark-border bg-dark-surface text-neon-purple focus:ring-neon-purple">
-                                    <span>API интеграции</span>
+                                    <span><?php echo htmlspecialchars(t('pages.calculator.development.featuresList.api')); ?></span>
                                 </label>
                                 <label class="flex items-center space-x-3 cursor-pointer">
                                     <input type="checkbox" name="features[]" value="mobile" class="w-5 h-5 rounded border-dark-border bg-dark-surface text-neon-purple focus:ring-neon-purple">
-                                    <span>Мобильное приложение</span>
+                                    <span><?php echo htmlspecialchars(t('pages.calculator.development.featuresList.mobile')); ?></span>
                                 </label>
                             </div>
                         </div>
@@ -129,64 +132,64 @@ include 'includes/header.php';
                     <!-- Параметры для рекламы -->
                     <div id="ads-options" class="service-options hidden">
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Бюджет на рекламу в месяц</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.ads.budget')); ?></label>
                             <input type="number" name="budget" value="100000" min="50000" step="10000" class="form-input">
-                            <p class="text-sm text-gray-500 mt-2">от 50 000 ₸</p>
+                            <p class="text-sm text-gray-500 mt-2"><?php echo htmlspecialchars(t('pages.calculator.ads.budgetNote')); ?></p>
                         </div>
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Платформа</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.ads.platform')); ?></label>
                             <select name="platform" class="form-input">
-                                <option value="google" selected>Google Ads</option>
-                                <option value="yandex">Яндекс.Директ</option>
-                                <option value="both">Обе платформы</option>
+                                <option value="google" selected><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.google')); ?></option>
+                                <option value="yandex"><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.yandex')); ?></option>
+                                <option value="both"><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.both')); ?></option>
                             </select>
                         </div>
                         <div class="mb-6">
-                            <label class="block text-lg font-semibold mb-4 text-gradient">Тип рекламы</label>
+                            <label class="block text-lg font-semibold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.ads.adType')); ?></label>
                             <select name="ad_type" class="form-input">
-                                <option value="search" selected>Поисковая реклама</option>
-                                <option value="display">Медийная реклама</option>
-                                <option value="video">Видеореклама</option>
-                                <option value="shopping">Shopping кампании</option>
+                                <option value="search" selected><?php echo htmlspecialchars(t('pages.calculator.ads.adTypes.search')); ?></option>
+                                <option value="display"><?php echo htmlspecialchars(t('pages.calculator.ads.adTypes.display')); ?></option>
+                                <option value="video"><?php echo htmlspecialchars(t('pages.calculator.ads.adTypes.video')); ?></option>
+                                <option value="shopping"><?php echo htmlspecialchars(t('pages.calculator.ads.adTypes.shopping')); ?></option>
                             </select>
                         </div>
                     </div>
 
                     <!-- Результат -->
                     <div id="result" class="bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 border border-neon-purple/50 rounded-xl p-6 md:p-8 hidden">
-                        <h3 class="text-2xl font-bold mb-4 text-gradient">Примерная стоимость</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.result.title')); ?></h3>
                         <div class="text-4xl md:text-5xl font-bold text-gradient mb-4" id="price">0 ₸</div>
-                        <p class="text-gray-400 mb-6" id="price-note">Это ориентировочная стоимость. Точная цена рассчитывается после консультации.</p>
-                        <a href="/contact" class="btn-neon inline-block">
-                            Получить точный расчет
+                        <p class="text-gray-400 mb-6" id="price-note"><?php echo htmlspecialchars(t('pages.calculator.result.note')); ?></p>
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                            <?php echo htmlspecialchars(t('pages.calculator.result.button')); ?>
                         </a>
                     </div>
 
                     <button type="button" id="calculateBtn" class="btn-neon w-full md:w-auto">
-                        Рассчитать стоимость
+                        <?php echo htmlspecialchars(t('pages.calculator.calculate')); ?>
                     </button>
                 </form>
             </div>
 
             <!-- Дополнительная информация -->
             <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 md:p-8">
-                <h3 class="text-2xl font-bold mb-4 text-gradient">Важно знать</h3>
+                <h3 class="text-2xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.calculator.important.title')); ?></h3>
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start space-x-3">
                         <span class="text-neon-purple mt-1">✓</span>
-                        <span>Это предварительный расчет. Точная стоимость определяется после анализа вашего проекта</span>
+                        <span><?php echo htmlspecialchars(t('pages.calculator.important.items.preliminary')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <span class="text-neon-purple mt-1">✓</span>
-                        <span>В стоимость может входить дополнительное обслуживание и поддержка</span>
+                        <span><?php echo htmlspecialchars(t('pages.calculator.important.items.support')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <span class="text-neon-purple mt-1">✓</span>
-                        <span>Мы предлагаем гибкие условия оплаты и индивидуальные тарифы</span>
+                        <span><?php echo htmlspecialchars(t('pages.calculator.important.items.flexible')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <span class="text-neon-purple mt-1">✓</span>
-                        <span>Первая консультация бесплатна</span>
+                        <span><?php echo htmlspecialchars(t('pages.calculator.important.items.free')); ?></span>
                     </li>
                 </ul>
             </div>
@@ -249,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
             else if (competition === 'high') basePrice *= 1.3;
 
             price = Math.round(basePrice);
-            priceNote.textContent = 'Стоимость включает: технический аудит, оптимизацию контента, работу с мета-тегами, внутреннюю перелинковку, ежемесячные отчеты.';
+            priceNote.textContent = '<?php echo htmlspecialchars(t('pages.calculator.result.seoNote'), ENT_QUOTES); ?>';
 
         } else if (service === 'development') {
             const devType = document.querySelector('[name="dev_type"]').value;
@@ -273,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             price = Math.round(basePrice);
-            priceNote.textContent = 'Стоимость включает: дизайн, верстку, программирование, адаптивность, базовую SEO-оптимизацию, тестирование.';
+            priceNote.textContent = '<?php echo htmlspecialchars(t('pages.calculator.result.devNote'), ENT_QUOTES); ?>';
 
         } else if (service === 'ads') {
             const budget = parseInt(document.querySelector('[name="budget"]').value) || 100000;
@@ -286,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (adType === 'shopping') percentage = 0.18;
 
             price = Math.round(budget * percentage);
-            priceNote.textContent = 'Стоимость включает: настройку кампаний, создание объявлений, работу с ключевыми словами, оптимизацию, ежемесячное ведение и отчетность.';
+            priceNote.textContent = '<?php echo htmlspecialchars(t('pages.calculator.result.adsNote'), ENT_QUOTES); ?>';
         }
 
         // Форматирование числа

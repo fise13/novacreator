@@ -3,10 +3,13 @@
  * Страница вакансий
  * Информация о вакансиях и возможностях работы в NovaCreator Studio
  */
-$pageTitle = 'Вакансии';
-$pageMetaTitle = 'Вакансии в NovaCreator Studio | Работа в Digital-агентстве';
-$pageMetaDescription = 'Открытые вакансии в NovaCreator Studio. Ищем SEO-специалистов, веб-разработчиков, специалистов по контекстной рекламе. Удаленная работа, гибкий график, интересные проекты.';
-$pageMetaKeywords = 'вакансии, работа в digital агентстве, удаленная работа, вакансии SEO, вакансии разработчика, работа маркетологом';
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
+$pageTitle = t('pages.vacancies.breadcrumb');
+$pageMetaTitle = t('seo.pages.vacancies.title');
+$pageMetaDescription = t('seo.pages.vacancies.description');
+$pageMetaKeywords = t('seo.pages.vacancies.keywords');
 include 'includes/header.php';
 ?>
 
@@ -15,11 +18,10 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient">Вакансии</span>
+                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.title')); ?></span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                Присоединяйтесь к нашей команде! Мы ищем талантливых профессионалов, 
-                готовых развиваться вместе с нами в digital-сфере.
+                <?php echo htmlspecialchars(t('pages.vacancies.subtitle')); ?>
             </p>
         </div>
     </div>
@@ -30,68 +32,66 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="animate-on-scroll">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Почему мы?</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.whyUs.title')); ?></h2>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
-                    NovaCreator Studio — это новая компания с большим опытом команды. 
-                    Мы работаем удаленно, что дает свободу и гибкость. У нас интересные проекты, 
-                    профессиональный рост и дружная команда.
+                    <?php echo htmlspecialchars(t('pages.vacancies.whyUs.description')); ?>
                 </p>
                 <ul class="space-y-4">
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Полностью удаленная работа</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.remote')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Гибкий график работы</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.flexible')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Интересные проекты и задачи</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.interesting')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Профессиональное развитие</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.development')); ?></span>
                     </li>
                     <li class="flex items-start space-x-3">
                         <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span class="text-gray-300">Дружная команда профессионалов</span>
+                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.team')); ?></span>
                     </li>
                 </ul>
             </div>
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-8">
-                    <h3 class="text-2xl font-bold mb-6 text-gradient">Что мы предлагаем</h3>
+                    <h3 class="text-2xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.weOffer.title')); ?></h3>
                     <div class="space-y-4">
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-purple rounded-full"></div>
-                            <span class="text-gray-300">Конкурентная зарплата</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.weOffer.salary')); ?></span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-blue rounded-full"></div>
-                            <span class="text-gray-300">Официальное оформление</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.weOffer.official')); ?></span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-purple rounded-full"></div>
-                            <span class="text-gray-300">Обучение и развитие</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.weOffer.learning')); ?></span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-blue rounded-full"></div>
-                            <span class="text-gray-300">Работа над реальными проектами</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.weOffer.projects')); ?></span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-3 h-3 bg-neon-purple rounded-full"></div>
-                            <span class="text-gray-300">Возможность карьерного роста</span>
+                            <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.vacancies.weOffer.career')); ?></span>
                         </div>
                     </div>
                 </div>
@@ -104,10 +104,9 @@ include 'includes/header.php';
 <section class="py-20 bg-dark-surface">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Открытые вакансии</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.openVacancies.title')); ?></h2>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Мы постоянно растем и ищем талантливых людей. Если вы не нашли подходящую вакансию, 
-                отправьте резюме на общих основаниях.
+                <?php echo htmlspecialchars(t('pages.vacancies.openVacancies.subtitle')); ?>
             </p>
         </div>
         
@@ -116,19 +115,18 @@ include 'includes/header.php';
             <div class="service-card animate-on-scroll">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div class="flex-1">
-                        <h3 class="text-2xl font-bold mb-2 text-gradient">SEO-специалист</h3>
+                        <h3 class="text-2xl font-bold mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.vacancies.seo.title')); ?></h3>
                         <p class="text-gray-400 mb-4">
-                            Ищем опытного SEO-специалиста для работы над проектами клиентов. 
-                            Требуется знание технического SEO, работы с контентом и аналитикой.
+                            <?php echo htmlspecialchars(t('pages.vacancies.vacancies.seo.description')); ?>
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Удаленно</span>
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Полная занятость</span>
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Опыт от 2 лет</span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.remote')); ?></span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.full')); ?></span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.experience2')); ?></span>
                         </div>
                     </div>
-                    <a href="/contact?type=vacancy&vacancy=SEO-специалист" class="btn-neon whitespace-nowrap">
-                        Откликнуться
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>?type=vacancy&vacancy=<?php echo urlencode(t('pages.vacancies.vacancies.seo.title')); ?>" class="btn-neon whitespace-nowrap">
+                        <?php echo htmlspecialchars(t('pages.vacancies.apply')); ?>
                     </a>
                 </div>
             </div>
@@ -137,19 +135,18 @@ include 'includes/header.php';
             <div class="service-card animate-on-scroll" style="animation-delay: 0.1s;">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div class="flex-1">
-                        <h3 class="text-2xl font-bold mb-2 text-gradient">Веб-разработчик</h3>
+                        <h3 class="text-2xl font-bold mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.vacancies.developer.title')); ?></h3>
                         <p class="text-gray-400 mb-4">
-                            Нужен разработчик для создания современных сайтов и веб-приложений. 
-                            Работа с PHP, JavaScript, HTML/CSS. Знание фреймворков приветствуется.
+                            <?php echo htmlspecialchars(t('pages.vacancies.vacancies.developer.description')); ?>
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Удаленно</span>
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Полная/Частичная</span>
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Опыт от 1 года</span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.remote')); ?></span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.part')); ?></span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.experience1')); ?></span>
                         </div>
                     </div>
-                    <a href="/contact?type=vacancy&vacancy=Веб-разработчик" class="btn-neon whitespace-nowrap">
-                        Откликнуться
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>?type=vacancy&vacancy=<?php echo urlencode(t('pages.vacancies.vacancies.developer.title')); ?>" class="btn-neon whitespace-nowrap">
+                        <?php echo htmlspecialchars(t('pages.vacancies.apply')); ?>
                     </a>
                 </div>
             </div>
@@ -158,19 +155,18 @@ include 'includes/header.php';
             <div class="service-card animate-on-scroll" style="animation-delay: 0.2s;">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div class="flex-1">
-                        <h3 class="text-2xl font-bold mb-2 text-gradient">Специалист по контекстной рекламе</h3>
+                        <h3 class="text-2xl font-bold mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.vacancies.ads.title')); ?></h3>
                         <p class="text-gray-400 mb-4">
-                            Ищем специалиста по настройке и ведению рекламных кампаний в Google Ads 
-                            и Яндекс.Директ. Опыт работы с аналитикой обязателен.
+                            <?php echo htmlspecialchars(t('pages.vacancies.vacancies.ads.description')); ?>
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Удаленно</span>
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Полная занятость</span>
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Опыт от 1 года</span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.remote')); ?></span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.full')); ?></span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.experience1')); ?></span>
                         </div>
                     </div>
-                    <a href="/contact?type=vacancy&vacancy=Специалист по контекстной рекламе" class="btn-neon whitespace-nowrap">
-                        Откликнуться
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>?type=vacancy&vacancy=<?php echo urlencode(t('pages.vacancies.vacancies.ads.title')); ?>" class="btn-neon whitespace-nowrap">
+                        <?php echo htmlspecialchars(t('pages.vacancies.apply')); ?>
                     </a>
                 </div>
             </div>
@@ -179,19 +175,18 @@ include 'includes/header.php';
             <div class="service-card animate-on-scroll" style="animation-delay: 0.3s;">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div class="flex-1">
-                        <h3 class="text-2xl font-bold mb-2 text-gradient">Контент-менеджер</h3>
+                        <h3 class="text-2xl font-bold mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.vacancies.content.title')); ?></h3>
                         <p class="text-gray-400 mb-4">
-                            Нужен специалист для создания и редактирования контента, работы с текстами 
-                            для сайтов и социальных сетей. Копирайтинг и SEO-тексты.
+                            <?php echo htmlspecialchars(t('pages.vacancies.vacancies.content.description')); ?>
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Удаленно</span>
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Частичная занятость</span>
-                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400">Опыт приветствуется</span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.remote')); ?></span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.part')); ?></span>
+                            <span class="px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-xs text-gray-400"><?php echo htmlspecialchars(t('pages.vacancies.tags.experience0')); ?></span>
                         </div>
                     </div>
-                    <a href="/contact?type=vacancy&vacancy=Контент-менеджер" class="btn-neon whitespace-nowrap">
-                        Откликнуться
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>?type=vacancy&vacancy=<?php echo urlencode(t('pages.vacancies.vacancies.content.title')); ?>" class="btn-neon whitespace-nowrap">
+                        <?php echo htmlspecialchars(t('pages.vacancies.apply')); ?>
                     </a>
                 </div>
             </div>
@@ -203,9 +198,9 @@ include 'includes/header.php';
 <section class="py-20">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Как откликнуться на вакансию?</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.howToApply.title')); ?></h2>
             <p class="text-xl text-gray-400 mb-12">
-                Процесс отклика простой и быстрый
+                <?php echo htmlspecialchars(t('pages.vacancies.howToApply.subtitle')); ?>
             </p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
@@ -213,10 +208,9 @@ include 'includes/header.php';
                     <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-6 text-2xl font-bold">
                         1
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Заполните форму</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.howToApply.step1.title')); ?></h3>
                     <p class="text-gray-400">
-                        Перейдите на страницу контактов и заполните форму, указав в сообщении, 
-                        на какую вакансию вы откликаетесь.
+                        <?php echo htmlspecialchars(t('pages.vacancies.howToApply.step1.description')); ?>
                     </p>
                 </div>
                 
@@ -224,10 +218,9 @@ include 'includes/header.php';
                     <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mb-6 text-2xl font-bold">
                         2
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Приложите резюме</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.howToApply.step2.title')); ?></h3>
                     <p class="text-gray-400">
-                        В сообщении укажите ссылку на ваше резюме или опишите свой опыт работы 
-                        и навыки.
+                        <?php echo htmlspecialchars(t('pages.vacancies.howToApply.step2.description')); ?>
                     </p>
                 </div>
                 
@@ -235,17 +228,16 @@ include 'includes/header.php';
                     <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-6 text-2xl font-bold">
                         3
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-gradient">Ждите ответа</h3>
+                    <h3 class="text-xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.vacancies.howToApply.step3.title')); ?></h3>
                     <p class="text-gray-400">
-                        Мы рассмотрим вашу заявку и свяжемся с вами в течение 1-2 рабочих дней 
-                        для обсуждения деталей.
+                        <?php echo htmlspecialchars(t('pages.vacancies.howToApply.step3.description')); ?>
                     </p>
                 </div>
             </div>
             
             <div class="mt-12">
-                <a href="/contact?type=vacancy" class="btn-neon inline-block">
-                    Отправить резюме
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>?type=vacancy" class="btn-neon inline-block">
+                    <?php echo htmlspecialchars(t('pages.vacancies.sendResume')); ?>
                 </a>
             </div>
         </div>
@@ -257,14 +249,13 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto animate-on-scroll">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Не нашли подходящую вакансию?
+                <?php echo htmlspecialchars(t('pages.vacancies.cta.title')); ?>
             </h2>
             <p class="text-xl text-gray-300 mb-12">
-                Отправьте резюме на общих основаниях. Мы всегда рады талантливым людям 
-                и можем найти место для вас в нашей команде.
+                <?php echo htmlspecialchars(t('pages.vacancies.cta.subtitle')); ?>
             </p>
-            <a href="/contact?type=vacancy" class="btn-neon inline-block">
-                Отправить резюме
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>?type=vacancy" class="btn-neon inline-block">
+                <?php echo htmlspecialchars(t('pages.vacancies.cta.button')); ?>
             </a>
         </div>
     </div>

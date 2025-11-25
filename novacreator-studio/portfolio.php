@@ -3,10 +3,13 @@
  * Страница портфолио
  * Пока пустая, так как мы только открылись
  */
-$pageTitle = 'Портфолио';
-$pageMetaTitle = 'Портфолио проектов | NovaCreator Studio';
-$pageMetaDescription = 'NovaCreator Studio - новая компания с большим опытом команды. Портфолио будет пополняться по мере работы с клиентами.';
-$pageMetaKeywords = 'портфолио digital агентства, примеры работ, кейсы продвижения';
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
+$pageTitle = t('pages.portfolio.breadcrumb');
+$pageMetaTitle = t('seo.pages.portfolio.title');
+$pageMetaDescription = t('seo.pages.portfolio.description');
+$pageMetaKeywords = t('seo.pages.portfolio.keywords');
 include 'includes/header.php';
 ?>
 
@@ -15,11 +18,10 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient">Портфолио</span>
+                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.portfolio.title')); ?></span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                Мы только открылись, но у нашей команды большой опыт работы. 
-                Портфолио будет пополняться по мере работы с новыми клиентами.
+                <?php echo htmlspecialchars(t('pages.portfolio.subtitle')); ?>
             </p>
         </div>
     </div>
@@ -36,18 +38,16 @@ include 'includes/header.php';
                     </svg>
                 </div>
                 <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">
-                    Портфолио скоро появится
+                    <?php echo htmlspecialchars(t('pages.portfolio.comingSoon.title')); ?>
                 </h2>
                 <p class="text-lg md:text-xl text-gray-400 mb-8 leading-relaxed">
-                    Мы молодая компания, но у нашей команды большой стаж работы в digital-маркетинге. 
-                    Каждый из нас имеет многолетний опыт работы над различными успешными проектами.
+                    <?php echo htmlspecialchars(t('pages.portfolio.comingSoon.description1')); ?>
                 </p>
                 <p class="text-base md:text-lg text-gray-400 mb-8">
-                    Портфолио будет пополняться по мере работы с новыми клиентами. 
-                    Станьте нашим первым клиентом и получите <strong class="text-neon-blue">6 месяцев бесплатной поддержки</strong>!
+                    <?php echo htmlspecialchars(t('pages.portfolio.comingSoon.description2')); ?>
                 </p>
-                <a href="/contact" class="btn-neon inline-block">
-                    Стать первым клиентом
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                    <?php echo htmlspecialchars(t('pages.portfolio.comingSoon.button')); ?>
                 </a>
             </div>
         </div>
@@ -59,13 +59,13 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto animate-on-scroll">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Готовы начать работу?
+                <?php echo htmlspecialchars(t('pages.portfolio.cta.title')); ?>
             </h2>
             <p class="text-xl text-gray-300 mb-12">
-                Свяжитесь с нами и обсудим ваш проект
+                <?php echo htmlspecialchars(t('pages.portfolio.cta.subtitle')); ?>
             </p>
-            <a href="/contact" class="btn-neon inline-block">
-                Обсудить проект
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                <?php echo htmlspecialchars(t('pages.portfolio.cta.button')); ?>
             </a>
         </div>
     </div>

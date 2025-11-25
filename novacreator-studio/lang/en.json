@@ -17,6 +17,20 @@
     "vacancies": "Vacancies",
     "menu": "Open menu"
   },
+  "months": {
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December"
+  },
   "common": {
     "readMore": "Learn more",
     "getStarted": "Start project",
@@ -725,6 +739,200 @@
       "cta": {
         "text": "Didn't find an answer to your question?",
         "button": "Contact us"
+      }
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "breadcrumb": "Portfolio",
+      "subtitle": "We just opened, but our team has extensive experience. The portfolio will be updated as we work with new clients.",
+      "comingSoon": {
+        "title": "Portfolio Coming Soon",
+        "description1": "We are a young company, but our team has extensive experience in digital marketing. Each of us has years of experience working on various successful projects.",
+        "description2": "The portfolio will be updated as we work with new clients. Become our first client and get 6 months of free support!",
+        "button": "Become First Client"
+      },
+      "cta": {
+        "title": "Ready to start working?",
+        "subtitle": "Contact us and let's discuss your project",
+        "button": "Discuss Project"
+      }
+    },
+    "vacancies": {
+      "title": "Vacancies",
+      "breadcrumb": "Vacancies",
+      "subtitle": "Join our team! We are looking for talented professionals ready to grow with us in the digital sphere.",
+      "whyUs": {
+        "title": "Why Us?",
+        "description": "NovaCreator Studio is a new company with extensive team experience. We work remotely, which gives freedom and flexibility. We have interesting projects, professional growth and a friendly team.",
+        "benefits": {
+          "remote": "Fully remote work",
+          "flexible": "Flexible schedule",
+          "interesting": "Interesting projects and tasks",
+          "development": "Professional development",
+          "team": "Friendly team of professionals"
+        }
+      },
+      "weOffer": {
+        "title": "What We Offer",
+        "salary": "Competitive salary",
+        "official": "Official employment",
+        "learning": "Training and development",
+        "projects": "Work on real projects",
+        "career": "Career growth opportunities"
+      },
+      "openVacancies": {
+        "title": "Open Vacancies",
+        "subtitle": "We are constantly growing and looking for talented people. If you didn't find a suitable vacancy, send your resume on general terms."
+      },
+      "vacancies": {
+        "seo": {
+          "title": "SEO Specialist",
+          "description": "We are looking for an experienced SEO specialist to work on client projects. Knowledge of technical SEO, content work and analytics is required."
+        },
+        "developer": {
+          "title": "Web Developer",
+          "description": "We need a developer to create modern websites and web applications. Work with PHP, JavaScript, HTML/CSS. Knowledge of frameworks is welcome."
+        },
+        "ads": {
+          "title": "Contextual Advertising Specialist",
+          "description": "We are looking for a specialist to set up and manage advertising campaigns in Google Ads and Yandex.Direct. Experience with analytics is required."
+        },
+        "content": {
+          "title": "Content Manager",
+          "description": "We need a specialist to create and edit content, work with texts for websites and social networks. Copywriting and SEO texts."
+        }
+      },
+      "tags": {
+        "remote": "Remote",
+        "full": "Full-time",
+        "part": "Part-time",
+        "experience2": "2+ years experience",
+        "experience1": "1+ year experience",
+        "experience0": "Experience welcome"
+      },
+      "apply": "Apply",
+      "howToApply": {
+        "title": "How to Apply for a Vacancy?",
+        "subtitle": "The application process is simple and fast",
+        "step1": {
+          "title": "Fill Out Form",
+          "description": "Go to the contacts page and fill out the form, indicating in the message which vacancy you are applying for."
+        },
+        "step2": {
+          "title": "Attach Resume",
+          "description": "In the message, provide a link to your resume or describe your work experience and skills."
+        },
+        "step3": {
+          "title": "Wait for Response",
+          "description": "We will review your application and contact you within 1-2 business days to discuss details."
+        }
+      },
+      "sendResume": "Send Resume",
+      "cta": {
+        "title": "Didn't Find a Suitable Vacancy?",
+        "subtitle": "Send your resume on general terms. We are always happy to welcome talented people and can find a place for you in our team.",
+        "button": "Send Resume"
+      }
+    },
+    "calculator": {
+      "title": "Cost Calculator",
+      "breadcrumb": "Calculator",
+      "subtitle": "Calculate the approximate cost of services for your project",
+      "selectService": "Select Service",
+      "services": {
+        "seo": "SEO Promotion",
+        "development": "Website Development",
+        "ads": "Google Ads"
+      },
+      "seo": {
+        "siteType": "Site Type",
+        "siteTypes": {
+          "small": "Small site (up to 50 pages)",
+          "medium": "Medium site (50-200 pages)",
+          "large": "Large site (200+ pages)",
+          "shop": "Online store"
+        },
+        "region": "Promotion Region",
+        "regions": {
+          "local": "Local (one city)",
+          "regional": "Regional (region/area)",
+          "national": "Throughout Kazakhstan",
+          "international": "International"
+        },
+        "competition": "Niche Competition",
+        "competitions": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        }
+      },
+      "development": {
+        "siteType": "Site Type",
+        "siteTypes": {
+          "landing": "Landing page (one page)",
+          "corporate": "Corporate website",
+          "shop": "Online store",
+          "webapp": "Web application"
+        },
+        "pages": "Number of Pages",
+        "features": "Additional Features",
+        "featuresList": {
+          "cms": "Content Management System (CMS)",
+          "payment": "Payment System Integration",
+          "api": "API Integrations",
+          "mobile": "Mobile Application"
+        }
+      },
+      "ads": {
+        "budget": "Monthly Advertising Budget",
+        "budgetNote": "from 50,000 ₸",
+        "platform": "Platform",
+        "platforms": {
+          "google": "Google Ads",
+          "yandex": "Yandex.Direct",
+          "both": "Both platforms"
+        },
+        "adType": "Ad Type",
+        "adTypes": {
+          "search": "Search Advertising",
+          "display": "Display Advertising",
+          "video": "Video Advertising",
+          "shopping": "Shopping Campaigns"
+        }
+      },
+      "result": {
+        "title": "Approximate Cost",
+        "note": "This is an approximate cost. Exact price is calculated after consultation.",
+        "seoNote": "Cost includes: technical audit, content optimization, meta tags work, internal linking, monthly reports.",
+        "devNote": "Cost includes: design, layout, programming, responsiveness, basic SEO optimization, testing.",
+        "adsNote": "Cost includes: campaign setup, ad creation, keyword work, optimization, monthly management and reporting.",
+        "button": "Get Exact Calculation"
+      },
+      "calculate": "Calculate Cost",
+      "important": {
+        "title": "Important to Know",
+        "items": {
+          "preliminary": "This is a preliminary calculation. Exact cost is determined after analyzing your project",
+          "support": "Cost may include additional maintenance and support",
+          "flexible": "We offer flexible payment terms and individual rates",
+          "free": "First consultation is free"
+        }
+      }
+    },
+    "blog": {
+      "title": "Blog",
+      "breadcrumb": "Blog",
+      "subtitle": "Useful articles about SEO, development, marketing and digital promotion",
+      "noArticles": "Articles not added yet",
+      "readMore": "Read More →",
+      "pagination": {
+        "prev": "Previous",
+        "next": "Next →"
+      },
+      "cta": {
+        "title": "Need Help with Your Project?",
+        "subtitle": "Contact us and get a free consultation",
+        "button": "Get Consultation"
       }
     }
   },

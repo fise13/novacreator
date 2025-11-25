@@ -3,10 +3,13 @@
  * Страница блога
  * Полезные статьи о SEO, маркетинге и разработке
  */
-$pageTitle = 'Блог';
-$pageMetaTitle = 'Блог о Digital-маркетинге | Полезные статьи - NovaCreator Studio';
-$pageMetaDescription = 'Полезные статьи о SEO, разработке сайтов, Google Ads и digital-маркетинге. Советы экспертов, кейсы, новости индустрии.';
-$pageMetaKeywords = 'блог digital маркетинг, статьи о SEO, статьи о разработке сайтов, статьи о рекламе, полезные материалы, кейсы, советы экспертов';
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
+$pageTitle = t('pages.blog.breadcrumb');
+$pageMetaTitle = t('seo.pages.blog.title');
+$pageMetaDescription = t('seo.pages.blog.description');
+$pageMetaKeywords = t('seo.pages.blog.keywords');
 include 'includes/header.php';
 
 // Загружаем статьи из JSON файла
@@ -44,13 +47,13 @@ function getCategoryColor($category) {
 
 // Функция для форматирования даты
 function formatDate($date) {
-    $months = [
-        '01' => 'января', '02' => 'февраля', '03' => 'марта', '04' => 'апреля',
-        '05' => 'мая', '06' => 'июня', '07' => 'июля', '08' => 'августа',
-        '09' => 'сентября', '10' => 'октября', '11' => 'ноября', '12' => 'декабря'
-    ];
+    global $currentLang;
     $parts = explode('-', $date);
-    return (int)$parts[2] . ' ' . $months[$parts[1]] . ' ' . $parts[0];
+    $month = t('months.' . $parts[1]);
+    if ($currentLang === 'en') {
+        return $month . ' ' . (int)$parts[2] . ', ' . $parts[0];
+    }
+    return (int)$parts[2] . ' ' . $month . ' ' . $parts[0];
 }
 ?>
 
@@ -59,10 +62,10 @@ function formatDate($date) {
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient">Блог</span>
+                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.blog.title')); ?></span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                Полезные статьи о SEO, разработке, маркетинге и digital-продвижении
+                <?php echo htmlspecialchars(t('pages.blog.subtitle')); ?>
             </p>
         </div>
     </div>
@@ -73,7 +76,7 @@ function formatDate($date) {
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <?php if (empty($articles)): ?>
             <div class="text-center py-20">
-                <p class="text-xl text-gray-400">Статьи пока не добавлены</p>
+                <p class="text-xl text-gray-400"><?php echo htmlspecialchars(t('pages.blog.noArticles')); ?></p>
             </div>
         <?php else: ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -85,15 +88,15 @@ function formatDate($date) {
                             <span class="text-sm text-gray-500"><?php echo formatDate($article['date']); ?></span>
                         </div>
                         <h2 class="text-2xl font-bold mb-4 text-gradient">
-                            <a href="/blog-post?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="hover:text-neon-blue transition-colors">
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="hover:text-neon-blue transition-colors">
                                 <?php echo htmlspecialchars($article['title']); ?>
                             </a>
                         </h2>
                         <p class="text-gray-400 mb-6 leading-relaxed">
                             <?php echo htmlspecialchars($article['excerpt']); ?>
                         </p>
-                        <a href="/blog-post?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
-                            Читать далее →
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                            <?php echo htmlspecialchars(t('pages.blog.readMore')); ?>
                         </a>
                     </article>
                 <?php endforeach; ?>
@@ -105,10 +108,10 @@ function formatDate($date) {
                     <div class="inline-flex space-x-2">
                         <?php if ($page > 1): ?>
                             <a href="?page=<?php echo $page - 1; ?>" class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-400 hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
-                                Назад
+                                <?php echo htmlspecialchars(t('pages.blog.pagination.prev')); ?>
                             </a>
                         <?php else: ?>
-                            <span class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-500 cursor-not-allowed">Назад</span>
+                            <span class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-500 cursor-not-allowed"><?php echo htmlspecialchars(t('pages.blog.pagination.prev')); ?></span>
                         <?php endif; ?>
                         
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
@@ -123,10 +126,10 @@ function formatDate($date) {
                         
                         <?php if ($page < $totalPages): ?>
                             <a href="?page=<?php echo $page + 1; ?>" class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-400 hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
-                                Вперед →
+                                <?php echo htmlspecialchars(t('pages.blog.pagination.next')); ?>
                             </a>
                         <?php else: ?>
-                            <span class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-500 cursor-not-allowed">Вперед →</span>
+                            <span class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-500 cursor-not-allowed"><?php echo htmlspecialchars(t('pages.blog.pagination.next')); ?></span>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -140,13 +143,13 @@ function formatDate($date) {
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto animate-on-scroll">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Нужна помощь с вашим проектом?
+                <?php echo htmlspecialchars(t('pages.blog.cta.title')); ?>
             </h2>
             <p class="text-xl text-gray-300 mb-12">
-                Свяжитесь с нами и получите бесплатную консультацию
+                <?php echo htmlspecialchars(t('pages.blog.cta.subtitle')); ?>
             </p>
-            <a href="/contact" class="btn-neon inline-block">
-                Получить консультацию
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                <?php echo htmlspecialchars(t('pages.blog.cta.button')); ?>
             </a>
         </div>
     </div>
