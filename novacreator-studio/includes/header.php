@@ -139,18 +139,8 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                     </div>
                 </div>
                 
-                <!-- Переключатель языка и кнопка мобильного меню -->
-                <div class="flex items-center gap-2 sm:gap-2.5 md:gap-3 flex-shrink-0">
-                    <!-- Переключатель языка для мобильных -->
-                    <div class="flex items-center gap-0.5 md:hidden bg-dark-surface/60 backdrop-blur-sm rounded-lg p-0.5 border border-dark-border/60 shadow-sm" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-2.5 py-1.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-200 whitespace-nowrap min-w-[36px] sm:min-w-[40px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
-                            RU
-                        </a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-2.5 py-1.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-200 whitespace-nowrap min-w-[36px] sm:min-w-[40px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
-                            EN
-                        </a>
-                    </div>
-                    <!-- Кнопка мобильного меню - оптимизирована для touch -->
+                <!-- Кнопка мобильного меню -->
+                <div class="flex items-center flex-shrink-0">
                     <button class="md:hidden text-gray-300 hover:text-neon-purple active:text-neon-purple focus:text-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg rounded-lg transition-all duration-200 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0 hover:bg-dark-surface/50 active:bg-dark-surface/70 active:scale-95" id="mobileMenuBtn" aria-label="<?php echo htmlspecialchars(t('nav.menu')); ?>" aria-expanded="false" aria-controls="mobileMenu" type="button">
                         <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -220,15 +210,17 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                 </a>
                 
                 <!-- Переключатель языка в мобильном меню -->
-                <div class="mobile-menu-item flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2 mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-dark-border/60 opacity-0 transform translate-y-3 pb-safe" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
-                    <span class="text-sm sm:text-base text-gray-400 font-medium"><?php echo htmlspecialchars(t('nav.language')); ?>:</span>
-                    <div class="flex items-center gap-1.5 bg-dark-surface/60 backdrop-blur-sm rounded-xl p-1.5 border border-dark-border/60 shadow-sm">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-[50px] sm:min-w-[60px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
-                            RU
-                        </a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-[50px] sm:min-w-[60px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
-                            EN
-                        </a>
+                <div class="mobile-menu-item mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-dark-border/60 opacity-0 transform translate-y-3 pb-safe" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+                        <span class="text-sm sm:text-base text-gray-400 font-medium"><?php echo htmlspecialchars(t('nav.language')); ?>:</span>
+                        <div class="flex items-center gap-1.5 bg-dark-surface/60 backdrop-blur-sm rounded-xl p-1.5 border border-dark-border/60 shadow-sm">
+                            <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-6 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-[60px] sm:min-w-[70px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
+                                RU
+                            </a>
+                            <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-6 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-[60px] sm:min-w-[70px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
+                                EN
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
