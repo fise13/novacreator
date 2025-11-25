@@ -4,7 +4,7 @@
     # Редирект с .php на версию без расширения (301 - постоянный редирект)
     # Только для файлов в корне сайта, исключая подпапки (admin, client, includes, backend и т.д.)
     RewriteCond %{THE_REQUEST} \s/+([^/?\s]+)\.php[\s?] [NC]
-    RewriteCond %{REQUEST_URI} !^/(admin|client|includes|backend|assets|telegram_bot|data|adm)/ [NC]
+    RewriteCond %{REQUEST_URI} !^/(admin|client|includes|backend|assets|telegram_bot|data|adm|lang|ru|en)/ [NC]
     RewriteRule ^ /%1? [R=301,L]
     
     # Правила для админ-панели через /adm
@@ -14,11 +14,30 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^adm/?(.*)$ /admin/$1 [L]
     
+    # Мультиязычность: обработка языковых префиксов
+    # Исключаем системные директории и файлы
+    RewriteCond %{REQUEST_URI} !^/(admin|client|includes|backend|assets|telegram_bot|data|adm|lang|favicon\.ico|robots\.txt|sitemap\.xml) [NC]
+    
+    # Если запрос к корню без языкового префикса - перенаправляем на /ru/ (или просто /)
+    RewriteCond %{REQUEST_URI} ^/$ [NC]
+    RewriteRule ^$ /index.php [L]
+    
+    # Обработка языковых префиксов ru/ и en/
+    # Формат: /ru/services, /en/services и т.д.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(ru|en)/(services|seo|ads|about|contact|portfolio|vacancies|calculator|blog|faq|)$ /$2.php?lang=$1 [L,QSA]
+    
+    # Обработка корня с языковым префиксом: /ru/ или /en/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(ru|en)/?$ /index.php?lang=$1 [L,QSA]
+    
     # Проверяем, что файл или директория не существуют
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     
-    # Правила для основных страниц сайта
+    # Правила для основных страниц сайта (без языкового префикса)
     RewriteRule ^services$ /services.php [L]
     RewriteRule ^seo$ /seo.php [L]
     RewriteRule ^ads$ /ads.php [L]

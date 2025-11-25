@@ -13,11 +13,6 @@ define('DEFAULT_LANGUAGE', 'ru');
  * @return string Код языка (ru или en)
  */
 function detectLanguage(): string {
-    // Проверяем параметр lang из GET (передается через .htaccess)
-    if (isset($_GET['lang']) && in_array($_GET['lang'], SUPPORTED_LANGUAGES)) {
-        return $_GET['lang'];
-    }
-    
     $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
     $path = parse_url($requestUri, PHP_URL_PATH);
     $segments = explode('/', trim($path, '/'));
