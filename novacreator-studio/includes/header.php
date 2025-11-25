@@ -104,13 +104,13 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
     <div class="scroll-progress-bar fixed top-0 left-0 h-1 bg-gradient-to-r from-neon-purple to-neon-blue z-50" style="width: 0%; transition: width 0.1s ease-out;"></div>
     
     <!-- Навигация -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-border transition-all duration-300" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>">
-        <div class="container mx-auto px-3 md:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 md:h-20 gap-2">
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-dark-bg/95 backdrop-blur-xl border-b border-dark-border/80 transition-all duration-300 shadow-lg shadow-black/20" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" style="padding-top: env(safe-area-inset-top);">
+        <div class="container mx-auto px-4 sm:px-5 md:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16 md:h-20 gap-2 sm:gap-3">
                 <!-- Логотип -->
-                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="flex items-center space-x-1.5 md:space-x-3 group touch-manipulation flex-shrink-0 min-w-0" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>">
-                    <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-10 h-10 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0" loading="lazy" decoding="async" fetchpriority="high" width="40" height="40" />
-                    <span class="text-base md:text-2xl font-semibold text-gradient truncate"><?php echo htmlspecialchars(t('site.name')); ?></span>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="flex items-center space-x-2 sm:space-x-2.5 md:space-x-3 group touch-manipulation flex-shrink-0 min-w-0 active:scale-95 transition-transform duration-200" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>">
+                    <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-9 h-9 sm:w-11 sm:h-11 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0 shadow-md shadow-neon-purple/20" loading="lazy" decoding="async" fetchpriority="high" width="36" height="36" />
+                    <span class="text-sm sm:text-base md:text-2xl font-semibold text-gradient truncate leading-tight"><?php echo htmlspecialchars(t('site.name')); ?></span>
                 </a>
                 
                 <!-- Меню для десктопа -->
@@ -140,20 +140,20 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                 </div>
                 
                 <!-- Переключатель языка и кнопка мобильного меню -->
-                <div class="flex items-center gap-1.5 md:gap-3 flex-shrink-0">
+                <div class="flex items-center gap-2 sm:gap-2.5 md:gap-3 flex-shrink-0">
                     <!-- Переключатель языка для мобильных -->
-                    <div class="flex items-center gap-0.5 md:hidden bg-dark-surface/50 rounded-lg p-0.5 border border-dark-border/50" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-2 py-1 text-xs font-medium rounded-md transition-all duration-300 whitespace-nowrap min-w-[34px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-sm shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50 active:bg-dark-bg/70'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
+                    <div class="flex items-center gap-0.5 md:hidden bg-dark-surface/60 backdrop-blur-sm rounded-lg p-0.5 border border-dark-border/60 shadow-sm" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
+                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-2.5 py-1.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-200 whitespace-nowrap min-w-[36px] sm:min-w-[40px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
                             RU
                         </a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-2 py-1 text-xs font-medium rounded-md transition-all duration-300 whitespace-nowrap min-w-[34px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-sm shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50 active:bg-dark-bg/70'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
+                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-2.5 py-1.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-200 whitespace-nowrap min-w-[36px] sm:min-w-[40px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
                             EN
                         </a>
                     </div>
                     <!-- Кнопка мобильного меню - оптимизирована для touch -->
-                    <button class="md:hidden text-gray-300 hover:text-neon-purple focus:text-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg rounded-md transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0" id="mobileMenuBtn" aria-label="<?php echo htmlspecialchars(t('nav.menu')); ?>" aria-expanded="false" aria-controls="mobileMenu" type="button">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <button class="md:hidden text-gray-300 hover:text-neon-purple active:text-neon-purple focus:text-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg rounded-lg transition-all duration-200 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0 hover:bg-dark-surface/50 active:bg-dark-surface/70 active:scale-95" id="mobileMenuBtn" aria-label="<?php echo htmlspecialchars(t('nav.menu')); ?>" aria-expanded="false" aria-controls="mobileMenu" type="button">
+                        <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                         <span class="sr-only"><?php echo htmlspecialchars(t('nav.menu')); ?></span>
                     </button>
@@ -162,71 +162,71 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
         </div>
         
         <!-- Затемнение фона для мобильного меню -->
-        <div class="fixed inset-0 bg-black/60 z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay" role="button" tabindex="-1" aria-label="<?php echo htmlspecialchars(t('nav.closeMenu')); ?>" style="backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); will-change: backdrop-filter; transform: translateZ(0); -webkit-transform: translateZ(0);"></div>
+        <div class="fixed inset-0 bg-black/70 z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay" role="button" tabindex="-1" aria-label="<?php echo htmlspecialchars(t('nav.closeMenu')); ?>" style="backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); will-change: backdrop-filter, opacity; transform: translateZ(0); -webkit-transform: translateZ(0); top: env(safe-area-inset-top, 0);"></div>
         
         <!-- Мобильное меню - оптимизировано для touch -->
-        <div class="fixed top-16 left-0 right-0 border-t border-dark-border bg-dark-bg/98 z-50 overflow-y-auto hidden shadow-2xl" id="mobileMenu" role="menu" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" aria-orientation="vertical" style="max-height: calc(100vh - 4rem); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); transform: translateZ(0); -webkit-transform: translateZ(0);">
-            <div class="container mx-auto px-4 py-4 space-y-1.5">
+        <div class="fixed left-0 right-0 border-t border-dark-border/80 bg-dark-bg/98 z-50 overflow-y-auto hidden shadow-2xl" id="mobileMenu" role="menu" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" aria-orientation="vertical" style="top: calc(3.5rem + env(safe-area-inset-top, 0)); max-height: calc(100vh - 3.5rem - env(safe-area-inset-top, 0)); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); transform: translateZ(0); -webkit-transform: translateZ(0); will-change: transform, opacity;">
+            <div class="container mx-auto px-4 sm:px-5 py-5 sm:py-6 space-y-2">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 ?>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-white hover:bg-dark-surface focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-lg transition-all duration-300 min-h-[48px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'index' ? 'text-neon-purple bg-dark-surface font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>">
-                    <span class="flex-1"><?php echo htmlspecialchars(t('nav.home')); ?></span>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="mobile-menu-item block py-3.5 sm:py-4 px-4 sm:px-5 text-base sm:text-lg text-gray-300 hover:text-white hover:bg-dark-surface/80 focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-xl transition-all duration-200 min-h-[52px] sm:min-h-[56px] flex items-center touch-manipulation opacity-0 transform translate-y-3 active:scale-[0.98] <?php echo $currentPage == 'index' ? 'text-neon-purple bg-dark-surface/60 font-semibold shadow-sm shadow-neon-purple/20' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>">
+                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.home')); ?></span>
                     <?php if ($currentPage == 'index'): ?>
-                        <svg class="w-5 h-5 text-neon-purple ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neon-purple ml-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                         </svg>
                     <?php endif; ?>
                 </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-white hover:bg-dark-surface focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-lg transition-all duration-300 min-h-[48px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'services' ? 'text-neon-purple bg-dark-surface font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>">
-                    <span class="flex-1"><?php echo htmlspecialchars(t('nav.services')); ?></span>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="mobile-menu-item block py-3.5 sm:py-4 px-4 sm:px-5 text-base sm:text-lg text-gray-300 hover:text-white hover:bg-dark-surface/80 focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-xl transition-all duration-200 min-h-[52px] sm:min-h-[56px] flex items-center touch-manipulation opacity-0 transform translate-y-3 active:scale-[0.98] <?php echo $currentPage == 'services' ? 'text-neon-purple bg-dark-surface/60 font-semibold shadow-sm shadow-neon-purple/20' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>">
+                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.services')); ?></span>
                     <?php if ($currentPage == 'services'): ?>
-                        <svg class="w-5 h-5 text-neon-purple ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neon-purple ml-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                         </svg>
                     <?php endif; ?>
                 </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-white hover:bg-dark-surface focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-lg transition-all duration-300 min-h-[48px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'seo' ? 'text-neon-purple bg-dark-surface font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>">
-                    <span class="flex-1"><?php echo htmlspecialchars(t('nav.seo')); ?></span>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="mobile-menu-item block py-3.5 sm:py-4 px-4 sm:px-5 text-base sm:text-lg text-gray-300 hover:text-white hover:bg-dark-surface/80 focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-xl transition-all duration-200 min-h-[52px] sm:min-h-[56px] flex items-center touch-manipulation opacity-0 transform translate-y-3 active:scale-[0.98] <?php echo $currentPage == 'seo' ? 'text-neon-purple bg-dark-surface/60 font-semibold shadow-sm shadow-neon-purple/20' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>">
+                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.seo')); ?></span>
                     <?php if ($currentPage == 'seo'): ?>
-                        <svg class="w-5 h-5 text-neon-purple ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neon-purple ml-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                         </svg>
                     <?php endif; ?>
                 </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-white hover:bg-dark-surface focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-lg transition-all duration-300 min-h-[48px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'ads' ? 'text-neon-purple bg-dark-surface font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>">
-                    <span class="flex-1"><?php echo htmlspecialchars(t('nav.ads')); ?></span>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="mobile-menu-item block py-3.5 sm:py-4 px-4 sm:px-5 text-base sm:text-lg text-gray-300 hover:text-white hover:bg-dark-surface/80 focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-xl transition-all duration-200 min-h-[52px] sm:min-h-[56px] flex items-center touch-manipulation opacity-0 transform translate-y-3 active:scale-[0.98] <?php echo $currentPage == 'ads' ? 'text-neon-purple bg-dark-surface/60 font-semibold shadow-sm shadow-neon-purple/20' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>">
+                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.ads')); ?></span>
                     <?php if ($currentPage == 'ads'): ?>
-                        <svg class="w-5 h-5 text-neon-purple ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neon-purple ml-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                         </svg>
                     <?php endif; ?>
                 </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-white hover:bg-dark-surface focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-lg transition-all duration-300 min-h-[48px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'about' ? 'text-neon-purple bg-dark-surface font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>">
-                    <span class="flex-1"><?php echo htmlspecialchars(t('nav.about')); ?></span>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="mobile-menu-item block py-3.5 sm:py-4 px-4 sm:px-5 text-base sm:text-lg text-gray-300 hover:text-white hover:bg-dark-surface/80 focus:text-white focus:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-inset rounded-xl transition-all duration-200 min-h-[52px] sm:min-h-[56px] flex items-center touch-manipulation opacity-0 transform translate-y-3 active:scale-[0.98] <?php echo $currentPage == 'about' ? 'text-neon-purple bg-dark-surface/60 font-semibold shadow-sm shadow-neon-purple/20' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>">
+                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.about')); ?></span>
                     <?php if ($currentPage == 'about'): ?>
-                        <svg class="w-5 h-5 text-neon-purple ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neon-purple ml-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                         </svg>
                     <?php endif; ?>
                 </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="mobile-menu-item block relative w-full px-6 py-3.5 text-base font-semibold text-white rounded-lg bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg transition-all duration-300 shadow-lg shadow-neon-purple/30 hover:shadow-xl hover:shadow-neon-purple/50 active:scale-95 mt-3 opacity-0 transform translate-y-2" role="menuitem">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="mobile-menu-item block relative w-full px-6 sm:px-7 py-4 sm:py-4.5 text-base sm:text-lg font-semibold text-white rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg transition-all duration-200 shadow-lg shadow-neon-purple/40 hover:shadow-xl hover:shadow-neon-purple/60 active:scale-[0.97] mt-4 sm:mt-5 opacity-0 transform translate-y-3 min-h-[52px] sm:min-h-[56px]" role="menuitem">
                     <span class="relative z-10 flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-2.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
                         <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </span>
                 </a>
                 
                 <!-- Переключатель языка в мобильном меню -->
-                <div class="mobile-menu-item flex items-center justify-center gap-2 mt-4 pt-4 border-t border-dark-border opacity-0 transform translate-y-2" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
-                    <span class="text-sm text-gray-400 mr-2"><?php echo htmlspecialchars(t('nav.language')); ?>:</span>
-                    <div class="flex items-center gap-1 bg-dark-surface/50 rounded-lg p-1 border border-dark-border/50">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 whitespace-nowrap min-w-[44px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50 active:bg-dark-bg/70'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
+                <div class="mobile-menu-item flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2 mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-dark-border/60 opacity-0 transform translate-y-3 pb-safe" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
+                    <span class="text-sm sm:text-base text-gray-400 font-medium"><?php echo htmlspecialchars(t('nav.language')); ?>:</span>
+                    <div class="flex items-center gap-1.5 bg-dark-surface/60 backdrop-blur-sm rounded-xl p-1.5 border border-dark-border/60 shadow-sm">
+                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-[50px] sm:min-w-[60px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
                             RU
                         </a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 whitespace-nowrap min-w-[44px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50 active:bg-dark-bg/70'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
+                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-[50px] sm:min-w-[60px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation active:scale-95 <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/40' : 'text-gray-400 hover:text-gray-200 hover:bg-dark-bg/60 active:bg-dark-bg/80'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
                             EN
                         </a>
                     </div>
@@ -272,8 +272,8 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                         setTimeout(() => {
                             item.style.opacity = '1';
                             item.style.transform = 'translateY(0)';
-                            item.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
-                        }, 50 + (index * 50)); // Задержка 50ms между каждой кнопкой
+                            item.style.transition = 'opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
+                        }, 40 + (index * 40)); // Задержка 40ms между каждой кнопкой
                     });
                     
                     // Анимация для переключателя языков (если он есть отдельно)
@@ -282,8 +282,8 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                         setTimeout(() => {
                             langSwitcher.style.opacity = '1';
                             langSwitcher.style.transform = 'translateY(0)';
-                            langSwitcher.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
-                        }, 50 + (menuItems.length * 50));
+                            langSwitcher.style.transition = 'opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
+                        }, 40 + (menuItems.length * 40));
                     }
                     
                     // Фокусируемся на первом элементе меню для клавиатурной навигации
@@ -297,8 +297,8 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                     // Меняем иконку на крестик
                     const icon = mobileMenuBtn.querySelector('svg');
                     if (icon) {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
-                        icon.classList.add('rotate-90');
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>';
+                        icon.style.transform = 'rotate(90deg)';
                     }
                 }
                 
@@ -318,8 +318,9 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                     menuItems.forEach((item, index) => {
                         setTimeout(() => {
                             item.style.opacity = '0';
-                            item.style.transform = 'translateY(-10px)';
-                        }, index * 30); // Быстрая анимация закрытия
+                            item.style.transform = 'translateY(-12px)';
+                            item.style.transition = 'opacity 0.25s ease-in, transform 0.25s ease-in';
+                        }, index * 25); // Быстрая анимация закрытия
                     });
                     
                     // Анимация для переключателя языков при закрытии
@@ -327,8 +328,9 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                     if (langSwitcher && langSwitcher.classList.contains('mobile-menu-item')) {
                         setTimeout(() => {
                             langSwitcher.style.opacity = '0';
-                            langSwitcher.style.transform = 'translateY(-10px)';
-                        }, menuItems.length * 30);
+                            langSwitcher.style.transform = 'translateY(-12px)';
+                            langSwitcher.style.transition = 'opacity 0.25s ease-in, transform 0.25s ease-in';
+                        }, menuItems.length * 25);
                     }
                     
                     // Восстанавливаем скролл
@@ -343,22 +345,22 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                         // Сбрасываем стили кнопок для следующего открытия
                         menuItems.forEach(item => {
                             item.style.opacity = '0';
-                            item.style.transform = 'translateY(8px)';
+                            item.style.transform = 'translateY(12px)';
                         });
                         
                         // Сбрасываем стили переключателя языков
                         const langSwitcher = mobileMenu.querySelector('[role="group"][aria-label*="language"]');
                         if (langSwitcher && langSwitcher.classList.contains('mobile-menu-item')) {
                             langSwitcher.style.opacity = '0';
-                            langSwitcher.style.transform = 'translateY(8px)';
+                            langSwitcher.style.transform = 'translateY(12px)';
                         }
                     }, 300);
                     
                     // Меняем иконку на гамбургер
                     const icon = mobileMenuBtn.querySelector('svg');
                     if (icon) {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-                        icon.classList.remove('rotate-90');
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>';
+                        icon.style.transform = 'rotate(0deg)';
                     }
                 }
                 
@@ -419,10 +421,14 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                 }
                 
                 // Закрытие меню при изменении размера окна (переход на десктоп)
+                let resizeTimer;
                 window.addEventListener('resize', function() {
-                    if (window.innerWidth >= 768 && isMenuOpen) {
-                        closeMenu();
-                    }
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        if (window.innerWidth >= 768 && isMenuOpen) {
+                            closeMenu();
+                        }
+                    }, 150);
                 });
                 
                 // Закрытие меню при нажатии Escape

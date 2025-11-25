@@ -458,11 +458,23 @@
   
   /* Анимация иконки гамбургера */
   #mobileMenuBtn svg {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
   }
   
   #mobileMenuBtn svg.rotate-90 {
     transform: rotate(90deg);
+  }
+  
+  /* Улучшенная анимация для мобильного меню */
+  @media (max-width: 768px) {
+    #mobileMenu {
+      transition: opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    #mobileMenuOverlay {
+      transition: opacity 0.3s ease-out;
+    }
   }
   
   /* Плавная анимация мобильного меню */
@@ -500,17 +512,87 @@
   
   /* Специальные стили для мобильных устройств */
   @media (max-width: 768px) {
+    /* Улучшенная навигация на мобильных */
+    .navbar {
+      @apply shadow-lg;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(139, 92, 246, 0.1);
+    }
+    
+    .navbar.scrolled {
+      background-color: rgba(10, 10, 15, 0.98);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+    
     #mobileMenuOverlay {
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
       /* Усиленный blur для мобильных */
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
     }
     
     #mobileMenu {
-      backdrop-filter: blur(30px) saturate(180%);
-      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      backdrop-filter: blur(32px) saturate(180%);
+      -webkit-backdrop-filter: blur(32px) saturate(180%);
       /* Более сильный blur для мобильных */
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(139, 92, 246, 0.1);
+    }
+    
+    /* Улучшенные стили для элементов мобильного меню */
+    .mobile-menu-item {
+      will-change: transform, opacity;
+      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);
+    }
+    
+    /* Улучшенные стили для переключателя языков в header */
+    [role="group"][aria-label*="language"] {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Улучшенные стили для кнопки меню */
+    #mobileMenuBtn {
+      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);
+    }
+    
+    /* Улучшенные стили для логотипа */
+    .navbar a[aria-label*="home"] img {
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+    }
+    
+    /* Улучшенная читаемость текста в навигации */
+    .navbar .text-gradient {
+      text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    }
+  }
+  
+  /* Оптимизация для очень маленьких экранов */
+  @media (max-width: 374px) {
+    .navbar {
+      @apply h-12;
+    }
+    
+    .navbar .container {
+      @apply px-3;
+    }
+    
+    #mobileMenu {
+      top: calc(3rem + env(safe-area-inset-top, 0));
+      max-height: calc(100vh - 3rem - env(safe-area-inset-top, 0));
+    }
+    
+    .mobile-menu-item {
+      @apply py-3 px-3 text-sm min-h-[48px];
+    }
+  }
+  
+  /* Оптимизация для средних мобильных экранов */
+  @media (min-width: 375px) and (max-width: 640px) {
+    .navbar {
+      @apply h-14;
+    }
+    
+    #mobileMenu {
+      top: calc(3.5rem + env(safe-area-inset-top, 0));
+      max-height: calc(100vh - 3.5rem - env(safe-area-inset-top, 0));
     }
   }
   
