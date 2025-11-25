@@ -124,21 +124,31 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                     <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'text-neon-purple' : ''; ?>"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'text-neon-purple' : ''; ?>"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="nav-link text-gray-300 hover:text-neon-purple transition-colors duration-300 <?php echo $currentPage == 'about' ? 'text-neon-purple' : ''; ?>"><?php echo htmlspecialchars(t('nav.about')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon text-sm py-2 px-6"><?php echo htmlspecialchars(t('nav.contact')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all duration-300 shadow-lg shadow-neon-purple/30 hover:shadow-xl hover:shadow-neon-purple/50 hover:scale-105 active:scale-95">
+                        <span class="relative z-10"><?php echo htmlspecialchars(t('nav.contact')); ?></span>
+                    </a>
                     
                     <!-- Переключатель языка -->
-                    <div class="flex items-center space-x-2 ml-4 pl-4 border-l border-dark-border">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="text-sm px-2 py-1 rounded <?php echo $currentLang === 'ru' ? 'bg-neon-purple/20 text-neon-purple font-semibold' : 'text-gray-400 hover:text-neon-purple'; ?> transition-colors">RU</a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="text-sm px-2 py-1 rounded <?php echo $currentLang === 'en' ? 'bg-neon-purple/20 text-neon-purple font-semibold' : 'text-gray-400 hover:text-neon-purple'; ?> transition-colors">EN</a>
+                    <div class="flex items-center space-x-1 ml-4 pl-4 border-l border-dark-border bg-dark-surface/50 rounded-lg p-1">
+                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 min-w-[40px] text-center <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50'; ?>">
+                            <span class="relative z-10">RU</span>
+                        </a>
+                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 min-w-[40px] text-center <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50'; ?>">
+                            <span class="relative z-10">EN</span>
+                        </a>
                     </div>
                 </div>
                 
                 <!-- Переключатель языка и кнопка мобильного меню -->
                 <div class="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
                     <!-- Переключатель языка для мобильных -->
-                    <div class="flex items-center space-x-1 md:hidden border-r border-dark-border pr-2 mr-1">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="text-xs px-2 py-1 rounded <?php echo $currentLang === 'ru' ? 'bg-neon-purple/20 text-neon-purple font-semibold' : 'text-gray-400 hover:text-neon-purple'; ?> transition-colors whitespace-nowrap">RU</a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="text-xs px-2 py-1 rounded <?php echo $currentLang === 'en' ? 'bg-neon-purple/20 text-neon-purple font-semibold' : 'text-gray-400 hover:text-neon-purple'; ?> transition-colors whitespace-nowrap">EN</a>
+                    <div class="flex items-center space-x-1 md:hidden border-r border-dark-border pr-2 mr-1 bg-dark-surface/50 rounded-lg p-0.5">
+                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-2.5 py-1 text-xs font-medium rounded-md transition-all duration-300 whitespace-nowrap min-w-[36px] text-center <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-sm shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50'; ?>">
+                            RU
+                        </a>
+                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-2.5 py-1 text-xs font-medium rounded-md transition-all duration-300 whitespace-nowrap min-w-[36px] text-center <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-sm shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50'; ?>">
+                            EN
+                        </a>
                     </div>
                     <!-- Кнопка мобильного меню - оптимизирована для touch -->
                     <button class="md:hidden text-gray-300 hover:text-neon-purple transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0" id="mobileMenuBtn" aria-label="<?php echo htmlspecialchars(t('nav.menu')); ?>">
@@ -164,7 +174,9 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                 <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'seo' ? 'text-neon-purple bg-dark-surface' : ''; ?>"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
                 <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'ads' ? 'text-neon-purple bg-dark-surface' : ''; ?>"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
                 <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="mobile-menu-item block py-3 px-4 text-gray-300 hover:text-neon-purple hover:bg-dark-surface rounded-lg transition-all duration-300 min-h-[44px] flex items-center touch-manipulation opacity-0 transform translate-y-2 <?php echo $currentPage == 'about' ? 'text-neon-purple bg-dark-surface' : ''; ?>"><?php echo htmlspecialchars(t('nav.about')); ?></a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="mobile-menu-item block btn-neon text-center mt-4 opacity-0 transform translate-y-2"><?php echo htmlspecialchars(t('nav.contact')); ?></a>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="mobile-menu-item block relative inline-flex items-center justify-center w-full px-6 py-3 text-base font-semibold text-white rounded-lg bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all duration-300 shadow-lg shadow-neon-purple/30 hover:shadow-xl hover:shadow-neon-purple/50 mt-4 opacity-0 transform translate-y-2">
+                    <span class="relative z-10"><?php echo htmlspecialchars(t('nav.contact')); ?></span>
+                </a>
             </div>
         </div>
     </nav>
