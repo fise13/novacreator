@@ -6,65 +6,31 @@
 
 // Подключаем конфигурацию Telegram
 $configPath = __DIR__ . '/telegram_config.php';
-$exampleConfigPath = __DIR__ . '/telegram_config.example.php';
 
-if (!file_exists($configPath)) {
-    // Если конфиг не найден, пробуем создать из примера или использовать значения по умолчанию
-    if (file_exists($exampleConfigPath)) {
-        http_response_code(500);
-        echo json_encode([
-            'success' => false,
-            'message' => 'Ошибка конфигурации: файл telegram_config.php не найден. Скопируйте telegram_config.example.php в telegram_config.php и заполните данные.'
-        ]);
-        exit;
-    }
-    
-    // Если нет даже примера, используем значения по умолчанию (из старого кода)
-    // ВАЖНО: Замените эти значения на реальные!
-    if (!defined('TELEGRAM_BOT_TOKEN')) {
-        define('TELEGRAM_BOT_TOKEN', '8581188166:AAH2MQ-RYJO2dCOooehOhj_jbLKm7wnkKQo');
-    }
-    if (!defined('TELEGRAM_CHAT_ID')) {
-        define('TELEGRAM_CHAT_ID', '-1003319377711');
-    }
-    if (!defined('TELEGRAM_API_URL')) {
-        define('TELEGRAM_API_URL', 'https://api.telegram.org/bot' . TELEGRAM_BOT_TOKEN . '/');
-    }
-    if (!defined('TELEGRAM_MIN_SEND_INTERVAL')) {
-        define('TELEGRAM_MIN_SEND_INTERVAL', 30);
-    }
-    if (!defined('TELEGRAM_ENABLE_LOGGING')) {
-        define('TELEGRAM_ENABLE_LOGGING', true);
-    }
-    if (!defined('TELEGRAM_LOG_FILE')) {
-        define('TELEGRAM_LOG_FILE', __DIR__ . '/telegram_logs.txt');
-    }
-} else {
+// Пытаемся загрузить конфиг, если он существует
+if (file_exists($configPath)) {
     require_once $configPath;
-    
-    // Проверяем, что константы определены
-    if (!defined('TELEGRAM_BOT_TOKEN')) {
-        http_response_code(500);
-        echo json_encode([
-            'success' => false,
-            'message' => 'Ошибка конфигурации: TELEGRAM_BOT_TOKEN не определен в telegram_config.php'
-        ]);
-        exit;
-    }
-    
-    // Определяем значения по умолчанию, если они не заданы
-    if (!defined('TELEGRAM_API_URL')) {
-        define('TELEGRAM_API_URL', 'https://api.telegram.org/bot' . TELEGRAM_BOT_TOKEN . '/');
-    }
-    if (!defined('TELEGRAM_MIN_SEND_INTERVAL')) {
-        define('TELEGRAM_MIN_SEND_INTERVAL', 30);
-    }
-    if (!defined('TELEGRAM_ENABLE_LOGGING')) {
-        define('TELEGRAM_ENABLE_LOGGING', true);
-    }
-    if (!defined('TELEGRAM_LOG_FILE')) {
-        define('TELEGRAM_LOG_FILE', __DIR__ . '/telegram_logs.txt');
-    }
+}
+
+// Определяем значения по умолчанию, если константы не определены
+// Это позволяет коду работать даже без файла конфигурации
+if (!defined('TELEGRAM_BOT_TOKEN')) {
+    define('TELEGRAM_BOT_TOKEN', '8581188166:AAH2MQ-RYJO2dCOooehOhj_jbLKm7wnkKQo');
+}
+if (!defined('TELEGRAM_CHAT_ID')) {
+    define('TELEGRAM_CHAT_ID', '-1003319377711');
+}
+if (!defined('TELEGRAM_API_URL')) {
+    define('TELEGRAM_API_URL', 'https://api.telegram.org/bot' . TELEGRAM_BOT_TOKEN . '/');
+}
+if (!defined('TELEGRAM_MIN_SEND_INTERVAL')) {
+    define('TELEGRAM_MIN_SEND_INTERVAL', 30);
+}
+if (!defined('TELEGRAM_ENABLE_LOGGING')) {
+    define('TELEGRAM_ENABLE_LOGGING', true);
+}
+if (!defined('TELEGRAM_LOG_FILE')) {
+    define('TELEGRAM_LOG_FILE', __DIR__ . '/telegram_logs.txt');
 }
 
 // Запускаем сессию ДО отправки заголовков
