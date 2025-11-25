@@ -3,116 +3,126 @@
  * Централизованная SEO-конфигурация: title, description, OpenGraph, Twitter и JSON-LD
  */
 
+// Подключаем локализацию если еще не подключена
+if (!function_exists('t')) {
+    require_once __DIR__ . '/i18n.php';
+}
+
 $host = $_SERVER['HTTP_HOST'] ?? 'novacreator-studio.com';
 $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
 $scheme = $isSecure ? 'https' : 'http';
 $siteUrl = $scheme . '://' . $host;
-$siteName = 'NovaCreator Studio';
+$siteName = t('site.name');
 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+$currentLang = getCurrentLanguage();
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 $requestUri = strtok($requestUri, '#');
 $requestUri = $requestUri ?: '/';
 $cleanPath = $requestUri === '/' ? '/' : rtrim($requestUri, '/');
-$canonicalUrl = $siteUrl . ($cleanPath === '/' ? '/' : $cleanPath);
+
+// Формируем канонический URL с учетом языка
+$canonicalPath = getCurrentPath();
+$canonicalUrl = $siteUrl . getLocalizedUrl($currentLang, $canonicalPath);
 
 $defaultMeta = [
-    'title' => 'NovaCreator Studio — Digital агентство',
-    'description' => 'Digital агентство полного цикла: SEO, разработка сайтов, Google Ads и маркетинг для роста бизнеса в Казахстане и по всему миру.',
-    'keywords' => 'digital агентство, seo, разработка сайтов, маркетинг',
+    'title' => t('seo.meta.defaultTitle'),
+    'description' => t('seo.meta.defaultDescription'),
+    'keywords' => t('seo.meta.defaultKeywords'),
     'og_type' => 'website',
-    'breadcrumb' => 'Страница',
+    'breadcrumb' => t('nav.home'),
     'image' => '/assets/img/og-default.webp',
     'robots' => 'index, follow',
 ];
 
+// Получаем мета-данные из переводов
 $pagesMeta = [
     'index' => [
-        'title' => 'NovaCreator Studio — Digital агентство | SEO, разработка, маркетинг',
-        'description' => 'SEO-продвижение, создание сайтов, Google Ads и аналитика с пожизненной гарантией качества. Работаем онлайн и фокусируемся на измеримом росте бизнеса.',
-        'keywords' => 'digital агентство, seo услуги, маркетинг, создание сайтов',
+        'title' => t('seo.pages.index.title'),
+        'description' => t('seo.pages.index.description'),
+        'keywords' => t('seo.pages.index.keywords'),
         'og_type' => 'website',
-        'breadcrumb' => 'Главная',
+        'breadcrumb' => t('seo.pages.index.breadcrumb'),
         'canonical' => '/',
     ],
     'services' => [
-        'title' => 'Услуги digital-агентства: SEO, сайты, реклама — NovaCreator Studio',
-        'description' => 'Комплексные услуги: технический SEO, разработка сайтов, Google Ads, маркетинговая стратегия и аналитика. Один подрядчик — все digital-задачи.',
-        'keywords' => 'seo услуги, разработка сайтов, маркетинговое агентство',
+        'title' => t('seo.pages.services.title'),
+        'description' => t('seo.pages.services.description'),
+        'keywords' => t('seo.pages.services.keywords'),
         'og_type' => 'website',
-        'breadcrumb' => 'Услуги',
+        'breadcrumb' => t('seo.pages.services.breadcrumb'),
         'canonical' => '/services',
     ],
     'seo' => [
-        'title' => 'SEO-оптимизация и продвижение сайтов под ключ — NovaCreator Studio',
-        'description' => 'Технический аудит, семантика, контент и ссылочное продвижение. Повышаем органический трафик и конверсии в Google и Яндекс.',
-        'keywords' => 'seo оптимизация, продвижение сайтов, технический seo',
+        'title' => t('seo.pages.seo.title'),
+        'description' => t('seo.pages.seo.description'),
+        'keywords' => t('seo.pages.seo.keywords'),
         'og_type' => 'article',
-        'breadcrumb' => 'SEO-услуги',
+        'breadcrumb' => t('seo.pages.seo.breadcrumb'),
         'canonical' => '/seo',
     ],
     'ads' => [
-        'title' => 'Google Ads и контекстная реклама с оптимизацией ROI — NovaCreator Studio',
-        'description' => 'Запускаем кампании Google Ads, отслеживаем конверсии и снижаем стоимость заявки за счёт аналитики и тестов.',
-        'keywords' => 'google ads, контекстная реклама, ppc',
+        'title' => t('seo.pages.ads.title'),
+        'description' => t('seo.pages.ads.description'),
+        'keywords' => t('seo.pages.ads.keywords'),
         'og_type' => 'article',
-        'breadcrumb' => 'Google Ads',
+        'breadcrumb' => t('seo.pages.ads.breadcrumb'),
         'canonical' => '/ads',
     ],
     'portfolio' => [
-        'title' => 'Портфолио проектов NovaCreator Studio — реальные кейсы роста',
-        'description' => 'Показываем, как увеличивали трафик, конверсии и продажи для клиентов из разных ниш. Честные цифры и подход.',
-        'keywords' => 'портфолио digital агентства, кейсы seo',
+        'title' => t('seo.pages.portfolio.title'),
+        'description' => t('seo.pages.portfolio.description'),
+        'keywords' => t('seo.pages.portfolio.keywords'),
         'og_type' => 'website',
-        'breadcrumb' => 'Портфолио',
+        'breadcrumb' => t('seo.pages.portfolio.breadcrumb'),
         'canonical' => '/portfolio',
     ],
     'about' => [
-        'title' => 'О команде NovaCreator Studio — эксперты SEO и разработки',
-        'description' => 'Маленькая команда senior-специалистов с 10+ годами опыта. Работаем прозрачно, подключаемся в проекты быстро.',
-        'keywords' => 'о компании, команда digital агентства',
+        'title' => t('seo.pages.about.title'),
+        'description' => t('seo.pages.about.description'),
+        'keywords' => t('seo.pages.about.keywords'),
         'og_type' => 'profile',
-        'breadcrumb' => 'О нас',
+        'breadcrumb' => t('seo.pages.about.breadcrumb'),
         'canonical' => '/about',
     ],
     'contact' => [
-        'title' => 'Контакты NovaCreator Studio — получить консультацию',
-        'description' => 'Пишите на email или звоните по номеру +7 706 606 39 21. Ответим в день обращения и обсудим задачи.',
-        'keywords' => 'контакты seo агентства, связаться с digital студией',
+        'title' => t('seo.pages.contact.title'),
+        'description' => t('seo.pages.contact.description'),
+        'keywords' => t('seo.pages.contact.keywords'),
         'og_type' => 'website',
-        'breadcrumb' => 'Контакты',
+        'breadcrumb' => t('seo.pages.contact.breadcrumb'),
         'canonical' => '/contact',
     ],
     'vacancies' => [
-        'title' => 'Вакансии NovaCreator Studio — удалённая работа в digital',
-        'description' => 'Ищем SEO-специалистов, разработчиков и PPC-менеджеров на удалённую работу. Гибкий график и проекты с реальными KPI.',
-        'keywords' => 'вакансии digital агентства, работа seo',
+        'title' => t('seo.pages.vacancies.title'),
+        'description' => t('seo.pages.vacancies.description'),
+        'keywords' => t('seo.pages.vacancies.keywords'),
         'og_type' => 'website',
-        'breadcrumb' => 'Вакансии',
+        'breadcrumb' => t('seo.pages.vacancies.breadcrumb'),
         'canonical' => '/vacancies',
     ],
     'calculator' => [
-        'title' => 'Калькулятор стоимости digital-услуг — NovaCreator Studio',
-        'description' => 'Онлайн-калькулятор для оценки стоимости SEO, разработки сайта и рекламных кампаний. Получите расчёт за пару минут.',
-        'keywords' => 'калькулятор seo, цена разработки сайта',
+        'title' => t('seo.pages.calculator.title'),
+        'description' => t('seo.pages.calculator.description'),
+        'keywords' => t('seo.pages.calculator.keywords'),
         'og_type' => 'website',
-        'breadcrumb' => 'Калькулятор',
+        'breadcrumb' => t('seo.pages.calculator.breadcrumb'),
         'canonical' => '/calculator',
     ],
     'blog' => [
-        'title' => 'Блог NovaCreator Studio: SEO, реклама и аналитика',
-        'description' => 'Пишем про SEO, маркетинг и продуктовую аналитику. Кейсы, чек-листы и инструкции для бизнеса.',
-        'keywords' => 'блог seo, статьи про digital маркетинг',
+        'title' => t('seo.pages.blog.title'),
+        'description' => t('seo.pages.blog.description'),
+        'keywords' => t('seo.pages.blog.keywords'),
         'og_type' => 'website',
-        'breadcrumb' => 'Блог',
+        'breadcrumb' => t('seo.pages.blog.breadcrumb'),
         'canonical' => '/blog',
     ],
     'faq' => [
-        'title' => 'Часто задаваемые вопросы | FAQ - NovaCreator Studio',
-        'description' => 'Ответы на популярные вопросы о SEO, разработке сайтов, Google Ads и маркетинге. Узнайте больше о наших услугах и процессе работы.',
-        'keywords' => 'FAQ, часто задаваемые вопросы, вопросы и ответы, помощь, поддержка',
+        'title' => t('seo.pages.faq.title'),
+        'description' => t('seo.pages.faq.description'),
+        'keywords' => t('seo.pages.faq.keywords'),
         'og_type' => 'website',
-        'breadcrumb' => 'FAQ',
+        'breadcrumb' => t('seo.pages.faq.breadcrumb'),
         'canonical' => '/faq',
     ],
 ];
@@ -144,9 +154,13 @@ $absoluteUrl = static function (?string $path) use ($siteUrl): string {
     return rtrim($siteUrl, '/') . '/' . ltrim($path, '/');
 };
 
-$canonicalUrl = !empty($pageMetaCanonical) ? $absoluteUrl($pageMetaCanonical) : $canonicalUrl;
-if (empty($pageMetaCanonical) && !empty($meta['canonical'])) {
-    $canonicalUrl = $absoluteUrl($meta['canonical']);
+// Формируем канонический URL с учетом языка
+if (!empty($pageMetaCanonical)) {
+    $canonicalUrl = $absoluteUrl($pageMetaCanonical);
+} elseif (!empty($meta['canonical'])) {
+    $canonicalUrl = $siteUrl . getLocalizedUrl($currentLang, $meta['canonical']);
+} else {
+    $canonicalUrl = $siteUrl . getLocalizedUrl($currentLang, getCurrentPath());
 }
 
 $metaImage = $absoluteUrl($pageMetaImage ?? $meta['image']);
@@ -158,7 +172,7 @@ if (stripos($metaImage, '.png') !== false) {
 }
 
 $breadcrumbs = [
-    ['name' => 'Главная', 'url' => $siteUrl . '/'],
+    ['name' => t('seo.pages.index.breadcrumb'), 'url' => $siteUrl . getLocalizedUrl($currentLang, '/')],
 ];
 if ($currentPage !== 'index') {
     $breadcrumbs[] = [
@@ -207,6 +221,9 @@ $organizationSchema = [
     ],
 ];
 
+// Получаем альтернативные языковые версии для hreflang
+$alternateLanguages = getAlternateLanguages();
+
 $websiteSchema = [
     '@type' => 'WebSite',
     'name' => $siteName,
@@ -245,9 +262,17 @@ $structuredData = [
 <?php endif; ?>
 <meta name="author" content="<?php echo htmlspecialchars($siteName); ?>">
 <meta name="robots" content="<?php echo htmlspecialchars($meta['robots']); ?>">
-<meta name="language" content="ru">
+<meta name="language" content="<?php echo htmlspecialchars($currentLang); ?>">
 <link rel="canonical" href="<?php echo htmlspecialchars($canonicalUrl); ?>">
-<link rel="alternate" hreflang="ru-RU" href="<?php echo htmlspecialchars($canonicalUrl); ?>">
+<?php
+// Генерируем hreflang теги для всех языков
+foreach ($alternateLanguages as $lang => $url): 
+    $hreflang = $lang === 'ru' ? 'ru-RU' : 'en-US';
+    $fullUrl = $siteUrl . $url;
+?>
+<link rel="alternate" hreflang="<?php echo htmlspecialchars($hreflang); ?>" href="<?php echo htmlspecialchars($fullUrl); ?>">
+<?php endforeach; ?>
+<link rel="alternate" hreflang="x-default" href="<?php echo htmlspecialchars($siteUrl . getLocalizedUrl(DEFAULT_LANGUAGE, getCurrentPath())); ?>">
 
 <!-- Open Graph -->
 <meta property="og:type" content="<?php echo htmlspecialchars($meta['og_type']); ?>">
@@ -261,7 +286,19 @@ $structuredData = [
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="<?php echo htmlspecialchars($meta['title']); ?>">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:locale" content="<?php echo $currentLang === 'ru' ? 'ru_RU' : 'en_US'; ?>">
+<?php
+// Добавляем альтернативные локали для Open Graph
+foreach ($alternateLanguages as $lang => $url):
+    if ($lang !== $currentLang):
+        $ogLocale = $lang === 'ru' ? 'ru_RU' : 'en_US';
+        $fullUrl = $siteUrl . $url;
+?>
+<meta property="og:locale:alternate" content="<?php echo htmlspecialchars($ogLocale); ?>">
+<?php
+    endif;
+endforeach;
+?>
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">

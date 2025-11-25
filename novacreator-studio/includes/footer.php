@@ -2,6 +2,13 @@
 /**
  * Общий footer для всех страниц
  */
+
+// Подключаем локализацию если еще не подключена
+if (!function_exists('t')) {
+    require_once __DIR__ . '/i18n.php';
+}
+
+$currentLang = getCurrentLanguage();
 ?>
     <!-- Footer -->
     <footer class="bg-dark-surface border-t border-dark-border mt-32">
@@ -10,15 +17,15 @@
                 <!-- О компании -->
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <img src="./assets/img/logo.svg" alt="Логотип NovaCreator Studio - Digital агентство" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" decoding="async" />
-                        <span class="text-xl font-bold text-gradient">NovaCreator Studio</span>
+                        <img src="./assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" decoding="async" />
+                        <span class="text-xl font-bold text-gradient"><?php echo htmlspecialchars(t('site.name')); ?></span>
                     </div>
                     <p class="text-gray-400 mb-4">
-                        Профессиональное digital-агентство. Помогаем бизнесу расти в интернете через SEO, разработку и маркетинг.
+                        <?php echo htmlspecialchars(t('footer.description')); ?>
                     </p>
                     <div class="space-y-2 text-sm">
-                        <p class="text-neon-purple font-semibold">✓ Пожизненная гарантия</p>
-                        <p class="text-neon-blue font-semibold">✓ 6 месяцев поддержки первым клиентам</p>
+                        <p class="text-neon-purple font-semibold">✓ <?php echo htmlspecialchars(t('common.lifetimeGuarantee')); ?></p>
+                        <p class="text-neon-blue font-semibold">✓ <?php echo htmlspecialchars(t('common.supportForFirstClients')); ?></p>
                     </div>
                     <div class="flex space-x-4">
                         <a href="#" class="w-10 h-10 bg-dark-bg border border-dark-border rounded-lg flex items-center justify-center hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
@@ -41,32 +48,32 @@
                 
                 <!-- Услуги -->
                 <div>
-                    <h3 class="text-lg font-semibold mb-6 text-gradient">Услуги</h3>
+                    <h3 class="text-lg font-semibold mb-6 text-gradient"><?php echo htmlspecialchars(t('footer.services')); ?></h3>
                     <ul class="space-y-3">
-                        <li><a href="/seo" class="text-gray-400 hover:text-neon-purple transition-colors">SEO-оптимизация</a></li>
-                        <li><a href="/services#development" class="text-gray-400 hover:text-neon-purple transition-colors">Разработка сайтов</a></li>
-                        <li><a href="/ads" class="text-gray-400 hover:text-neon-purple transition-colors">Google Ads</a></li>
-                        <li><a href="/services#marketing" class="text-gray-400 hover:text-neon-purple transition-colors">Маркетинг</a></li>
-                        <li><a href="/services#analytics" class="text-gray-400 hover:text-neon-purple transition-colors">Аналитика</a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('footer.seoOptimization')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('footer.websiteDevelopment')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('nav.ads')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#marketing'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('footer.marketing')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('footer.analytics')); ?></a></li>
                     </ul>
                 </div>
                 
                 <!-- Компания -->
                 <div>
-                    <h3 class="text-lg font-semibold mb-6 text-gradient">Компания</h3>
+                    <h3 class="text-lg font-semibold mb-6 text-gradient"><?php echo htmlspecialchars(t('footer.company')); ?></h3>
                     <ul class="space-y-3">
-                        <li><a href="/about" class="text-gray-400 hover:text-neon-purple transition-colors">О нас</a></li>
-                        <li><a href="/contact" class="text-gray-400 hover:text-neon-purple transition-colors">Контакты</a></li>
-                        <li><a href="/faq" class="text-gray-400 hover:text-neon-purple transition-colors">FAQ</a></li>
-                        <li><a href="/calculator" class="text-gray-400 hover:text-neon-purple transition-colors">Калькулятор</a></li>
-                        <li><a href="/blog" class="text-gray-400 hover:text-neon-purple transition-colors">Блог</a></li>
-                        <li><a href="/vacancies" class="text-gray-400 hover:text-neon-purple transition-colors">Вакансии</a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('nav.about')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('footer.contacts')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/faq'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('nav.faq')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('nav.calculator')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('nav.blog')); ?></a></li>
+                        <li><a href="<?php echo getLocalizedUrl($currentLang, '/vacancies'); ?>" class="text-gray-400 hover:text-neon-purple transition-colors"><?php echo htmlspecialchars(t('nav.vacancies')); ?></a></li>
                     </ul>
                 </div>
                 
                 <!-- Контакты -->
                 <div>
-                    <h3 class="text-lg font-semibold mb-6 text-gradient">Контакты</h3>
+                    <h3 class="text-lg font-semibold mb-6 text-gradient"><?php echo htmlspecialchars(t('footer.contacts')); ?></h3>
                     <ul class="space-y-3 text-gray-400">
                         <li class="flex items-center space-x-3">
                             <div class="w-8 h-8 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg flex items-center justify-center flex-shrink-0">
@@ -90,13 +97,13 @@
             
             <!-- Копирайт -->
             <div class="border-t border-dark-border mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; <?php echo date('Y'); ?> NovaCreator Studio. Все права защищены.</p>
+                <p>&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(t('site.name')); ?>. <?php echo htmlspecialchars(t('common.allRightsReserved')); ?>.</p>
             </div>
         </div>
     </footer>
     
     <!-- Кнопка "Наверх" -->
-    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 opacity-0 pointer-events-none z-40 group" aria-label="Наверх">
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 opacity-0 pointer-events-none z-40 group" aria-label="<?php echo htmlspecialchars(t('common.backToTop')); ?>">
         <svg class="w-6 h-6 text-white transform group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>

@@ -4,30 +4,38 @@
  * Показывает навигационный путь по сайту
  */
 
-// Определяем текущую страницу
+// Подключаем локализацию если еще не подключена
+if (!function_exists('t')) {
+    require_once __DIR__ . '/i18n.php';
+}
+
+// Определяем текущую страницу и язык
 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+$currentLang = getCurrentLanguage();
 
 // Словарь с названиями и человекочитаемыми URL
 $pageMap = [
-    'services' => ['name' => 'Услуги', 'url' => '/services'],
-    'seo' => ['name' => 'SEO-оптимизация', 'url' => '/seo'],
-    'ads' => ['name' => 'Google Ads', 'url' => '/ads'],
-    'portfolio' => ['name' => 'Портфолио', 'url' => '/portfolio'],
-    'about' => ['name' => 'О нас', 'url' => '/about'],
-    'contact' => ['name' => 'Контакты', 'url' => '/contact'],
-    'vacancies' => ['name' => 'Вакансии', 'url' => '/vacancies'],
-    'calculator' => ['name' => 'Калькулятор', 'url' => '/calculator'],
-    'blog' => ['name' => 'Блог', 'url' => '/blog']
+    'services' => ['name' => t('seo.pages.services.breadcrumb'), 'url' => '/services'],
+    'seo' => ['name' => t('seo.pages.seo.breadcrumb'), 'url' => '/seo'],
+    'ads' => ['name' => t('seo.pages.ads.breadcrumb'), 'url' => '/ads'],
+    'portfolio' => ['name' => t('seo.pages.portfolio.breadcrumb'), 'url' => '/portfolio'],
+    'about' => ['name' => t('seo.pages.about.breadcrumb'), 'url' => '/about'],
+    'contact' => ['name' => t('seo.pages.contact.breadcrumb'), 'url' => '/contact'],
+    'vacancies' => ['name' => t('seo.pages.vacancies.breadcrumb'), 'url' => '/vacancies'],
+    'calculator' => ['name' => t('seo.pages.calculator.breadcrumb'), 'url' => '/calculator'],
+    'blog' => ['name' => t('seo.pages.blog.breadcrumb'), 'url' => '/blog'],
+    'faq' => ['name' => t('seo.pages.faq.breadcrumb'), 'url' => '/faq']
 ];
 
 // Формируем breadcrumbs
 $breadcrumbs = [
-    ['name' => 'Главная', 'url' => '/']
+    ['name' => t('seo.pages.index.breadcrumb'), 'url' => getLocalizedUrl($currentLang, '/')]
 ];
 
 if (!empty($pageBreadcrumbs) && is_array($pageBreadcrumbs)) {
     $breadcrumbs = $pageBreadcrumbs;
 } elseif ($currentPage !== 'index' && isset($pageMap[$currentPage])) {
+    $pageMap[$currentPage]['url'] = getLocalizedUrl($currentLang, $pageMap[$currentPage]['url']);
     $breadcrumbs[] = $pageMap[$currentPage];
 }
 ?>
