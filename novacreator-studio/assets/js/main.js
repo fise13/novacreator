@@ -204,16 +204,15 @@ function initForms() {
                 
                 // Если action не указан или начинается с "/", используем относительный путь
                 if (!formAction || formAction.startsWith('/')) {
-                    // Определяем базовый путь относительно текущей страницы
-                    const currentPath = window.location.pathname;
-                    const pathParts = currentPath.split('/').filter(p => p && !p.endsWith('.php'));
-                    
-                    // Если мы в корне, путь будет "backend/send.php"
-                    // Если в подпапке, путь будет "../backend/send.php"
-                    if (pathParts.length === 0) {
+                    // Используем new URL() для правильного определения относительного пути
+                    try {
+                        // Создаем URL относительно текущей страницы
+                        const baseUrl = new URL(window.location.href);
+                        const backendUrl = new URL('backend/send.php', baseUrl);
+                        formAction = backendUrl.pathname + backendUrl.search;
+                    } catch (e) {
+                        // Fallback: простой относительный путь
                         formAction = 'backend/send.php';
-                    } else {
-                        formAction = '../backend/send.php';
                     }
                 }
                 
