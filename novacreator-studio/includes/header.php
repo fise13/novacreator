@@ -218,6 +218,19 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                         <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </span>
                 </a>
+                
+                <!-- Переключатель языка в мобильном меню -->
+                <div class="mobile-menu-item flex items-center justify-center gap-2 mt-4 pt-4 border-t border-dark-border opacity-0 transform translate-y-2" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
+                    <span class="text-sm text-gray-400 mr-2"><?php echo htmlspecialchars(t('nav.language')); ?>:</span>
+                    <div class="flex items-center gap-1 bg-dark-surface/50 rounded-lg p-1 border border-dark-border/50">
+                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 whitespace-nowrap min-w-[44px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50 active:bg-dark-bg/70'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
+                            RU
+                        </a>
+                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 whitespace-nowrap min-w-[44px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-1 focus:ring-offset-dark-bg touch-manipulation <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50 active:bg-dark-bg/70'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
+                            EN
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -263,6 +276,16 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                         }, 50 + (index * 50)); // Задержка 50ms между каждой кнопкой
                     });
                     
+                    // Анимация для переключателя языков (если он есть отдельно)
+                    const langSwitcher = mobileMenu.querySelector('[role="group"][aria-label*="language"]');
+                    if (langSwitcher && langSwitcher.classList.contains('mobile-menu-item')) {
+                        setTimeout(() => {
+                            langSwitcher.style.opacity = '1';
+                            langSwitcher.style.transform = 'translateY(0)';
+                            langSwitcher.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+                        }, 50 + (menuItems.length * 50));
+                    }
+                    
                     // Фокусируемся на первом элементе меню для клавиатурной навигации
                     setTimeout(() => {
                         const firstMenuItem = mobileMenu.querySelector('.mobile-menu-item');
@@ -299,6 +322,15 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                         }, index * 30); // Быстрая анимация закрытия
                     });
                     
+                    // Анимация для переключателя языков при закрытии
+                    const langSwitcher = mobileMenu.querySelector('[role="group"][aria-label*="language"]');
+                    if (langSwitcher && langSwitcher.classList.contains('mobile-menu-item')) {
+                        setTimeout(() => {
+                            langSwitcher.style.opacity = '0';
+                            langSwitcher.style.transform = 'translateY(-10px)';
+                        }, menuItems.length * 30);
+                    }
+                    
                     // Восстанавливаем скролл
                     document.body.style.overflow = '';
                     
@@ -313,6 +345,13 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
                             item.style.opacity = '0';
                             item.style.transform = 'translateY(8px)';
                         });
+                        
+                        // Сбрасываем стили переключателя языков
+                        const langSwitcher = mobileMenu.querySelector('[role="group"][aria-label*="language"]');
+                        if (langSwitcher && langSwitcher.classList.contains('mobile-menu-item')) {
+                            langSwitcher.style.opacity = '0';
+                            langSwitcher.style.transform = 'translateY(8px)';
+                        }
                     }, 300);
                     
                     // Меняем иконку на гамбургер
