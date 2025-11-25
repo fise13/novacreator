@@ -3,10 +3,13 @@
  * Страница SEO-услуг
  * Подробная информация о SEO-оптимизации
  */
-$pageTitle = 'SEO-оптимизация';
-$pageMetaTitle = 'SEO-оптимизация сайтов | Продвижение в Яндекс и Google - NovaCreator Studio';
-$pageMetaDescription = 'Профессиональная SEO-оптимизация сайтов. Выводим в топ Яндекс и Google. Технический SEO, контент-оптимизация, ссылочное продвижение. Результаты: +250% трафика, +180% позиций в топ-10.';
-$pageMetaKeywords = 'SEO оптимизация, продвижение сайтов, SEO продвижение, поисковая оптимизация, SEO услуги, продвижение в Яндекс, продвижение в Google, технический SEO';
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
+$pageTitle = t('pages.seo.breadcrumb');
+$pageMetaTitle = t('seo.pages.seo.title');
+$pageMetaDescription = t('seo.pages.seo.description');
+$pageMetaKeywords = t('seo.pages.seo.keywords');
 include 'includes/header.php';
 ?>
 
@@ -20,11 +23,10 @@ include 'includes/header.php';
                 </svg>
             </div>
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient">SEO-оптимизация</span>
+                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.seo.title')); ?></span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                Выводим ваш сайт в топ поисковых систем. Комплексная оптимизация 
-                для роста органического трафика и конверсий.
+                <?php echo htmlspecialchars(t('pages.seo.subtitle')); ?>
             </p>
         </div>
     </div>
@@ -34,9 +36,9 @@ include 'includes/header.php';
 <section class="py-20">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Что включает наша SEO-оптимизация</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.seo.includes.title')); ?></h2>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Комплексный подход к продвижению вашего сайта в поисковых системах
+                <?php echo htmlspecialchars(t('pages.seo.includes.subtitle')); ?>
             </p>
         </div>
         
@@ -48,23 +50,23 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gradient">Технический SEO</h3>
+                <h3 class="text-2xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.seo.services.technical.title')); ?></h3>
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Аудит сайта и исправление ошибок</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.technical.items.audit')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Оптимизация скорости загрузки</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.technical.items.speed')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Настройка robots.txt и sitemap.xml</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.technical.items.robots')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Исправление дублей и битых ссылок</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.technical.items.links')); ?></span>
                     </li>
                 </ul>
             </div>
@@ -76,23 +78,23 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gradient">Контент-оптимизация</h3>
+                <h3 class="text-2xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.seo.services.content.title')); ?></h3>
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Оптимизация мета-тегов и заголовков</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.content.items.meta')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Написание SEO-текстов</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.content.items.texts')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Работа с ключевыми словами</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.content.items.keywords')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Оптимизация изображений</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.content.items.images')); ?></span>
                     </li>
                 </ul>
             </div>
@@ -104,23 +106,23 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gradient">Ссылочное продвижение</h3>
+                <h3 class="text-2xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.seo.services.links.title')); ?></h3>
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Построение естественной ссылочной массы</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.links.items.building')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Работа с релевантными ресурсами</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.links.items.relevant')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Улучшение доменного авторитета</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.links.items.authority')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Мониторинг ссылочного профиля</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.links.items.monitoring')); ?></span>
                     </li>
                 </ul>
             </div>
@@ -133,23 +135,23 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gradient">Локальное SEO</h3>
+                <h3 class="text-2xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.seo.services.local.title')); ?></h3>
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Регистрация в Яндекс.Справочнике</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.local.items.yandex')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Настройка Google My Business</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.local.items.google')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Работа с отзывами</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.local.items.reviews')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Продвижение в локальной выдаче</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.local.items.local')); ?></span>
                     </li>
                 </ul>
             </div>
@@ -161,23 +163,23 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gradient">Аналитика и отчетность</h3>
+                <h3 class="text-2xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.seo.services.analytics.title')); ?></h3>
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Ежемесячные отчеты о результатах</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.analytics.items.reports')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Мониторинг позиций в поиске</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.analytics.items.positions')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Анализ конкурентов</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.analytics.items.competitors')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-purple">•</span>
-                        <span>Рекомендации по улучшению</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.analytics.items.recommendations')); ?></span>
                     </li>
                 </ul>
             </div>
@@ -189,23 +191,23 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gradient">Интеграция с SMM</h3>
+                <h3 class="text-2xl font-bold mb-4 text-gradient"><?php echo htmlspecialchars(t('pages.seo.services.smm.title')); ?></h3>
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Синхронизация контента</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.smm.items.sync')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Продвижение через соцсети</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.smm.items.promotion')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Увеличение социальных сигналов</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.smm.items.signals')); ?></span>
                     </li>
                     <li class="flex items-start space-x-2">
                         <span class="text-neon-blue">•</span>
-                        <span>Работа с брендингом</span>
+                        <span><?php echo htmlspecialchars(t('pages.seo.services.smm.items.branding')); ?></span>
                     </li>
                 </ul>
             </div>
@@ -217,9 +219,9 @@ include 'includes/header.php';
 <section class="py-20 bg-dark-surface">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Результаты наших клиентов</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.seo.results.title')); ?></h2>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Реальные цифры роста после работы с нами
+                <?php echo htmlspecialchars(t('pages.seo.results.subtitle')); ?>
             </p>
         </div>
         
@@ -231,7 +233,7 @@ include 'includes/header.php';
                         <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
                     </div>
                 </div>
-                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Рост органического трафика</p>
+                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300"><?php echo htmlspecialchars(t('pages.seo.results.traffic')); ?></p>
             </div>
             <div class="text-center animate-on-scroll group" style="animation-delay: 0.1s;">
                 <div class="relative inline-block mb-4">
@@ -240,7 +242,7 @@ include 'includes/header.php';
                         <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
                     </div>
                 </div>
-                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Позиций в топ-10</p>
+                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300"><?php echo htmlspecialchars(t('pages.seo.results.positions')); ?></p>
             </div>
             <div class="text-center animate-on-scroll group" style="animation-delay: 0.2s;">
                 <div class="relative inline-block mb-4">
@@ -249,7 +251,7 @@ include 'includes/header.php';
                         <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
                     </div>
                 </div>
-                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Рост конверсий</p>
+                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300"><?php echo htmlspecialchars(t('pages.seo.results.conversions')); ?></p>
             </div>
             <div class="text-center animate-on-scroll group" style="animation-delay: 0.3s;">
                 <div class="relative inline-block mb-4">
@@ -258,7 +260,7 @@ include 'includes/header.php';
                         <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">0</span>
                     </div>
                 </div>
-                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">Снижение стоимости лида</p>
+                <p class="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300"><?php echo htmlspecialchars(t('pages.seo.results.cost')); ?></p>
             </div>
         </div>
     </div>
@@ -268,9 +270,9 @@ include 'includes/header.php';
 <section class="py-20">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Как мы работаем</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.seo.process.title')); ?></h2>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Пошаговый процесс продвижения вашего сайта
+                <?php echo htmlspecialchars(t('pages.seo.process.subtitle')); ?>
             </p>
         </div>
         
@@ -280,10 +282,9 @@ include 'includes/header.php';
                     1
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-3 text-gradient">Аудит и анализ</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.seo.process.step1.title')); ?></h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Проводим полный технический аудит сайта, анализируем конкурентов, 
-                        изучаем целевую аудиторию и определяем ключевые слова для продвижения.
+                        <?php echo htmlspecialchars(t('pages.seo.process.step1.description')); ?>
                     </p>
                 </div>
             </div>
@@ -293,10 +294,9 @@ include 'includes/header.php';
                     2
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-3 text-gradient">Разработка стратегии</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.seo.process.step2.title')); ?></h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Создаем индивидуальную стратегию продвижения с учетом специфики 
-                        вашего бизнеса, конкурентной среды и целей проекта.
+                        <?php echo htmlspecialchars(t('pages.seo.process.step2.description')); ?>
                     </p>
                 </div>
             </div>
@@ -306,10 +306,9 @@ include 'includes/header.php';
                     3
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-3 text-gradient">Реализация</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.seo.process.step3.title')); ?></h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Выполняем техническую оптимизацию, работаем с контентом, 
-                        строим ссылочную массу и запускаем локальное продвижение.
+                        <?php echo htmlspecialchars(t('pages.seo.process.step3.description')); ?>
                     </p>
                 </div>
             </div>
@@ -319,10 +318,9 @@ include 'includes/header.php';
                     4
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-3 text-gradient">Мониторинг и оптимизация</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gradient"><?php echo htmlspecialchars(t('pages.seo.process.step4.title')); ?></h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Постоянно отслеживаем результаты, анализируем метрики и оптимизируем 
-                        работу для достижения максимальной эффективности.
+                        <?php echo htmlspecialchars(t('pages.seo.process.step4.description')); ?>
                     </p>
                 </div>
             </div>
@@ -335,9 +333,9 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto animate-on-scroll">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Часто задаваемые вопросы о SEO</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.seo.faq.title')); ?></h2>
                 <p class="text-xl text-gray-400">
-                    Ответы на популярные вопросы о продвижении сайтов
+                    <?php echo htmlspecialchars(t('pages.seo.faq.subtitle')); ?>
                 </p>
             </div>
             
@@ -345,14 +343,11 @@ include 'includes/header.php';
                 <!-- Вопрос 1 -->
                 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
-                        Сколько времени нужно для выхода сайта в топ поисковых систем?
+                        <?php echo htmlspecialchars(t('pages.seo.faq.q1.question')); ?>
                     </h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <p itemprop="text" class="text-gray-400 leading-relaxed">
-                            Первые результаты SEO-оптимизации обычно видны через 3-6 месяцев после начала работы. 
-                            Выход в топ-10 по высокочастотным запросам может занять 6-12 месяцев. 
-                            Скорость зависит от конкуренции в вашей нише, текущего состояния сайта и объема работ. 
-                            Мы предоставляем ежемесячные отчеты о прогрессе.
+                            <?php echo htmlspecialchars(t('pages.seo.faq.q1.answer')); ?>
                         </p>
                     </div>
                 </div>
@@ -360,14 +355,11 @@ include 'includes/header.php';
                 <!-- Вопрос 2 -->
                 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
-                        Что входит в стоимость SEO-продвижения?
+                        <?php echo htmlspecialchars(t('pages.seo.faq.q2.question')); ?>
                     </h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <p itemprop="text" class="text-gray-400 leading-relaxed">
-                            Стоимость зависит от объема работ и сложности проекта. В базовый пакет входит: 
-                            технический аудит, оптимизация контента, работа с мета-тегами, внутренняя перелинковка, 
-                            создание карты сайта, настройка аналитики. Расширенные пакеты включают ссылочное продвижение, 
-                            контент-маркетинг и регулярные отчеты. Свяжитесь с нами для расчета стоимости вашего проекта.
+                            <?php echo htmlspecialchars(t('pages.seo.faq.q2.answer')); ?>
                         </p>
                     </div>
                 </div>
@@ -375,13 +367,11 @@ include 'includes/header.php';
                 <!-- Вопрос 3 -->
                 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
-                        Работаете ли вы с сайтами на разных CMS (WordPress, 1C-Битрикс, OpenCart)?
+                        <?php echo htmlspecialchars(t('pages.seo.faq.q3.question')); ?>
                     </h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <p itemprop="text" class="text-gray-400 leading-relaxed">
-                            Да, мы работаем с любыми CMS и платформами: WordPress, 1C-Битрикс, OpenCart, 
-                            WooCommerce, Magento, а также с сайтами на чистом HTML/CSS/JS. 
-                            Наш опыт позволяет оптимизировать сайты любой сложности и технической реализации.
+                            <?php echo htmlspecialchars(t('pages.seo.faq.q3.answer')); ?>
                         </p>
                     </div>
                 </div>
@@ -389,16 +379,11 @@ include 'includes/header.php';
                 <!-- Вопрос 4 -->
                 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
-                        Гарантируете ли вы попадание в топ-10?
+                        <?php echo htmlspecialchars(t('pages.seo.faq.q4.question')); ?>
                     </h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <p itemprop="text" class="text-gray-400 leading-relaxed">
-                            Мы гарантируем профессиональную работу и постоянное улучшение позиций сайта. 
-                            Однако честные SEO-специалисты не могут гарантировать конкретные позиции, 
-                            так как алгоритмы поисковых систем постоянно меняются. Мы гарантируем: 
-                            регулярную работу над сайтом, прозрачную отчетность, рост органического трафика 
-                            и улучшение позиций по целевым запросам. <strong class="text-white">Кроме того, мы даем пожизненную гарантию</strong> 
-                            на все выполненные работы — если возникнут проблемы, мы исправим их бесплатно.
+                            <?php echo htmlspecialchars(t('pages.seo.faq.q4.answer')); ?>
                         </p>
                     </div>
                 </div>
@@ -406,14 +391,11 @@ include 'includes/header.php';
                 <!-- Вопрос 5 -->
                 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 text-gradient">
-                        Как вы отслеживаете результаты работы?
+                        <?php echo htmlspecialchars(t('pages.seo.faq.q5.question')); ?>
                     </h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <p itemprop="text" class="text-gray-400 leading-relaxed">
-                            Мы используем профессиональные инструменты: Google Analytics, Яндекс.Метрику, 
-                            Google Search Console, Яндекс.Вебмастер, а также специализированные SEO-инструменты. 
-                            Каждый месяц вы получаете подробный отчет с данными о позициях, трафике, конверсиях 
-                            и выполненной работе. Все метрики доступны в реальном времени через личный кабинет.
+                            <?php echo htmlspecialchars(t('pages.seo.faq.q5.answer')); ?>
                         </p>
                     </div>
                 </div>
@@ -426,9 +408,9 @@ include 'includes/header.php';
 <section class="py-20 bg-dark-surface">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Наши гарантии</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.seo.guarantees.title')); ?></h2>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Мы уверены в качестве нашей работы и готовы это доказать
+                <?php echo htmlspecialchars(t('pages.seo.guarantees.subtitle')); ?>
             </p>
         </div>
         
@@ -441,12 +423,10 @@ include 'includes/header.php';
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">Пожизненная гарантия</h3>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient"><?php echo htmlspecialchars(t('pages.services.guarantees.lifetime.title')); ?></h3>
                 </div>
                 <p class="text-gray-300 leading-relaxed text-lg">
-                    Мы даем <strong class="text-white">пожизненную гарантию</strong> на все наши работы. 
-                    Если возникнут проблемы с сайтом или продвижением, мы исправим их бесплатно. 
-                    Ваш успех — наш приоритет.
+                    <?php echo htmlspecialchars(t('pages.services.guarantees.lifetime.description')); ?>
                 </p>
             </div>
             
@@ -458,16 +438,14 @@ include 'includes/header.php';
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-bold text-gradient">6 месяцев поддержки</h3>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gradient"><?php echo htmlspecialchars(t('pages.services.guarantees.support.title')); ?></h3>
                 </div>
                 <p class="text-gray-300 leading-relaxed text-lg">
-                    В честь открытия нашей компании, <strong class="text-white">первым клиентам</strong> мы предоставляем 
-                    <strong class="text-white">бесплатную поддержку в течение 6 месяцев</strong>. 
-                    Консультации, доработки и помощь — всё включено!
+                    <?php echo htmlspecialchars(t('pages.services.guarantees.support.description')); ?>
                 </p>
                 <div class="mt-6 pt-6 border-t border-neon-blue/30">
                     <span class="inline-block bg-neon-blue/20 text-neon-blue px-4 py-2 rounded-full text-sm font-semibold">
-                        Ограниченное предложение
+                        <?php echo htmlspecialchars(t('pages.services.guarantees.support.badge')); ?>
                     </span>
                 </div>
             </div>
@@ -480,13 +458,13 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto animate-on-scroll">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Готовы вывести сайт в топ?
+                <?php echo htmlspecialchars(t('pages.seo.cta.title')); ?>
             </h2>
             <p class="text-xl text-gray-300 mb-12">
-                Получите бесплатную консультацию и аудит вашего сайта
+                <?php echo htmlspecialchars(t('pages.seo.cta.subtitle')); ?>
             </p>
-            <a href="/contact" class="btn-neon inline-block">
-                Получить консультацию
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                <?php echo htmlspecialchars(t('pages.seo.cta.button')); ?>
             </a>
         </div>
     </div>

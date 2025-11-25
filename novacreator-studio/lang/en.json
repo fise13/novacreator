@@ -433,6 +433,299 @@
         "subtitle": "Contact us and let's discuss how we can help your business",
         "button": "Contact us"
       }
+    },
+    "seo": {
+      "title": "SEO Optimization",
+      "breadcrumb": "SEO Optimization",
+      "subtitle": "We rank your website in search engines. Comprehensive optimization for organic traffic and conversion growth.",
+      "includes": {
+        "title": "What Our SEO Optimization Includes",
+        "subtitle": "Comprehensive approach to promoting your website in search engines"
+      },
+      "services": {
+        "technical": {
+          "title": "Technical SEO",
+          "items": {
+            "audit": "Site audit and error correction",
+            "speed": "Loading speed optimization",
+            "robots": "robots.txt and sitemap.xml setup",
+            "links": "Fixing duplicates and broken links"
+          }
+        },
+        "content": {
+          "title": "Content Optimization",
+          "items": {
+            "meta": "Meta tags and headers optimization",
+            "texts": "SEO text writing",
+            "keywords": "Keyword work",
+            "images": "Image optimization"
+          }
+        },
+        "links": {
+          "title": "Link Building",
+          "items": {
+            "building": "Building natural link profile",
+            "relevant": "Working with relevant resources",
+            "authority": "Improving domain authority",
+            "monitoring": "Link profile monitoring"
+          }
+        },
+        "local": {
+          "title": "Local SEO",
+          "items": {
+            "yandex": "Yandex Directory registration",
+            "google": "Google My Business setup",
+            "reviews": "Review management",
+            "local": "Local search promotion"
+          }
+        },
+        "analytics": {
+          "title": "Analytics and Reporting",
+          "items": {
+            "reports": "Monthly results reports",
+            "positions": "Search position monitoring",
+            "competitors": "Competitor analysis",
+            "recommendations": "Improvement recommendations"
+          }
+        },
+        "smm": {
+          "title": "SMM Integration",
+          "items": {
+            "sync": "Content synchronization",
+            "promotion": "Social media promotion",
+            "signals": "Increasing social signals",
+            "branding": "Branding work"
+          }
+        }
+      },
+      "results": {
+        "title": "Our Clients' Results",
+        "subtitle": "Real growth numbers after working with us",
+        "traffic": "Organic traffic growth",
+        "positions": "Top-10 positions",
+        "conversions": "Conversion growth",
+        "cost": "Cost per lead reduction"
+      },
+      "process": {
+        "title": "How We Work",
+        "subtitle": "Step-by-step process of promoting your website",
+        "step1": {
+          "title": "Audit and Analysis",
+          "description": "We conduct a full technical audit of the site, analyze competitors, study the target audience and determine keywords for promotion."
+        },
+        "step2": {
+          "title": "Strategy Development",
+          "description": "We create an individual promotion strategy taking into account the specifics of your business, competitive environment and project goals."
+        },
+        "step3": {
+          "title": "Implementation",
+          "description": "We perform technical optimization, work with content, build link profile and launch local promotion."
+        },
+        "step4": {
+          "title": "Monitoring and Optimization",
+          "description": "We constantly track results, analyze metrics and optimize work to achieve maximum efficiency."
+        }
+      },
+      "faq": {
+        "title": "Frequently Asked Questions About SEO",
+        "subtitle": "Answers to popular questions about website promotion",
+        "q1": {
+          "question": "How long does it take for a website to reach the top of search engines?",
+          "answer": "First SEO optimization results are usually visible 3-6 months after starting work. Reaching top-10 for high-frequency queries can take 6-12 months. Speed depends on competition in your niche, current site condition and scope of work. We provide monthly progress reports."
+        },
+        "q2": {
+          "question": "What is included in SEO promotion cost?",
+          "answer": "Cost depends on scope of work and project complexity. Basic package includes: technical audit, content optimization, meta tags work, internal linking, sitemap creation, analytics setup. Extended packages include link building, content marketing and regular reports. Contact us to calculate your project cost."
+        },
+        "q3": {
+          "question": "Do you work with sites on different CMS (WordPress, 1C-Bitrix, OpenCart)?",
+          "answer": "Yes, we work with any CMS and platforms: WordPress, 1C-Bitrix, OpenCart, WooCommerce, Magento, as well as sites on pure HTML/CSS/JS. Our experience allows us to optimize sites of any complexity and technical implementation."
+        },
+        "q4": {
+          "question": "Do you guarantee top-10 ranking?",
+          "answer": "We guarantee professional work and constant improvement of site positions. However, honest SEO specialists cannot guarantee specific positions, as search engine algorithms constantly change. We guarantee: regular work on the site, transparent reporting, organic traffic growth and position improvement for target queries. In addition, we provide a lifetime guarantee on all work performed — if problems arise, we will fix them for free."
+        },
+        "q5": {
+          "question": "How do you track work results?",
+          "answer": "We use professional tools: Google Analytics, Yandex.Metrica, Google Search Console, Yandex.Webmaster, as well as specialized SEO tools. Every month you receive a detailed report with data on positions, traffic, conversions and work performed. All metrics are available in real time through a personal account."
+        }
+      },
+      "guarantees": {
+        "title": "Our Guarantees",
+        "subtitle": "We are confident in the quality of our work and ready to prove it"
+      },
+      "cta": {
+        "title": "Ready to rank your site in the top?",
+        "subtitle": "Get a free consultation and audit of your website",
+        "button": "Get Consultation"
+      }
+    },
+    "ads": {
+      "title": "Google Ads",
+      "breadcrumb": "Google Ads",
+      "subtitle": "Contextual advertising turnkey. Campaign setup, launch and optimization for maximum conversion and ROI.",
+      "includes": {
+        "title": "What Our Work Includes",
+        "subtitle": "Full cycle of setting up and managing advertising campaigns in Google"
+      },
+      "services": {
+        "setup": {
+          "title": "Campaign Setup",
+          "description": "We create advertising campaigns from scratch taking into account the specifics of your business and target audience.",
+          "items": {
+            "search": "Search campaigns",
+            "rsya": "Yandex Display Network",
+            "retargeting": "Retargeting",
+            "remarketing": "Remarketing"
+          }
+        },
+        "keywords": {
+          "title": "Keywords",
+          "description": "We select and configure relevant keywords for maximum campaign effectiveness.",
+          "items": {
+            "selection": "Keyword selection",
+            "grouping": "Grouping by topics",
+            "negative": "Negative keywords",
+            "queries": "Search queries"
+          }
+        },
+        "ads": {
+          "title": "Ads",
+          "description": "We write selling ad texts that attract attention and motivate action.",
+          "items": {
+            "text": "Text ads",
+            "extended": "Extended ads",
+            "testing": "A/B testing",
+            "adaptive": "Adaptive ads"
+          }
+        },
+        "audiences": {
+          "title": "Audiences",
+          "description": "We set up targeting on target audience to increase conversion and reduce cost per click.",
+          "items": {
+            "segmentation": "Audience segmentation",
+            "retargeting": "Retargeting",
+            "similar": "Similar audiences",
+            "demographic": "Demographic targeting"
+          }
+        },
+        "optimization": {
+          "title": "Optimization",
+          "description": "We constantly improve campaign performance through data analysis and implementation of best practices.",
+          "items": {
+            "monitoring": "Daily monitoring",
+            "bids": "Bid adjustment",
+            "quality": "Quality improvement",
+            "budget": "Budget optimization"
+          }
+        },
+        "analytics": {
+          "title": "Analytics",
+          "description": "We set up conversion tracking and provide detailed reports on work results.",
+          "items": {
+            "goals": "Goal setup",
+            "conversions": "Conversion tracking",
+            "reports": "Monthly reports",
+            "recommendations": "Recommendations"
+          }
+        }
+      },
+      "results": {
+        "title": "Our Clients' Results",
+        "subtitle": "Real advertising campaign performance indicators",
+        "ctr": "CTR growth",
+        "conversions": "Conversion growth",
+        "cost": "Cost per click reduction",
+        "roi": "ROI growth"
+      },
+      "process": {
+        "title": "How We Work",
+        "subtitle": "Step-by-step process of setting up and managing advertising campaigns",
+        "step1": {
+          "title": "Analysis and Strategy",
+          "description": "We study your business, target audience and competitors. We determine campaign goals, budget and key metrics for tracking."
+        },
+        "step2": {
+          "title": "Campaign Setup",
+          "description": "We create campaign structure, select keywords, write ads and set up targeting on target audience."
+        },
+        "step3": {
+          "title": "Launch and Testing",
+          "description": "We launch campaigns and conduct A/B testing of ads. We collect data for further optimization."
+        },
+        "step4": {
+          "title": "Optimization and Scaling",
+          "description": "We constantly analyze results, adjust bids, improve ads and scale successful campaigns for maximum ROI."
+        }
+      },
+      "cta": {
+        "title": "Ready to launch advertising?",
+        "subtitle": "Get a free consultation and budget calculation for your campaign",
+        "button": "Get Consultation"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "breadcrumb": "FAQ",
+      "subtitle": "Answers to popular questions about our services and work process",
+      "sections": {
+        "seo": {
+          "title": "SEO Optimization",
+          "q1": {
+            "question": "How long does it take for a website to reach the top of search engines?",
+            "answer": "First SEO optimization results are usually visible 3-6 months after starting work. Reaching top-10 for high-frequency queries can take 6-12 months. Speed depends on competition in your niche, current site condition and scope of work. We provide monthly progress reports."
+          },
+          "q2": {
+            "question": "What is included in SEO promotion cost?",
+            "answer": "Cost depends on scope of work and project complexity. Basic package includes: technical audit, content optimization, meta tags work, internal linking, sitemap creation, analytics setup. Extended packages include link building, content marketing and regular reports. Contact us to calculate your project cost."
+          },
+          "q3": {
+            "question": "Do you guarantee top-10 ranking?",
+            "answer": "We guarantee professional work and constant improvement of site positions. However, honest SEO specialists cannot guarantee specific positions, as search engine algorithms constantly change. We guarantee: regular work on the site, transparent reporting, organic traffic growth and position improvement for target queries. In addition, we provide a lifetime guarantee on all work performed — if problems arise, we will fix them for free."
+          }
+        },
+        "development": {
+          "title": "Website Development",
+          "q1": {
+            "question": "How long does website development take?",
+            "answer": "Development time depends on project complexity. A landing page can be created in 1-2 weeks, a corporate website — in 3-6 weeks, an online store — in 6-12 weeks. We always agree on deadlines at the planning stage and meet deadlines."
+          },
+          "q2": {
+            "question": "Can changes be made after site launch?",
+            "answer": "Yes, of course! We provide a lifetime guarantee on all our work. If problems arise or improvements are needed, we will fix them for free. We also offer support and content update services."
+          }
+        },
+        "ads": {
+          "title": "Google Ads",
+          "q1": {
+            "question": "How much does advertising campaign setup cost?",
+            "answer": "Setup cost depends on campaign complexity and number of keywords. Basic setup costs from 15,000 tenge, comprehensive campaign — from 50,000 tenge. We also take a percentage of advertising budget for campaign management. Use our calculator for preliminary calculation."
+          },
+          "q2": {
+            "question": "When will first results appear?",
+            "answer": "Advertising starts working immediately after campaign launch. First clicks and applications usually appear within the first days. We constantly optimize the campaign to improve results and reduce cost per click."
+          }
+        },
+        "general": {
+          "title": "General Questions",
+          "q1": {
+            "question": "Do you work with clients from other cities?",
+            "answer": "Yes, we work online worldwide. All communications are conducted via internet: video calls, messengers, email. We successfully work with clients from different cities in Kazakhstan and other countries."
+          },
+          "q2": {
+            "question": "How does payment work?",
+            "answer": "We accept payment by bank transfer, card or through payment systems. For large projects, payment in stages is possible: 50% prepayment, the rest after completion. All details are discussed individually."
+          },
+          "q3": {
+            "question": "Do you provide guarantees?",
+            "answer": "Yes, we provide a lifetime guarantee on all our work. If problems arise with the website or promotion, we will fix them for free. We also provide 6 months of free support to first clients."
+          }
+        }
+      },
+      "cta": {
+        "text": "Didn't find an answer to your question?",
+        "button": "Contact us"
+      }
     }
   },
   "seo": {
