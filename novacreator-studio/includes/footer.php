@@ -17,7 +17,7 @@ $currentLang = getCurrentLanguage();
                 <!-- О компании -->
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <img src="./assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" decoding="async" />
+                        <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" decoding="async" />
                         <span class="text-xl font-bold text-gradient"><?php echo htmlspecialchars(t('site.name')); ?></span>
                     </div>
                     <p class="text-gray-400 mb-4">

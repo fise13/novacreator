@@ -109,7 +109,7 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
             <div class="flex items-center justify-between h-16 md:h-20">
                 <!-- Логотип -->
                 <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="flex items-center space-x-2 md:space-x-3 group touch-manipulation" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>">
-                    <img src="./assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" decoding="async" fetchpriority="high" />
+                    <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-12 h-12 md:w-16 md:h-16 rounded-lg group-hover:scale-110 transition-transform duration-300" loading="lazy" decoding="async" fetchpriority="high" />
                     <span class="text-lg md:text-2xl font-bold text-gradient"><?php echo htmlspecialchars(t('site.name')); ?></span>
                 </a>
                 
