@@ -7,6 +7,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Подключаем систему защиты от ботов (должно быть первым)
+require_once __DIR__ . '/bot_detection.php';
+checkAndBlockBots();
+
 // Подключаем систему локализации
 require_once __DIR__ . '/i18n.php';
 

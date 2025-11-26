@@ -71,9 +71,10 @@ function logMessage($message) {
     }
 }
 
-// Функция получения IP адреса
+// Функция получения IP адреса клиента
 function getClientIP() {
-    $ipKeys = ['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'];
+    // Проверяем заголовки прокси, если они есть
+    $ipKeys = ['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'REMOTE_ADDR'];
     foreach ($ipKeys as $key) {
         if (array_key_exists($key, $_SERVER) === true) {
             foreach (explode(',', $_SERVER[$key]) as $ip) {
