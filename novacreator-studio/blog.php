@@ -38,11 +38,31 @@ function getCategoryColor($category) {
         'SEO' => 'text-neon-purple',
         'Google Ads' => 'text-neon-blue',
         'Разработка' => 'text-neon-purple',
+        'Development' => 'text-neon-purple',
         'Маркетинг' => 'text-neon-blue',
+        'Marketing' => 'text-neon-blue',
         'Кейсы' => 'text-neon-purple',
-        'Аналитика' => 'text-neon-blue'
+        'Case Studies' => 'text-neon-purple',
+        'Аналитика' => 'text-neon-blue',
+        'Analytics' => 'text-neon-blue'
     ];
     return $colors[$category] ?? 'text-gray-400';
+}
+
+// Функция для получения локализованного контента статьи
+function getArticleField($article, $field, $lang) {
+    if ($lang === 'en' && isset($article[$field . '_en']) && !empty($article[$field . '_en'])) {
+        return $article[$field . '_en'];
+    }
+    return $article[$field] ?? '';
+}
+
+// Функция для получения локализованного slug
+function getArticleSlug($article, $lang) {
+    if ($lang === 'en' && isset($article['slug_en']) && !empty($article['slug_en'])) {
+        return $article['slug_en'];
+    }
+    return $article['slug'] ?? '';
 }
 
 // Функция для форматирования даты
@@ -83,19 +103,27 @@ function formatDate($date) {
                 <?php foreach ($articles as $index => $article): ?>
                     <article class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300 hover:-translate-y-2 animate-on-scroll" style="animation-delay: <?php echo $index * 0.1; ?>s;">
                         <div class="mb-4">
-                            <span class="text-sm <?php echo getCategoryColor($article['category']); ?> font-semibold"><?php echo htmlspecialchars($article['category']); ?></span>
+                            <?php 
+                            $category = getArticleField($article, 'category', $currentLang);
+                            $categoryDisplay = $currentLang === 'en' ? ($article['category_en'] ?? $article['category']) : $article['category'];
+                            ?>
+                            <span class="text-sm <?php echo getCategoryColor($categoryDisplay); ?> font-semibold"><?php echo htmlspecialchars($categoryDisplay); ?></span>
                             <span class="text-gray-500 mx-2">•</span>
                             <span class="text-sm text-gray-500"><?php echo formatDate($article['date']); ?></span>
                         </div>
                         <h2 class="text-2xl font-bold mb-4 text-gradient">
-                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="hover:text-neon-blue transition-colors">
-                                <?php echo htmlspecialchars($article['title']); ?>
+                            <?php 
+                            $articleSlug = getArticleSlug($article, $currentLang);
+                            $articleTitle = getArticleField($article, 'title', $currentLang);
+                            ?>
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($articleSlug); ?>" class="hover:text-neon-blue transition-colors">
+                                <?php echo htmlspecialchars($articleTitle); ?>
                             </a>
                         </h2>
                         <p class="text-gray-300 mb-6 leading-relaxed text-base" style="line-height: 1.75; color: #D1D5DB;">
-                            <?php echo htmlspecialchars($article['excerpt']); ?>
+                            <?php echo htmlspecialchars(getArticleField($article, 'excerpt', $currentLang)); ?>
                         </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($articleSlug); ?>" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
                             <?php echo htmlspecialchars(t('pages.blog.readMore')); ?>
                         </a>
                     </article>

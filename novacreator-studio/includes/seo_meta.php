@@ -222,7 +222,12 @@ $organizationSchema = [
 ];
 
 // Получаем альтернативные языковые версии для hreflang
-$alternateLanguages = getAlternateLanguages();
+// Если заданы кастомные альтернативные языки (например, для статей блога), используем их
+if (!empty($pageAlternateLanguages) && is_array($pageAlternateLanguages)) {
+    $alternateLanguages = $pageAlternateLanguages;
+} else {
+    $alternateLanguages = getAlternateLanguages();
+}
 
 $websiteSchema = [
     '@type' => 'WebSite',

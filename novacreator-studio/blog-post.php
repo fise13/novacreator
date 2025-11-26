@@ -2,17 +2,21 @@
 /**
  * Страница отдельной статьи блога
  */
+require_once __DIR__ . '/includes/i18n.php';
+$currentLang = getCurrentLanguage();
+
 $blogFile = __DIR__ . '/data/blog.json';
 $articles = [];
 if (file_exists($blogFile)) {
     $articles = json_decode(file_get_contents($blogFile), true) ?: [];
 }
 
-// Находим статью по slug
+// Находим статью по slug (поддержка обоих языков)
 $slug = isset($_GET['slug']) ? $_GET['slug'] : '';
 $article = null;
 foreach ($articles as $item) {
-    if ($item['slug'] === $slug) {
+    // Проверяем русский и английский slug
+    if ($item['slug'] === $slug || (isset($item['slug_en']) && $item['slug_en'] === $slug)) {
         $article = $item;
         // Увеличиваем счетчик просмотров
         $article['views'] = ($article['views'] ?? 0) + 1;
@@ -27,6 +31,22 @@ foreach ($articles as $item) {
         file_put_contents($blogFile, json_encode($articles, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
         break;
     }
+}
+
+// Функция для получения локализованного контента статьи
+function getArticleField($article, $field, $lang) {
+    if ($lang === 'en' && isset($article[$field . '_en']) && !empty($article[$field . '_en'])) {
+        return $article[$field . '_en'];
+    }
+    return $article[$field] ?? '';
+}
+
+// Функция для получения локализованного slug
+function getArticleSlug($article, $lang) {
+    if ($lang === 'en' && isset($article['slug_en']) && !empty($article['slug_en'])) {
+        return $article['slug_en'];
+    }
+    return $article['slug'] ?? '';
 }
 
 if (!$article) {
@@ -48,25 +68,63 @@ $absoluteUrl = static function (?string $path) use ($siteBase): string {
     }
     return rtrim($siteBase, '/') . '/' . ltrim($path, '/');
 };
-$articleUrl = $siteBase . '/blog-post?slug=' . urlencode($article['slug']);
+// Получаем локализованные данные статьи
+$articleTitle = getArticleField($article, 'title', $currentLang);
+$articleExcerpt = getArticleField($article, 'excerpt', $currentLang);
+$articleContent = getArticleField($article, 'content', $currentLang);
+$articleSlug = getArticleSlug($article, $currentLang);
+$articleCategory = $currentLang === 'en' ? ($article['category_en'] ?? $article['category']) : $article['category'];
+
+$articleUrl = $siteBase . getLocalizedUrl($currentLang, '/blog-post') . '?slug=' . urlencode($articleSlug);
 $articleImage = $absoluteUrl($article['image'] ?? '/assets/img/og-default.webp');
 
-$pageTitle = $article['title'];
-$pageMetaTitle = $article['title'] . ' - NovaCreator Studio';
-$pageMetaDescription = $article['excerpt'];
-$pageMetaKeywords = $article['category'] . ', ' . strtolower($article['category']) . ' статьи, digital маркетинг';
+$pageTitle = $articleTitle;
+$pageMetaTitle = $articleTitle . ' - NovaCreator Studio';
+$pageMetaDescription = $articleExcerpt;
+// SEO keywords для статей
+$seoKeywords = [
+    'ru' => [
+        'SEO' => 'seo оптимизация, seo продвижение, продвижение сайтов, seo услуги, seo специалист, seo компания, seo агентство, продвижение сайта в топ, вывести сайт в топ, seo продвижение сайта, seo оптимизация сайта, продвижение сайта в google, продвижение сайта в яндекс, seo продвижение алматы, seo продвижение астана, seo продвижение казахстан',
+        'Google Ads' => 'google ads, контекстная реклама, ppc, яндекс директ, настройка google ads, настройка яндекс директ, ведение рекламных кампаний, управление рекламными кампаниями, оптимизация рекламных кампаний, контекстная реклама google, контекстная реклама яндекс, поисковая реклама, медийная реклама, видеореклама, shopping кампании, ретаргетинг, ремаркетинг, настройка ретаргетинга, настройка ремаркетинга, похожие аудитории, таргетинг, сегментация аудитории, работа с аудиториями, создание объявлений, написание объявлений, тестирование объявлений, ab тестирование объявлений, оптимизация объявлений, улучшение объявлений, повышение эффективности объявлений, увеличение кликов по объявлениям, снижение стоимости клика, снижение стоимости заявки, снижение стоимости лида, снижение стоимости конверсии, увеличение количества заявок, увеличение количества звонков, увеличение количества продаж, рост продаж через интернет, увеличение продаж онлайн, привлечение клиентов через рекламу, привлечение клиентов через google ads, привлечение клиентов через яндекс директ, привлечение клиентов через контекстную рекламу, привлечение клиентов через интернет рекламу, привлечение клиентов через онлайн рекламу, привлечение клиентов через рекламу в интернете, привлечение клиентов через рекламу в сети, привлечение клиентов через рекламу онлайн, привлечение клиентов через рекламу в google, привлечение клиентов через рекламу в яндекс, привлечение клиентов через рекламу в поисковиках, привлечение клиентов через рекламу в поисковых системах',
+        'Разработка' => 'разработка сайтов, создание сайтов, веб разработка, веб студия, разработка интернет магазинов, создание лендингов, разработка корпоративных сайтов, создание корпоративных сайтов, разработка сайта визитки, создание сайта визитки, разработка сайта каталога, создание сайта каталога, разработка веб приложения, создание веб приложения, разработка мобильного приложения, создание мобильного приложения, разработка приложения, создание приложения, разработка приложений, создание приложений, разработка сайта под ключ, создание сайта под ключ, разработка сайта цена, разработка сайта стоимость, заказать разработку сайта, купить сайт, стоимость разработки сайта, цена разработки сайта, разработка сайтов алматы, разработка сайтов астана, разработка сайтов шымкент, разработка сайтов караганда, разработка сайтов актобе, разработка сайтов казахстан, создание сайтов алматы, создание сайтов астана, создание сайтов шымкент, создание сайтов караганда, создание сайтов актобе, создание сайтов казахстан, веб студия алматы, веб студия астана, веб студия шымкент, веб студия караганда, веб студия актобе, веб студия казахстан',
+        'Маркетинг' => 'интернет маркетинг, digital маркетинг, маркетинговые услуги, рекламные услуги, интернет реклама, онлайн реклама, реклама в интернете, реклама в сети, реклама онлайн, реклама в google, реклама в яндекс, реклама в поисковиках, реклама в поисковых системах, продвижение в интернете, реклама сайта, продвижение сайта в поисковиках, раскрутка сайта, продвижение сайта самостоятельно, как продвинуть сайт, как вывести сайт в топ, как увеличить трафик на сайт, как увеличить продажи через интернет, интернет реклама, онлайн реклама, реклама в google, реклама в яндекс, рекламное агентство, рекламное агентство алматы, рекламное агентство астана, маркетинговое агентство, маркетинговое агентство алматы, маркетинговое агентство астана, seo агентство, seo агентство алматы, seo агентство астана, digital агентство, digital агентство алматы, digital агентство астана, веб студия, веб студия казахстан, разработка сайтов, разработка сайтов казахстан, создание сайтов, создание сайтов казахстан',
+        'Аналитика' => 'аналитика, настройка аналитики, настройка google analytics, настройка яндекс метрики, отслеживание конверсий, оптимизация конверсий, увеличение конверсий, рост конверсий, улучшение конверсий, повышение конверсий, увеличение продаж, рост продаж, улучшение продаж, повышение продаж, привлечение клиентов через интернет, привлечение клиентов через сайт, привлечение клиентов через рекламу, привлечение клиентов через seo, привлечение клиентов через контекстную рекламу, привлечение клиентов через google ads, привлечение клиентов через яндекс директ, привлечение клиентов через интернет маркетинг, привлечение клиентов через digital маркетинг, привлечение клиентов через интернет рекламу, привлечение клиентов через онлайн рекламу, привлечение клиентов через рекламу в интернете, привлечение клиентов через рекламу в сети, привлечение клиентов через рекламу онлайн, привлечение клиентов через рекламу в google, привлечение клиентов через рекламу в яндекс, привлечение клиентов через рекламу в поисковиках, привлечение клиентов через рекламу в поисковых системах'
+    ],
+    'en' => [
+        'SEO' => 'seo optimization, seo promotion, website promotion, seo services, seo specialist, seo company, seo agency, website promotion to top, bring website to top, seo website promotion, seo website optimization, website promotion in google, website promotion in yandex, seo promotion almaty, seo promotion astana, seo promotion kazakhstan',
+        'Google Ads' => 'google ads, contextual advertising, ppc, yandex direct, google ads setup, yandex direct setup, advertising campaign management, advertising campaign optimization, contextual advertising google, contextual advertising yandex, search advertising, display advertising, video advertising, shopping campaigns, retargeting, remarketing, retargeting setup, remarketing setup, similar audiences, targeting, audience segmentation, audience work, ad creation, ad writing, ad testing, ab testing, ad optimization, ad improvement, ad effectiveness increase, ad clicks increase, cost per click reduction, cost per lead reduction, cost per conversion reduction, leads increase, calls increase, sales increase, online sales growth, online sales increase, online customer acquisition, advertising customer acquisition, google ads customer acquisition, yandex direct customer acquisition, contextual advertising customer acquisition, online advertising customer acquisition, internet advertising customer acquisition',
+        'Development' => 'website development, website creation, web development, web studio, ecommerce development, landing page creation, corporate website development, business card website development, catalog website development, web application development, mobile application development, application development, turnkey website development, website development price, website development cost, order website development, buy website, website development cost, website development price, website development almaty, website development astana, website development shymkent, website development karaganda, website development aktobe, website development kazakhstan, website creation almaty, website creation astana, website creation shymkent, website creation karaganda, website creation aktobe, website creation kazakhstan, web studio almaty, web studio astana, web studio shymkent, web studio karaganda, web studio aktobe, web studio kazakhstan',
+        'Marketing' => 'internet marketing, digital marketing, marketing services, advertising services, online advertising, internet advertising, advertising online, google advertising, yandex advertising, advertising in search engines, promotion online, website advertising, website promotion in search engines, how to promote website, how to bring website to top, how to increase website traffic, how to increase sales online, online advertising, google advertising, yandex advertising, advertising agency, advertising agency almaty, advertising agency astana, marketing agency, marketing agency almaty, marketing agency astana, seo agency, seo agency almaty, seo agency astana, digital agency, digital agency almaty, digital agency astana, web studio, web studio kazakhstan, website development, website development kazakhstan, website creation, website creation kazakhstan',
+        'Analytics' => 'analytics, analytics setup, google analytics setup, yandex metrica setup, conversion tracking, conversion optimization, conversion increase, conversion growth, conversion improvement, conversion boost, sales increase, sales growth, sales improvement, sales boost, online customer acquisition, website customer acquisition, advertising customer acquisition, seo customer acquisition, contextual advertising customer acquisition, google ads customer acquisition, yandex direct customer acquisition, internet marketing customer acquisition, digital marketing customer acquisition, online advertising customer acquisition, internet advertising customer acquisition'
+    ]
+];
+
+$pageMetaKeywords = isset($seoKeywords[$currentLang][$articleCategory]) 
+    ? $seoKeywords[$currentLang][$articleCategory]
+    : ($currentLang === 'en' 
+        ? $articleCategory . ', ' . strtolower($articleCategory) . ' articles, digital marketing, seo, web development'
+        : $articleCategory . ', ' . strtolower($articleCategory) . ' статьи, digital маркетинг');
 $pageMetaImage = $articleImage;
 $pageMetaCanonical = $articleUrl;
 $pageMetaOgType = 'article';
+
+// Генерируем альтернативные языковые версии для статьи
+$pageAlternateLanguages = [];
+foreach (['ru', 'en'] as $lang) {
+    $altSlug = $lang === 'en' ? ($article['slug_en'] ?? $article['slug']) : $article['slug'];
+    $altUrl = $siteBase . getLocalizedUrl($lang, '/blog-post') . '?slug=' . urlencode($altSlug);
+    $pageAlternateLanguages[$lang] = $altUrl;
+}
+
 $pageBreadcrumbs = [
-    ['name' => 'Главная', 'url' => $siteBase . '/'],
-    ['name' => 'Блог', 'url' => $siteBase . '/blog'],
-    ['name' => $article['title'], 'url' => $articleUrl]
+    ['name' => t('nav.home'), 'url' => $siteBase . getLocalizedUrl($currentLang, '/')],
+    ['name' => t('pages.blog.breadcrumb'), 'url' => $siteBase . getLocalizedUrl($currentLang, '/blog')],
+    ['name' => $articleTitle, 'url' => $articleUrl]
 ];
 $pageStructuredData = [
     '@type' => 'BlogPosting',
-    'headline' => $article['title'],
-    'description' => $article['excerpt'],
+    'headline' => $articleTitle,
+    'description' => $articleExcerpt,
     'image' => $articleImage,
     'datePublished' => $article['date'],
     'dateModified' => $article['date'],
@@ -89,19 +147,33 @@ $pageStructuredData = [
 include 'includes/header.php';
 
 // Функция для форматирования даты
-function formatDate($date) {
-    $months = [
-        '01' => 'января', '02' => 'февраля', '03' => 'марта', '04' => 'апреля',
-        '05' => 'мая', '06' => 'июня', '07' => 'июля', '08' => 'августа',
-        '09' => 'сентября', '10' => 'октября', '11' => 'ноября', '12' => 'декабря'
-    ];
-    $parts = explode('-', $date);
-    return (int)$parts[2] . ' ' . $months[$parts[1]] . ' ' . $parts[0];
+function formatDate($date, $lang = 'ru') {
+    global $currentLang;
+    $lang = $currentLang;
+    if ($lang === 'en') {
+        $months = [
+            '01' => 'January', '02' => 'February', '03' => 'March', '04' => 'April',
+            '05' => 'May', '06' => 'June', '07' => 'July', '08' => 'August',
+            '09' => 'September', '10' => 'October', '11' => 'November', '12' => 'December'
+        ];
+        $parts = explode('-', $date);
+        return $months[$parts[1]] . ' ' . (int)$parts[2] . ', ' . $parts[0];
+    } else {
+        $months = [
+            '01' => 'января', '02' => 'февраля', '03' => 'марта', '04' => 'апреля',
+            '05' => 'мая', '06' => 'июня', '07' => 'июля', '08' => 'августа',
+            '09' => 'сентября', '10' => 'октября', '11' => 'ноября', '12' => 'декабря'
+        ];
+        $parts = explode('-', $date);
+        return (int)$parts[2] . ' ' . $months[$parts[1]] . ' ' . $parts[0];
+    }
 }
 
 // Получаем похожие статьи
-$relatedArticles = array_filter($articles, function($item) use ($article) {
-    return $item['category'] === $article['category'] && $item['id'] !== $article['id'];
+$relatedArticles = array_filter($articles, function($item) use ($article, $currentLang) {
+    $itemCategory = $currentLang === 'en' ? ($item['category_en'] ?? $item['category']) : $item['category'];
+    $articleCategory = $currentLang === 'en' ? ($article['category_en'] ?? $article['category']) : $article['category'];
+    return $itemCategory === $articleCategory && $item['id'] !== $article['id'];
 });
 $relatedArticles = array_slice($relatedArticles, 0, 3);
 ?>
@@ -111,30 +183,30 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto animate-on-scroll">
             <div class="mb-6">
-                <a href="/blog" class="text-neon-purple hover:text-neon-blue transition-colors inline-flex items-center">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="text-neon-purple hover:text-neon-blue transition-colors inline-flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
-                    Вернуться к блогу
+                    <?php echo $currentLang === 'en' ? 'Back to Blog' : 'Вернуться к блогу'; ?>
                 </a>
             </div>
             
             <div class="mb-6">
-                <span class="text-sm text-neon-purple font-semibold"><?php echo htmlspecialchars($article['category']); ?></span>
+                <span class="text-sm text-neon-purple font-semibold"><?php echo htmlspecialchars($articleCategory); ?></span>
                 <span class="text-gray-500 mx-2">•</span>
-                <span class="text-sm text-gray-500"><?php echo formatDate($article['date']); ?></span>
+                <span class="text-sm text-gray-500"><?php echo formatDate($article['date'], $currentLang); ?></span>
                 <?php if (isset($article['views']) && $article['views'] > 0): ?>
                     <span class="text-gray-500 mx-2">•</span>
-                    <span class="text-sm text-gray-500"><?php echo $article['views']; ?> просмотров</span>
+                    <span class="text-sm text-gray-500"><?php echo $article['views']; ?> <?php echo $currentLang === 'en' ? 'views' : 'просмотров'; ?></span>
                 <?php endif; ?>
             </div>
             
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                <span class="text-gradient"><?php echo htmlspecialchars($article['title']); ?></span>
+                <span class="text-gradient"><?php echo htmlspecialchars($articleTitle); ?></span>
             </h1>
             
             <p class="text-xl text-gray-400 mb-8">
-                <?php echo htmlspecialchars($article['excerpt']); ?>
+                <?php echo htmlspecialchars($articleExcerpt); ?>
             </p>
             
             <div class="flex items-center space-x-4 text-gray-400">
@@ -156,7 +228,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
             <article class="prose prose-invert prose-lg max-w-none">
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 md:p-8 lg:p-12 shadow-2xl" style="box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.1);">
                     <div class="article-content">
-                        <?php echo $article['content']; ?>
+                        <?php echo $articleContent; ?>
                     </div>
                 </div>
             </article>
@@ -165,7 +237,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
             <div class="mt-12 pt-8 border-t border-dark-border">
                 <div class="flex items-center justify-between flex-wrap gap-4">
                     <div>
-                        <h3 class="text-lg font-semibold mb-3 text-gradient">Поделиться статьей</h3>
+                        <h3 class="text-lg font-semibold mb-3 text-gradient"><?php echo $currentLang === 'en' ? 'Share Article' : 'Поделиться статьей'; ?></h3>
                         <div class="flex space-x-4">
                             <a href="https://vk.com/share.php?url=<?php echo urlencode('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>&title=<?php echo urlencode($article['title']); ?>" target="_blank" class="w-10 h-10 bg-dark-surface border border-dark-border rounded-lg flex items-center justify-center hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -190,25 +262,31 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 <section class="py-20 bg-dark-surface">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gradient text-center">Похожие статьи</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gradient text-center"><?php echo $currentLang === 'en' ? 'Related Articles' : 'Похожие статьи'; ?></h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <?php foreach ($relatedArticles as $related): ?>
+                    <?php 
+                    $relatedTitle = getArticleField($related, 'title', $currentLang);
+                    $relatedExcerpt = getArticleField($related, 'excerpt', $currentLang);
+                    $relatedSlug = getArticleSlug($related, $currentLang);
+                    $relatedCategory = $currentLang === 'en' ? ($related['category_en'] ?? $related['category']) : $related['category'];
+                    ?>
                     <article class="bg-dark-bg border border-dark-border rounded-xl p-6 hover:border-neon-purple transition-all duration-300">
                         <div class="mb-4">
-                            <span class="text-sm text-neon-purple font-semibold"><?php echo htmlspecialchars($related['category']); ?></span>
+                            <span class="text-sm text-neon-purple font-semibold"><?php echo htmlspecialchars($relatedCategory); ?></span>
                             <span class="text-gray-500 mx-2">•</span>
-                            <span class="text-sm text-gray-500"><?php echo formatDate($related['date']); ?></span>
+                            <span class="text-sm text-gray-500"><?php echo formatDate($related['date'], $currentLang); ?></span>
                         </div>
                         <h3 class="text-xl font-bold mb-3 text-gradient">
-                            <a href="/blog-post?slug=<?php echo htmlspecialchars($related['slug']); ?>" class="hover:text-neon-blue transition-colors">
-                                <?php echo htmlspecialchars($related['title']); ?>
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($relatedSlug); ?>" class="hover:text-neon-blue transition-colors">
+                                <?php echo htmlspecialchars($relatedTitle); ?>
                             </a>
                         </h3>
                         <p class="text-gray-400 mb-4 text-sm leading-relaxed">
-                            <?php echo htmlspecialchars(mb_substr($related['excerpt'], 0, 100)) . '...'; ?>
+                            <?php echo htmlspecialchars(mb_substr($relatedExcerpt, 0, 100)) . '...'; ?>
                         </p>
-                        <a href="/blog-post?slug=<?php echo htmlspecialchars($related['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors text-sm font-semibold">
-                            Читать →
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($relatedSlug); ?>" class="text-neon-purple hover:text-neon-blue transition-colors text-sm font-semibold">
+                            <?php echo $currentLang === 'en' ? 'Read →' : 'Читать →'; ?>
                         </a>
                     </article>
                 <?php endforeach; ?>
@@ -223,13 +301,13 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto animate-on-scroll">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Нужна помощь с вашим проектом?
+                <?php echo $currentLang === 'en' ? 'Need Help with Your Project?' : 'Нужна помощь с вашим проектом?'; ?>
             </h2>
             <p class="text-xl text-gray-300 mb-12">
-                Свяжитесь с нами и получите бесплатную консультацию
+                <?php echo $currentLang === 'en' ? 'Contact us and get a free consultation' : 'Свяжитесь с нами и получите бесплатную консультацию'; ?>
             </p>
-            <a href="/contact" class="btn-neon inline-block">
-                Получить консультацию
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+                <?php echo $currentLang === 'en' ? 'Get Consultation' : 'Получить консультацию'; ?>
             </a>
         </div>
     </div>
