@@ -6,17 +6,24 @@
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         
-        if (menuToggle) {
+        if (menuToggle && sidebar && overlay) {
             menuToggle.addEventListener('click', () => {
                 sidebar.classList.toggle('open');
-                overlay.classList.toggle('hidden');
+                overlay.classList.toggle('show');
             });
-        }
-        
-        if (overlay) {
+            
             overlay.addEventListener('click', () => {
                 sidebar.classList.remove('open');
-                overlay.classList.add('hidden');
+                overlay.classList.remove('show');
+            });
+            
+            // Закрываем меню при клике на ссылку внутри меню
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('show');
+                });
             });
         }
         
