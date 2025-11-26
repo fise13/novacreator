@@ -186,6 +186,63 @@ function initForms() {
         form.addEventListener('submit', async function(e) {
             e.preventDefault(); // Предотвращаем стандартную отправку формы
             
+            // Валидация полей перед отправкой
+            const emailInput = form.querySelector('input[type="email"]');
+            const phoneInput = form.querySelector('input[type="tel"]');
+            
+            // Функция валидации email
+            function validateEmail(email) {
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                return emailRegex.test(email);
+            }
+            
+            // Функция валидации телефона
+            function validatePhone(phone) {
+                const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+                const phoneRegex = /^(\+?7|8)?[0-9]{10}$/;
+                return phoneRegex.test(cleanPhone) && cleanPhone.length >= 10;
+            }
+            
+            let isValid = true;
+            
+            // Проверка email
+            if (emailInput) {
+                const email = emailInput.value.trim();
+                if (email && !validateEmail(email)) {
+                    isValid = false;
+                    emailInput.classList.add('border-red-500');
+                    emailInput.focus();
+                    const emailError = document.getElementById('email-error');
+                    if (emailError) {
+                        emailError.classList.remove('hidden');
+                        emailError.classList.add('text-red-400');
+                    }
+                }
+            }
+            
+            // Проверка телефона
+            if (phoneInput) {
+                const phone = phoneInput.value.trim();
+                if (phone && !validatePhone(phone)) {
+                    isValid = false;
+                    phoneInput.classList.add('border-red-500');
+                    if (!emailInput || !emailInput.value.trim() || validateEmail(emailInput.value.trim())) {
+                        phoneInput.focus();
+                    }
+                    const phoneError = document.getElementById('phone-error');
+                    if (phoneError) {
+                        phoneError.classList.remove('hidden');
+                        phoneError.classList.add('text-red-400');
+                    }
+                }
+            }
+            
+            // Если валидация не прошла, не отправляем форму
+            if (!isValid) {
+                showNotification('Пожалуйста, исправьте ошибки в форме перед отправкой.', 'error');
+                return;
+            }
+            
             // Получаем кнопку отправки
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;

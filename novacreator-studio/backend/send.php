@@ -144,11 +144,18 @@ if (empty($name)) {
 }
 
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'Введите корректный email';
+    $errors[] = 'Введите корректный email адрес';
 }
 
 if (empty($phone)) {
     $errors[] = 'Телефон обязателен для заполнения';
+} else {
+    // Валидация формата телефона (российский формат)
+    $cleanPhone = preg_replace('/[\s\-\(\)]/', '', $phone);
+    // Проверяем формат: +7 или 7 или 8, затем 10 цифр
+    if (!preg_match('/^(\+?7|8)?[0-9]{10}$/', $cleanPhone) || strlen($cleanPhone) < 10) {
+        $errors[] = 'Введите корректный номер телефона (например: +7 700 123 45 67)';
+    }
 }
 
 if (empty($message)) {

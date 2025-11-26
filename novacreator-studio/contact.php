@@ -145,8 +145,11 @@ include 'includes/header.php';
                                 name="email" 
                                 class="form-input" 
                                 placeholder="<?php echo htmlspecialchars(t('pages.contact.form.emailPlaceholder')); ?>"
+                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                                 required
+                                autocomplete="email"
                             >
+                            <p class="text-xs text-gray-500 mt-1 hidden" id="email-error">Введите корректный email адрес (например: example@mail.com)</p>
                         </div>
                         
                         <!-- Телефон -->
@@ -159,9 +162,13 @@ include 'includes/header.php';
                                 id="phone" 
                                 name="phone" 
                                 class="form-input" 
-                                placeholder="<?php echo htmlspecialchars(t('pages.contact.form.phonePlaceholder')); ?>"
+                                placeholder="+7 (700) 123-45-67"
+                                pattern="^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$"
                                 required
+                                autocomplete="tel"
+                                maxlength="18"
                             >
+                            <p class="text-xs text-gray-500 mt-1 hidden" id="phone-error">Введите корректный номер телефона (например: +7 700 123 45 67)</p>
                         </div>
                         
                         <!-- Услуга / Вакансия -->
@@ -293,9 +300,203 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Скрипт для обработки параметров URL (вакансии) -->
+<!-- Скрипт для валидации формы и обработки параметров URL -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Элементы формы
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const emailError = document.getElementById('email-error');
+    const phoneError = document.getElementById('phone-error');
+    const form = document.querySelector('.contact-form');
+    
+    // Функция валидации email
+    function validateEmail(email) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(email);
+    }
+    
+    // Функция валидации телефона (российский формат)
+    function validatePhone(phone) {
+        // Убираем все пробелы, дефисы и скобки для проверки
+        const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+        // Проверяем формат: +7 или 7 или 8, затем 10 цифр
+        const phoneRegex = /^(\+?7|8)?[0-9]{10}$/;
+        return phoneRegex.test(cleanPhone) && cleanPhone.length >= 10;
+    }
+    
+    // Функция форматирования телефона
+    function formatPhone(value) {
+        // Убираем все нецифровые символы кроме +
+        let cleaned = value.replace(/[^\d+]/g, '');
+        
+        // Если начинается с 8, заменяем на +7
+        if (cleaned.startsWith('8')) {
+            cleaned = '+7' + cleaned.substring(1);
+        }
+        // Если начинается с 7 без +, добавляем +
+        else if (cleaned.startsWith('7') && !cleaned.startsWith('+7')) {
+            cleaned = '+7' + cleaned.substring(1);
+        }
+        // Если не начинается с +7, добавляем
+        else if (!cleaned.startsWith('+7')) {
+            cleaned = '+7' + cleaned;
+        }
+        
+        // Ограничиваем длину (максимум 12 символов: +7XXXXXXXXXX)
+        cleaned = cleaned.substring(0, 12);
+        
+        // Форматируем: +7 (XXX) XXX-XX-XX
+        if (cleaned.length > 2) {
+            let formatted = cleaned.substring(0, 2) + ' '; // +7 
+            if (cleaned.length > 2) {
+                formatted += '(' + cleaned.substring(2, 5); // (XXX
+            }
+            if (cleaned.length > 5) {
+                formatted += ') ' + cleaned.substring(5, 8); // ) XXX
+            }
+            if (cleaned.length > 8) {
+                formatted += '-' + cleaned.substring(8, 10); // -XX
+            }
+            if (cleaned.length > 10) {
+                formatted += '-' + cleaned.substring(10, 12); // -XX
+            }
+            return formatted;
+        }
+        
+        return cleaned;
+    }
+    
+    // Валидация email в реальном времени
+    if (emailInput) {
+        emailInput.addEventListener('blur', function() {
+            const email = emailInput.value.trim();
+            if (email && !validateEmail(email)) {
+                emailInput.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                emailInput.classList.remove('border-dark-border', 'focus:border-neon-purple', 'focus:ring-neon-purple/20');
+                if (emailError) {
+                    emailError.classList.remove('hidden');
+                    emailError.classList.add('text-red-400');
+                }
+            } else {
+                emailInput.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                emailInput.classList.add('border-dark-border', 'focus:border-neon-purple', 'focus:ring-neon-purple/20');
+                if (emailError) {
+                    emailError.classList.add('hidden');
+                }
+            }
+        });
+        
+        emailInput.addEventListener('input', function() {
+            if (emailInput.classList.contains('border-red-500')) {
+                const email = emailInput.value.trim();
+                if (validateEmail(email) || !email) {
+                    emailInput.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                    emailInput.classList.add('border-dark-border', 'focus:border-neon-purple', 'focus:ring-neon-purple/20');
+                    if (emailError) {
+                        emailError.classList.add('hidden');
+                    }
+                }
+            }
+        });
+    }
+    
+    // Маска и валидация телефона в реальном времени
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            const cursorPosition = e.target.selectionStart;
+            const oldValue = e.target.value;
+            const newValue = formatPhone(e.target.value);
+            
+            e.target.value = newValue;
+            
+            // Восстанавливаем позицию курсора
+            const lengthDiff = newValue.length - oldValue.length;
+            e.target.setSelectionRange(cursorPosition + lengthDiff, cursorPosition + lengthDiff);
+            
+            // Валидация
+            const phone = e.target.value.trim();
+            if (phone && !validatePhone(phone)) {
+                phoneInput.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                phoneInput.classList.remove('border-dark-border', 'focus:border-neon-purple', 'focus:ring-neon-purple/20');
+                if (phoneError) {
+                    phoneError.classList.remove('hidden');
+                    phoneError.classList.add('text-red-400');
+                }
+            } else {
+                phoneInput.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                phoneInput.classList.add('border-dark-border', 'focus:border-neon-purple', 'focus:ring-neon-purple/20');
+                if (phoneError) {
+                    phoneError.classList.add('hidden');
+                }
+            }
+        });
+        
+        phoneInput.addEventListener('blur', function() {
+            const phone = phoneInput.value.trim();
+            if (phone && !validatePhone(phone)) {
+                phoneInput.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                phoneInput.classList.remove('border-dark-border', 'focus:border-neon-purple', 'focus:ring-neon-purple/20');
+                if (phoneError) {
+                    phoneError.classList.remove('hidden');
+                    phoneError.classList.add('text-red-400');
+                }
+            }
+        });
+        
+        // Обработка вставки текста
+        phoneInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            const formatted = formatPhone(pastedText);
+            phoneInput.value = formatted;
+            phoneInput.dispatchEvent(new Event('input'));
+        });
+    }
+    
+    // Валидация перед отправкой формы
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const email = emailInput ? emailInput.value.trim() : '';
+            const phone = phoneInput ? phoneInput.value.trim() : '';
+            
+            let isValid = true;
+            
+            // Проверка email
+            if (email && !validateEmail(email)) {
+                isValid = false;
+                if (emailInput) {
+                    emailInput.classList.add('border-red-500');
+                    emailInput.focus();
+                }
+                if (emailError) {
+                    emailError.classList.remove('hidden');
+                    emailError.classList.add('text-red-400');
+                }
+            }
+            
+            // Проверка телефона
+            if (phone && !validatePhone(phone)) {
+                isValid = false;
+                if (phoneInput) {
+                    phoneInput.classList.add('border-red-500');
+                    if (!email || validateEmail(email)) {
+                        phoneInput.focus();
+                    }
+                }
+                if (phoneError) {
+                    phoneError.classList.remove('hidden');
+                    phoneError.classList.add('text-red-400');
+                }
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+    
     // Получаем параметры из URL
     const urlParams = new URLSearchParams(window.location.search);
     const type = urlParams.get('type');
@@ -329,7 +530,6 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.textContent = 'Откликнуться на вакансию';
         
         // Добавляем информацию о вакансии перед формой
-        const form = document.querySelector('.contact-form');
         const vacancyInfo = document.createElement('div');
         vacancyInfo.className = 'bg-neon-purple/20 border border-neon-purple rounded-lg p-4 mb-6';
         vacancyInfo.innerHTML = `
