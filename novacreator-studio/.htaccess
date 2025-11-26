@@ -9,10 +9,20 @@
     
     # Правила для админ-панели через /adm
     # Все запросы к /adm перенаправляются в /admin/
-    RewriteCond %{REQUEST_URI} ^/adm [NC]
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^adm/?(.*)$ /admin/$1 [L]
+    RewriteCond %{REQUEST_URI} ^/adm/?$ [NC]
+    RewriteRule ^adm/?$ /admin/index.php [L]
+    
+    RewriteCond %{REQUEST_URI} ^/adm/login/?$ [NC]
+    RewriteRule ^adm/login/?$ /admin/login.php [L]
+    
+    RewriteCond %{REQUEST_URI} ^/adm/logout/?$ [NC]
+    RewriteRule ^adm/logout/?$ /admin/logout.php [L]
+    
+    RewriteCond %{REQUEST_URI} ^/adm/edit/?$ [NC]
+    RewriteRule ^adm/edit/?$ /admin/edit.php [L]
+    
+    RewriteCond %{REQUEST_URI} ^/adm/(.*)$ [NC]
+    RewriteRule ^adm/(.*)$ /admin/$1 [L]
     
     # Мультиязычность: обработка языковых префиксов
     # Исключаем системные директории и файлы

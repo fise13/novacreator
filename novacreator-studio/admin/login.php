@@ -10,13 +10,10 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'];
     $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
     
-    if (strpos($requestUri, '/adm') === 0) {
-        $indexUrl = $protocol . '://' . $host . '/adm';
-    } else {
-        $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
-        $indexUrl = $protocol . '://' . $host . $scriptPath . '/index.php';
-    }
+    // Всегда используем /admin/index.php для надежности
+    $indexUrl = $protocol . '://' . $host . '/admin/index.php';
     
     header('Location: ' . $indexUrl);
     exit;
@@ -33,14 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
-        $requestUri = $_SERVER['REQUEST_URI'] ?? '';
         
-        if (strpos($requestUri, '/adm') === 0) {
-            $indexUrl = $protocol . '://' . $host . '/adm';
-        } else {
-            $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
-            $indexUrl = $protocol . '://' . $host . $scriptPath . '/index.php';
-        }
+        // Всегда перенаправляем на /admin/index.php
+        $indexUrl = $protocol . '://' . $host . '/admin/index.php';
         
         header('Location: ' . $indexUrl);
         exit;
