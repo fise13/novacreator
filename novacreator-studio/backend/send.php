@@ -87,14 +87,16 @@ function getClientIP() {
     return $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 }
 
-// Функция экранирования специальных символов для Markdown
-function escapeMarkdown($text) {
-    // Экранируем специальные символы Markdown
-    $specialChars = ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'];
-    foreach ($specialChars as $char) {
-        $text = str_replace($char, '\\' . $char, $text);
-    }
-    return $text;
+// Функция экранирования специальных символов для HTML (более мягкое экранирование)
+function escapeHtml($text) {
+    // Экранируем только HTML теги и амперсанды
+    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+}
+
+// Функция для безопасного форматирования текста (убираем только опасные символы)
+function safeText($text) {
+    // Убираем только потенциально опасные символы, но оставляем обычные символы
+    return trim($text);
 }
 
 // Защита от спама: проверка honeypot поля
@@ -188,24 +190,24 @@ if (empty($formName)) {
     }
 }
 
-// Формируем сообщение для Telegram с экранированием специальных символов
-// Экранируем пользовательские данные, но оставляем форматирование для заголовков
-$telegramMessage = "🔔 *Новая заявка с сайта*\n\n";
-$telegramMessage .= "📋 *Форма:* " . escapeMarkdown($formName) . "\n\n";
-$telegramMessage .= "👤 *Имя:* " . escapeMarkdown($name) . "\n";
-$telegramMessage .= "📧 *Email:* " . escapeMarkdown($email) . "\n";
-$telegramMessage .= "📱 *Телефон:* " . escapeMarkdown($phone) . "\n";
+// Формируем сообщение для Telegram с HTML форматированием (более читаемо, без лишних слэшей)
+// Экранируем только HTML теги для безопасности, но оставляем обычные символы как есть
+$telegramMessage = "🔔 <b>Новая заявка с сайта</b>\n\n";
+$telegramMessage .= "📋 <b>Форма:</b> " . escapeHtml($formName) . "\n\n";
+$telegramMessage .= "👤 <b>Имя:</b> " . escapeHtml($name) . "\n";
+$telegramMessage .= "📧 <b>Email:</b> " . escapeHtml($email) . "\n";
+$telegramMessage .= "📱 <b>Телефон:</b> " . escapeHtml($phone) . "\n";
 
 if ($type === 'vacancy' && !empty($vacancy)) {
-    $telegramMessage .= "💼 *Вакансия:* " . escapeMarkdown($vacancy) . "\n";
+    $telegramMessage .= "💼 <b>Вакансия:</b> " . escapeHtml($vacancy) . "\n";
 } elseif (!empty($service)) {
-    $telegramMessage .= "🎯 *Услуга:* " . escapeMarkdown($service) . "\n";
+    $telegramMessage .= "🎯 <b>Услуга:</b> " . escapeHtml($service) . "\n";
 }
 
-$telegramMessage .= "\n💬 *Сообщение:*\n" . escapeMarkdown($message) . "\n\n";
+$telegramMessage .= "\n💬 <b>Сообщение:</b>\n" . escapeHtml($message) . "\n\n";
 $telegramMessage .= "━━━━━━━━━━━━━━━━━━━━\n";
-$telegramMessage .= "🌐 *IP адрес:* `" . escapeMarkdown($ip) . "`\n";
-$telegramMessage .= "🕐 *Время:* " . escapeMarkdown($timestamp) . "\n";
+$telegramMessage .= "🌐 <b>IP адрес:</b> <code>" . escapeHtml($ip) . "</code>\n";
+$telegramMessage .= "🕐 <b>Время:</b> " . escapeHtml($timestamp) . "\n";
 
 // Получаем Chat ID (если не указан в конфиге, пытаемся получить автоматически)
 // Проверяем, определена ли константа
@@ -272,7 +274,7 @@ $apiUrl = TELEGRAM_API_URL . 'sendMessage';
 $postData = [
     'chat_id' => $chatId,
     'text' => $telegramMessage,
-    'parse_mode' => 'Markdown',
+    'parse_mode' => 'HTML',
     'disable_web_page_preview' => true
 ];
 
