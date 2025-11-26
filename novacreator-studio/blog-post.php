@@ -154,8 +154,8 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             <article class="prose prose-invert prose-lg max-w-none">
-                <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 md:p-8 lg:p-12">
-                    <div class="article-content text-gray-300 leading-relaxed">
+                <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 md:p-8 lg:p-12 shadow-2xl" style="box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.1);">
+                    <div class="article-content">
                         <?php echo $article['content']; ?>
                     </div>
                 </div>
@@ -236,23 +236,393 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 </section>
 
 <style>
+/* ============================================
+   КРАСИВАЯ ТИПОГРАФИКА ДЛЯ БЛОГА
+   ============================================ */
+
+.article-content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #E5E7EB;
+}
+
+/* Заголовки с градиентами */
 .article-content h2 {
-    @apply text-3xl font-bold mb-4 mt-8 text-gradient;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
 }
+
+.article-content h2::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    border-radius: 2px;
+}
+
 .article-content h3 {
-    @apply text-2xl font-bold mb-3 mt-6 text-gray-200;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #D1D5DB;
+    position: relative;
+    padding-left: 1rem;
 }
-.article-content ul, .article-content ol {
-    @apply mb-4 ml-6;
+
+.article-content h3::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #8B5CF6;
+    font-size: 1.25rem;
 }
-.article-content li {
-    @apply mb-2 text-gray-300;
+
+.article-content h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #9CA3AF;
 }
+
+/* Параграфы с улучшенной читаемостью */
 .article-content p {
-    @apply mb-4 text-gray-300 leading-relaxed;
+    margin-bottom: 1.5rem;
+    color: #E5E7EB;
+    line-height: 1.8;
+    font-size: 1.125rem;
+    text-align: justify;
 }
+
+.article-content p:first-of-type {
+    font-size: 1.25rem;
+    color: #D1D5DB;
+    font-weight: 500;
+    line-height: 1.9;
+    margin-bottom: 2rem;
+}
+
+/* Списки с красивым оформлением */
+.article-content ul,
+.article-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+    color: #E5E7EB;
+}
+
+.article-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.article-content ul li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    color: #E5E7EB;
+}
+
+.article-content ul li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: #8B5CF6;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.article-content ol {
+    counter-reset: list-counter;
+    list-style: none;
+    padding-left: 0;
+}
+
+.article-content ol li {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    color: #E5E7EB;
+    counter-increment: list-counter;
+}
+
+.article-content ol li::before {
+    content: counter(list-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #8B5CF6;
+    font-size: 0.875rem;
+}
+
+/* Выделение текста */
+.article-content strong {
+    color: #FFFFFF;
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+}
+
+.article-content em {
+    color: #D1D5DB;
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* Ссылки */
 .article-content a {
-    @apply text-neon-purple hover:text-neon-blue transition-colors;
+    color: #8B5CF6;
+    text-decoration: underline;
+    text-decoration-color: rgba(139, 92, 246, 0.3);
+    text-underline-offset: 0.25rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.article-content a:hover {
+    color: #06B6D4;
+    text-decoration-color: rgba(6, 182, 212, 0.5);
+    text-decoration-thickness: 2px;
+}
+
+/* Цитаты */
+.article-content blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    border-left: 4px solid #8B5CF6;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-radius: 0.5rem;
+    font-style: italic;
+    color: #D1D5DB;
+    position: relative;
+}
+
+.article-content blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    font-size: 4rem;
+    color: rgba(139, 92, 246, 0.2);
+    font-family: Georgia, serif;
+}
+
+.article-content blockquote p {
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Код */
+.article-content code {
+    background-color: rgba(139, 92, 246, 0.15);
+    color: #A78BFA;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.article-content pre {
+    background-color: #1a1a24;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.article-content pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #E5E7EB;
+}
+
+/* Горизонтальная линия */
+.article-content hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.5) 50%, transparent 100%);
+    margin: 3rem 0;
+}
+
+/* Таблицы */
+.article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background-color: rgba(26, 26, 36, 0.5);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.article-content table th {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+}
+
+.article-content table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(42, 42, 58, 0.5);
+    color: #E5E7EB;
+}
+
+.article-content table tr:hover {
+    background-color: rgba(139, 92, 246, 0.05);
+}
+
+/* Изображения */
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin: 2rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* Акценты и выделения */
+.article-content mark {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(6, 182, 212, 0.3) 100%);
+    color: #FFFFFF;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .article-content {
+        font-size: 1rem;
+    }
+    
+    .article-content h2 {
+        font-size: 1.75rem;
+        padding-left: 1.5rem;
+    }
+    
+    .article-content h2::before {
+        left: 0;
+        width: 3px;
+    }
+    
+    .article-content h3 {
+        font-size: 1.25rem;
+    }
+    
+    .article-content p:first-of-type {
+        font-size: 1.125rem;
+    }
+    
+    .article-content ul,
+    .article-content ol {
+        padding-left: 1.5rem;
+    }
+    
+    .article-content ul li {
+        padding-left: 1.5rem;
+    }
+    
+    .article-content ol li {
+        padding-left: 2rem;
+    }
+    
+    .article-content blockquote {
+        padding: 1rem 1.5rem;
+    }
+}
+
+/* Декоративные элементы */
+.article-content p:first-of-type::first-letter {
+    float: left;
+    font-size: 4rem;
+    line-height: 1;
+    font-weight: 700;
+    margin: 0.1em 0.1em 0 0;
+    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Улучшение для абзацев с отступами */
+.article-content p + p {
+    text-indent: 0;
+}
+
+/* Красивое оформление для вложенных списков */
+.article-content ul ul,
+.article-content ol ol,
+.article-content ul ol,
+.article-content ol ul {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+}
+
+.article-content ul ul li::before {
+    content: '▪';
+    color: #06B6D4;
+}
+
+/* Улучшение для выделения важных моментов */
+.article-content p.highlight,
+.article-content p[style*="background"],
+.article-content p[style*="border"] {
+    font-weight: 500;
+    padding-left: 1.5rem;
+    border-left: 3px solid rgba(139, 92, 246, 0.5);
+    background: rgba(139, 92, 246, 0.05);
+    padding: 1rem 1rem 1rem 1.5rem;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+/* Плавное появление элементов (опционально, можно отключить) */
+.article-content > * {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
 

@@ -92,7 +92,7 @@ function formatDate($date) {
                                 <?php echo htmlspecialchars($article['title']); ?>
                             </a>
                         </h2>
-                        <p class="text-gray-400 mb-6 leading-relaxed">
+                        <p class="text-gray-300 mb-6 leading-relaxed text-base" style="line-height: 1.75; color: #D1D5DB;">
                             <?php echo htmlspecialchars($article['excerpt']); ?>
                         </p>
                         <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($article['slug']); ?>" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
