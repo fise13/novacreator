@@ -22,6 +22,9 @@ include 'includes/header.php';
         <div class="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-neon-purple/20 rounded-full blur-2xl md:blur-3xl animate-pulse parallax" data-speed="0.3"></div>
         <div class="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-neon-blue/20 rounded-full blur-2xl md:blur-3xl animate-pulse parallax" data-speed="0.5" style="animation-delay: 1s;"></div>
         <div class="absolute top-1/2 left-1/2 w-48 h-48 md:w-64 md:h-64 bg-neon-purple/10 rounded-full blur-xl md:blur-2xl animate-pulse parallax" data-speed="0.4" style="animation-delay: 0.5s;"></div>
+        
+        <!-- Плавающие частицы -->
+        <div class="floating-particles" id="floatingParticles"></div>
     </div>
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
@@ -83,7 +86,7 @@ include 'includes/header.php';
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8 px-4 md:px-0">
             <!-- SEO-оптимизация -->
             <div class="service-card animate-on-scroll">
-                <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
+                <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
@@ -100,7 +103,7 @@ include 'includes/header.php';
             
             <!-- Разработка сайтов -->
             <div class="service-card animate-on-scroll" style="animation-delay: 0.1s;">
-                <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mb-6">
+                <div class="icon-wrapper w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                     </svg>
@@ -116,7 +119,7 @@ include 'includes/header.php';
             
             <!-- Google Ads -->
             <div class="service-card animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
+                <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
@@ -133,7 +136,7 @@ include 'includes/header.php';
             
             <!-- Маркетинг -->
             <div class="service-card animate-on-scroll" style="animation-delay: 0.3s;">
-                <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mb-6">
+                <div class="icon-wrapper w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
                     </svg>
@@ -149,7 +152,7 @@ include 'includes/header.php';
             
             <!-- Аналитика -->
             <div class="service-card animate-on-scroll" style="animation-delay: 0.4s;">
-                <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
+                <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-5 md:mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
@@ -165,7 +168,7 @@ include 'includes/header.php';
             
             <!-- Конверсии -->
             <div class="service-card animate-on-scroll" style="animation-delay: 0.5s;">
-                <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mb-6">
+                <div class="icon-wrapper w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mb-6">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                     </svg>
@@ -371,6 +374,83 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.5 });
     
     counters.forEach(counter => observer.observe(counter));
+});
+
+// Скрипт для плавающих частиц в hero секции
+document.addEventListener('DOMContentLoaded', function() {
+    const particlesContainer = document.getElementById('floatingParticles');
+    if (!particlesContainer) return;
+    
+    // Количество частиц (меньше на мобильных для производительности)
+    const particleCount = window.innerWidth < 768 ? 15 : 30;
+    const particles = [];
+    
+    // Создаем частицы
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Случайный размер
+        const size = Math.random() < 0.4 ? 'particle-small' : 
+                     Math.random() < 0.7 ? 'particle-medium' : 'particle-large';
+        particle.classList.add(size);
+        
+        // Случайная начальная позиция
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        
+        // Случайная задержка анимации
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particle.style.animationDuration = (12 + Math.random() * 13) + 's';
+        
+        particlesContainer.appendChild(particle);
+        particles.push(particle);
+    }
+    
+    // Анимация частиц при скролле (parallax эффект)
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                const scrolled = window.pageYOffset;
+                particles.forEach((particle, index) => {
+                    const speed = 0.1 + (index % 3) * 0.05;
+                    const yPos = -(scrolled * speed);
+                    particle.style.transform = `translateY(${yPos}px)`;
+                });
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+    
+    // Анимация частиц при движении мыши (только на десктопе)
+    if (window.innerWidth >= 768) {
+        particlesContainer.addEventListener('mousemove', function(e) {
+            const rect = particlesContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            particles.forEach((particle, index) => {
+                const rectParticle = particle.getBoundingClientRect();
+                const particleX = rectParticle.left + rectParticle.width / 2;
+                const particleY = rectParticle.top + rectParticle.height / 2;
+                
+                const dx = x - particleX;
+                const dy = y - particleY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const maxDistance = 200;
+                
+                if (distance < maxDistance) {
+                    const force = (maxDistance - distance) / maxDistance;
+                    const moveX = (dx / distance) * force * 20;
+                    const moveY = (dy / distance) * force * 20;
+                    
+                    particle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                }
+            });
+        }, { passive: true });
+    }
 });
 </script>
 

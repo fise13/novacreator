@@ -594,28 +594,84 @@ function initScrollProgress() {
 /**
  * Кнопка "Наверх"
  * Появляется при скролле вниз и плавно прокручивает наверх
+ * С улучшенной анимацией и индикатором прогресса
  */
 function initBackToTop() {
     const backToTopBtn = document.getElementById('backToTop');
     if (!backToTopBtn) return;
     
-    // Показываем/скрываем кнопку при скролле
+    let lastScrollTop = 0;
+    let ticking = false;
+    
+    // Показываем/скрываем кнопку при скролле с улучшенной анимацией
     window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-            backToTopBtn.classList.add('opacity-100');
-        } else {
-            backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
-            backToTopBtn.classList.remove('opacity-100');
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / maxScroll) * 100;
+                
+                // Показываем/скрываем кнопку
+                if (scrollTop > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100');
+                    
+                // Обновляем индикатор прогресса
+                const progressCircle = document.getElementById('scrollProgressCircle');
+                if (progressCircle) {
+                    const circumference = 2 * Math.PI * 45; // радиус 45
+                    const offset = circumference - (scrollPercent / 100) * circumference;
+                    progressCircle.style.strokeDashoffset = offset;
+                    progressCircle.style.opacity = scrollPercent > 10 ? '0.6' : '0.3';
+                }
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100');
+                }
+                
+                // Анимация появления/исчезновения в зависимости от направления скролла
+                if (scrollTop > lastScrollTop && scrollTop > 300) {
+                    // Скроллим вниз - кнопка слегка смещается
+                    backToTopBtn.style.transform = 'translateY(5px)';
+                } else {
+                    // Скроллим вверх - кнопка возвращается
+                    backToTopBtn.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollTop = scrollTop;
+                ticking = false;
+            });
+            ticking = true;
         }
-    });
+    }, { passive: true });
     
     // Плавная прокрутка наверх при клике
     backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        // Добавляем эффект нажатия
+        this.style.transform = 'scale(0.9)';
+        
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // Восстанавливаем размер после начала прокрутки
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 100);
+        }, 50);
+    });
+    
+    // Hover эффект
+    backToTopBtn.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.15) translateY(-3px)';
+    });
+    
+    backToTopBtn.addEventListener('mouseleave', function() {
+        if (window.pageYOffset > 300) {
+            this.style.transform = '';
+        }
     });
 }
 
@@ -627,17 +683,36 @@ function initPageLoadAnimation() {
     // Добавляем класс для анимации загрузки
     document.body.classList.add('page-loaded');
     
-    // Плавное появление основных элементов
+    // Плавное появление основных элементов с улучшенной анимацией
     const mainElements = document.querySelectorAll('section, header, footer');
     mainElements.forEach((element, index) => {
         element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        element.style.transform = 'translateY(30px) scale(0.98)';
+        element.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        element.style.willChange = 'opacity, transform';
         
         setTimeout(() => {
             element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }, index * 50); // Последовательное появление
+            element.style.transform = 'translateY(0) scale(1)';
+            
+            // Убираем will-change после анимации для производительности
+            setTimeout(() => {
+                element.style.willChange = 'auto';
+            }, 800);
+        }, index * 80); // Последовательное появление с задержкой
+    });
+    
+    // Анимация для карточек услуг
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px) rotateX(10deg)';
+        card.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) rotateX(0deg)';
+        }, 400 + (index * 100));
     });
 }
 
