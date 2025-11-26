@@ -25,7 +25,7 @@ $author = trim($_POST['author'] ?? 'NovaCreator Studio');
 
 // Валидация
 if (empty($title) || empty($excerpt) || empty($content)) {
-    header('Location: edit.php?id=' . $id . '&error=Заполните все обязательные поля');
+    header('Location: edit.php?id=' . $id . '&error=' . urlencode('Заполните все обязательные поля'));
     exit;
 }
 
