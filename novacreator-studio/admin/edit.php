@@ -55,7 +55,7 @@ include 'includes/header.php';
                     </h2>
                     <a href="index.php" class="text-gray-400 hover:text-neon-purple transition-colors flex-shrink-0">
                         <i class="fas fa-times text-xl"></i>
-                    </a>
+                        </a>
                 </div>
 
                 <?php if ($error): ?>
