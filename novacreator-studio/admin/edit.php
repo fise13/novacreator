@@ -49,11 +49,11 @@ include 'includes/header.php';
         <div class="flex-1">
             <div class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 animate-fade-in">
                 <!-- Заголовок -->
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold text-gradient">
+                <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                    <h2 class="text-2xl font-bold text-gradient break-words">
                         <?php echo $isEdit ? 'Редактирование статьи' : 'Новая статья'; ?>
                     </h2>
-                    <a href="index.php" class="text-gray-400 hover:text-neon-purple transition-colors">
+                    <a href="index.php" class="text-gray-400 hover:text-neon-purple transition-colors flex-shrink-0">
                         <i class="fas fa-times text-xl"></i>
                     </a>
                 </div>
@@ -62,13 +62,13 @@ include 'includes/header.php';
                     <div class="bg-red-600/20 border border-red-600 rounded-lg p-4 mb-6 text-red-400 flex items-center space-x-2 animate-fade-in">
                         <i class="fas fa-exclamation-circle"></i>
                         <span><?php echo htmlspecialchars($error); ?></span>
-                    </div>
+            </div>
                 <?php endif; ?>
 
                 <form method="POST" action="save.php" id="articleForm" class="space-y-6">
-                    <input type="hidden" name="id" value="<?php echo $article['id']; ?>">
-                    <input type="hidden" name="is_edit" value="<?php echo $isEdit ? '1' : '0'; ?>">
-                    
+                <input type="hidden" name="id" value="<?php echo $article['id']; ?>">
+                <input type="hidden" name="is_edit" value="<?php echo $isEdit ? '1' : '0'; ?>">
+                
                     <!-- Заголовок -->
                     <div>
                         <label class="block text-sm font-semibold mb-2 text-gray-300">
@@ -88,20 +88,20 @@ include 'includes/header.php';
 
                     <!-- Категория и дата в одной строке -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
+                    <div>
                             <label class="block text-sm font-semibold mb-2 text-gray-300">
                                 Категория <span class="text-red-400">*</span>
                             </label>
                             <select name="category" required class="form-select w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-lg text-white focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/20">
-                                <option value="SEO" <?php echo $article['category'] === 'SEO' ? 'selected' : ''; ?>>SEO</option>
-                                <option value="Google Ads" <?php echo $article['category'] === 'Google Ads' ? 'selected' : ''; ?>>Google Ads</option>
-                                <option value="Разработка" <?php echo $article['category'] === 'Разработка' ? 'selected' : ''; ?>>Разработка</option>
-                                <option value="Маркетинг" <?php echo $article['category'] === 'Маркетинг' ? 'selected' : ''; ?>>Маркетинг</option>
-                                <option value="Кейсы" <?php echo $article['category'] === 'Кейсы' ? 'selected' : ''; ?>>Кейсы</option>
-                                <option value="Аналитика" <?php echo $article['category'] === 'Аналитика' ? 'selected' : ''; ?>>Аналитика</option>
-                            </select>
-                        </div>
-                        <div>
+                            <option value="SEO" <?php echo $article['category'] === 'SEO' ? 'selected' : ''; ?>>SEO</option>
+                            <option value="Google Ads" <?php echo $article['category'] === 'Google Ads' ? 'selected' : ''; ?>>Google Ads</option>
+                            <option value="Разработка" <?php echo $article['category'] === 'Разработка' ? 'selected' : ''; ?>>Разработка</option>
+                            <option value="Маркетинг" <?php echo $article['category'] === 'Маркетинг' ? 'selected' : ''; ?>>Маркетинг</option>
+                            <option value="Кейсы" <?php echo $article['category'] === 'Кейсы' ? 'selected' : ''; ?>>Кейсы</option>
+                            <option value="Аналитика" <?php echo $article['category'] === 'Аналитика' ? 'selected' : ''; ?>>Аналитика</option>
+                        </select>
+                    </div>
+                    <div>
                             <label class="block text-sm font-semibold mb-2 text-gray-300">
                                 Дата публикации <span class="text-red-400">*</span>
                             </label>
@@ -149,16 +149,16 @@ include 'includes/header.php';
 
                     <!-- Изображение и автор -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-semibold mb-2 text-gray-300">URL изображения</label>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-300">URL изображения</label>
                             <input type="text" 
                                    name="image" 
                                    value="<?php echo htmlspecialchars($article['image']); ?>" 
                                    class="form-input w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-lg text-white focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/20"
                                    placeholder="/assets/img/blog/article.jpg">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-2 text-gray-300">Автор</label>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-300">Автор</label>
                             <input type="text" 
                                    name="author" 
                                    value="<?php echo htmlspecialchars($article['author']); ?>" 
@@ -180,10 +180,10 @@ include 'includes/header.php';
                             <button type="submit" class="btn-neon btn-admin px-6 py-2 flex items-center space-x-2">
                                 <i class="fas fa-save"></i>
                                 <span><?php echo $isEdit ? 'Сохранить изменения' : 'Создать статью'; ?></span>
-                            </button>
-                        </div>
+                        </button>
                     </div>
-                </form>
+                </div>
+            </form>
             </div>
         </div>
 
@@ -261,10 +261,10 @@ include 'includes/header.php';
                 </div>
             <?php endif; ?>
         </div>
+        </div>
     </div>
-</div>
 
-<script>
+    <script>
 // Предпросмотр контента
 function togglePreview() {
     const content = document.getElementById('content').value;
@@ -355,7 +355,7 @@ window.addEventListener('DOMContentLoaded', function() {
 // Очистка черновика после успешной отправки
 document.getElementById('articleForm').addEventListener('submit', function() {
     localStorage.removeItem('article_draft');
-});
-</script>
+        });
+    </script>
 
 <?php include 'includes/footer.php'; ?>

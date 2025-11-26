@@ -48,41 +48,41 @@ include 'includes/header.php';
                 <div>
                     <p class="text-gray-400 text-sm mb-1">Всего статей</p>
                     <p class="text-3xl font-bold text-gradient"><?php echo $totalArticles; ?></p>
-                </div>
+                        </div>
                 <div class="w-12 h-12 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg flex items-center justify-center">
                     <i class="fas fa-file-alt text-white text-xl"></i>
                 </div>
             </div>
-        </div>
-        
+                </div>
+
         <div class="admin-card bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 border border-neon-blue/30 rounded-xl p-6 animate-fade-in" style="animation-delay: 0.1s;">
-            <div class="flex items-center justify-between">
-                <div>
+                    <div class="flex items-center justify-between">
+                        <div>
                     <p class="text-gray-400 text-sm mb-1">Всего просмотров</p>
                     <p class="text-3xl font-bold text-gradient"><?php echo number_format($totalViews); ?></p>
-                </div>
+                        </div>
                 <div class="w-12 h-12 bg-gradient-to-r from-neon-blue to-neon-purple rounded-lg flex items-center justify-center">
                     <i class="fas fa-eye text-white text-xl"></i>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
         
         <div class="admin-card bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 rounded-xl p-6 animate-fade-in" style="animation-delay: 0.2s;">
-            <div class="flex items-center justify-between">
-                <div>
+                    <div class="flex items-center justify-between">
+                        <div>
                     <p class="text-gray-400 text-sm mb-1">Среднее просмотров</p>
                     <p class="text-3xl font-bold text-gradient"><?php echo $avgViews; ?></p>
-                </div>
+                        </div>
                 <div class="w-12 h-12 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg flex items-center justify-center">
                     <i class="fas fa-chart-line text-white text-xl"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
     <!-- Заголовок и действия -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-        <h2 class="text-3xl font-bold text-gradient">Статьи блога</h2>
+                <h2 class="text-3xl font-bold text-gradient">Статьи блога</h2>
         <a href="edit.php" class="btn-neon btn-admin inline-flex items-center space-x-2">
             <i class="fas fa-plus"></i>
             <span>Новая статья</span>
@@ -117,7 +117,7 @@ include 'includes/header.php';
                 </a>
             <?php endif; ?>
         </form>
-    </div>
+            </div>
 
     <!-- Список статей -->
     <?php if (empty($filteredArticles)): ?>
@@ -130,68 +130,68 @@ include 'includes/header.php';
                 <a href="edit.php" class="btn-neon btn-admin inline-flex items-center space-x-2">
                     <i class="fas fa-plus"></i>
                     <span>Создать первую статью</span>
-                </a>
+                    </a>
             <?php endif; ?>
-        </div>
-    <?php else: ?>
+                </div>
+            <?php else: ?>
         <div class="bg-dark-surface border border-dark-border rounded-xl overflow-hidden animate-fade-in">
             <!-- Десктоп таблица -->
             <div class="hidden md:block overflow-x-auto">
-                <table class="w-full">
-                    <thead class="bg-dark-bg border-b border-dark-border">
-                        <tr>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">ID</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Заголовок</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Категория</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Дата</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Просмотры</th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300">Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <table class="w-full">
+                        <thead class="bg-dark-bg border-b border-dark-border">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">ID</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Заголовок</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Категория</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Дата</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Просмотры</th>
+                                <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <?php foreach ($filteredArticles as $article): ?>
                             <tr class="table-row border-b border-dark-border">
-                                <td class="px-6 py-4 text-gray-400"><?php echo $article['id']; ?></td>
-                                <td class="px-6 py-4">
+                                    <td class="px-6 py-4 text-gray-400"><?php echo $article['id']; ?></td>
+                                    <td class="px-6 py-4">
                                     <a href="../blog-post?slug=<?php echo htmlspecialchars($article['slug']); ?>" 
                                        target="_blank" 
                                        class="text-neon-purple hover:text-neon-blue transition-colors font-semibold flex items-center space-x-2">
                                         <span><?php echo htmlspecialchars($article['title']); ?></span>
                                         <i class="fas fa-external-link-alt text-xs"></i>
-                                    </a>
-                                </td>
+                                        </a>
+                                    </td>
                                 <td class="px-6 py-4">
-                                    <span class="px-3 py-1 bg-neon-purple/20 text-neon-purple rounded-full text-sm">
-                                        <?php echo htmlspecialchars($article['category']); ?>
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 text-gray-400"><?php echo htmlspecialchars($article['date']); ?></td>
+                                        <span class="px-3 py-1 bg-neon-purple/20 text-neon-purple rounded-full text-sm">
+                                            <?php echo htmlspecialchars($article['category']); ?>
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-400"><?php echo htmlspecialchars($article['date']); ?></td>
                                 <td class="px-6 py-4 text-gray-400">
                                     <span class="flex items-center space-x-2">
                                         <i class="fas fa-eye text-xs"></i>
                                         <span><?php echo $article['views'] ?? 0; ?></span>
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 text-right">
-                                    <div class="flex items-center justify-end space-x-2">
+                                    <td class="px-6 py-4 text-right">
+                                        <div class="flex items-center justify-end space-x-2">
                                         <a href="edit.php?id=<?php echo $article['id']; ?>" 
                                            class="px-4 py-2 bg-neon-purple/20 text-neon-purple rounded-lg hover:bg-neon-purple/30 transition-colors text-sm flex items-center space-x-2">
                                             <i class="fas fa-edit"></i>
                                             <span class="hidden lg:inline">Редактировать</span>
-                                        </a>
+                                            </a>
                                         <a href="delete.php?id=<?php echo $article['id']; ?>" 
                                            onclick="event.preventDefault(); handleDelete(<?php echo $article['id']; ?>, '<?php echo htmlspecialchars(addslashes($article['title'])); ?>');" 
                                            class="px-4 py-2 bg-red-600/20 text-red-400 rounded-lg hover:bg-red-600/30 transition-colors text-sm flex items-center space-x-2">
                                             <i class="fas fa-trash"></i>
                                             <span class="hidden lg:inline">Удалить</span>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             
             <!-- Мобильные карточки -->
             <div class="md:hidden divide-y divide-dark-border">
@@ -232,7 +232,7 @@ include 'includes/header.php';
             </div>
         </div>
     <?php endif; ?>
-</div>
+    </div>
 
 <script>
 // Обработка удаления с подтверждением

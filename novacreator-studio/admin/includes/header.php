@@ -14,10 +14,34 @@ if (!isset($pageTitle)) {
     <title><?php echo htmlspecialchars($pageTitle); ?> - NovaCreator Studio</title>
     <link href="../assets/css/output.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fallback стили если Tailwind не загрузится -->
     <style>
+        /* Базовые стили для обеспечения работы */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+    </style>
+    <style>
+        /* Базовые стили */
+        * {
+            box-sizing: border-box;
+        }
+        
         /* Плавные переходы для всех элементов */
         * {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Отключаем transition для некоторых элементов */
+        *, *::before, *::after {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+        }
+        
+        /* Исключаем transition для скролла и других */
+        html, body {
+            transition: none;
         }
         
         /* Кастомный скроллбар */
@@ -73,11 +97,214 @@ if (!isset($pageTitle)) {
         /* Улучшенные формы */
         .form-input, .form-textarea, .form-select {
             transition: all 0.3s ease;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #0A0A0F;
+            border: 1px solid #2a2a3a;
+            border-radius: 0.5rem;
+            color: #ffffff;
+            font-size: 1rem;
+            line-height: 1.5;
         }
         
         .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: #6B7280;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+        
+        .form-select:focus {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%238B5CF6' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+        }
+        
+        /* Исправление проблем с текстом */
+        body {
+            overflow-x: hidden;
+            word-wrap: break-word;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        /* Контейнеры */
+        .container {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Исправление для заголовков */
+        .text-gradient {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        /* Кнопки */
+        .btn-neon {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .btn-neon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+        
+        /* Цвета для темной темы */
+        .bg-dark-bg {
+            background-color: #0A0A0F;
+        }
+        
+        .bg-dark-surface {
+            background-color: #1a1a24;
+        }
+        
+        .bg-dark-border {
+            background-color: #2a2a3a;
+        }
+        
+        .border-dark-border {
+            border-color: #2a2a3a;
+        }
+        
+        .text-gray-300 {
+            color: #D1D5DB;
+        }
+        
+        .text-gray-400 {
+            color: #9CA3AF;
+        }
+        
+        .text-gray-500 {
+            color: #6B7280;
+        }
+        
+        .text-neon-purple {
+            color: #8B5CF6;
+        }
+        
+        .text-neon-blue {
+            color: #06B6D4;
+        }
+        
+        /* Исправление проблем с переполнением */
+        .break-words {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+        
+        /* Улучшение для заголовков */
+        h1, h2, h3, h4, h5, h6 {
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        /* Исправление для flex контейнеров */
+        .flex {
+            min-width: 0;
+        }
+        
+        .flex-1 {
+            min-width: 0;
+        }
+        
+        /* Исправление для мобильных */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+            
+            .text-gradient {
+                font-size: 1.5rem !important;
+            }
+            
+            .text-2xl {
+                font-size: 1.5rem !important;
+            }
+        }
+        
+        /* Важно: переопределение для правильного отображения */
+        .w-full {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        /* Исправление для форм */
+        form {
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        /* Исправление для контейнеров */
+        .container {
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        @media (min-width: 640px) {
+            .container {
+                max-width: 640px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
         }
         
         /* Карточки с hover эффектом */
