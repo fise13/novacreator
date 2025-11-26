@@ -110,7 +110,7 @@ include 'includes/header.php';
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-4 md:p-6 lg:p-8">
                     <h2 class="text-2xl sm:text-3xl font-bold mb-6 md:mb-8 text-gradient"><?php echo htmlspecialchars(t('pages.contact.form.title')); ?></h2>
                     
-                    <form class="contact-form space-y-6" method="POST" action="backend/send.php">
+                    <form class="contact-form space-y-6" method="POST" action="/backend/send.php">
                         <!-- Скрытые поля для определения типа заявки -->
                         <input type="hidden" id="form_type" name="type" value="contact">
                         <input type="hidden" id="form_vacancy" name="vacancy" value="">

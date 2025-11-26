@@ -202,19 +202,26 @@ function initForms() {
                 // Автоматически определяем правильный путь к обработчику
                 let formAction = form.getAttribute('action');
                 
-                // Если action не указан или начинается с "/", используем относительный путь
-                if (!formAction || formAction.startsWith('/')) {
-                    // Используем new URL() для правильного определения относительного пути
+                // Если action не указан, используем путь по умолчанию
+                if (!formAction) {
+                    formAction = '/backend/send.php';
+                }
+                
+                // Если action относительный (не начинается с /), преобразуем его в абсолютный
+                if (!formAction.startsWith('/') && !formAction.startsWith('http')) {
                     try {
                         // Создаем URL относительно текущей страницы
                         const baseUrl = new URL(window.location.href);
-                        const backendUrl = new URL('backend/send.php', baseUrl);
+                        const backendUrl = new URL(formAction, baseUrl);
                         formAction = backendUrl.pathname + backendUrl.search;
                     } catch (e) {
-                        // Fallback: простой относительный путь
-                        formAction = 'backend/send.php';
+                        // Fallback: добавляем / в начало
+                        formAction = '/' + formAction;
                     }
                 }
+                
+                // Если action начинается с /, но не с http, используем его как есть
+                // Это абсолютный путь от корня сайта
                 
                 const response = await fetch(formAction, {
                     method: 'POST',
@@ -223,13 +230,20 @@ function initForms() {
                 
                 // Проверяем статус ответа
                 if (!response.ok) {
+                    // Специальная обработка для 404 ошибки
+                    if (response.status === 404) {
+                        showNotification('Ошибка: файл обработчика формы не найден. Пожалуйста, свяжитесь с администратором сайта.', 'error');
+                        console.error('404 Error: Form handler not found at:', formAction);
+                        return;
+                    }
+                    
                     // Пытаемся получить JSON с ошибкой
                     try {
                         const errorResult = await response.json();
                         showNotification(errorResult.message || 'Произошла ошибка при отправке. Попробуйте позже.', 'error');
                     } catch (e) {
                         // Если не удалось распарсить JSON, показываем общую ошибку
-                        showNotification('Ошибка сервера (код ' + response.status + '). Попробуйте позже.', 'error');
+                        showNotification('Ошибка сервера (код ' + response.status + '). Попробуйте позже или свяжитесь с нами напрямую.', 'error');
                     }
                     return;
                 }
