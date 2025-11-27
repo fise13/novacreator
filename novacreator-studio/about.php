@@ -131,42 +131,6 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Команда -->
-<section class="py-20">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="text-center mb-16 animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.about.team.title')); ?></h2>
-            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                <?php echo htmlspecialchars(t('pages.about.team.subtitle')); ?>
-            </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div class="text-center animate-on-scroll">
-                <div class="w-32 h-32 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold">
-                    МВ
-                </div>
-                <h3 class="text-2xl font-bold mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.about.team.victor.name')); ?></h3>
-                <p class="text-neon-purple mb-4"><?php echo htmlspecialchars(t('pages.about.team.victor.role')); ?></p>
-                <p class="text-gray-400">
-                    <?php echo htmlspecialchars(t('pages.about.team.victor.description')); ?>
-                </p>
-            </div>
-            
-            <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
-                <div class="w-32 h-32 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold">
-                    АИ
-                </div>
-                <h3 class="text-2xl font-bold mb-2 text-gradient"><?php echo htmlspecialchars(t('pages.about.team.iskander.name')); ?></h3>
-                <p class="text-neon-blue mb-4"><?php echo htmlspecialchars(t('pages.about.team.iskander.role')); ?></p>
-                <p class="text-gray-400">
-                    <?php echo htmlspecialchars(t('pages.about.team.iskander.description')); ?>
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Почему мы -->
 <section class="py-20 bg-dark-surface">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
