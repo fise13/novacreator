@@ -1,7 +1,7 @@
 <?php
 /**
  * Страница портфолио
- * Пока пустая, так как мы только открылись
+ * Подборка кейсов с фокусом на бизнес-результаты
  */
 require_once __DIR__ . '/includes/i18n.php';
 $currentLang = getCurrentLanguage();
@@ -14,15 +14,118 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция -->
-<section class="pt-32 pb-20">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.portfolio.title')); ?></span>
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-400 mb-12">
-                <?php echo htmlspecialchars(t('pages.portfolio.subtitle')); ?>
-            </p>
+<section class="relative overflow-hidden pt-32 pb-20">
+    <!-- Фоновые акценты -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute -top-32 -left-16 w-64 h-64 md:w-96 md:h-96 bg-neon-purple/20 rounded-full blur-3xl md:blur-2xl"></div>
+        <div class="absolute top-1/3 -right-10 w-72 h-72 md:w-[26rem] md:h-[26rem] bg-neon-blue/20 rounded-full blur-3xl md:blur-2xl"></div>
+        <div class="floating-particles" id="portfolioParticles"></div>
+    </div>
+
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div class="animate-on-scroll">
+                <p class="text-xs uppercase tracking-[0.22em] text-gray-500 mb-4">
+                    <?php echo $currentLang === 'en' ? 'Case studies & concepts' : 'Кейсы и концепты'; ?>
+                </p>
+                <h1 class="section-title mb-4">
+                    <?php echo htmlspecialchars(t('pages.portfolio.title')); ?>
+                </h1>
+                <p class="section-subtitle mb-8 md:mb-10 px-0">
+                    <?php echo htmlspecialchars(t('pages.portfolio.subtitle')); ?>
+                </p>
+                <div class="flex flex-wrap items-center gap-4 md:gap-6">
+                    <div class="gradient-border rounded-xl px-4 py-3 md:px-5 md:py-4 bg-dark-surface/80">
+                        <div class="text-sm uppercase tracking-wide text-gray-400 mb-1">
+                            <?php echo $currentLang === 'en' ? 'Experience' : 'Опыт'; ?>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl md:text-4xl font-bold text-gradient">
+                                <span class="counter-number" data-target="10" data-suffix="+">10+</span>
+                            </span>
+                            <span class="text-sm text-gray-400">
+                                <?php echo $currentLang === 'en' ? 'years in digital' : 'лет в диджитал-среде'; ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-dark-border bg-dark-surface/70 px-4 py-3 md:px-5 md:py-4 flex-1 min-w-[220px]">
+                        <div class="text-sm uppercase tracking-wide text-gray-400 mb-1">
+                            <?php echo $currentLang === 'en' ? 'Formats' : 'Форматы'; ?>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-300 leading-relaxed">
+                            <?php if ($currentLang === 'en'): ?>
+                                Landing pages, e‑commerce, booking systems and local businesses — from first wireframe to measurable growth.
+                            <?php else: ?>
+                                Лендинги, интернет‑магазины, сайты бронирования и локальный бизнес — от первого вайрфрейма до измеримого роста.
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Визуальная витрина портфолио -->
+            <div class="animate-on-scroll lg:justify-self-end">
+                <div class="relative w-full max-w-md lg:max-w-lg mx-auto">
+                    <!-- Основной макет -->
+                    <div class="relative rounded-2xl bg-gradient-to-br from-neon-purple/20 via-dark-surface to-neon-blue/20 border border-dark-border/80 shadow-2xl overflow-hidden">
+                        <div class="flex items-center justify-between px-4 py-3 border-b border-dark-border/80 bg-dark-bg/80">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                            </div>
+                            <span class="text-xs text-gray-400 truncate max-w-[140px] md:max-w-[200px]">
+                                <?php echo $currentLang === 'en' ? 'concept-landing.novacreator-studio.com' : 'concept-landing.novacreator-studio.com'; ?>
+                            </span>
+                        </div>
+                        <div class="aspect-[16/10] bg-gradient-to-br from-dark-bg via-[#111827] to-dark-surface relative overflow-hidden">
+                            <div class="absolute inset-0 opacity-80 mix-blend-screen pointer-events-none">
+                                <div class="absolute -left-10 top-8 w-40 h-40 rounded-full bg-neon-purple/40 blur-3xl"></div>
+                                <div class="absolute right-0 bottom-0 w-56 h-56 rounded-full bg-neon-blue/40 blur-3xl"></div>
+                            </div>
+                            <div class="relative h-full w-full flex items-center justify-center">
+                                <div class="text-center px-6">
+                                    <p class="text-[11px] uppercase tracking-[0.25em] text-gray-500 mb-3">
+                                        <?php echo $currentLang === 'en' ? 'Portfolio preview' : 'Превью портфолио'; ?>
+                                    </p>
+                                    <p class="text-2xl md:text-3xl font-semibold text-gradient mb-2">
+                                        <?php echo $currentLang === 'en'
+                                            ? 'Real businesses. Clear “before / after”.'
+                                            : 'Реальный бизнес. Понятное “до / после”.'; ?>
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-300 max-w-sm mx-auto leading-relaxed">
+                                        <?php echo $currentLang === 'en'
+                                            ? 'Scroll down to see how websites change numbers, not just layouts.'
+                                            : 'Листайте ниже, чтобы увидеть, как дизайн меняет цифры, а не только макеты.'; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Маленькие карточки типов проектов -->
+                    <div class="absolute -bottom-6 -left-2 w-36 md:w-40 bg-dark-bg/95 border border-dark-border rounded-xl p-3 shadow-lg backdrop-blur">
+                        <p class="text-[11px] uppercase tracking-wide text-gray-400 mb-1">
+                            <?php echo $currentLang === 'en' ? 'Formats' : 'Форматы'; ?>
+                        </p>
+                        <p class="text-xs text-gray-300">
+                            <?php echo $currentLang === 'en'
+                                ? 'Coffee shops, trainers, developers, hotels, e‑commerce.'
+                                : 'Кофейни, тренеры, застройщики, отели, e‑commerce.'; ?>
+                        </p>
+                    </div>
+                    <div class="absolute -top-6 -right-4 w-32 md:w-40 bg-dark-bg/95 border border-dark-border rounded-xl p-3 shadow-lg backdrop-blur text-right">
+                        <p class="text-[11px] uppercase tracking-wide text-gray-400 mb-1">
+                            <?php echo $currentLang === 'en' ? 'Focus' : 'Фокус'; ?>
+                        </p>
+                        <p class="text-xs text-gray-300">
+                            <?php echo $currentLang === 'en'
+                                ? 'From structure and UX to measurable conversions.'
+                                : 'От структуры и UX до измеримых конверсий.'; ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -250,7 +353,7 @@ if ($currentLang === 'en') {
             <?php foreach ($projects as $project): ?>
                 <button
                     type="button"
-                    class="service-card animate-on-scroll text-left w-full portfolio-card"
+                    class="service-card animate-on-scroll text-left w-full portfolio-card group"
                     data-project-id="<?php echo htmlspecialchars($project['id']); ?>"
                     data-title="<?php echo htmlspecialchars($project['title']); ?>"
                     data-tag="<?php echo htmlspecialchars($project['tag']); ?>"
@@ -260,6 +363,39 @@ if ($currentLang === 'en') {
                     data-result="<?php echo htmlspecialchars($project['result']); ?>"
                     data-meta="<?php echo htmlspecialchars($project['meta']); ?>"
                 >
+                    <!-- Визуальный превью-блок проекта -->
+                    <div class="mb-4 relative overflow-hidden rounded-xl border border-dark-border/80 bg-gradient-to-br from-dark-bg via-[#050816] to-dark-surface">
+                        <div class="aspect-[16/10] relative">
+                            <div class="absolute inset-0 opacity-70 mix-blend-screen pointer-events-none">
+                                <div class="absolute -left-8 top-4 w-32 h-32 rounded-full bg-neon-purple/40 blur-3xl"></div>
+                                <div class="absolute right-0 bottom-0 w-40 h-40 rounded-full bg-neon-blue/40 blur-3xl"></div>
+                            </div>
+                            <div class="relative h-full w-full flex flex-col justify-between p-4">
+                                <div class="flex items-center justify-between text-xs text-gray-400 mb-2">
+                                    <span class="inline-flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-neon-purple animate-pulse"></span>
+                                        <?php echo htmlspecialchars($project['tag']); ?>
+                                    </span>
+                                    <span class="rounded-full border border-dark-border/80 bg-dark-bg/60 px-2 py-0.5 text-[11px] uppercase tracking-wide">
+                                        <?php echo $currentLang === 'en' ? 'Concept' : 'Концепт'; ?>
+                                    </span>
+                                </div>
+                                <div class="mt-auto">
+                                    <p class="text-sm text-gray-300 line-clamp-3">
+                                        <?php echo htmlspecialchars($project['summary']); ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-center justify-center text-center px-4">
+                            <p class="text-xs md:text-sm text-gray-200">
+                                <?php echo $currentLang === 'en'
+                                    ? 'Click to open detailed “before / after” story of this project.'
+                                    : 'Нажмите, чтобы открыть подробную историю “до / после” по этому проекту.'; ?>
+                            </p>
+                        </div>
+                    </div>
+
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-2xl font-semibold text-gradient">
                             <?php echo htmlspecialchars($project['title']); ?>
@@ -293,10 +429,13 @@ if ($currentLang === 'en') {
 
         <!-- Детальный кейс: до / после -->
         <div id="portfolioCaseDetails" class="max-w-5xl mx-auto mt-16 hidden animate-on-scroll">
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 md:p-10">
+            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 md:p-10 gradient-border">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                     <div>
-                        <h3 id="caseTitle" class="text-2xl md:text-3xl font-bold text-gradient mb-2"></h3>
+                        <p class="text-xs uppercase tracking-[0.22em] text-gray-500 mb-2">
+                            <?php echo $currentLang === 'en' ? 'Case study' : 'Кейс'; ?>
+                        </p>
+                        <h3 id="caseTitle" class="text-2xl md:text-3xl font-bold text-gradient mb-1"></h3>
                         <p id="caseTag" class="text-sm text-gray-400"></p>
                     </div>
                     <span id="caseMeta" class="px-3 py-1 text-xs font-medium rounded-full bg-neon-blue/20 border border-neon-blue/30 text-neon-blue whitespace-nowrap">
@@ -347,6 +486,7 @@ if ($currentLang === 'en') {
         const resultEl = document.getElementById('caseResult');
         const metaEl = document.getElementById('caseMeta');
         const closeBtn = document.getElementById('caseCloseBtn');
+        const particlesContainer = document.getElementById('portfolioParticles');
 
         function openCase(card) {
             const title = card.getAttribute('data-title') || '';
@@ -400,6 +540,26 @@ if ($currentLang === 'en') {
             closeBtn.addEventListener('click', function () {
                 details.classList.add('hidden');
             });
+        }
+
+        // Плавающие частицы в hero-блоке портфолио (облегчённая версия)
+        if (particlesContainer) {
+            const isMobile = window.innerWidth < 768;
+            const particleCount = isMobile ? 10 : 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                const sizeClass = Math.random() < 0.5 ? 'particle-small' : 'particle-medium';
+                particle.classList.add(sizeClass);
+
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+
+                particlesContainer.appendChild(particle);
+            }
         }
     });
 </script>
