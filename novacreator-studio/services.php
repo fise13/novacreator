@@ -13,14 +13,25 @@ $pageMetaKeywords = t('seo.pages.services.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция -->
-<section class="pt-32 pb-20">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+<!-- Hero секция - улучшенный дизайн -->
+<section class="relative overflow-hidden pt-32 pb-20">
+    <!-- Фоновые элементы -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute -top-32 -left-16 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 -right-10 w-96 h-96 bg-neon-blue/20 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto text-center animate-on-scroll">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 mb-8">
+                <span class="text-xs uppercase tracking-wider text-gray-300">
+                    <?php echo $currentLang === 'en' ? 'Our Services' : 'Наши услуги'; ?>
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 md:mb-8">
                 <span class="text-gradient"><?php echo htmlspecialchars(t('pages.services.title')); ?></span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-400 mb-12">
+            <p class="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto">
                 <?php echo htmlspecialchars(t('pages.services.subtitle')); ?>
             </p>
         </div>
@@ -28,16 +39,16 @@ include 'includes/header.php';
 </section>
 
 <!-- SEO-оптимизация -->
-<section id="seo" class="py-20">
+<section id="seo" class="py-20 md:py-28 relative">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div class="animate-on-scroll">
-                <div class="w-20 h-20 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center mb-6">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-neon-purple to-neon-blue rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-neon-purple/30">
+                    <svg class="w-12 h-12 md:w-14 md:h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient"><?php echo htmlspecialchars(t('pages.services.seo.title')); ?></h2>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 text-gradient"><?php echo htmlspecialchars(t('pages.services.seo.title')); ?></h2>
                 <p class="text-lg text-gray-400 mb-6 leading-relaxed">
                     <?php echo htmlspecialchars(t('pages.services.seo.description')); ?>
                 </p>
@@ -48,49 +59,63 @@ include 'includes/header.php';
                         </svg>
                         <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.seo.features.technical')); ?></span>
                     </li>
-                    <li class="flex items-start space-x-3">
-                        <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.seo.features.content')); ?></span>
+                    <li class="flex items-start space-x-4">
+                        <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <span class="text-gray-200 text-base md:text-lg"><?php echo htmlspecialchars(t('pages.services.seo.features.content')); ?></span>
                     </li>
-                    <li class="flex items-start space-x-3">
-                        <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.seo.features.links')); ?></span>
+                    <li class="flex items-start space-x-4">
+                        <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <span class="text-gray-200 text-base md:text-lg"><?php echo htmlspecialchars(t('pages.services.seo.features.links')); ?></span>
                     </li>
-                    <li class="flex items-start space-x-3">
-                        <svg class="w-6 h-6 text-neon-purple mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span class="text-gray-300"><?php echo htmlspecialchars(t('pages.services.seo.features.reporting')); ?></span>
+                    <li class="flex items-start space-x-4">
+                        <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <span class="text-gray-200 text-base md:text-lg"><?php echo htmlspecialchars(t('pages.services.seo.features.reporting')); ?></span>
                     </li>
                 </ul>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="btn-neon inline-block">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="btn-neon inline-flex items-center gap-2 group">
                     <?php echo htmlspecialchars(t('pages.services.seo.learnMore')); ?>
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
                 </a>
             </div>
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="bg-dark-surface border border-dark-border rounded-2xl p-8 h-full">
-                    <div class="space-y-6">
-                        <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.seo.stats.traffic')); ?></span>
-                            <span class="text-2xl font-bold text-neon-purple">
-                                <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
-                            </span>
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.seo.stats.positions')); ?></span>
-                            <span class="text-2xl font-bold text-neon-blue">
-                                <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
-                            </span>
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-dark-bg rounded-lg">
-                            <span class="text-gray-400"><?php echo htmlspecialchars(t('pages.services.seo.stats.conversions')); ?></span>
-                            <span class="text-2xl font-bold text-neon-purple">
-                                <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
-                            </span>
+                <div class="bg-gradient-to-br from-dark-surface via-dark-bg to-dark-surface border border-neon-purple/30 rounded-3xl p-8 md:p-10 h-full shadow-xl shadow-neon-purple/10 relative overflow-hidden">
+                    <!-- Декоративные элементы -->
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-neon-purple/10 rounded-full blur-3xl -z-0"></div>
+                    <div class="absolute bottom-0 left-0 w-32 h-32 bg-neon-blue/10 rounded-full blur-3xl -z-0"></div>
+                    <div class="relative z-10">
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between p-5 md:p-6 bg-dark-bg/80 rounded-xl border border-dark-border/50 hover:border-neon-purple/50 transition-colors group">
+                                <span class="text-gray-300 text-base md:text-lg"><?php echo htmlspecialchars(t('pages.services.seo.stats.traffic')); ?></span>
+                                <span class="text-3xl md:text-4xl font-bold text-gradient group-hover:scale-110 transition-transform">
+                                    <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between p-5 md:p-6 bg-dark-bg/80 rounded-xl border border-dark-border/50 hover:border-neon-blue/50 transition-colors group">
+                                <span class="text-gray-300 text-base md:text-lg"><?php echo htmlspecialchars(t('pages.services.seo.stats.positions')); ?></span>
+                                <span class="text-3xl md:text-4xl font-bold text-gradient group-hover:scale-110 transition-transform">
+                                    <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between p-5 md:p-6 bg-dark-bg/80 rounded-xl border border-dark-border/50 hover:border-neon-purple/50 transition-colors group">
+                                <span class="text-gray-300 text-base md:text-lg"><?php echo htmlspecialchars(t('pages.services.seo.stats.conversions')); ?></span>
+                                <span class="text-3xl md:text-4xl font-bold text-gradient group-hover:scale-110 transition-transform">
+                                    <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

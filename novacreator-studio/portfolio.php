@@ -350,10 +350,10 @@ if ($currentLang === 'en') {
         </div>
 
         <div class="grid gap-8 md:gap-10 md:grid-cols-2">
-            <?php foreach ($projects as $project): ?>
+            <?php foreach ($projects as $index => $project): ?>
                 <button
                     type="button"
-                    class="service-card animate-on-scroll text-left w-full portfolio-card group"
+                    class="service-card animate-on-scroll text-left w-full portfolio-card group relative overflow-hidden"
                     data-project-id="<?php echo htmlspecialchars($project['id']); ?>"
                     data-title="<?php echo htmlspecialchars($project['title']); ?>"
                     data-tag="<?php echo htmlspecialchars($project['tag']); ?>"
@@ -362,7 +362,12 @@ if ($currentLang === 'en') {
                     data-after="<?php echo htmlspecialchars(implode('||', $project['after'])); ?>"
                     data-result="<?php echo htmlspecialchars($project['result']); ?>"
                     data-meta="<?php echo htmlspecialchars($project['meta']); ?>"
+                    style="animation-delay: <?php echo $index * 0.1; ?>s;"
                 >
+                    <!-- Декоративный фон -->
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-neon-purple/5 rounded-full blur-3xl -z-0 group-hover:bg-neon-purple/10 transition-colors duration-300"></div>
+                    <div class="absolute bottom-0 left-0 w-32 h-32 bg-neon-blue/5 rounded-full blur-3xl -z-0 group-hover:bg-neon-blue/10 transition-colors duration-300"></div>
+                    <div class="relative z-10">
                     <!-- Визуальный превью-блок проекта -->
                     <div class="mb-4 relative overflow-hidden rounded-xl border border-dark-border/80 bg-gradient-to-br from-dark-bg via-[#050816] to-dark-surface">
                         <div class="aspect-[16/10] relative">
@@ -396,78 +401,118 @@ if ($currentLang === 'en') {
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-2xl font-semibold text-gradient">
-                            <?php echo htmlspecialchars($project['title']); ?>
-                        </h3>
-                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-neon-purple/10 border border-neon-purple/50 text-neon-purple">
-                            <?php echo htmlspecialchars($project['tagBadge']); ?>
-                        </span>
-                    </div>
-                    <p class="text-gray-300 mb-4">
-                        <?php echo htmlspecialchars($project['summary']); ?>
-                    </p>
-                    <div class="flex flex-wrap items-center justify-between gap-3 text-sm">
-                        <span class="text-gray-400 truncate">
-                            <?php echo htmlspecialchars($project['result']); ?>
-                        </span>
-                        <span class="text-neon-blue text-xs uppercase tracking-wide">
-                            <?php echo htmlspecialchars($project['meta']); ?>
-                        </span>
-                    </div>
-                    <div class="mt-4 text-sm text-neon-blue flex items-center gap-2">
-                        <span>
-                            <?php echo $currentLang === 'en' ? 'View before / after' : 'Посмотреть “до / после”'; ?>
-                        </span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
+                        <div class="flex items-start justify-between mb-5">
+                            <h3 class="text-2xl md:text-3xl font-bold text-gradient group-hover:scale-105 transition-transform duration-300 flex-1 pr-4">
+                                <?php echo htmlspecialchars($project['title']); ?>
+                            </h3>
+                            <span class="px-3 py-1.5 text-xs font-semibold rounded-full bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 border border-neon-purple/40 text-neon-purple whitespace-nowrap flex-shrink-0 group-hover:border-neon-purple/60 transition-colors">
+                                <?php echo htmlspecialchars($project['tagBadge']); ?>
+                            </span>
+                        </div>
+                        <p class="text-gray-300 mb-6 leading-relaxed text-base md:text-lg">
+                            <?php echo htmlspecialchars($project['summary']); ?>
+                        </p>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-neon-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <p class="text-sm md:text-base text-gray-300 leading-relaxed">
+                                    <?php echo htmlspecialchars($project['result']); ?>
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <?php
+                                $metaItems = explode(' · ', $project['meta']);
+                                foreach ($metaItems as $item):
+                                ?>
+                                    <span class="px-3 py-1 text-xs font-medium rounded-lg bg-dark-bg/80 border border-dark-border/50 text-gray-400">
+                                        <?php echo htmlspecialchars(trim($item)); ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-dark-border/50">
+                            <span class="text-sm md:text-base text-neon-purple font-semibold group-hover:text-neon-blue transition-colors">
+                                <?php echo $currentLang === 'en' ? 'View case study' : 'Открыть кейс'; ?>
+                            </span>
+                            <svg class="w-5 h-5 text-neon-purple group-hover:text-neon-blue group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </div>
                     </div>
                 </button>
             <?php endforeach; ?>
         </div>
 
         <!-- Детальный кейс: до / после -->
-        <div id="portfolioCaseDetails" class="max-w-5xl mx-auto mt-16 hidden animate-on-scroll">
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 md:p-10 gradient-border">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.22em] text-gray-500 mb-2">
-                            <?php echo $currentLang === 'en' ? 'Case study' : 'Кейс'; ?>
-                        </p>
-                        <h3 id="caseTitle" class="text-2xl md:text-3xl font-bold text-gradient mb-1"></h3>
-                        <p id="caseTag" class="text-sm text-gray-400"></p>
+        <div id="portfolioCaseDetails" class="max-w-6xl mx-auto mt-16 hidden animate-on-scroll">
+            <div class="bg-gradient-to-br from-dark-surface via-dark-bg to-dark-surface border border-neon-purple/30 rounded-3xl p-8 md:p-12 shadow-2xl shadow-neon-purple/10 relative overflow-hidden">
+                <!-- Декоративные элементы -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-neon-purple/10 rounded-full blur-3xl -z-0"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-neon-blue/10 rounded-full blur-3xl -z-0"></div>
+                <div class="relative z-10">
+                    <div class="mb-8">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 mb-6">
+                            <span class="text-xs uppercase tracking-wider text-gray-300">
+                                <?php echo $currentLang === 'en' ? 'Case Study' : 'Кейс'; ?>
+                            </span>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                            <div>
+                                <h3 id="caseTitle" class="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-3"></h3>
+                                <p id="caseTag" class="text-base md:text-lg text-gray-400"></p>
+                            </div>
+                            <span id="caseMeta" class="px-4 py-2 text-sm font-semibold rounded-full bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 border border-neon-blue/40 text-neon-blue whitespace-nowrap">
+                            </span>
+                        </div>
+                        <p id="caseSummary" class="text-gray-200 text-lg md:text-xl leading-relaxed mb-8"></p>
                     </div>
-                    <span id="caseMeta" class="px-3 py-1 text-xs font-medium rounded-full bg-neon-blue/20 border border-neon-blue/30 text-neon-blue whitespace-nowrap">
-                    </span>
-                </div>
 
-                <p id="caseSummary" class="text-gray-300 mb-6"></p>
-
-                <div class="grid gap-6 md:grid-cols-2 mb-6 text-sm text-gray-200">
-                    <div>
-                        <h4 class="text-base md:text-lg font-semibold mb-3">
-                            <?php echo $currentLang === 'en' ? 'Before:' : 'До:'; ?>
-                        </h4>
-                        <ul id="caseBefore" class="space-y-2 list-disc list-inside text-gray-300"></ul>
+                    <div class="grid gap-8 md:grid-cols-2 mb-8">
+                        <div class="bg-dark-bg/60 rounded-2xl p-6 md:p-8 border border-dark-border/50">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 border border-red-500/30 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-xl md:text-2xl font-bold text-gradient">
+                                    <?php echo $currentLang === 'en' ? 'Before:' : 'До:'; ?>
+                                </h4>
+                            </div>
+                            <ul id="caseBefore" class="space-y-4 text-gray-300"></ul>
+                        </div>
+                        <div class="bg-dark-bg/60 rounded-2xl p-6 md:p-8 border border-dark-border/50">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/30 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-xl md:text-2xl font-bold text-gradient">
+                                    <?php echo $currentLang === 'en' ? 'After:' : 'После:'; ?>
+                                </h4>
+                            </div>
+                            <ul id="caseAfter" class="space-y-4 text-gray-300"></ul>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="text-base md:text-lg font-semibold mb-3">
-                            <?php echo $currentLang === 'en' ? 'After:' : 'После:'; ?>
-                        </h4>
-                        <ul id="caseAfter" class="space-y-2 list-disc list-inside text-gray-300"></ul>
-                    </div>
-                </div>
 
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <p id="caseResult" class="text-sm md:text-base text-gray-300"></p>
-                    <button
-                        type="button"
-                        id="caseCloseBtn"
-                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border border-dark-border text-gray-300 hover:bg-dark-bg/60 transition-colors"
-                    >
-                        <?php echo $currentLang === 'en' ? 'Hide case' : 'Скрыть кейс'; ?>
-                    </button>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-6 border-t border-dark-border/50">
+                        <div class="flex-1">
+                            <p id="caseResult" class="text-base md:text-lg text-gray-200 font-medium leading-relaxed"></p>
+                        </div>
+                        <button
+                            type="button"
+                            id="caseCloseBtn"
+                            class="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl border-2 border-dark-border text-gray-300 hover:bg-dark-bg/80 hover:border-neon-purple/50 transition-all duration-300 group"
+                        >
+                            <?php echo $currentLang === 'en' ? 'Close case' : 'Закрыть кейс'; ?>
+                            <svg class="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -475,6 +520,28 @@ if ($currentLang === 'en') {
 </section>
 
 <script>
+    // Анимация появления элементов при скролле
+    document.addEventListener('DOMContentLoaded', function() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    });
+    
+    // Логика портфолио
     document.addEventListener('DOMContentLoaded', function () {
         const cards = document.querySelectorAll('.portfolio-card');
         const details = document.getElementById('portfolioCaseDetails');
@@ -510,7 +577,8 @@ if ($currentLang === 'en') {
                 const trimmed = item.trim();
                 if (!trimmed) return;
                 const li = document.createElement('li');
-                li.textContent = trimmed;
+                li.className = 'flex items-start gap-3';
+                li.innerHTML = '<svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span class="flex-1">' + trimmed + '</span>';
                 beforeEl.appendChild(li);
             });
 
@@ -518,7 +586,8 @@ if ($currentLang === 'en') {
                 const trimmed = item.trim();
                 if (!trimmed) return;
                 const li = document.createElement('li');
-                li.textContent = trimmed;
+                li.className = 'flex items-start gap-3';
+                li.innerHTML = '<svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="flex-1">' + trimmed + '</span>';
                 afterEl.appendChild(li);
             });
 
@@ -564,18 +633,33 @@ if ($currentLang === 'en') {
     });
 </script>
 
-<!-- CTA секция -->
-<section class="py-32 bg-gradient-to-r from-neon-purple/20 to-neon-blue/20">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
-        <div class="max-w-3xl mx-auto animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+<!-- CTA секция - улучшенный дизайн -->
+<section class="py-20 md:py-28 lg:py-32 relative overflow-hidden">
+    <!-- Фоновые градиенты -->
+    <div class="absolute inset-0 bg-gradient-to-br from-neon-purple/30 via-neon-purple/20 to-neon-blue/30"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(139,92,246,0.3),transparent_50%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(6,182,212,0.3),transparent_50%)]"></div>
+    
+    <!-- Декоративные элементы -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-neon-blue/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-10">
+        <div class="max-w-4xl mx-auto animate-on-scroll">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
+                <span class="text-xs uppercase tracking-wider text-gray-200">
+                    <?php echo $currentLang === 'en' ? 'Ready to Start Your Project?' : 'Готовы начать проект?'; ?>
+                </span>
+            </div>
+            <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 text-white">
                 <?php echo htmlspecialchars(t('pages.portfolio.cta.title')); ?>
             </h2>
-            <p class="text-xl text-gray-300 mb-12">
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-10 md:mb-12 leading-relaxed">
                 <?php echo htmlspecialchars(t('pages.portfolio.cta.subtitle')); ?>
             </p>
-            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
-                <?php echo htmlspecialchars(t('pages.portfolio.cta.button')); ?>
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block min-h-[56px] px-8 md:px-10 text-lg md:text-xl shadow-2xl shadow-neon-purple/50 group relative overflow-hidden">
+                <span class="relative z-10"><?php echo htmlspecialchars(t('pages.portfolio.cta.button')); ?></span>
+                <span class="absolute inset-0 bg-gradient-to-r from-neon-blue to-neon-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </a>
         </div>
     </div>
