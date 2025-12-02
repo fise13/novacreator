@@ -36,17 +36,17 @@ include 'includes/header.php';
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <!-- Левая колонка - текст -->
                 <div class="text-center lg:text-left animate-on-scroll">
-                    <?php
-                    // Загружаем варианты заголовков из переводов
-                    $headlinesData = json_decode(file_get_contents(__DIR__ . '/lang/' . $currentLang . '.json'), true);
-                    $headlines = $headlinesData['home']['hero']['headlines'] ?? [];
-                    $descriptions = $headlinesData['home']['hero']['descriptions'] ?? [];
-                    
-                    // Выбираем случайный вариант
-                    $randomHeadline = !empty($headlines) ? $headlines[array_rand($headlines)] : ['title' => '', 'subtitle' => ''];
-                    $randomDescription = !empty($descriptions) ? $descriptions[array_rand($descriptions)] : '';
-                    ?>
-                    
+            <?php
+            // Загружаем варианты заголовков из переводов
+            $headlinesData = json_decode(file_get_contents(__DIR__ . '/lang/' . $currentLang . '.json'), true);
+            $headlines = $headlinesData['home']['hero']['headlines'] ?? [];
+            $descriptions = $headlinesData['home']['hero']['descriptions'] ?? [];
+            
+            // Выбираем случайный вариант
+            $randomHeadline = !empty($headlines) ? $headlines[array_rand($headlines)] : ['title' => '', 'subtitle' => ''];
+            $randomDescription = !empty($descriptions) ? $descriptions[array_rand($descriptions)] : '';
+            ?>
+            
                     <!-- Бейдж -->
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 mb-6 animate-on-scroll" style="animation-delay: 0.1s;">
                         <span class="w-2 h-2 rounded-full bg-neon-purple animate-pulse"></span>
@@ -59,13 +59,13 @@ include 'includes/header.php';
                     <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 md:mb-8 leading-tight animate-on-scroll" style="animation-delay: 0.2s;">
                         <span class="text-gradient block mb-2"><?php echo htmlspecialchars($randomHeadline['title']); ?></span>
                         <span class="text-white block"><?php echo htmlspecialchars($randomHeadline['subtitle']); ?></span>
-                    </h1>
-                    
-                    <!-- Подзаголовок -->
+            </h1>
+            
+            <!-- Подзаголовок -->
                     <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-on-scroll" style="animation-delay: 0.3s;">
-                        <?php echo htmlspecialchars($randomDescription); ?>
-                    </p>
-                    
+                <?php echo htmlspecialchars($randomDescription); ?>
+            </p>
+            
                     <!-- CTA кнопки -->
                     <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 md:gap-6 animate-on-scroll" style="animation-delay: 0.4s;">
                         <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon text-center w-full sm:w-auto min-h-[52px] flex items-center justify-center group relative overflow-hidden">
@@ -169,8 +169,8 @@ include 'includes/header.php';
     <div class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
         <div class="w-10 h-10 rounded-full bg-dark-surface/80 border border-neon-purple/30 flex items-center justify-center backdrop-blur-sm hover:border-neon-purple/60 transition-colors">
             <svg class="w-5 h-5 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
         </div>
     </div>
 </section>
@@ -199,13 +199,13 @@ include 'includes/header.php';
                 <div class="relative z-10">
                     <div class="icon-wrapper w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-neon-purple to-neon-blue rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-neon-purple/30 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-9 h-9 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
                     <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gradient group-hover:scale-105 transition-transform duration-300"><?php echo htmlspecialchars(t('home.services.seo.title')); ?></h3>
                     <p class="text-gray-300 mb-6 leading-relaxed text-base md:text-lg">
-                        <?php echo htmlspecialchars(t('home.services.seo.description')); ?>
-                    </p>
+                    <?php echo htmlspecialchars(t('home.services.seo.description')); ?>
+                </p>
                     <div class="flex flex-wrap items-center gap-3">
                         <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="inline-flex items-center gap-2 text-neon-purple hover:text-neon-blue transition-colors font-semibold group/link">
                             <?php echo htmlspecialchars(t('common.readMore')); ?>
@@ -227,13 +227,13 @@ include 'includes/header.php';
                 <div class="relative z-10">
                     <div class="icon-wrapper w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-neon-blue/30 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-9 h-9 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
-                    </div>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                </div>
                     <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gradient group-hover:scale-105 transition-transform duration-300"><?php echo htmlspecialchars(t('home.services.development.title')); ?></h3>
                     <p class="text-gray-300 mb-6 leading-relaxed text-base md:text-lg">
-                        <?php echo htmlspecialchars(t('home.services.development.description')); ?>
-                    </p>
+                    <?php echo htmlspecialchars(t('home.services.development.description')); ?>
+                </p>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="inline-flex items-center gap-2 text-neon-purple hover:text-neon-blue transition-colors font-semibold group/link">
                         <?php echo htmlspecialchars(t('common.readMore')); ?>
                         <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -249,14 +249,14 @@ include 'includes/header.php';
                 <div class="relative z-10">
                     <div class="icon-wrapper w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-neon-purple to-neon-blue rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-neon-purple/30 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-9 h-9 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                        </svg>
-                    </div>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                    </svg>
+                </div>
                     <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gradient group-hover:scale-105 transition-transform duration-300"><?php echo htmlspecialchars(t('home.services.ads.title')); ?></h3>
                     <p class="text-gray-300 mb-6 leading-relaxed text-base md:text-lg">
-                        <?php echo htmlspecialchars(t('home.services.ads.description')); ?>
-                    </p>
+                    <?php echo htmlspecialchars(t('home.services.ads.description')); ?>
+                </p>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="inline-flex items-center gap-2 text-neon-purple hover:text-neon-blue transition-colors font-semibold group/link">
                         <?php echo htmlspecialchars(t('common.readMore')); ?>
                         <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -272,13 +272,13 @@ include 'includes/header.php';
                 <div class="relative z-10">
                     <div class="icon-wrapper w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-neon-blue/30 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-9 h-9 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
-                        </svg>
-                    </div>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                    </svg>
+                </div>
                     <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gradient group-hover:scale-105 transition-transform duration-300"><?php echo htmlspecialchars(t('home.services.marketing.title')); ?></h3>
                     <p class="text-gray-300 mb-6 leading-relaxed text-base md:text-lg">
-                        <?php echo htmlspecialchars(t('home.services.marketing.description')); ?>
-                    </p>
+                    <?php echo htmlspecialchars(t('home.services.marketing.description')); ?>
+                </p>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/services#marketing'); ?>" class="inline-flex items-center gap-2 text-neon-purple hover:text-neon-blue transition-colors font-semibold group/link">
                         <?php echo htmlspecialchars(t('common.readMore')); ?>
                         <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -294,13 +294,13 @@ include 'includes/header.php';
                 <div class="relative z-10">
                     <div class="icon-wrapper w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-neon-purple to-neon-blue rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-neon-purple/30 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-9 h-9 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                </div>
                     <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gradient group-hover:scale-105 transition-transform duration-300"><?php echo htmlspecialchars(t('home.services.analytics.title')); ?></h3>
                     <p class="text-gray-300 mb-6 leading-relaxed text-base md:text-lg">
-                        <?php echo htmlspecialchars(t('home.services.analytics.description')); ?>
-                    </p>
+                    <?php echo htmlspecialchars(t('home.services.analytics.description')); ?>
+                </p>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="inline-flex items-center gap-2 text-neon-purple hover:text-neon-blue transition-colors font-semibold group/link">
                         <?php echo htmlspecialchars(t('common.readMore')); ?>
                         <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -316,13 +316,13 @@ include 'includes/header.php';
                 <div class="relative z-10">
                     <div class="icon-wrapper w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-neon-blue/30 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-9 h-9 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                        </svg>
-                    </div>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
                     <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gradient group-hover:scale-105 transition-transform duration-300"><?php echo htmlspecialchars(t('home.services.conversion.title')); ?></h3>
                     <p class="text-gray-300 mb-6 leading-relaxed text-base md:text-lg">
-                        <?php echo htmlspecialchars(t('home.services.conversion.description')); ?>
-                    </p>
+                    <?php echo htmlspecialchars(t('home.services.conversion.description')); ?>
+                </p>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/services#conversion'); ?>" class="inline-flex items-center gap-2 text-neon-purple hover:text-neon-blue transition-colors font-semibold group/link">
                         <?php echo htmlspecialchars(t('common.readMore')); ?>
                         <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -344,16 +344,8 @@ include 'includes/header.php';
     </div>
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 max-w-4xl mx-auto">
             <div class="text-center animate-on-scroll">
-                <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-2">
-                    <?php echo htmlspecialchars(t('home.stats.newCompany')); ?>
-                </div>
-                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium">
-                    <?php echo htmlspecialchars(t('home.stats.company')); ?>
-                </p>
-            </div>
-            <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
                 <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-2">
                     <span class="counter-number" data-target="10" data-suffix="+">0</span>
                 </div>
@@ -361,15 +353,7 @@ include 'includes/header.php';
                     <?php echo htmlspecialchars(t('home.stats.yearsExperience')); ?>
                 </p>
             </div>
-            <div class="text-center animate-on-scroll" style="animation-delay: 0.2s;">
-                <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-2">
-                    <span class="counter-number" data-target="2">0</span>
-                </div>
-                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium">
-                    <?php echo htmlspecialchars(t('home.stats.professionals')); ?>
-                </p>
-            </div>
-            <div class="text-center animate-on-scroll" style="animation-delay: 0.3s;">
+            <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
                 <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-2">
                     <span class="counter-number" data-target="100" data-suffix="%">0</span>
                 </div>
@@ -414,7 +398,7 @@ include 'includes/header.php';
             <div class="text-center animate-on-scroll group" style="animation-delay: 0.1s;">
                 <div class="relative mb-6">
                     <div class="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mx-auto text-4xl md:text-5xl font-bold shadow-lg shadow-neon-blue/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                        2
+                    2
                     </div>
                     <div class="hidden lg:block absolute top-1/2 left-full w-full h-0.5 bg-gradient-to-r from-neon-blue/50 to-transparent -z-10"></div>
                 </div>
@@ -427,7 +411,7 @@ include 'includes/header.php';
             <div class="text-center animate-on-scroll group" style="animation-delay: 0.2s;">
                 <div class="relative mb-6">
                     <div class="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-neon-purple to-neon-blue rounded-2xl flex items-center justify-center mx-auto text-4xl md:text-5xl font-bold shadow-lg shadow-neon-purple/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                        3
+                    3
                     </div>
                     <div class="hidden lg:block absolute top-1/2 left-full w-full h-0.5 bg-gradient-to-r from-neon-purple/50 to-transparent -z-10"></div>
                 </div>
@@ -440,7 +424,7 @@ include 'includes/header.php';
             <div class="text-center animate-on-scroll group" style="animation-delay: 0.3s;">
                 <div class="relative mb-6">
                     <div class="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mx-auto text-4xl md:text-5xl font-bold shadow-lg shadow-neon-blue/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                        4
+                    4
                     </div>
                 </div>
                 <h3 class="text-xl md:text-2xl font-bold mb-4 text-gradient group-hover:scale-105 transition-transform duration-300"><?php echo htmlspecialchars(t('home.process.step4.title')); ?></h3>

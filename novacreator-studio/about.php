@@ -45,18 +45,10 @@ include 'includes/header.php';
             </div>
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-8">
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="text-center">
-                            <div class="text-4xl font-bold text-gradient mb-2"><?php echo htmlspecialchars(t('pages.about.stats.new')); ?></div>
-                            <p class="text-gray-400 text-sm"><?php echo htmlspecialchars(t('pages.about.stats.company')); ?></p>
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="text-center">
                             <div class="text-4xl font-bold text-gradient mb-2">10+</div>
                             <p class="text-gray-400 text-sm"><?php echo htmlspecialchars(t('pages.about.stats.experience')); ?></p>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-4xl font-bold text-gradient mb-2">2</div>
-                            <p class="text-gray-400 text-sm"><?php echo htmlspecialchars(t('pages.about.stats.professionals')); ?></p>
                         </div>
                         <div class="text-center">
                             <div class="text-4xl font-bold text-gradient mb-2">100%</div>
