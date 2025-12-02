@@ -444,168 +444,219 @@
     left: 100%;
   }
   
-  /* Sticky навигация с тенью при скролле */
+  /* Sticky навигация с тенью при скролле (десктоп по умолчанию) */
   .navbar.scrolled {
     @apply bg-dark-bg/95 shadow-lg;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
-  
+
+  /* Полностью переработанные стили шапки для мобильных */
+  /* Базовый вид навигации на смартфонах */
   @media (max-width: 768px) {
-    .navbar.scrolled {
-      @apply h-14;
-    }
-  }
-  
-  /* Анимация иконки гамбургера */
-  #mobileMenuBtn svg {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
-  }
-  
-  #mobileMenuBtn svg.rotate-90 {
-    transform: rotate(90deg);
-  }
-  
-  /* Улучшенная анимация для мобильного меню */
-  @media (max-width: 768px) {
-    #mobileMenu {
-      transition: opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    #mobileMenuOverlay {
-      transition: opacity 0.3s ease-out;
-    }
-  }
-  
-  /* Плавная анимация мобильного меню */
-  #mobileMenu {
-    will-change: transform;
-  }
-  
-  #mobileMenuOverlay {
-    will-change: opacity;
-  }
-  
-  /* Safe area для мобильного меню */
-  .pb-safe {
-    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
-  }
-  
-  /* Blur эффект для overlay мобильного меню */
-  #mobileMenuOverlay {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    will-change: backdrop-filter;
-    /* Для мобильных устройств */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-  }
-  
-  /* Улучшенный blur для самого меню */
-  #mobileMenu {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    /* Для мобильных устройств */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-  }
-  
-  /* Специальные стили для мобильных устройств */
-  @media (max-width: 768px) {
-    /* Улучшенная навигация на мобильных */
     .navbar {
-      @apply shadow-lg;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(139, 92, 246, 0.1);
+      @apply border-b border-dark-border/80;
+      background: rgba(10, 10, 15, 0.96);
+      box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(139, 92, 246, 0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
-    
+
     .navbar.scrolled {
-      background-color: rgba(10, 10, 15, 0.98);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+      background: rgba(5, 5, 10, 0.98);
+      box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(139, 92, 246, 0.18);
     }
-    
+
+    /* Компактная, но удобная зона для логотипа и бургер-кнопки */
+    .navbar .container {
+      @apply px-4;
+    }
+
+    .navbar .flex.items-center.justify-between {
+      min-height: 3.25rem;
+    }
+
+    .navbar a[aria-label*="home"] {
+      @apply gap-2;
+    }
+
+    .navbar a[aria-label*="home"] img {
+      box-shadow: 0 0 14px rgba(139, 92, 246, 0.45);
+    }
+
+    .navbar .text-gradient {
+      font-size: 0.95rem;
+      text-shadow:
+        0 0 14px rgba(139, 92, 246, 0.4),
+        0 0 22px rgba(6, 182, 212, 0.28);
+    }
+
+    /* Кнопка мобильного меню */
+    #mobileMenuBtn {
+      @apply rounded-xl;
+      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.25);
+      background: radial-gradient(circle at 30% 0, rgba(139, 92, 246, 0.24), transparent);
+      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35),
+                  0 6px 16px rgba(0, 0, 0, 0.65);
+    }
+
+    #mobileMenuBtn:active {
+      transform: scale(0.95);
+    }
+
+    /* Анимация иконки гамбургера / крестика */
+    #mobileMenuBtn svg {
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    #mobileMenuBtn svg.rotate-90 {
+      transform: rotate(90deg);
+    }
+
+    /* Переключатель языков рядом с меню в десктопе и в мобильном меню */
+    [role="group"][aria-label*="language"] {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Overlay затемнения под выдвижным меню */
     #mobileMenuOverlay {
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      /* Усиленный blur для мобильных */
-      background-color: rgba(0, 0, 0, 0.7);
+      will-change: opacity;
+      transition: opacity 0.25s ease-out;
+      backdrop-filter: blur(22px) saturate(175%);
+      -webkit-backdrop-filter: blur(22px) saturate(175%);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(0, 0, 0, 0.88));
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
-    
+
+    /* Выдвижное мобильное меню */
     #mobileMenu {
-      backdrop-filter: blur(32px) saturate(180%);
-      -webkit-backdrop-filter: blur(32px) saturate(180%);
-      /* Более сильный blur для мобильных */
-      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(139, 92, 246, 0.1);
+      will-change: transform, opacity;
+      transition:
+        opacity 0.24s ease-out,
+        transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(26px) saturate(180%);
+      -webkit-backdrop-filter: blur(26px) saturate(180%);
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 15, 0.98),
+        rgba(5, 5, 12, 0.98)
+      );
+      box-shadow:
+        0 -10px 28px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(139, 92, 246, 0.16);
     }
-    
-    /* Улучшенные стили для элементов мобильного меню */
+
+    /* Элементы меню: крупные, удобные для нажатия, с четкой иерархией */
     .mobile-menu-item {
       will-change: transform, opacity;
-      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);
+      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.18);
+      border-radius: 0.9rem;
+      border: 1px solid rgba(31, 31, 46, 0.9);
+      background: radial-gradient(
+        circle at top left,
+        rgba(15, 23, 42, 0.75),
+        rgba(10, 10, 15, 0.95)
+      );
+      box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
     }
-    
-    /* Улучшенные стили для переключателя языков в header */
-    [role="group"][aria-label*="language"] {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    .mobile-menu-item:hover {
+      background: radial-gradient(
+        circle at top left,
+        rgba(15, 23, 42, 0.9),
+        rgba(10, 10, 15, 0.98)
+      );
+      border-color: rgba(139, 92, 246, 0.6);
     }
-    
-    /* Улучшенные стили для кнопки меню */
-    #mobileMenuBtn {
-      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);
+
+    .mobile-menu-item[aria-current="page"],
+    .mobile-menu-item.text-neon-purple {
+      border-color: rgba(139, 92, 246, 0.9);
+      box-shadow:
+        0 12px 28px rgba(139, 92, 246, 0.38),
+        0 0 0 1px rgba(6, 182, 212, 0.35);
+      background: linear-gradient(
+        135deg,
+        rgba(139, 92, 246, 0.24),
+        rgba(6, 182, 212, 0.18),
+        rgba(10, 10, 15, 0.98)
+      );
     }
-    
-    /* Улучшенные стили для логотипа */
-    .navbar a[aria-label*="home"] img {
-      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+
+    .mobile-menu-item span {
+      font-size: 0.98rem;
     }
-    
-    /* Улучшенная читаемость текста в навигации */
-    .navbar .text-gradient {
-      text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+
+    /* Основная CTA-кнопка в меню (контакты) */
+    #mobileMenu a[href*="/contact"] {
+      border-width: 0;
+      border-radius: 1rem;
+      background-image: linear-gradient(90deg, #8B5CF6, #06B6D4);
+      box-shadow:
+        0 14px 32px rgba(139, 92, 246, 0.5),
+        0 0 32px rgba(6, 182, 212, 0.35);
+    }
+
+    #mobileMenu a[href*="/contact"]:active {
+      transform: scale(0.97);
+    }
+
+    /* Низ меню с language-switcher: прилипаем к нижней безопасной зоне */
+    .pb-safe {
+      padding-bottom: max(1.6rem, env(safe-area-inset-bottom));
     }
   }
-  
-  /* Оптимизация для очень маленьких экранов */
+
+  /* Оптимизация для очень маленьких экранов до 374px */
   @media (max-width: 374px) {
-    .navbar {
-      @apply h-12;
-    }
-    
     .navbar .container {
       @apply px-3;
     }
-    
+
+    .navbar .flex.items-center.justify-between {
+      min-height: 3rem;
+    }
+
     #mobileMenu {
       top: calc(3rem + env(safe-area-inset-top, 0));
       max-height: calc(100vh - 3rem - env(safe-area-inset-top, 0));
     }
-    
+
     .mobile-menu-item {
-      @apply py-3 px-3 text-sm min-h-[48px];
+      @apply py-3 px-3 text-sm;
+      min-height: 48px;
     }
   }
-  
-  /* Оптимизация для средних мобильных экранов */
+
+  /* Оптимизация для средних мобильных экранов 375–640px */
   @media (min-width: 375px) and (max-width: 640px) {
-    .navbar {
-      @apply h-14;
+    .navbar .flex.items-center.justify-between {
+      min-height: 3.5rem;
     }
-    
+
     #mobileMenu {
       top: calc(3.5rem + env(safe-area-inset-top, 0));
       max-height: calc(100vh - 3.5rem - env(safe-area-inset-top, 0));
     }
   }
-  
-  /* Для iOS Safari */
+
+  /* Для iOS Safari: аккуратные blur‑эффекты */
   @supports (-webkit-touch-callout: none) {
     #mobileMenuOverlay {
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(185%);
+      backdrop-filter: blur(22px) saturate(185%);
     }
-    
+
     #mobileMenu {
-      -webkit-backdrop-filter: blur(30px) saturate(180%);
-      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(185%);
+      backdrop-filter: blur(28px) saturate(185%);
     }
   }
   
