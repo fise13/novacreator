@@ -747,13 +747,7 @@
     "portfolio": {
       "title": "Portfolio",
       "breadcrumb": "Portfolio",
-      "subtitle": "We just opened, but our team has extensive experience. The portfolio will be updated as we work with new clients.",
-      "comingSoon": {
-        "title": "Portfolio Coming Soon",
-        "description1": "We are a young company, but our team has extensive experience in digital marketing. Each of us has years of experience working on various successful projects.",
-        "description2": "The portfolio will be updated as we work with new clients. Become our first client and get 6 months of free support!",
-        "button": "Become First Client"
-      },
+      "subtitle": "A selection of real projects from different niches: from coffee shops and fitness to online stores and hotel booking. Clients care less about brand size and more about clean execution, clear structure and a visible “before / after” result.",
       "cta": {
         "title": "Ready to start working?",
         "subtitle": "Contact us and let's discuss your project",
