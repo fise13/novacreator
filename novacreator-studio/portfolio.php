@@ -338,13 +338,20 @@ if ($currentLang === 'en') {
             <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gradient">
                 <?php echo $currentLang === 'en' ? 'Our recent projects' : 'Наши реализованные проекты'; ?>
             </h2>
-            <p class="text-lg md:text-xl text-gray-400 leading-relaxed">
+            <p class="text-lg md:text-xl text-gray-400 leading-relaxed mb-3">
                 <?php if ($currentLang === 'en'): ?>
                     Clients don’t care whether a brand is world‑famous — they care about how clearly the website explains
                     the offer and what changes “before / after” it brings to their business.
                 <?php else: ?>
                     Клиентам важнее не громкое имя, а то, насколько аккуратно сайт объясняет оффер и какие изменения
                     “до / после” он приносит в бизнес.
+                <?php endif; ?>
+            </p>
+            <p class="text-sm md:text-base text-gray-500">
+                <?php if ($currentLang === 'en'): ?>
+                    All projects on this page are demonstration concepts created to showcase our approach to structure, UX and design. They are not based on real client data.
+                <?php else: ?>
+                    Все проекты на этой странице — демонстрационные концепты, созданные, чтобы показать наш подход к структуре, UX и дизайну. Они не основаны на данных реальных клиентов.
                 <?php endif; ?>
             </p>
         </div>
@@ -368,36 +375,155 @@ if ($currentLang === 'en') {
                     <div class="absolute top-0 right-0 w-40 h-40 bg-neon-purple/5 rounded-full blur-3xl -z-0 group-hover:bg-neon-purple/10 transition-colors duration-300"></div>
                     <div class="absolute bottom-0 left-0 w-32 h-32 bg-neon-blue/5 rounded-full blur-3xl -z-0 group-hover:bg-neon-blue/10 transition-colors duration-300"></div>
                     <div class="relative z-10">
-                    <!-- Визуальный превью-блок проекта -->
+                    <!-- Визуальный превью-блок проекта: разные макеты сайта для каждого кейса -->
                     <div class="mb-4 relative overflow-hidden rounded-xl border border-dark-border/80 bg-gradient-to-br from-dark-bg via-[#050816] to-dark-surface">
-                        <div class="aspect-[16/10] relative">
-                            <div class="absolute inset-0 opacity-70 mix-blend-screen pointer-events-none">
-                                <div class="absolute -left-8 top-4 w-32 h-32 rounded-full bg-neon-purple/40 blur-3xl"></div>
-                                <div class="absolute right-0 bottom-0 w-40 h-40 rounded-full bg-neon-blue/40 blur-3xl"></div>
+                        <div class="aspect-[16/10] relative p-3 md:p-4">
+                            <div class="flex items-center justify-between text-[10px] md:text-xs text-gray-400 mb-2">
+                                <span class="inline-flex items-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-neon-purple animate-pulse"></span>
+                                    <?php echo htmlspecialchars($project['tag']); ?>
+                                </span>
+                                <span class="rounded-full border border-dark-border/80 bg-dark-bg/60 px-2 py-0.5 uppercase tracking-wide">
+                                    <?php echo $currentLang === 'en' ? 'Demo layout' : 'Демо‑макет'; ?>
+                                </span>
                             </div>
-                            <div class="relative h-full w-full flex flex-col justify-between p-4">
-                                <div class="flex items-center justify-between text-xs text-gray-400 mb-2">
-                                    <span class="inline-flex items-center gap-1">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-neon-purple animate-pulse"></span>
-                                        <?php echo htmlspecialchars($project['tag']); ?>
-                                    </span>
-                                    <span class="rounded-full border border-dark-border/80 bg-dark-bg/60 px-2 py-0.5 text-[11px] uppercase tracking-wide">
-                                        <?php echo $currentLang === 'en' ? 'Concept' : 'Концепт'; ?>
-                                    </span>
+
+                            <?php if ($project['id'] === 'northern-beans'): ?>
+                                <!-- Макет одностраничного сайта кофейни -->
+                                <div class="h-full w-full rounded-lg bg-dark-bg/80 overflow-hidden flex flex-col">
+                                    <div class="h-2/5 bg-gradient-to-r from-neon-purple/40 to-neon-blue/40 flex items-end p-3">
+                                        <div class="bg-dark-bg/80 rounded-lg px-3 py-1 text-[10px] text-gray-200">
+                                            Coffee shop hero & CTA
+                                        </div>
+                                    </div>
+                                    <div class="flex-1 grid grid-cols-3 gap-2 p-3">
+                                        <div class="col-span-2 space-y-2">
+                                            <div class="h-2 bg-dark-border rounded w-3/4"></div>
+                                            <div class="h-2 bg-dark-border rounded w-1/2"></div>
+                                            <div class="h-16 bg-dark-border/60 rounded"></div>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <div class="h-2 bg-dark-border rounded w-3/4"></div>
+                                            <div class="h-10 bg-dark-border/60 rounded"></div>
+                                            <div class="h-6 bg-dark-border/40 rounded"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mt-auto">
-                                    <p class="text-sm text-gray-300 line-clamp-3">
-                                        <?php echo htmlspecialchars($project['summary']); ?>
-                                    </p>
+                            <?php elseif ($project['id'] === 'bodycraft'): ?>
+                                <!-- Макет лендинга персонального тренера с блоком до/после -->
+                                <div class="h-full w-full rounded-lg bg-dark-bg/80 overflow-hidden flex flex-col">
+                                    <div class="flex-1 grid grid-cols-2 gap-2 p-3">
+                                        <div class="space-y-2">
+                                            <div class="h-2 bg-dark-border rounded w-2/3"></div>
+                                            <div class="h-2 bg-dark-border rounded w-1/2"></div>
+                                            <div class="h-12 bg-gradient-to-r from-neon-purple/40 to-neon-blue/40 rounded"></div>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <div class="h-2 bg-dark-border rounded w-1/2"></div>
+                                            <div class="grid grid-cols-2 gap-1 text-[9px] text-gray-300">
+                                                <div class="h-10 bg-dark-border/60 rounded flex items-center justify-center">Before</div>
+                                                <div class="h-10 bg-dark-border/60 rounded flex items-center justify-center">After</div>
+                                            </div>
+                                            <div class="h-6 bg-dark-border/40 rounded"></div>
+                                        </div>
+                                    </div>
+                                    <div class="h-6 bg-dark-border/60 flex items-center px-3 text-[9px] text-gray-300">
+                                        Quiz • Lead form
+                                    </div>
                                 </div>
+                            <?php elseif ($project['id'] === 'urbanframe'): ?>
+                                <!-- Макет лендинга застройщика с дорожной картой -->
+                                <div class="h-full w-full rounded-lg bg-dark-bg/80 overflow-hidden flex flex-col p-3 space-y-2">
+                                    <div class="h-2 bg-dark-border rounded w-2/3"></div>
+                                    <div class="h-2 bg-dark-border rounded w-1/2"></div>
+                                    <div class="flex-1 grid grid-cols-4 gap-2 text-[9px] text-gray-300">
+                                        <div class="bg-dark-border/60 rounded p-1 flex flex-col justify-between">
+                                            <span class="h-2 bg-dark-bg/80 rounded w-3/4 mb-1"></span>
+                                            <span>Step 1</span>
+                                        </div>
+                                        <div class="bg-dark-border/60 rounded p-1 flex flex-col justify-between">
+                                            <span class="h-2 bg-dark-bg/80 rounded w-3/4 mb-1"></span>
+                                            <span>Step 2</span>
+                                        </div>
+                                        <div class="bg-dark-border/60 rounded p-1 flex flex-col justify-between">
+                                            <span class="h-2 bg-dark-bg/80 rounded w-3/4 mb-1"></span>
+                                            <span>Step 3</span>
+                                        </div>
+                                        <div class="bg-dark-border/60 rounded p-1 flex flex-col justify-between">
+                                            <span class="h-2 bg-dark-bg/80 rounded w-3/4 mb-1"></span>
+                                            <span>Step 4</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php elseif ($project['id'] === 'technest'): ?>
+                                <!-- Макет интернет‑магазина с каталогом и карточкой товара -->
+                                <div class="h-full w-full rounded-lg bg-dark-bg/80 overflow-hidden flex">
+                                    <div class="w-1/3 border-r border-dark-border/60 p-2 space-y-2">
+                                        <div class="h-2 bg-dark-border rounded w-3/4"></div>
+                                        <div class="h-2 bg-dark-border rounded w-2/3"></div>
+                                        <div class="space-y-1 mt-1">
+                                            <div class="h-2 bg-dark-border/60 rounded w-full"></div>
+                                            <div class="h-2 bg-dark-border/40 rounded w-5/6"></div>
+                                            <div class="h-2 bg-dark-border/30 rounded w-4/6"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1 p-3 grid grid-cols-3 gap-2">
+                                        <div class="col-span-2 space-y-2">
+                                            <div class="h-16 bg-dark-border/60 rounded"></div>
+                                            <div class="h-2 bg-dark-border rounded w-4/5"></div>
+                                            <div class="h-2 bg-dark-border rounded w-3/5"></div>
+                                            <div class="h-6 bg-gradient-to-r from-neon-purple/40 to-neon-blue/40 rounded"></div>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <div class="h-2 bg-dark-border rounded w-3/4"></div>
+                                            <div class="h-10 bg-dark-border/60 rounded"></div>
+                                            <div class="h-6 bg-dark-border/40 rounded"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php elseif ($project['id'] === 'lakeview-hotel'): ?>
+                                <!-- Макет сайта бронирования отеля с фильтрами и карточками номеров -->
+                                <div class="h-full w-full rounded-lg bg-dark-bg/80 overflow-hidden flex flex-col p-3 space-y-2">
+                                    <div class="flex items-center gap-2 text-[9px] text-gray-300 mb-1">
+                                        <div class="flex-1 h-6 bg-dark-border/60 rounded flex items-center justify-center">Dates</div>
+                                        <div class="flex-1 h-6 bg-dark-border/60 rounded flex items-center justify-center">Guests</div>
+                                        <div class="w-16 h-6 bg-gradient-to-r from-neon-purple/50 to-neon-blue/50 rounded flex items-center justify-center">Search</div>
+                                    </div>
+                                    <div class="flex-1 grid grid-cols-3 gap-2 text-[9px] text-gray-300">
+                                        <div class="bg-dark-border/60 rounded p-1 flex flex-col justify-between">
+                                            <div class="h-8 bg-dark-bg/80 rounded mb-1"></div>
+                                            <span>Lake view</span>
+                                        </div>
+                                        <div class="bg-dark-border/60 rounded p-1 flex flex-col justify-between">
+                                            <div class="h-8 bg-dark-bg/80 rounded mb-1"></div>
+                                            <span>Family</span>
+                                        </div>
+                                        <div class="bg-dark-border/60 rounded p-1 flex flex-col justify-between">
+                                            <div class="h-8 bg-dark-bg/80 rounded mb-1"></div>
+                                            <span>Workation</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php else: ?>
+                                <!-- Запасной универсальный макет (на всякий случай) -->
+                                <div class="h-full w-full rounded-lg bg-dark-bg/80 overflow-hidden flex flex-col p-3 space-y-2">
+                                    <div class="h-2 bg-dark-border rounded w-3/4"></div>
+                                    <div class="h-2 bg-dark-border rounded w-1/2"></div>
+                                    <div class="flex-1 grid grid-cols-3 gap-2">
+                                        <div class="bg-dark-border/60 rounded"></div>
+                                        <div class="bg-dark-border/60 rounded"></div>
+                                        <div class="bg-dark-border/60 rounded"></div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
+                            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-center justify-center text-center px-4">
+                                <p class="text-xs md:text-sm text-gray-200">
+                                    <?php echo $currentLang === 'en'
+                                        ? 'Click to open detailed “before / after” story of this demo project.'
+                                        : 'Нажмите, чтобы открыть подробную историю “до / после” по этому демо‑проекту.'; ?>
+                                </p>
                             </div>
-                        </div>
-                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-center justify-center text-center px-4">
-                            <p class="text-xs md:text-sm text-gray-200">
-                                <?php echo $currentLang === 'en'
-                                    ? 'Click to open detailed “before / after” story of this project.'
-                                    : 'Нажмите, чтобы открыть подробную историю “до / после” по этому проекту.'; ?>
-                            </p>
                         </div>
                     </div>
 
