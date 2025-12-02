@@ -338,42 +338,44 @@ include 'includes/header.php';
 <!-- Статистика - улучшенный дизайн -->
 <section class="py-20 md:py-28 lg:py-32 bg-gradient-to-b from-dark-surface via-dark-bg to-dark-surface relative overflow-hidden">
     <!-- Фоновые элементы -->
-    <div class="absolute inset-0 opacity-30">
+    <div class="absolute inset-0 opacity-30 pointer-events-none">
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-neon-blue/20 rounded-full blur-3xl"></div>
     </div>
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-12">
-            <div class="text-center animate-on-scroll group">
-                <div class="inline-block p-4 md:p-6 rounded-2xl bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient"><?php echo htmlspecialchars(t('home.stats.newCompany')); ?></div>
+            <div class="text-center animate-on-scroll">
+                <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-2">
+                    <?php echo htmlspecialchars(t('home.stats.newCompany')); ?>
                 </div>
-                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium"><?php echo htmlspecialchars(t('home.stats.company')); ?></p>
+                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium">
+                    <?php echo htmlspecialchars(t('home.stats.company')); ?>
+                </p>
             </div>
-            <div class="text-center animate-on-scroll group" style="animation-delay: 0.1s;">
-                <div class="inline-block p-4 md:p-6 rounded-2xl bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 border border-neon-blue/30 mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient">
-                        <span class="counter-number" data-target="10" data-suffix="+">0</span>
-                    </div>
+            <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-2">
+                    <span class="counter-number" data-target="10" data-suffix="+">0</span>
                 </div>
-                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium"><?php echo htmlspecialchars(t('home.stats.yearsExperience')); ?></p>
+                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium">
+                    <?php echo htmlspecialchars(t('home.stats.yearsExperience')); ?>
+                </p>
             </div>
-            <div class="text-center animate-on-scroll group" style="animation-delay: 0.2s;">
-                <div class="inline-block p-4 md:p-6 rounded-2xl bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient">
-                        <span class="counter-number" data-target="2">0</span>
-                    </div>
+            <div class="text-center animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-2">
+                    <span class="counter-number" data-target="2">0</span>
                 </div>
-                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium"><?php echo htmlspecialchars(t('home.stats.professionals')); ?></p>
+                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium">
+                    <?php echo htmlspecialchars(t('home.stats.professionals')); ?>
+                </p>
             </div>
-            <div class="text-center animate-on-scroll group" style="animation-delay: 0.3s;">
-                <div class="inline-block p-4 md:p-6 rounded-2xl bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 border border-neon-blue/30 mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient">
-                        <span class="counter-number" data-target="100" data-suffix="%">0</span>
-                    </div>
+            <div class="text-center animate-on-scroll" style="animation-delay: 0.3s;">
+                <div class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-2">
+                    <span class="counter-number" data-target="100" data-suffix="%">0</span>
                 </div>
-                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium"><?php echo htmlspecialchars(t('home.stats.onlineWork')); ?></p>
+                <p class="text-gray-300 text-sm md:text-base lg:text-lg font-medium">
+                    <?php echo htmlspecialchars(t('home.stats.onlineWork')); ?>
+                </p>
             </div>
         </div>
     </div>
