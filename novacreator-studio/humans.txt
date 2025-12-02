@@ -1,0 +1,71 @@
+/* TEAM */
+
+Developer & SEO Specialist: NovaCreator Studio
+Site: https://novacreatorstudio.com
+Location: Kazakhstan, Almaty
+Email: contact@novacreatorstudio.com
+Phone: +7 (706) 606-39-21
+
+/* THANKS */
+
+Technologies: PHP, JavaScript, TailwindCSS
+Fonts: System UI fonts for performance
+Icons: SVG custom icons
+Analytics: Google Analytics 4
+SEO Tools: Google Search Console, Yandex Webmaster
+
+/* SITE */
+
+Last update: 2025/12/02
+Language: Russian / English
+Doctype: HTML5
+IDE: VS Code, Cursor
+Standards: W3C, WCAG 2.1, Schema.org
+Components: PHP 8.x, JavaScript ES6+
+Frameworks: TailwindCSS 3.x
+SEO: Fully optimized for search engines
+Performance: Optimized for Core Web Vitals
+Security: HTTPS, CSP, HSTS, Security Headers
+
+/* FEATURES */
+
+- Multilingual support (Russian, English)
+- Mobile-first responsive design
+- SEO optimized with structured data
+- Fast loading with optimized assets
+- Accessibility compliant (WCAG 2.1)
+- Progressive Web App ready
+- Dark theme optimized
+- Touch-friendly interface
+
+/* OPTIMIZATION */
+
+- WebP images with fallbacks
+- Lazy loading for images
+- Minified CSS and JavaScript
+- Gzip/Brotli compression
+- Browser caching configured
+- CDN ready
+- Critical CSS inlined
+- Preconnect to external resources
+
+/* SOCIAL */
+
+Email: contact@novacreatorstudio.com
+Telegram: https://t.me/novacreatorstudio
+Instagram: @novacreatorstudio
+LinkedIn: NovaCreator Studio
+
+/* LEGAL */
+
+Privacy Policy: https://novacreatorstudio.com/privacy
+Terms of Service: https://novacreatorstudio.com/terms
+Cookie Policy: https://novacreatorstudio.com/cookies
+Security Policy: https://novacreatorstudio.com/security-policy
+
+/* NOTES */
+
+Built with ❤️ in Kazakhstan
+Designed for speed, accessibility, and search engines
+All rights reserved © 2025 NovaCreator Studio
+

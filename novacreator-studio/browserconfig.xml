@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square70x70logo src="/assets/img/mstile-70x70.png"/>
+            <square150x150logo src="/assets/img/mstile-150x150.png"/>
+            <square310x310logo src="/assets/img/mstile-310x310.png"/>
+            <wide310x150logo src="/assets/img/mstile-310x150.png"/>
+            <TileColor>#8B5CF6</TileColor>
+        </tile>
+        <notification>
+            <polling-uri src="/notifications/feed1"/>
+            <polling-uri2 src="/notifications/feed2"/>
+            <polling-uri3 src="/notifications/feed3"/>
+            <polling-uri4 src="/notifications/feed4"/>
+            <polling-uri5 src="/notifications/feed5"/>
+            <frequency>30</frequency>
+            <cycle>1</cycle>
+        </notification>
+        <badge>
+            <polling-uri src="/badge/feed"/>
+            <frequency>30</frequency>
+        </badge>
+    </msapplication>
+</browserconfig>
+

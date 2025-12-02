@@ -1,0 +1,35 @@
+Contact: mailto:security@novacreatorstudio.com
+Contact: https://novacreatorstudio.com/contact
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en, ru
+Canonical: https://novacreatorstudio.com/.well-known/security.txt
+Policy: https://novacreatorstudio.com/security-policy
+Acknowledgments: https://novacreatorstudio.com/security-acknowledgments
+
+# Security Policy for NovaCreator Studio
+# We take security seriously and appreciate responsible disclosure
+
+# Reporting Security Issues
+# If you discover a security vulnerability, please report it to us at security@novacreatorstudio.com
+
+# Scope
+# - Web Application: https://novacreatorstudio.com
+# - All subdomains: *.novacreatorstudio.com
+
+# Out of Scope
+# - Social engineering attacks
+# - Physical security issues
+# - Denial of service attacks
+
+# Response Time
+# We aim to respond to security reports within 48 hours
+
+# Disclosure Policy
+# Please allow us reasonable time to fix the issue before public disclosure
+
+# Safe Harbor
+# We will not pursue legal action for good-faith security research
+
+# Encryption
+# For sensitive reports, you can use our PGP key available at https://novacreatorstudio.com/pgp-key.asc
+
