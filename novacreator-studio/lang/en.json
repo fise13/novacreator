@@ -835,14 +835,25 @@
       "title": "Cost Calculator",
       "breadcrumb": "Calculator",
       "subtitle": "Calculate the approximate cost of services for your project",
+      "formTitle": "Find a solution for your task",
+      "formSubtitle": "Answer a few questions — the calculator will show an approximate budget and we will help you choose the best format of work.",
+      "steps": {
+        "service": "Choose service",
+        "params": "Project parameters",
+        "result": "Budget estimate"
+      },
       "selectService": "Select Service",
       "services": {
         "seo": "SEO Promotion",
         "development": "Website Development",
-        "ads": "Google Ads"
+        "ads": "Google Ads",
+        "seoHint": "Technical optimization, content and links to grow organic traffic.",
+        "developmentHint": "Design and development of a website for your business goals.",
+        "adsHint": "Setup and management of advertising campaigns."
       },
       "seo": {
         "siteType": "Site Type",
+        "siteTypeHint": "Site size and structure affect work volume and promotion timeline.",
         "siteTypes": {
           "small": "Small site (up to 50 pages)",
           "medium": "Medium site (50-200 pages)",
@@ -850,6 +861,7 @@
           "shop": "Online store"
         },
         "region": "Promotion Region",
+        "regionHint": "The wider the geography, the higher the competition and required budget.",
         "regions": {
           "local": "Local (one city)",
           "regional": "Regional (region/area)",
@@ -857,6 +869,7 @@
           "international": "International"
         },
         "competition": "Niche Competition",
+        "competitionHint": "High competition requires more effort, content and links.",
         "competitions": {
           "low": "Low",
           "medium": "Medium",
@@ -865,6 +878,7 @@
       },
       "development": {
         "siteType": "Site Type",
+        "siteTypeHint": "Different types of websites need different depth of work and functionality.",
         "siteTypes": {
           "landing": "Landing page (one page)",
           "corporate": "Corporate website",
@@ -872,6 +886,7 @@
           "webapp": "Web application"
         },
         "pages": "Number of Pages",
+        "pagesHint": "Including unique page templates and key sections.",
         "features": "Additional Features",
         "featuresList": {
           "cms": "Content Management System (CMS)",
@@ -882,6 +897,7 @@
       },
       "ads": {
         "budget": "Monthly Advertising Budget",
+        "budgetHint": "Minimum comfortable budget for testing and further optimization.",
         "budgetNote": "from 50,000 ₸",
         "platform": "Platform",
         "platforms": {
@@ -890,6 +906,7 @@
           "both": "Both platforms"
         },
         "adType": "Ad Type",
+        "adTypeHint": "Ad formats affect creatives, settings and management cost.",
         "adTypes": {
           "search": "Search Advertising",
           "display": "Display Advertising",
