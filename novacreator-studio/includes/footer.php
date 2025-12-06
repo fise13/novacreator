@@ -102,6 +102,17 @@ $currentLang = getCurrentLanguage();
         </div>
     </footer>
     
+    <!-- Внутренняя перелинковка -->
+    <?php include __DIR__ . '/internal_linking.php'; ?>
+    
+    <!-- Плавающий CTA виджет -->
+    <?php 
+    if (!function_exists('generateFloatingCTA')) {
+        require_once __DIR__ . '/cta_components.php';
+    }
+    generateFloatingCTA($currentLang); 
+    ?>
+    
     <!-- Кнопка "Наверх" -->
     <button id="backToTop" class="fixed bottom-8 right-8 w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 opacity-0 pointer-events-none z-40 group" aria-label="<?php echo htmlspecialchars(t('common.backToTop')); ?>" style="bottom: max(2rem, calc(2rem + env(safe-area-inset-bottom))); right: max(2rem, calc(2rem + env(safe-area-inset-right)));">
         <svg class="w-6 h-6 md:w-7 md:h-7 text-white transform group-hover:-translate-y-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">

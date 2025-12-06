@@ -18,6 +18,12 @@ require_once __DIR__ . '/i18n.php';
 $currentLang = getCurrentLanguage();
 $langMap = ['ru' => 'ru', 'en' => 'en'];
 $htmlLang = $langMap[$currentLang] ?? 'ru';
+
+// Определяем базовый URL для RSS и других ссылок
+$host = $_SERVER['HTTP_HOST'] ?? 'novacreatorstudio.com';
+$isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
+$scheme = $isSecure ? 'https' : 'http';
+$siteUrl = $scheme . '://' . $host;
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $htmlLang; ?>" itemscope itemtype="https://schema.org/WebSite">
@@ -29,13 +35,75 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
     <!-- Предотвращение автоматического определения телефонных номеров на iOS -->
     <meta name="format-detection" content="telephone=yes">
     
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) - Улучшенная аналитика -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XD6LHCBQZS"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XD6LHCBQZS');
+        
+        // Базовая конфигурация
+        gtag('config', 'G-XD6LHCBQZS', {
+            'page_path': window.location.pathname + window.location.search,
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'send_page_view': true,
+            'anonymize_ip': false,
+            'cookie_flags': 'SameSite=None;Secure'
+        });
+        
+        // Отслеживание событий скролла
+        let scrollTracked = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollTracked && window.scrollY > window.innerHeight * 0.5) {
+                scrollTracked = true;
+                gtag('event', 'scroll', {
+                    'event_category': 'engagement',
+                    'event_label': '50% scroll',
+                    'value': 1
+                });
+            }
+        }, { passive: true });
+        
+        // Отслеживание времени на странице
+        let timeOnPage = 0;
+        setInterval(function() {
+            timeOnPage += 30;
+            if (timeOnPage === 30) {
+                gtag('event', 'timing_complete', {
+                    'name': 'time_on_page',
+                    'value': 30
+                });
+            }
+        }, 30000);
+        
+        // Отслеживание кликов по внешним ссылкам
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+                if (link.hostname !== window.location.hostname) {
+                    link.addEventListener('click', function() {
+                        gtag('event', 'click', {
+                            'event_category': 'outbound',
+                            'event_label': link.href,
+                            'transport_type': 'beacon'
+                        });
+                    });
+                }
+            });
+        });
+        
+        // Отслеживание загрузки файлов
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href$=".pdf"], a[href$=".doc"], a[href$=".zip"]').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    gtag('event', 'file_download', {
+                        'event_category': 'downloads',
+                        'event_label': link.href.split('/').pop(),
+                        'transport_type': 'beacon'
+                    });
+                });
+            });
+        });
     </script>
     
     <!-- Title -->
@@ -100,8 +168,29 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon.ico">
     
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="<?php echo htmlspecialchars(t('site.name')); ?> - RSS Feed (RU)" href="<?php echo htmlspecialchars($siteUrl); ?>/rss.php?lang=ru">
+    <link rel="alternate" type="application/rss+xml" title="<?php echo htmlspecialchars(t('site.name')); ?> - RSS Feed (EN)" href="<?php echo htmlspecialchars($siteUrl); ?>/rss.php?lang=en">
+    <link rel="alternate" type="application/atom+xml" title="<?php echo htmlspecialchars(t('site.name')); ?> - Atom Feed" href="<?php echo htmlspecialchars($siteUrl); ?>/rss.php?lang=<?php echo $currentLang; ?>">
+    
     <!-- Дополнительные мета-теги -->
     <meta name="theme-color" content="#0A0A0F">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="<?php echo htmlspecialchars(t('site.name')); ?>">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#8B5CF6">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- Prefetch для улучшения производительности -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    
+    <!-- Preconnect для критических ресурсов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body class="bg-dark-bg text-white overflow-x-hidden">
     <!-- Индикатор прогресса прокрутки -->

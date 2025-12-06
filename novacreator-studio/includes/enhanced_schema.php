@@ -438,3 +438,99 @@ function generateHowToSchema($steps, $title, $description, $lang = 'ru') {
     return $howToSchema;
 }
 
+/**
+ * Генерация AggregateRating схемы для организации
+ * @param float $ratingValue Средний рейтинг
+ * @param int $reviewCount Количество отзывов
+ * @return array
+ */
+function generateAggregateRatingSchema($ratingValue = 5.0, $reviewCount = 10) {
+    return [
+        '@type' => 'AggregateRating',
+        'ratingValue' => $ratingValue,
+        'reviewCount' => $reviewCount,
+        'bestRating' => 5,
+        'worstRating' => 1
+    ];
+}
+
+/**
+ * Генерация Product схемы для услуг
+ * @param string $serviceName Название услуги
+ * @param string $description Описание
+ * @param string $price Цена
+ * @param string $currency Валюта
+ * @param string $lang Язык
+ * @return array
+ */
+function generateProductSchema($serviceName, $description, $price = null, $currency = 'KZT', $lang = 'ru') {
+    $host = $_SERVER['HTTP_HOST'] ?? 'novacreatorstudio.com';
+    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
+    $scheme = $isSecure ? 'https' : 'http';
+    $siteUrl = $scheme . '://' . $host;
+    
+    $productSchema = [
+        '@type' => 'Product',
+        'name' => $serviceName,
+        'description' => $description,
+        'brand' => [
+            '@type' => 'Brand',
+            'name' => 'NovaCreator Studio'
+        ],
+        'offers' => [
+            '@type' => 'Offer',
+            'availability' => 'https://schema.org/InStock',
+            'priceCurrency' => $currency,
+            'url' => $siteUrl
+        ]
+    ];
+    
+    if ($price !== null) {
+        $productSchema['offers']['price'] = $price;
+    } else {
+        $productSchema['offers']['priceSpecification'] = [
+            '@type' => 'UnitPriceSpecification',
+            'priceCurrency' => $currency,
+            'price' => '0',
+            'valueAddedTaxIncluded' => true
+        ];
+    }
+    
+    return $productSchema;
+}
+
+/**
+ * Генерация ItemList схемы для списка услуг
+ * @param array $services Массив услуг
+ * @param string $lang Язык
+ * @return array
+ */
+function generateItemListSchema($services, $lang = 'ru') {
+    $host = $_SERVER['HTTP_HOST'] ?? 'novacreatorstudio.com';
+    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
+    $scheme = $isSecure ? 'https' : 'http';
+    $siteUrl = $scheme . '://' . $host;
+    
+    $itemList = [
+        '@type' => 'ItemList',
+        'name' => $lang === 'ru' ? 'Услуги NovaCreator Studio' : 'NovaCreator Studio Services',
+        'description' => $lang === 'ru' ? 'Список услуг цифрового агентства' : 'List of digital agency services',
+        'itemListElement' => []
+    ];
+    
+    foreach ($services as $index => $service) {
+        $itemList['itemListElement'][] = [
+            '@type' => 'ListItem',
+            'position' => $index + 1,
+            'item' => [
+                '@type' => 'Service',
+                'name' => $service['name'],
+                'description' => $service['description'] ?? '',
+                'url' => $siteUrl . ($service['url'] ?? '')
+            ]
+        ];
+    }
+    
+    return $itemList;
+}
+

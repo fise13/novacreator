@@ -233,25 +233,15 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
                 </div>
             </article>
             
-            <!-- Поделиться -->
+            <!-- Поделиться - улучшенные социальные кнопки -->
             <div class="mt-12 pt-8 border-t border-dark-border">
-                <div class="flex items-center justify-between flex-wrap gap-4">
-                    <div>
-                        <h3 class="text-lg font-semibold mb-3 text-gradient"><?php echo $currentLang === 'en' ? 'Share Article' : 'Поделиться статьей'; ?></h3>
-                        <div class="flex space-x-4">
-                            <a href="https://vk.com/share.php?url=<?php echo urlencode('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>&title=<?php echo urlencode($article['title']); ?>" target="_blank" class="w-10 h-10 bg-dark-surface border border-dark-border rounded-lg flex items-center justify-center hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12.785 16.241s-.224.015-.339.015c-.66 0-1.22-.061-1.672-.172-.9-.224-1.554-.785-1.554-1.554 0-.615.405-1.003 1.003-1.003.405 0 .75.195.975.405.405.36.81.615 1.554.615 1.003 0 1.554-.615 1.554-1.554 0-1.003-.615-1.554-1.554-1.554-.36 0-.66.09-.9.195l-.195-.405c.36-.195.81-.3 1.35-.3 1.554 0 2.559.975 2.559 2.559 0 1.554-.975 2.559-2.559 2.559zm-1.554-6.015c-1.554 0-2.559.975-2.559 2.559 0 1.554.975 2.559 2.559 2.559.36 0 .66-.09.9-.195l.195.405c-.36.195-.81.3-1.35.3-1.554 0-2.559-.975-2.559-2.559 0-1.003.615-1.554 1.554-1.554.405 0 .75.195.975.405.405.36.81.615 1.554.615 1.003 0 1.554-.615 1.554-1.554 0-1.003-.615-1.554-1.554-1.554-.36 0-.66.09-.9.195l-.195-.405c.36-.195.81-.3 1.35-.3 1.554 0 2.559.975 2.559 2.559 0 1.554-.975 2.559-2.559 2.559z"/>
-                                </svg>
-                            </a>
-                            <a href="https://t.me/share/url?url=<?php echo urlencode('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>&text=<?php echo urlencode($article['title']); ?>" target="_blank" class="w-10 h-10 bg-dark-surface border border-dark-border rounded-lg flex items-center justify-center hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.223s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <?php 
+                // Устанавливаем мета-данные для статьи
+                $pageMetaTitle = getArticleField($article, 'title', $currentLang);
+                $pageMetaDescription = getArticleField($article, 'excerpt', $currentLang);
+                $pageMetaImage = $article['image'] ?? '/assets/img/og-default.webp';
+                include __DIR__ . '/includes/social_sharing.php'; 
+                ?>
             </div>
         </div>
     </div>

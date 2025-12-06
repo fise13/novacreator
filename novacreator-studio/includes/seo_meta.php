@@ -314,6 +314,34 @@ endforeach;
 <meta name="twitter:image" content="<?php echo htmlspecialchars($metaImage); ?>">
 <meta name="twitter:image:alt" content="<?php echo htmlspecialchars($meta['title']); ?>">
 
+<!-- Дополнительные мета-теги для социальных сетей -->
+<meta property="article:author" content="<?php echo htmlspecialchars($siteName); ?>">
+<meta property="article:publisher" content="<?php echo htmlspecialchars($siteUrl); ?>">
+<?php if (isset($articleDate)): ?>
+<meta property="article:published_time" content="<?php echo date('c', strtotime($articleDate)); ?>">
+<meta property="article:modified_time" content="<?php echo date('c', strtotime($articleDate)); ?>">
+<?php endif; ?>
+<?php if (isset($articleCategory)): ?>
+<meta property="article:section" content="<?php echo htmlspecialchars($articleCategory); ?>">
+<?php endif; ?>
+<?php if (isset($articleTags) && is_array($articleTags)): ?>
+<?php foreach ($articleTags as $tag): ?>
+<meta property="article:tag" content="<?php echo htmlspecialchars($tag); ?>">
+<?php endforeach; ?>
+<?php endif; ?>
+
+<!-- Дополнительные мета-теги для улучшения SEO -->
+<meta name="geo.region" content="KZ">
+<meta name="geo.placename" content="Almaty">
+<meta name="geo.position" content="43.238949;76.889709">
+<meta name="ICBM" content="43.238949, 76.889709">
+<meta name="rating" content="general">
+<meta name="distribution" content="global">
+<meta name="revisit-after" content="7 days">
+<meta name="coverage" content="worldwide">
+<meta name="target" content="all">
+<meta name="audience" content="all">
+
 <!-- JSON-LD -->
 <script type="application/ld+json">
 <?php echo json_encode($structuredData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
