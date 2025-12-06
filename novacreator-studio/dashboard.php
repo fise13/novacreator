@@ -6,7 +6,25 @@ startSecureSession();
 requireLogin('/login.php');
 
 $user = getAuthenticatedUser();
+if (!$user || !isset($user['id'])) {
+    header('Location: /login.php');
+    exit;
+}
+
 $userData = getUserWithProject($user['id']);
+if (!$userData) {
+    // Если данных нет, создаем пустой массив
+    $userData = [
+        'progress_percent' => 0,
+        'status' => 'Ожидает обновления',
+        'stage' => 'Скоро будет обновлено',
+        'time_spent_minutes' => 0,
+        'updated_at' => null,
+        'started_at' => null,
+        'notes' => null
+    ];
+}
+
 $pageTitle = 'Личный кабинет';
 $progress = (int)($userData['progress_percent'] ?? 0);
 $statusText = $userData['status'] ?? 'Ожидает обновления';
@@ -16,13 +34,23 @@ $updatedAt = $userData['updated_at'] ?? null;
 $startedAt = $userData['started_at'] ?? null;
 
 // Генерируем данные для графиков (симуляция исторических данных)
-$daysSinceStart = $startedAt ? max(1, (int)((time() - strtotime($startedAt)) / 86400)) : 7;
+$startedAtTimestamp = null;
+if ($startedAt) {
+    $startedAtTimestamp = strtotime($startedAt);
+    if ($startedAtTimestamp === false) {
+        $startedAtTimestamp = null;
+    }
+}
+$daysSinceStart = $startedAtTimestamp ? max(1, (int)((time() - $startedAtTimestamp) / 86400)) : 7;
 $chartLabels = [];
 $chartProgress = [];
 $chartTime = [];
 
 for ($i = 0; $i < min(14, $daysSinceStart); $i++) {
     $date = date('d.m', strtotime("-$i days"));
+    if ($date === false) {
+        $date = date('d.m');
+    }
     $chartLabels[] = $date;
     // Симулируем прогресс (увеличивается со временем)
     $simulatedProgress = max(0, min(100, $progress - ($i * 5) + rand(-3, 3)));
@@ -37,7 +65,10 @@ $chartProgress = array_reverse($chartProgress);
 $chartTime = array_reverse($chartTime);
 
 // Вычисляем дополнительные метрики
-$daysActive = $startedAt ? ceil((time() - strtotime($startedAt)) / 86400) : 0;
+$daysActive = 0;
+if ($startedAtTimestamp) {
+    $daysActive = max(0, ceil((time() - $startedAtTimestamp) / 86400));
+}
 $avgProgressPerDay = $daysActive > 0 ? round($progress / $daysActive, 1) : 0;
 $estimatedCompletion = $avgProgressPerDay > 0 ? ceil((100 - $progress) / $avgProgressPerDay) : 0;
 $hoursSpent = round($timeSpent / 60, 1);
@@ -116,7 +147,10 @@ include __DIR__ . '/includes/header.php';
                 </div>
                 <p class="text-2xl font-bold text-white"><?php echo minutesToHuman($timeSpent); ?></p>
                 <?php if ($updatedAt): ?>
-                    <p class="text-xs text-gray-500 mt-1">Обновлено: <?php echo htmlspecialchars(date('d.m.Y', strtotime($updatedAt))); ?></p>
+                    <p class="text-xs text-gray-500 mt-1">Обновлено: <?php 
+                        $updatedAtTimestamp = $updatedAt ? strtotime($updatedAt) : false;
+                        echo $updatedAtTimestamp ? htmlspecialchars(date('d.m.Y', $updatedAtTimestamp)) : htmlspecialchars($updatedAt ?? '');
+                    ?></p>
                 <?php endif; ?>
             </div>
             <div class="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-2xl p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.4s;">
@@ -245,7 +279,10 @@ include __DIR__ . '/includes/header.php';
                     </div>
                     <div class="flex items-center justify-between py-2 border-b border-dark-border/50">
                         <dt class="text-gray-400">Создан</dt>
-                        <dd class="font-medium text-white"><?php echo htmlspecialchars(date('d.m.Y', strtotime($user['created_at']))); ?></dd>
+                        <dd class="font-medium text-white"><?php 
+                            $createdAtTimestamp = isset($user['created_at']) ? strtotime($user['created_at']) : false;
+                            echo $createdAtTimestamp ? htmlspecialchars(date('d.m.Y', $createdAtTimestamp)) : htmlspecialchars($user['created_at'] ?? '');
+                        ?></dd>
                     </div>
                     <div class="flex items-center justify-between py-2">
                         <dt class="text-gray-400">Всего часов</dt>
@@ -317,7 +354,10 @@ include __DIR__ . '/includes/header.php';
                 </div>
                 <?php if ($updatedAt): ?>
                     <span class="text-sm text-gray-400 bg-dark-bg px-3 py-1 rounded-lg border border-dark-border">
-                        Обновлено: <?php echo htmlspecialchars(date('d.m.Y H:i', strtotime($updatedAt))); ?>
+                        Обновлено: <?php 
+                            $updatedAtTimestamp2 = $updatedAt ? strtotime($updatedAt) : false;
+                            echo $updatedAtTimestamp2 ? htmlspecialchars(date('d.m.Y H:i', $updatedAtTimestamp2)) : htmlspecialchars($updatedAt ?? '');
+                        ?>
                     </span>
                 <?php endif; ?>
             </div>
@@ -330,7 +370,7 @@ include __DIR__ . '/includes/header.php';
                         <div class="relative z-10 w-4 h-4 rounded-full bg-neon-purple border-4 border-dark-surface shadow-lg shadow-neon-purple/50 animate-pulse"></div>
                         <div class="flex-1 bg-dark-bg/50 rounded-xl p-4 border border-dark-border hover:border-neon-purple/50 transition-all duration-300">
                             <p class="text-xs text-gray-400 mb-1">Старт работ</p>
-                            <p class="text-white font-semibold text-lg"><?php echo htmlspecialchars(date('d.m.Y', strtotime($startedAt))); ?></p>
+                            <p class="text-white font-semibold text-lg"><?php echo $startedAtTimestamp ? htmlspecialchars(date('d.m.Y', $startedAtTimestamp)) : htmlspecialchars($startedAt); ?></p>
                             <p class="text-sm text-gray-500 mt-1">Проект был запущен</p>
                         </div>
                     </div>
