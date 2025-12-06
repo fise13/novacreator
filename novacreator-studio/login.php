@@ -1,8 +1,24 @@
 <?php
+// Временно включаем отображение ошибок для отладки
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/csrf.php';
 
 startSecureSession();
+
+// Если уже авторизован, перенаправляем
+$currentUser = getAuthenticatedUser();
+if ($currentUser) {
+    $redirect = '/dashboard.php';
+    if ($currentUser['role'] === 'admin' || mb_strtolower($currentUser['email']) === mb_strtolower(ROOT_ADMIN_EMAIL)) {
+        $redirect = '/adm/';
+    }
+    header('Location: ' . $redirect);
+    exit;
+}
 
 $pageTitle = 'Вход';
 $errors = [];
@@ -34,15 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $redirect = safeRedirectPath($_GET['redirect'] ?? $_POST['redirect'] ?? '');
             // Если админ — ведём в /adm, если обычный — в личный кабинет
-            if ($result['role'] === 'admin' && !$redirect) {
+            if (($result['role'] === 'admin' || $email === mb_strtolower(ROOT_ADMIN_EMAIL)) && !$redirect) {
                 $redirect = '/adm/';
             }
             if (!$redirect) {
                 $redirect = '/dashboard.php';
             }
 
-            header('Location: ' . $redirect);
-            exit;
+            // Убеждаемся, что заголовки еще не отправлены
+            if (!headers_sent()) {
+                header('Location: ' . $redirect);
+                exit;
+            } else {
+                // Если заголовки уже отправлены, используем JavaScript редирект
+                echo '<script>window.location.href = "' . htmlspecialchars($redirect) . '";</script>';
+                exit;
+            }
         } else {
             $errors[] = $result['error'] ?? 'Ошибка входа';
         }
