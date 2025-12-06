@@ -66,12 +66,16 @@ function sendVerificationCode(string $email, string $code): bool
  */
 function setVerificationCode(string $email, string $code): void
 {
+    // Нормализуем код (убираем пробелы, приводим к строке)
+    $normalizedCode = (string)trim($code);
     $_SESSION['email_verification'] = [
-        'email' => $email,
-        'code' => $code,
+        'email' => trim(mb_strtolower($email)),
+        'code' => $normalizedCode,
         'expires_at' => time() + 900, // 15 минут
         'attempts' => 0
     ];
+    // Отладочная информация
+    error_log('Verification code set: email=' . $email . ', code=' . $normalizedCode);
 }
 
 /**
@@ -91,8 +95,11 @@ function verifyEmailCode(string $email, string $code): array
         return ['success' => false, 'error' => 'Код подтверждения истек. Запросите новый код.'];
     }
 
-    // Проверяем email
-    if ($verification['email'] !== $email) {
+    // Проверяем email (нормализуем для сравнения)
+    $storedEmail = trim(mb_strtolower($verification['email']));
+    $inputEmail = trim(mb_strtolower($email));
+    if ($storedEmail !== $inputEmail) {
+        error_log('Email mismatch: stored=' . $storedEmail . ', input=' . $inputEmail);
         return ['success' => false, 'error' => 'Email не совпадает.'];
     }
 
@@ -102,15 +109,22 @@ function verifyEmailCode(string $email, string $code): array
         return ['success' => false, 'error' => 'Превышено количество попыток. Запросите новый код.'];
     }
 
-    // Увеличиваем счетчик попыток
-    $_SESSION['email_verification']['attempts']++;
-
-    // Проверяем код
-    if ($verification['code'] !== $code) {
+    // Нормализуем код для сравнения (убираем пробелы, приводим к строке, только цифры)
+    $storedCode = (string)trim($verification['code']);
+    $inputCode = (string)trim(preg_replace('/\D/', '', $code));
+    
+    // Отладочная информация
+    error_log('Email verification check: stored_code=' . $storedCode . ' (len=' . strlen($storedCode) . '), input_code=' . $inputCode . ' (len=' . strlen($inputCode) . '), email=' . $email);
+    
+    // Проверяем код (строгое сравнение после нормализации)
+    if ($storedCode !== $inputCode) {
+        // Увеличиваем счетчик попыток только если код неверный
+        $_SESSION['email_verification']['attempts']++;
         $remaining = 5 - $_SESSION['email_verification']['attempts'];
+        error_log('Email verification failed: stored=' . $storedCode . ', input=' . $inputCode);
         return [
             'success' => false,
-            'error' => 'Неверный код. Осталось попыток: ' . $remaining
+            'error' => 'Неверный код. Осталось попыток: ' . max(0, $remaining)
         ];
     }
 

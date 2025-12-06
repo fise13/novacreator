@@ -71,13 +71,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $errors[] = 'Не удалось подтвердить запрос. Обновите страницу и попробуйте снова.';
     } else {
         $code = trim($_POST['verification_code'] ?? '');
+        // Убираем все нецифровые символы
+        $code = preg_replace('/\D/', '', $code);
         $email = $verificationEmail ?? '';
 
         if (empty($code)) {
             $errors[] = 'Введите код подтверждения.';
-        } elseif (strlen($code) !== 6 || !ctype_digit($code)) {
+        } elseif (strlen($code) !== 6) {
             $errors[] = 'Код должен состоять из 6 цифр.';
         } else {
+            // Отладочная информация
+            error_log('Verification attempt: email=' . $email . ', code=' . $code);
             $result = verifyEmailCode($email, $code);
             if ($result['success']) {
                 // Код подтвержден - завершаем регистрацию
