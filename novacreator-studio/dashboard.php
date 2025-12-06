@@ -8,6 +8,12 @@ requireLogin('/login.php');
 $user = getAuthenticatedUser();
 $userData = getUserWithProject($user['id']);
 $pageTitle = 'Личный кабинет';
+$progress = (int)($userData['progress_percent'] ?? 0);
+$statusText = $userData['status'] ?? 'Ожидает обновления';
+$stageText = $userData['stage'] ?? 'Скоро будет обновлено';
+$timeSpent = (int)($userData['time_spent_minutes'] ?? 0);
+$updatedAt = $userData['updated_at'] ?? null;
+$startedAt = $userData['started_at'] ?? null;
 
 function minutesToHuman(int $minutes): string
 {
@@ -34,6 +40,31 @@ include __DIR__ . '/includes/header.php';
                 <a href="/logout.php" class="px-4 py-2 rounded-lg border border-dark-border text-gray-300 hover:text-neon-purple hover:border-neon-purple transition-colors">
                     Выйти
                 </a>
+            </div>
+        </div>
+
+        <!-- Краткие метрики -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-gradient-to-br from-neon-purple/10 to-neon-blue/10 border border-neon-purple/30 rounded-2xl p-4 shadow-lg">
+                <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Статус</p>
+                <p class="text-lg font-semibold text-white"><?php echo htmlspecialchars($statusText); ?></p>
+                <p class="text-xs text-gray-500 mt-1"><?php echo htmlspecialchars($stageText); ?></p>
+            </div>
+            <div class="bg-gradient-to-br from-neon-blue/10 to-neon-purple/10 border border-neon-blue/30 rounded-2xl p-4 shadow-lg">
+                <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Прогресс</p>
+                <div class="flex items-center justify-between">
+                    <p class="text-2xl font-bold text-white"><?php echo $progress; ?>%</p>
+                    <div class="w-24 bg-dark-bg border border-dark-border rounded-full h-2 overflow-hidden">
+                        <div class="h-2 bg-gradient-to-r from-neon-purple to-neon-blue" style="width: <?php echo max(0, min(100, $progress)); ?>%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-2xl p-4 shadow-lg">
+                <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Время работы</p>
+                <p class="text-2xl font-bold text-white"><?php echo minutesToHuman($timeSpent); ?></p>
+                <?php if ($updatedAt): ?>
+                    <p class="text-xs text-gray-500 mt-1">Обновлено: <?php echo htmlspecialchars(date('d.m.Y', strtotime($updatedAt))); ?></p>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -72,7 +103,7 @@ include __DIR__ . '/includes/header.php';
                     <div>
                         <p class="text-sm text-gray-400">Статус проекта</p>
                         <h2 class="text-xl font-semibold text-white">
-                            <?php echo htmlspecialchars($userData['status'] ?? 'Ожидает обновления'); ?>
+                            <?php echo htmlspecialchars($statusText); ?>
                         </h2>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center text-white">
@@ -86,12 +117,11 @@ include __DIR__ . '/includes/header.php';
                 <div class="space-y-3 text-sm text-gray-300">
                     <div>
                         <p class="text-gray-400">Текущий этап</p>
-                        <p class="font-medium"><?php echo htmlspecialchars($userData['stage'] ?? 'Скоро будет обновлено'); ?></p>
+                        <p class="font-medium"><?php echo htmlspecialchars($stageText); ?></p>
                     </div>
                     <div>
                         <p class="text-gray-400">Прогресс</p>
                         <div class="w-full bg-dark-bg rounded-full h-2 mt-2 overflow-hidden border border-dark-border">
-                            <?php $progress = (int)($userData['progress_percent'] ?? 0); ?>
                             <div class="h-2 bg-gradient-to-r from-neon-purple to-neon-blue" style="width: <?php echo $progress; ?>%;"></div>
                         </div>
                         <p class="text-gray-400 text-xs mt-1"><?php echo $progress; ?>% выполнено</p>
@@ -99,7 +129,7 @@ include __DIR__ . '/includes/header.php';
                     <div class="flex items-center justify-between">
                         <span class="text-gray-400">Время работы</span>
                         <span class="font-semibold">
-                            <?php echo minutesToHuman((int)($userData['time_spent_minutes'] ?? 0)); ?>
+                            <?php echo minutesToHuman($timeSpent); ?>
                         </span>
                     </div>
                     <div>
@@ -120,20 +150,20 @@ include __DIR__ . '/includes/header.php';
                 </span>
             </div>
 
-            <?php if (!empty($userData['started_at'])): ?>
+            <?php if (!empty($startedAt)): ?>
                 <div class="relative pl-4 border-l border-dark-border space-y-4">
                     <div class="flex items-start gap-3">
                         <div class="w-2 h-2 rounded-full bg-neon-purple mt-2"></div>
                         <div>
                             <p class="text-sm text-gray-400">Старт работ</p>
-                            <p class="text-white font-semibold"><?php echo htmlspecialchars(date('d.m.Y', strtotime($userData['started_at']))); ?></p>
+                            <p class="text-white font-semibold"><?php echo htmlspecialchars(date('d.m.Y', strtotime($startedAt))); ?></p>
                         </div>
                     </div>
                     <div class="flex items-start gap-3">
                         <div class="w-2 h-2 rounded-full bg-neon-blue mt-2"></div>
                         <div>
                             <p class="text-sm text-gray-400">Текущий этап</p>
-                            <p class="text-white font-semibold"><?php echo htmlspecialchars($userData['stage'] ?? 'Обновляется'); ?></p>
+                            <p class="text-white font-semibold"><?php echo htmlspecialchars($stageText); ?></p>
                         </div>
                     </div>
                     <div class="flex items-start gap-3">
