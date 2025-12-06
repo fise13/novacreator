@@ -10,8 +10,25 @@ require_once __DIR__ . '/db.php';
 // Базовый URL для OAuth редиректов
 function getOAuthBaseUrl(): string
 {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    // Проверяем переменную окружения (для продакшена)
+    $baseUrl = getenv('OAUTH_BASE_URL');
+    if (!empty($baseUrl)) {
+        return rtrim($baseUrl, '/');
+    }
+    
+    // Определяем протокол
+    $protocol = 'https';
+    if (isset($_SERVER['HTTPS'])) {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    } elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+        $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ? 'https' : 'http';
+    } elseif (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) {
+        $protocol = 'https';
+    }
+    
+    // Определяем хост
+    $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? 'localhost';
+    
     return $protocol . '://' . $host;
 }
 
