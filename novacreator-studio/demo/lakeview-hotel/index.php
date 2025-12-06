@@ -2,6 +2,7 @@
 $pageTitle = 'Lakeview Hotel — demo';
 $pageMetaTitle = $pageTitle;
 $pageMetaDescription = 'Bright booking mockup: filters, room cards, map placeholder. No booking logic.';
+$ASSET_BASE_OVERRIDE = ''; // грузим ассеты из корня
 require_once __DIR__ . '/../../includes/header.php';
 $currentLang = getCurrentLanguage();
 $back = getLocalizedUrl($currentLang, '/portfolio');

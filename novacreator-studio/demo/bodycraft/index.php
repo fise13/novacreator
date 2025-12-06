@@ -2,6 +2,7 @@
 $pageTitle = 'BodyCraft — demo';
 $pageMetaTitle = $pageTitle;
 $pageMetaDescription = 'Neon trainer landing: before/after and quiz placeholders, no logic.';
+$ASSET_BASE_OVERRIDE = ''; // грузим ассеты из корня
 require_once __DIR__ . '/../../includes/header.php';
 $currentLang = getCurrentLanguage();
 $back = getLocalizedUrl($currentLang, '/portfolio');

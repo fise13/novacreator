@@ -2,6 +2,7 @@
 $pageTitle = 'Northern Beans — demo';
 $pageMetaTitle = $pageTitle;
 $pageMetaDescription = 'Static coffee shop mockup: warm hero, menu, atmosphere. Buttons are disabled.';
+$ASSET_BASE_OVERRIDE = ''; // грузим ассеты из корня
 require_once __DIR__ . '/../../includes/header.php';
 $currentLang = getCurrentLanguage();
 $back = getLocalizedUrl($currentLang, '/portfolio');

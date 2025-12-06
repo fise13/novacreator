@@ -2,6 +2,7 @@
 $pageTitle = 'UrbanFrame — demo';
 $pageMetaTitle = $pageTitle;
 $pageMetaDescription = 'Construction landing demo: roadmap, price breakdown, disabled CTAs.';
+$ASSET_BASE_OVERRIDE = ''; // грузим ассеты из корня
 require_once __DIR__ . '/../../includes/header.php';
 $currentLang = getCurrentLanguage();
 $back = getLocalizedUrl($currentLang, '/portfolio');

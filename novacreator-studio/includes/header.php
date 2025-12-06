@@ -159,6 +159,11 @@ $siteUrl = $scheme . '://' . $host;
     $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
     $baseDir = rtrim($baseDir, '/\\');
     
+    // Переопределение базы ассетов (например, для вложенных демо-страниц)
+    if (!empty($GLOBALS['ASSET_BASE_OVERRIDE']) || $GLOBALS['ASSET_BASE_OVERRIDE'] === '') {
+        $baseDir = $GLOBALS['ASSET_BASE_OVERRIDE'];
+    }
+
     // Формируем путь к CSS и JS
     $cssPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/css/output.css';
     $cssPath = preg_replace('#/+#', '/', $cssPath);

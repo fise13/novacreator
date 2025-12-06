@@ -2,6 +2,7 @@
 $pageTitle = 'TechNest — demo';
 $pageMetaTitle = $pageTitle;
 $pageMetaDescription = 'Clean tech store mockup: catalog, PDP, cart visuals, no payments.';
+$ASSET_BASE_OVERRIDE = ''; // грузим ассеты из корня
 require_once __DIR__ . '/../../includes/header.php';
 $currentLang = getCurrentLanguage();
 $back = getLocalizedUrl($currentLang, '/portfolio');
