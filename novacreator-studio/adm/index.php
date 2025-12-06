@@ -24,6 +24,7 @@ $avgProgress = $totalClients ? round(array_sum(array_column($clients, 'progress_
 $totalMinutes = array_sum(array_column($clients, 'time_spent_minutes'));
 $totalHours = round($totalMinutes / 60, 1);
 $inProgress = count(array_filter($clients, fn($c) => (int)($c['progress_percent']) < 100));
+$completed = count(array_filter($clients, fn($c) => (int)($c['progress_percent']) >= 100));
 
 $flashSuccess = getFlash('success');
 $flashError = getFlash('error');
@@ -32,21 +33,21 @@ include __DIR__ . '/../includes/header.php';
 ?>
 
 <main class="min-h-screen bg-gradient-to-b from-dark-bg via-dark-bg/90 to-dark-bg pt-28 pb-16 px-4">
-    <div class="container mx-auto max-w-6xl space-y-8">
+    <div class="container mx-auto max-w-7xl space-y-8">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
                 <p class="text-sm text-gray-400">Роль: администратор</p>
-                <h1 class="text-3xl md:text-4xl font-bold text-gradient">Панель клиентов</h1>
-                <p class="text-gray-400 text-sm mt-1">Редактируйте статусы, прогресс и время работы.</p>
+                <h1 class="text-3xl md:text-4xl font-bold text-gradient">Панель управления клиентами</h1>
+                <p class="text-gray-400 text-sm mt-1">Управляйте всеми клиентами и их проектами</p>
             </div>
             <div class="flex items-center gap-3">
-                <form method="GET" class="flex items-center bg-dark-surface border border-dark-border rounded-xl px-3 py-2 shadow-inner">
-                    <svg class="w-4 h-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <form method="GET" class="flex items-center bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 shadow-inner">
+                    <svg class="w-5 h-5 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" />
                     </svg>
-                    <input type="text" name="q" value="<?php echo htmlspecialchars($query); ?>" placeholder="Поиск по имени, email, статусу..." class="bg-transparent text-sm text-gray-200 focus:outline-none" />
+                    <input type="text" name="q" value="<?php echo htmlspecialchars($query); ?>" placeholder="Поиск по имени, email, статусу..." class="bg-transparent text-sm text-gray-200 focus:outline-none w-64" />
                     <?php if ($query): ?>
-                        <a href="/adm/" class="text-xs text-gray-400 ml-2 hover:text-neon-purple">Сброс</a>
+                        <a href="/adm/" class="text-xs text-gray-400 ml-2 hover:text-neon-purple transition-colors">Сброс</a>
                     <?php endif; ?>
                 </form>
                 <a href="/logout.php" class="px-4 py-2 rounded-lg border border-dark-border text-gray-300 hover:text-neon-purple hover:border-neon-purple transition-colors">
@@ -56,22 +57,26 @@ include __DIR__ . '/../includes/header.php';
         </div>
 
         <!-- Агрегаты -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-gradient-to-br from-neon-purple/10 to-neon-blue/10 border border-neon-purple/30 rounded-2xl p-4 shadow-lg">
-                <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Клиентов</p>
-                <p class="text-2xl font-bold text-white"><?php echo $totalClients; ?></p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="bg-gradient-to-br from-neon-purple/10 to-neon-blue/10 border border-neon-purple/30 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300">
+                <p class="text-xs uppercase tracking-wide text-gray-400 mb-2">Всего клиентов</p>
+                <p class="text-3xl font-bold text-white"><?php echo $totalClients; ?></p>
             </div>
-            <div class="bg-gradient-to-br from-neon-blue/10 to-neon-purple/10 border border-neon-blue/30 rounded-2xl p-4 shadow-lg">
-                <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Средний прогресс</p>
-                <p class="text-2xl font-bold text-white"><?php echo $avgProgress; ?>%</p>
+            <div class="bg-gradient-to-br from-neon-blue/10 to-neon-purple/10 border border-neon-blue/30 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300">
+                <p class="text-xs uppercase tracking-wide text-gray-400 mb-2">Средний прогресс</p>
+                <p class="text-3xl font-bold text-white"><?php echo $avgProgress; ?>%</p>
             </div>
-            <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-2xl p-4 shadow-lg">
-                <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Отработано</p>
-                <p class="text-2xl font-bold text-white"><?php echo $totalHours; ?> ч</p>
+            <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300">
+                <p class="text-xs uppercase tracking-wide text-gray-400 mb-2">Отработано</p>
+                <p class="text-3xl font-bold text-white"><?php echo $totalHours; ?> ч</p>
             </div>
-            <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-2xl p-4 shadow-lg">
-                <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">В процессе</p>
-                <p class="text-2xl font-bold text-white"><?php echo $inProgress; ?></p>
+            <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300">
+                <p class="text-xs uppercase tracking-wide text-gray-400 mb-2">В процессе</p>
+                <p class="text-3xl font-bold text-white"><?php echo $inProgress; ?></p>
+            </div>
+            <div class="bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/30 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300">
+                <p class="text-xs uppercase tracking-wide text-gray-400 mb-2">Завершено</p>
+                <p class="text-3xl font-bold text-white"><?php echo $completed; ?></p>
             </div>
         </div>
 
@@ -89,6 +94,9 @@ include __DIR__ . '/../includes/header.php';
 
         <?php if (empty($clients)): ?>
             <div class="bg-dark-surface border border-dark-border rounded-2xl shadow-xl p-10 text-center">
+                <svg class="w-16 h-16 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
                 <p class="text-xl text-gray-300 mb-2">Клиенты не найдены</p>
                 <p class="text-gray-400">Измените фильтр или добавьте пользователей.</p>
                 <?php if ($query): ?>
@@ -96,196 +104,73 @@ include __DIR__ . '/../includes/header.php';
                 <?php endif; ?>
             </div>
         <?php else: ?>
-        <div class="bg-dark-surface border border-dark-border rounded-2xl shadow-xl overflow-hidden">
-            <div class="hidden lg:block">
-                <table class="w-full">
-                    <thead class="bg-dark-bg/60 border-b border-dark-border">
-                        <tr class="text-left text-sm text-gray-400">
-                            <th class="px-6 py-3">Клиент</th>
-                            <th class="px-4 py-3">Статус / Этап</th>
-                            <th class="px-4 py-3">Прогресс</th>
-                            <th class="px-4 py-3">Время</th>
-                            <th class="px-4 py-3">Старт</th>
-                            <th class="px-4 py-3">Заметки</th>
-                            <th class="px-4 py-3 text-right">Сохранить</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-dark-border">
-                        <?php foreach ($clients as $client): ?>
-                            <tr class="align-top hover:bg-dark-bg/40 transition-colors">
-                                <td class="px-6 py-4">
-                                    <p class="text-white font-semibold"><?php echo htmlspecialchars($client['name']); ?></p>
-                                    <p class="text-gray-400 text-sm"><?php echo htmlspecialchars($client['email']); ?></p>
-                                    <p class="text-xs text-gray-500 mt-1 flex items-center gap-2">
-                                        <span>Создан: <?php echo htmlspecialchars(date('d.m.Y', strtotime($client['created_at']))); ?></span>
-                                        <span class="px-2 py-0.5 rounded-full bg-dark-bg border border-dark-border text-gray-300"><?php echo htmlspecialchars($client['role']); ?></span>
-                                    </p>
-                                </td>
-                                <td colspan="6" class="px-4 py-4">
-                                    <form method="POST" action="/adm/save.php" class="grid grid-cols-12 gap-3 items-start">
-                                        <?php echo csrfInput(); ?>
-                                        <input type="hidden" name="user_id" value="<?php echo (int)$client['id']; ?>">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <?php foreach ($clients as $client): 
+                $progress = (int)($client['progress_percent'] ?? 0);
+                $timeSpent = (int)($client['time_spent_minutes'] ?? 0);
+                $hours = round($timeSpent / 60, 1);
+                $createdAt = $client['created_at'] ?? '';
+                $createdAtTimestamp = $createdAt ? strtotime($createdAt) : false;
+                $createdAtFormatted = $createdAtTimestamp ? date('d.m.Y', $createdAtTimestamp) : '';
+            ?>
+                <a href="/adm/client.php?id=<?php echo (int)$client['id']; ?>" class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:border-neon-purple/50 transition-all duration-300 group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-white group-hover:text-neon-purple transition-colors">
+                                <?php echo htmlspecialchars($client['name']); ?>
+                            </h3>
+                            <p class="text-sm text-gray-400 mt-1"><?php echo htmlspecialchars($client['email']); ?></p>
+                        </div>
+                        <span class="px-2 py-1 text-xs rounded-full bg-dark-bg border border-dark-border text-gray-300">
+                            <?php echo htmlspecialchars($client['role']); ?>
+                        </span>
+                    </div>
 
-                                        <div class="col-span-3 space-y-2">
-                                            <input name="status" value="<?php echo htmlspecialchars($client['status']); ?>" placeholder="Статус (напр. Дизайн)"
-                                                   class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                            <input name="stage" value="<?php echo htmlspecialchars($client['stage']); ?>" placeholder="Этап"
-                                                   class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                        </div>
-                                        <div class="col-span-3 space-y-2">
-                                            <div>
-                                                <label class="text-xs text-gray-400">Прогресс (%)</label>
-                                                <div class="flex items-center gap-2 mt-1">
-                                                    <input type="number" min="0" max="100" name="progress_percent"
-                                                           value="<?php echo (int)$client['progress_percent']; ?>"
-                                                           class="w-24 bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                                    <div class="flex items-center gap-1">
-                                                        <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-progress" data-delta="-10">-10</button>
-                                                        <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-progress" data-delta="-5">-5</button>
-                                                        <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-progress" data-delta="5">+5</button>
-                                                        <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-progress" data-delta="10">+10</button>
-                                                    </div>
-                                                </div>
-                                                <?php $progress = (int)$client['progress_percent']; ?>
-                                                <div class="mt-2 w-full bg-dark-bg border border-dark-border rounded-full h-2 overflow-hidden">
-                                                    <div class="h-2 bg-gradient-to-r from-neon-purple to-neon-blue progress-bar" style="width: <?php echo max(0, min(100, $progress)); ?>%;"></div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label class="text-xs text-gray-400">Время (мин)</label>
-                                                <div class="flex items-center gap-2 mt-1">
-                                                    <input type="number" min="0" name="time_spent_minutes"
-                                                           value="<?php echo (int)$client['time_spent_minutes']; ?>"
-                                                           class="w-24 bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                                    <div class="flex items-center gap-1">
-                                                        <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-time" data-delta="30">+30</button>
-                                                        <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-time" data-delta="60">+60</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-span-2">
-                                            <label class="text-xs text-gray-400">Старт</label>
-                                            <input type="date" name="started_at"
-                                                   value="<?php echo htmlspecialchars($client['started_at'] ? substr($client['started_at'], 0, 10) : ''); ?>"
-                                                   class="w-full mt-1 bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                        </div>
-                                        <div class="col-span-3">
-                                            <label class="text-xs text-gray-400">Заметки</label>
-                                            <textarea name="notes" rows="3" placeholder="Комментарий"
-                                                      class="w-full mt-1 bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40"><?php echo htmlspecialchars($client['notes']); ?></textarea>
-                                        </div>
-                                        <div class="col-span-1 text-right flex items-end">
-                                            <button type="submit" class="btn-neon px-4 py-2 text-sm w-full">Сохранить</button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Мобильные карточки -->
-            <div class="lg:hidden divide-y divide-dark-border">
-                <?php foreach ($clients as $client): ?>
-                    <div class="p-4 space-y-4">
-                        <div class="flex items-start justify-between">
-                            <div>
-                                <p class="text-white font-semibold"><?php echo htmlspecialchars($client['name']); ?></p>
-                                <p class="text-gray-400 text-sm"><?php echo htmlspecialchars($client['email']); ?></p>
-                                <p class="text-xs text-gray-500 mt-1">Создан: <?php echo htmlspecialchars(date('d.m.Y', strtotime($client['created_at']))); ?></p>
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs text-gray-400">Прогресс</span>
+                                <span class="text-sm font-semibold text-white"><?php echo $progress; ?>%</span>
                             </div>
-                            <span class="text-xs px-2 py-1 rounded bg-dark-bg border border-dark-border text-gray-300">
-                                <?php echo htmlspecialchars($client['role']); ?>
-                            </span>
+                            <div class="w-full bg-dark-bg border border-dark-border rounded-full h-2 overflow-hidden">
+                                <div class="h-2 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full transition-all duration-300" style="width: <?php echo max(0, min(100, $progress)); ?>%;"></div>
+                            </div>
                         </div>
 
-                        <form method="POST" action="/adm/save.php" class="space-y-3">
-                            <?php echo csrfInput(); ?>
-                            <input type="hidden" name="user_id" value="<?php echo (int)$client['id']; ?>">
-
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="text-xs text-gray-400">Статус</label>
-                                    <input name="status" value="<?php echo htmlspecialchars($client['status']); ?>"
-                                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                </div>
-                                <div>
-                                    <label class="text-xs text-gray-400">Этап</label>
-                                    <input name="stage" value="<?php echo htmlspecialchars($client['stage']); ?>"
-                                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-3 gap-3">
-                                <div>
-                                    <label class="text-xs text-gray-400">Прогресс %</label>
-                                    <input type="number" min="0" max="100" name="progress_percent"
-                                           value="<?php echo (int)$client['progress_percent']; ?>"
-                                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                </div>
-                                <div>
-                                    <label class="text-xs text-gray-400">Время (мин)</label>
-                                    <input type="number" min="0" name="time_spent_minutes"
-                                           value="<?php echo (int)$client['time_spent_minutes']; ?>"
-                                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                </div>
-                                <div>
-                                    <label class="text-xs text-gray-400">Старт</label>
-                                    <input type="date" name="started_at"
-                                           value="<?php echo htmlspecialchars($client['started_at'] ? substr($client['started_at'], 0, 10) : ''); ?>"
-                                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40">
-                                </div>
-                            </div>
-
+                        <div class="grid grid-cols-2 gap-3 text-sm">
                             <div>
-                                <label class="text-xs text-gray-400">Заметки</label>
-                                <textarea name="notes" rows="2"
-                                          class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/40"><?php echo htmlspecialchars($client['notes']); ?></textarea>
+                                <p class="text-xs text-gray-400 mb-1">Статус</p>
+                                <p class="text-white font-medium"><?php echo htmlspecialchars($client['status'] ?: 'Не указан'); ?></p>
                             </div>
+                            <div>
+                                <p class="text-xs text-gray-400 mb-1">Этап</p>
+                                <p class="text-white font-medium"><?php echo htmlspecialchars($client['stage'] ?: 'Не указан'); ?></p>
+                            </div>
+                        </div>
 
-                            <button type="submit" class="btn-neon w-full py-2 text-sm">Сохранить</button>
-                        </form>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div>
+                                <p class="text-xs text-gray-400 mb-1">Время работы</p>
+                                <p class="text-white font-medium"><?php echo $hours; ?> ч</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 mb-1">Создан</p>
+                                <p class="text-white font-medium"><?php echo $createdAtFormatted; ?></p>
+                            </div>
+                        </div>
                     </div>
-                <?php endforeach; ?>
-            </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-dark-border">
+                        <span class="text-xs text-gray-500">Нажмите для редактирования</span>
+                        <svg class="w-5 h-5 text-gray-400 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
+            <?php endforeach; ?>
         </div>
         <?php endif; ?>
     </div>
 </main>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Корректировка прогресса
-    document.querySelectorAll('.adjust-progress').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const delta = Number(btn.dataset.delta || 0);
-            const form = btn.closest('form');
-            if (!form) return;
-            const input = form.querySelector('input[name="progress_percent"]');
-            if (!input) return;
-            const bar = form.querySelector('.progress-bar');
-            const next = Math.max(0, Math.min(100, Number(input.value || 0) + delta));
-            input.value = next;
-            if (bar) bar.style.width = `${next}%`;
-        });
-    });
-
-    // Корректировка времени
-    document.querySelectorAll('.adjust-time').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const delta = Number(btn.dataset.delta || 0);
-            const form = btn.closest('form');
-            if (!form) return;
-            const input = form.querySelector('input[name="time_spent_minutes"]');
-            if (!input) return;
-            const next = Math.max(0, Number(input.value || 0) + delta);
-            input.value = next;
-        });
-    });
-});
-</script>
-
 <?php include __DIR__ . '/../includes/footer.php'; ?>
-
