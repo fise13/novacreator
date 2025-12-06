@@ -1,0 +1,25 @@
+# OAuth конфигурация (содержит секретные ключи)
+includes/oauth_config.local.php
+
+# Apple приватные ключи
+data/*.p8
+*.p8
+
+# База данных (если нужно)
+# data/app.db
+
+# Переменные окружения
+.env
+.env.local
+
+# Логи
+*.log
+
+# Временные файлы
+*.tmp
+*.temp
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
