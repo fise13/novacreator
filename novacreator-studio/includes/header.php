@@ -150,6 +150,11 @@ $siteUrl = $scheme . '://' . $host;
         $baseDir = dirname($scriptPath);
     }
     
+    // Для админок /adm/* и старого /admin/* принудительно берём корень
+    if (strpos($scriptPath, '/adm/') === 0 || $scriptPath === '/adm' || $scriptPath === '/adm/index.php' || strpos($scriptPath, '/admin/') === 0) {
+        $baseDir = '';
+    }
+
     // Нормализуем путь
     $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
     $baseDir = rtrim($baseDir, '/\\');
