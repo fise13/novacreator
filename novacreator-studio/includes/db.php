@@ -131,18 +131,23 @@ function runMigrations(PDO $pdo): void
     $now = date('c');
     
     // Google OAuth конфигурация
-    $stmt = $pdo->prepare('SELECT id FROM oauth_config WHERE provider = :provider LIMIT 1');
+    $stmt = $pdo->prepare('SELECT id, client_id, client_secret FROM oauth_config WHERE provider = :provider LIMIT 1');
     $stmt->execute(['provider' => 'google']);
-    if (!$stmt->fetch()) {
+    $existing = $stmt->fetch();
+    
+    // Получаем секреты из переменных окружения (приоритет)
+    $envClientId = getenv('GOOGLE_CLIENT_ID');
+    $envClientSecret = getenv('GOOGLE_CLIENT_SECRET');
+    
+    if (!$existing) {
+        // Создаем новую запись
         $stmt = $pdo->prepare(
             'INSERT INTO oauth_config (provider, client_id, client_secret, redirect_uri, auth_url, token_url, userinfo_url, created_at, updated_at)
              VALUES (:provider, :client_id, :client_secret, :redirect_uri, :auth_url, :token_url, :userinfo_url, :created_at, :updated_at)'
         );
-        // Получаем секреты из переменных окружения или используем пустые значения
-        // На сервере эти значения должны быть установлены через переменные окружения
-        // или обновлены после развертывания через функцию saveOAuthConfigToDb()
-        $clientId = getenv('GOOGLE_CLIENT_ID') ?: '';
-        $clientSecret = getenv('GOOGLE_CLIENT_SECRET') ?: '';
+        
+        $clientId = $envClientId ?: '';
+        $clientSecret = $envClientSecret ?: '';
         
         $stmt->execute([
             'provider' => 'google',
@@ -155,6 +160,27 @@ function runMigrations(PDO $pdo): void
             'created_at' => $now,
             'updated_at' => $now,
         ]);
+    } elseif (!empty($envClientId) && !empty($envClientSecret)) {
+        // Если переменные окружения установлены, обновляем БД (но только если там пусто или отличается)
+        $needsUpdate = false;
+        if (empty($existing['client_id']) || $existing['client_id'] !== $envClientId) {
+            $needsUpdate = true;
+        }
+        if (empty($existing['client_secret']) || $existing['client_secret'] !== $envClientSecret) {
+            $needsUpdate = true;
+        }
+        
+        if ($needsUpdate) {
+            $stmt = $pdo->prepare(
+                'UPDATE oauth_config SET client_id = :client_id, client_secret = :client_secret, updated_at = :updated_at WHERE provider = :provider'
+            );
+            $stmt->execute([
+                'provider' => 'google',
+                'client_id' => $envClientId,
+                'client_secret' => $envClientSecret,
+                'updated_at' => $now,
+            ]);
+        }
     }
     
     // Apple OAuth конфигурация (пустая, для будущего использования)

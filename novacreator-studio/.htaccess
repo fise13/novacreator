@@ -128,3 +128,21 @@ ErrorDocument 500 /500.php
 
 # ОТКЛЮЧАЕМ DIRECTORY LISTING
 Options -Indexes
+
+# ===================================
+# OAUTH КОНФИГУРАЦИЯ (GOOGLE, APPLE)
+# ===================================
+# Раскомментируйте и заполните значения для автоматической установки OAuth на сервере
+# Эти переменные окружения автоматически сохраняются в базу данных при первом запуске
+#
+# SetEnv GOOGLE_CLIENT_ID "YOUR_GOOGLE_CLIENT_ID_HERE"
+# SetEnv GOOGLE_CLIENT_SECRET "YOUR_GOOGLE_CLIENT_SECRET_HERE"
+#
+# Для Apple OAuth (опционально):
+# SetEnv APPLE_CLIENT_ID "YOUR_APPLE_CLIENT_ID_HERE"
+# SetEnv APPLE_TEAM_ID "YOUR_APPLE_TEAM_ID_HERE"
+# SetEnv APPLE_KEY_ID "YOUR_APPLE_KEY_ID_HERE"
+# SetEnv APPLE_PRIVATE_KEY_PATH "/path/to/private_key.p8"
+#
+# Базовый URL для OAuth (опционально, обычно определяется автоматически):
+# SetEnv OAUTH_BASE_URL "https://novacreatorstudio.com"

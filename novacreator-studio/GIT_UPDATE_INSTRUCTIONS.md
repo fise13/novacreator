@@ -11,6 +11,14 @@
 ```bash
 # Создайте резервную копию базы данных
 cp novacreator-studio/data/app.db novacreator-studio/data/app.db.backup.$(date +%Y%m%d_%H%M%S)
+
+# Создайте резервную копию OAuth конфигурации (ВАЖНО!)
+cd novacreator-studio
+php scripts/export_oauth_config.php > data/backups/oauth_config_backup.json
+
+# Или используйте автоматический скрипт
+chmod +x scripts/backup_oauth.sh
+./scripts/backup_oauth.sh
 ```
 
 ### 2. Обновление кода:
@@ -32,6 +40,12 @@ git pull origin <branch-name>
 
 ### 4. После обновления:
 
+```bash
+# Если база данных была пересоздана или OAuth конфигурация потерялась:
+# Восстановите OAuth конфигурацию из резервной копии
+php scripts/import_oauth_config.php data/backups/oauth_config_backup.json
+```
+
 Просто откройте сайт в браузере - миграции применятся автоматически при первом запросе.
 
 ## Что было сделано:
@@ -40,6 +54,34 @@ git pull origin <branch-name>
 2. ✅ Добавлена в `.gitignore` для предотвращения будущих коммитов
 3. ✅ Добавлены поля для метрик в таблицу `projects`
 4. ✅ Миграции настроены на автоматическое добавление новых полей
+5. ✅ Созданы скрипты для экспорта/импорта OAuth конфигурации
+
+## Резервное копирование OAuth конфигурации:
+
+⚠️ **ВАЖНО:** OAuth конфигурация (Google, Apple) хранится в базе данных. При обновлении через Git база данных сохраняется, но если она была пересоздана, данные OAuth могут потеряться.
+
+### Экспорт OAuth конфигурации:
+
+```bash
+# Экспорт в файл
+php scripts/export_oauth_config.php > oauth_config_backup.json
+
+# Или автоматический бэкап с датой
+./scripts/backup_oauth.sh
+```
+
+### Импорт OAuth конфигурации:
+
+```bash
+# Импорт из файла
+php scripts/import_oauth_config.php oauth_config_backup.json
+```
+
+### Рекомендуемый процесс:
+
+1. **Перед обновлением:** Сделайте бэкап OAuth конфигурации
+2. **Обновите код:** `git pull`
+3. **После обновления:** Если OAuth не работает, восстановите из бэкапа
 
 ## Проверка:
 

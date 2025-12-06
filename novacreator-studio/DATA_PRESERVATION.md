@@ -37,11 +37,25 @@ git pull origin main
 Перед каждым обновлением рекомендуется делать резервную копию:
 
 ```bash
-# Создать резервную копию
+# 1. Создать резервную копию базы данных
 cp novacreator-studio/data/app.db novacreator-studio/data/app.db.backup.$(date +%Y%m%d_%H%M%S)
 
+# 2. Создать резервную копию OAuth конфигурации (ВАЖНО!)
+cd novacreator-studio
+php scripts/export_oauth_config.php > data/backups/oauth_config_backup.json
+
 # Или использовать автоматический скрипт
-./backup-db.sh
+chmod +x scripts/backup_oauth.sh
+./scripts/backup_oauth.sh
+```
+
+### Восстановление OAuth конфигурации:
+
+Если после обновления OAuth перестал работать:
+
+```bash
+# Восстановить OAuth конфигурацию из резервной копии
+php scripts/import_oauth_config.php data/backups/oauth_config_backup.json
 ```
 
 ## Восстановление из резервной копии:
@@ -69,6 +83,23 @@ novacreator-studio/data/*.db-journal
 
 - ❌ **НЕ коммитьте** `data/app.db` в Git
 - ❌ **НЕ удаляйте** `data/app.db` при обновлении
-- ✅ **Делайте резервные копии** перед обновлениями
+- ✅ **Делайте резервные копии** перед обновлениями (БД + OAuth конфигурация)
 - ✅ **Проверяйте** `.gitignore` перед коммитами
+- ⚠️ **OAuth конфигурация** хранится в БД - делайте бэкап перед обновлениями!
+
+## OAuth конфигурация:
+
+OAuth конфигурация (Google, Apple) хранится в таблице `oauth_config` базы данных. 
+
+**Проблема:** При обновлении через Git база данных сохраняется, но если она была пересоздана или удалена, данные OAuth могут потеряться.
+
+**Решение:** Используйте скрипты экспорта/импорта:
+
+```bash
+# Экспорт
+php scripts/export_oauth_config.php > oauth_config_backup.json
+
+# Импорт
+php scripts/import_oauth_config.php oauth_config_backup.json
+```
 

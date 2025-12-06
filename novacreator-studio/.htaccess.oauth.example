@@ -1,0 +1,11 @@
+# Пример конфигурации OAuth для Apache
+# Скопируйте эти строки в ваш .htaccess файл и замените значения на реальные
+
+# Google OAuth конфигурация
+# ВАЖНО: Замените YOUR_GOOGLE_CLIENT_ID и YOUR_GOOGLE_CLIENT_SECRET на реальные значения
+SetEnv GOOGLE_CLIENT_ID "YOUR_GOOGLE_CLIENT_ID_HERE"
+SetEnv GOOGLE_CLIENT_SECRET "YOUR_GOOGLE_CLIENT_SECRET_HERE"
+
+# Базовый URL для OAuth (опционально, обычно определяется автоматически)
+# SetEnv OAUTH_BASE_URL "https://novacreatorstudio.com"
+
