@@ -1,35 +1,17 @@
 <?php
-$pageTitle = 'Northern Beans — demo';
+$pageTitle = 'Northern Beans — Coffee Shop & Roastery';
 $pageMetaTitle = $pageTitle;
-$pageMetaDescription = 'Static coffee shop mockup: warm hero, menu, atmosphere. Buttons are disabled.';
+$pageMetaDescription = 'Fresh roasted coffee daily. Order ahead for pickup, explore our seasonal menu, and experience our cozy atmosphere in the heart of the old town.';
 $ASSET_BASE_OVERRIDE = ''; // грузим ассеты из корня
 require_once __DIR__ . '/../../includes/header.php';
 $currentLang = getCurrentLanguage();
 $back = getLocalizedUrl($currentLang, '/portfolio');
-$ctaDemo = $currentLang === 'en' ? 'demo' : 'демо';
-$badge = $currentLang === 'en' ? 'Demo layout' : 'Демо-макет';
-$logicOff = $currentLang === 'en' ? 'Logic is disabled' : 'Логика отключена';
-$note = $currentLang === 'en'
-    ? 'Forms and buttons are intentionally disabled. Visual showcase only.'
-    : 'Формы и кнопки намеренно отключены. Только визуальная витрина.';
+$backToPortfolio = $currentLang === 'en' ? 'Back to portfolio' : 'Назад в портфолио';
 ?>
 
 <style>
-    /* Компактный header только для демо + скрываем боевые пункты */
-    #mainNavbar { padding-top: 0 !important; padding-bottom: 0 !important; }
-    #mainNavbar .container { padding-top: 8px; padding-bottom: 8px; }
-    #mainNavbar .flex.items-center.justify-between { height: 62px !important; }
-    #mainNavbar img { width: 40px !important; height: 40px !important; }
-    #mainNavbar span.text-gradient { font-size: 1.05rem !important; }
-    #mainNavbar .nav-link,
-    #mainNavbar [role="menubar"],
-    #mainNavbar #accountMenuBtn,
-    #mainNavbar #accountMenu,
-    #mainNavbar #mobileMenuBtn,
-    #mainNavbar #mobileMenu,
-    #mainNavbar #mobileMenuOverlay,
-    #mainNavbar .flex.items-center.space-x-1,
-    #mainNavbar .relative.inline-flex.items-center.justify-center.px-5.py-2 { display:none !important; }
+    /* Полностью скрываем header основного сайта */
+    #mainNavbar { display: none !important; }
 
     :root { --bg: #f7f3ec; --text: #1b1208; --accent: #f59e0b; --accent2: #f97316; }
     .shell { background: radial-gradient(circle at 12% 18%, rgba(255,214,170,0.32), transparent 40%), var(--bg); color: var(--text); }
@@ -43,7 +25,10 @@ $note = $currentLang === 'en'
     .pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#fff2da; color:#8a4713; font-weight:700; }
     .title { font-size:46px; line-height:1.08; margin:12px 0 10px; }
     .lead { color:#4b2b12; line-height:1.65; max-width:560px; }
-    .btn { border:none; border-radius:14px; padding:14px 18px; font-weight:800; cursor:not-allowed; opacity:.78; }
+    .btn { border:none; border-radius:14px; padding:14px 18px; font-weight:800; cursor:pointer; transition:all 0.3s ease; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,158,11,0.3); }
+    .btn-main:hover { opacity: 0.9; }
+    .btn-ghost:hover { background: #fff7ed; }
     .btn-main { background:linear-gradient(120deg,var(--accent),var(--accent2)); color:#2c1400; }
     .btn-ghost { background:#fff; border:1px solid var(--accent); color:#9a4b12; }
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:18px; }
@@ -77,28 +62,28 @@ $note = $currentLang === 'en'
                 <span>Northern Beans</span>
             </div>
             <div class="links">
-                <a class="off" href="#"><?php echo $currentLang === 'en' ? 'Menu' : 'Меню'; ?></a>
-                <a class="off" href="#"><?php echo $currentLang === 'en' ? 'Story' : 'История'; ?></a>
-                <a class="off" href="#"><?php echo $currentLang === 'en' ? 'Map' : 'Карта'; ?></a>
-                <a href="<?php echo htmlspecialchars($back); ?>"><?php echo $backToPortfolio; ?></a>
+                <a href="#menu"><?php echo $currentLang === 'en' ? 'Menu' : 'Меню'; ?></a>
+                <a href="#story"><?php echo $currentLang === 'en' ? 'Story' : 'История'; ?></a>
+                <a href="#location"><?php echo $currentLang === 'en' ? 'Map' : 'Карта'; ?></a>
+                <a href="<?php echo htmlspecialchars($back); ?>" style="opacity:0.7; font-size:0.9em;"><?php echo $backToPortfolio; ?></a>
             </div>
         </nav>
 
         <section class="hero">
             <div>
-                <div class="pill">☕ <?php echo $badge; ?> · <?php echo $logicOff; ?></div>
-                <h1 class="title"><?php echo $currentLang === 'en' ? 'Sunlit coffee landing for a cozy roastery' : 'Солнечный лендинг кофейни и обжарки'; ?></h1>
+                <div class="pill" style="background:#fff2da; color:#8a4713;">☕ <?php echo $currentLang === 'en' ? 'Fresh roasted daily' : 'Свежая обжарка каждый день'; ?></div>
+                <h1 class="title"><?php echo $currentLang === 'en' ? 'Welcome to Northern Beans' : 'Добро пожаловать в Northern Beans'; ?></h1>
                 <p class="lead">
                     <?php echo $currentLang === 'en'
-                        ? 'Hero with seasonal offer, warm palette, tactile cards for menu, atmosphere and location. All CTAs are decorative.'
-                        : 'Герой с сезонным оффером, тёплой палитрой и тактильными карточками меню, атмосферы и локации. Все CTA декоративные.'; ?>
+                        ? 'Discover our seasonal menu, cozy atmosphere, and premium coffee beans. Order ahead for pickup or explore our selection of specialty roasts.'
+                        : 'Откройте для себя наше сезонное меню, уютную атмосферу и премиальные кофейные зёрна. Закажите заранее к приезду или изучите нашу коллекцию специальной обжарки.'; ?>
                 </p>
                 <div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0 18px;">
-                    <button class="btn btn-main" aria-disabled="true">
-                        <?php echo $currentLang === 'en' ? 'Order for pickup' : 'Заказать к приезду'; ?> · <?php echo $ctaDemo; ?>
+                    <button class="btn btn-main" onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})">
+                        <?php echo $currentLang === 'en' ? 'Order for pickup' : 'Заказать к приезду'; ?>
                     </button>
-                    <button class="btn btn-ghost" aria-disabled="true">
-                        <?php echo $currentLang === 'en' ? 'See beans' : 'Выбрать зерно'; ?> · <?php echo $ctaDemo; ?>
+                    <button class="btn btn-ghost" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
+                        <?php echo $currentLang === 'en' ? 'View menu' : 'Посмотреть меню'; ?>
                     </button>
                 </div>
                 <div class="grid">
@@ -114,15 +99,18 @@ $note = $currentLang === 'en'
                     <div class="card">
                         <strong><?php echo $currentLang === 'en' ? 'Atmosphere' : 'Атмосфера'; ?></strong>
                         <p style="color:#5b3417;"><?php echo $currentLang === 'en' ? 'Vinyl, wooden bar, sunny window seats.' : 'Винил, деревянный бар, солнечные подоконники.'; ?></p>
-                        <?php echo buttonDisabled($currentLang === 'en' ? 'Book a table' : 'Забронировать стол'); ?>
+                        <button class="btn btn-ghost" style="margin-top:12px; width:100%;" onclick="document.getElementById('contact-form').scrollIntoView({behavior:'smooth'})">
+                            <?php echo $currentLang === 'en' ? 'Book a table' : 'Забронировать стол'; ?>
+                        </button>
                     </div>
-                    <div class="card">
+                    <div class="card" id="location">
                         <strong><?php echo $currentLang === 'en' ? 'Location' : 'Локация'; ?></strong>
                         <p style="color:#5b3417;"><?php echo $currentLang === 'en' ? 'Old town, 2 min from the park.' : 'Старый центр, 2 минуты от парка.'; ?></p>
-                        <div class="pill beans-tag" style="pointer-events:none;"><?php echo $currentLang === 'en' ? 'Map placeholder' : 'Карта-плейсхолдер'; ?></div>
+                        <div class="pill beans-tag" style="margin-top:12px; cursor:pointer;" onclick="alert('<?php echo $currentLang === 'en' ? 'Map integration coming soon' : 'Интеграция карты скоро появится'; ?>')">
+                            <?php echo $currentLang === 'en' ? 'View on map' : 'Посмотреть на карте'; ?>
+                        </div>
                     </div>
                 </div>
-                <div class="note"><?php echo $note; ?></div>
             </div>
             <div class="visual floaty" aria-hidden="true">
                 <div class="visual-hero">
@@ -137,18 +125,57 @@ $note = $currentLang === 'en'
             </div>
         </section>
 
-        <!-- Заявка -->
-        <section class="section-block" id="demo-request">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Request a project' : 'Оставить заявку'; ?></h2>
+        <!-- Меню -->
+        <section class="section-block" id="menu">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Our Menu' : 'Наше меню'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:24px;">
+                <div class="card">
+                    <strong style="font-size:20px;"><?php echo $currentLang === 'en' ? 'Espresso' : 'Эспрессо'; ?></strong>
+                    <p style="color:#5b3417; margin-top:8px;"><?php echo $currentLang === 'en' ? 'Classic Italian espresso, rich and bold.' : 'Классический итальянский эспрессо, насыщенный и крепкий.'; ?></p>
+                    <div style="margin-top:12px; font-weight:800; color:#c2410c; font-size:18px;">₽180</div>
+                </div>
+                <div class="card">
+                    <strong style="font-size:20px;"><?php echo $currentLang === 'en' ? 'Cappuccino' : 'Капучино'; ?></strong>
+                    <p style="color:#5b3417; margin-top:8px;"><?php echo $currentLang === 'en' ? 'Espresso with steamed milk and foam.' : 'Эспрессо с молочной пеной.'; ?></p>
+                    <div style="margin-top:12px; font-weight:800; color:#c2410c; font-size:18px;">₽220</div>
+                </div>
+                <div class="card">
+                    <strong style="font-size:20px;"><?php echo $currentLang === 'en' ? 'Latte' : 'Латте'; ?></strong>
+                    <p style="color:#5b3417; margin-top:8px;"><?php echo $currentLang === 'en' ? 'Smooth espresso with steamed milk.' : 'Нежный эспрессо с молоком.'; ?></p>
+                    <div style="margin-top:12px; font-weight:800; color:#c2410c; font-size:18px;">₽240</div>
+                </div>
+                <div class="card">
+                    <strong style="font-size:20px;"><?php echo $currentLang === 'en' ? 'Cold Brew' : 'Колд-брю'; ?></strong>
+                    <p style="color:#5b3417; margin-top:8px;"><?php echo $currentLang === 'en' ? 'Slow-steeped cold coffee, smooth and refreshing.' : 'Медленно заваренный холодный кофе, мягкий и освежающий.'; ?></p>
+                    <div style="margin-top:12px; font-weight:800; color:#c2410c; font-size:18px;">₽200</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- История -->
+        <section class="section-block" id="story">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Our Story' : 'Наша история'; ?></h2>
+            <div class="card" style="padding:32px;">
+                <p style="color:#5b3417; line-height:1.8; font-size:18px;">
+                    <?php echo $currentLang === 'en'
+                        ? 'Northern Beans was born from a passion for exceptional coffee. We source the finest beans from around the world and roast them daily in small batches to ensure maximum flavor. Our cozy space in the old town welcomes coffee lovers to enjoy a perfect cup in a warm, inviting atmosphere.'
+                        : 'Northern Beans родился из страсти к исключительному кофе. Мы закупаем лучшие зёрна со всего мира и обжариваем их ежедневно небольшими партиями, чтобы обеспечить максимальный вкус. Наше уютное пространство в старом городе приветствует любителей кофе, чтобы насладиться идеальной чашкой в тёплой, гостеприимной атмосфере.'; ?>
+                </p>
+            </div>
+        </section>
+
+        <!-- Форма заказа -->
+        <section class="section-block" id="order-form">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Order for Pickup' : 'Заказ к приезду'; ?></h2>
             <form id="demoFormBeans" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;">
-                <input type="hidden" name="form_name" value="Demo: Northern Beans">
-                <input type="hidden" name="service" value="coffee-demo">
-                <input type="hidden" name="type" value="contact">
+                <input type="hidden" name="form_name" value="Northern Beans - Order">
+                <input type="hidden" name="service" value="coffee-order">
+                <input type="hidden" name="type" value="order">
                 <input type="text" name="name" placeholder="<?php echo $currentLang === 'en' ? 'Name' : 'Имя'; ?>" required class="card" style="min-height:60px;">
                 <input type="tel" name="phone" placeholder="<?php echo $currentLang === 'en' ? 'Phone' : 'Телефон'; ?>" required class="card" style="min-height:60px;">
                 <input type="email" name="email" placeholder="Email" required class="card" style="min-height:60px;">
                 <input type="text" name="website" value="" autocomplete="off" style="display:none;">
-                <textarea name="message" placeholder="<?php echo $currentLang === 'en' ? 'Describe your task' : 'Опишите задачу'; ?>" required class="card" style="min-height:120px; grid-column:1/-1;"></textarea>
+                <textarea name="message" placeholder="<?php echo $currentLang === 'en' ? 'Your order details (items, quantities, pickup time)' : 'Детали заказа (позиции, количество, время получения)'; ?>" required class="card" style="min-height:120px; grid-column:1/-1;"></textarea>
                 <div style="grid-column:1/-1; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
                     <button type="submit" class="btn btn-main" id="demoFormBeansSubmit"><?php echo $currentLang === 'en' ? 'Send request' : 'Отправить'; ?></button>
                     <span id="demoFormBeansStatus" style="color:#5b3417;"></span>
@@ -156,9 +183,28 @@ $note = $currentLang === 'en'
             </form>
         </section>
 
-        <!-- Показатели -->
+        <!-- Контактная форма -->
+        <section class="section-block" id="contact-form">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Contact Us' : 'Свяжитесь с нами'; ?></h2>
+            <form id="demoFormBeansContact" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;">
+                <input type="hidden" name="form_name" value="Northern Beans - Contact">
+                <input type="hidden" name="service" value="coffee-contact">
+                <input type="hidden" name="type" value="contact">
+                <input type="text" name="name" placeholder="<?php echo $currentLang === 'en' ? 'Name' : 'Имя'; ?>" required class="card" style="min-height:60px;">
+                <input type="tel" name="phone" placeholder="<?php echo $currentLang === 'en' ? 'Phone' : 'Телефон'; ?>" required class="card" style="min-height:60px;">
+                <input type="email" name="email" placeholder="Email" required class="card" style="min-height:60px;">
+                <input type="text" name="website" value="" autocomplete="off" style="display:none;">
+                <textarea name="message" placeholder="<?php echo $currentLang === 'en' ? 'Your message' : 'Ваше сообщение'; ?>" required class="card" style="min-height:120px; grid-column:1/-1;"></textarea>
+                <div style="grid-column:1/-1; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                    <button type="submit" class="btn btn-main" id="demoFormBeansContactSubmit"><?php echo $currentLang === 'en' ? 'Send message' : 'Отправить сообщение'; ?></button>
+                    <span id="demoFormBeansContactStatus" style="color:#5b3417;"></span>
+                </div>
+            </form>
+        </section>
+
+        <!-- Статистика -->
         <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Metrics (demo data)' : 'Показатели (демо-данные)'; ?></h2>
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Why choose us' : 'Почему выбирают нас'; ?></h2>
             <div class="kpi-grid">
                 <div class="kpi-card">
                     <div class="kpi-value">18%</div>
@@ -174,7 +220,7 @@ $note = $currentLang === 'en'
                 </div>
                 <div class="kpi-card">
                     <div class="kpi-value">4.9</div>
-                    <p style="color:#5b3417;"><?php echo $currentLang === 'en' ? 'Rating (placeholder)' : 'Рейтинг (плейсхолдер)'; ?></p>
+                    <p style="color:#5b3417;"><?php echo $currentLang === 'en' ? 'Customer rating' : 'Рейтинг клиентов'; ?></p>
                 </div>
             </div>
         </section>
@@ -203,108 +249,54 @@ $note = $currentLang === 'en'
 
         <!-- FAQ -->
         <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;">FAQ</h2>
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Frequently Asked Questions' : 'Часто задаваемые вопросы'; ?></h2>
             <div class="faq">
-                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Is this live?' : 'Это боевой сайт?'; ?></strong><p style="margin-top:6px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'No, demo only. Buttons are off.' : 'Нет, это демо. Кнопки выключены.'; ?></p></div>
-                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Payments?' : 'Оплаты?'; ?></strong><p style="margin-top:6px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Not connected in demo.' : 'Не подключены в демо.'; ?></p></div>
-                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Map?' : 'Карта?'; ?></strong><p style="margin-top:6px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Static placeholder.' : 'Статичный плейсхолдер.'; ?></p></div>
-                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Can go live?' : 'Можно включить?'; ?></strong><p style="margin-top:6px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Yes, we can connect forms, payments, map.' : 'Да, можем подключить формы, оплаты, карту.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Do you offer delivery?' : 'Есть ли доставка?'; ?></strong><p style="margin-top:6px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Yes, we offer delivery within the city center. Minimum order 500₽.' : 'Да, мы доставляем в пределах центра города. Минимальный заказ 500₽.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Can I book a table?' : 'Можно ли забронировать стол?'; ?></strong><p style="margin-top:6px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Yes, use the contact form or call us directly.' : 'Да, используйте контактную форму или позвоните нам напрямую.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'What are your opening hours?' : 'Какие часы работы?'; ?></strong><p style="margin-top:6px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'We are open daily from 8:00 to 22:00.' : 'Мы работаем ежедневно с 8:00 до 22:00.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Do you roast coffee on-site?' : 'Вы обжариваете кофе на месте?'; ?></strong><p style="margin-top:6px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Yes, we roast fresh beans daily in small batches for maximum flavor.' : 'Да, мы обжариваем свежие зёрна ежедневно небольшими партиями для максимального вкуса.'; ?></p></div>
             </div>
         </section>
 
-        <!-- Capabilities -->
-        <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'What we can ship' : 'Что можем реализовать'; ?></h2>
-            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
-                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Menu UX' : 'UX меню'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Filters, specials, badges.' : 'Фильтры, спецпредложения, бейджи.'; ?></p></div>
-                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Pre-order' : 'Заказ к приезду'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Cart, pickup time slot.' : 'Корзина, слот времени.'; ?></p></div>
-                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Loyalty' : 'Лояльность'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Rewards, visits tracking.' : 'Бонусы, отслеживание визитов.'; ?></p></div>
-                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Local SEO' : 'Локальное SEO'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Schema, maps, reviews widgets.' : 'Схемы, карты, виджеты отзывов.'; ?></p></div>
-            </div>
-        </section>
 
-        <!-- Screens / Components -->
+        <!-- Why Choose Us -->
         <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Screens / components' : 'Экраны / компоненты'; ?></h2>
-            <div class="screen-grid">
-                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Hero + CTA' : 'Hero + CTA'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Offer, seasonal badge.' : 'Оффер, сезонный бейдж.'; ?></p></div>
-                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Menu cards' : 'Карточки меню'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Variants, add-ons.' : 'Варианты, добавки.'; ?></p></div>
-                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Story' : 'История'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Team, roasting, beans.' : 'Команда, обжарка, зерно.'; ?></p></div>
-                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Map / contacts' : 'Карта / контакты'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Static map, hours, socials.' : 'Карта, часы, соцсети.'; ?></p></div>
-            </div>
-        </section>
-
-        <!-- Performance / SEO -->
-        <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;">Performance / SEO</h2>
-            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
-                <div class="card"><strong>LCP</strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Optimized hero, lazyload.' : 'Оптимизация hero, lazyload.'; ?></p></div>
-                <div class="card"><strong>CLS</strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Reserved media slots.' : 'Резерв мест под медиа.'; ?></p></div>
-                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Schema' : 'Схемы'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'LocalBusiness, FAQ, Menu.' : 'LocalBusiness, FAQ, Menu.'; ?></p></div>
-                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Tracking' : 'Трекинг'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Events: menu view, add, submit.' : 'События: просмотр, добавление, отправка.'; ?></p></div>
-            </div>
-        </section>
-
-        <!-- Gallery / Visual Showcase -->
-        <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Visual showcase' : 'Визуальная витрина'; ?></h2>
-            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;">
-                <div class="card" style="padding:24px; background:linear-gradient(135deg,#fff7ed,#fff2da);">
-                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#f59e0b,#f97316); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Hero Section' : 'Hero секция'; ?></div>
-                    <strong><?php echo $currentLang === 'en' ? 'Warm welcome' : 'Тёплое приветствие'; ?></strong>
-                    <p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Seasonal offers, hero image, clear CTA buttons.' : 'Сезонные предложения, hero-изображение, чёткие CTA.'; ?></p>
-                </div>
-                <div class="card" style="padding:24px; background:linear-gradient(135deg,#fff7ed,#fff2da);">
-                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#8a4713,#5b3417); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Menu Cards' : 'Карточки меню'; ?></div>
-                    <strong><?php echo $currentLang === 'en' ? 'Product showcase' : 'Витрина продуктов'; ?></strong>
-                    <p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Filterable menu with images, descriptions, and prices.' : 'Фильтруемое меню с изображениями, описаниями и ценами.'; ?></p>
-                </div>
-                <div class="card" style="padding:24px; background:linear-gradient(135deg,#fff7ed,#fff2da);">
-                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#fef3c7,#fde68a); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#5b3417; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Story Section' : 'История'; ?></div>
-                    <strong><?php echo $currentLang === 'en' ? 'Brand story' : 'История бренда'; ?></strong>
-                    <p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'About the roastery, team, and coffee philosophy.' : 'Об обжарке, команде и философии кофе.'; ?></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features & Benefits -->
-        <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Key features' : 'Ключевые особенности'; ?></h2>
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Why choose us' : 'Почему выбирают нас'; ?></h2>
             <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px;">
                 <div class="card" style="border-left:4px solid #f59e0b;">
                     <strong style="display:flex; align-items:center; gap:8px;">
                         <span style="font-size:24px;">☕</span>
-                        <?php echo $currentLang === 'en' ? 'Menu management' : 'Управление меню'; ?>
+                        <?php echo $currentLang === 'en' ? 'Fresh roasted daily' : 'Свежая обжарка каждый день'; ?>
                     </strong>
-                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Easy-to-update menu with categories, seasonal items, and special offers.' : 'Легко обновляемое меню с категориями, сезонными позициями и спецпредложениями.'; ?></p>
+                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'We roast our beans in small batches every morning to ensure maximum freshness and flavor.' : 'Мы обжариваем наши зёрна небольшими партиями каждое утро, чтобы обеспечить максимальную свежесть и вкус.'; ?></p>
                 </div>
                 <div class="card" style="border-left:4px solid #f97316;">
                     <strong style="display:flex; align-items:center; gap:8px;">
-                        <span style="font-size:24px;">📱</span>
-                        <?php echo $currentLang === 'en' ? 'Mobile-first design' : 'Мобильный дизайн'; ?>
+                        <span style="font-size:24px;">🌍</span>
+                        <?php echo $currentLang === 'en' ? 'Premium beans' : 'Премиальные зёрна'; ?>
                     </strong>
-                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Fully responsive layout optimized for all devices and screen sizes.' : 'Полностью адаптивная вёрстка, оптимизированная для всех устройств.'; ?></p>
+                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'We source the finest coffee beans from around the world, directly from trusted farmers.' : 'Мы закупаем лучшие кофейные зёрна со всего мира, напрямую у проверенных фермеров.'; ?></p>
                 </div>
                 <div class="card" style="border-left:4px solid #f59e0b;">
                     <strong style="display:flex; align-items:center; gap:8px;">
-                        <span style="font-size:24px;">🎨</span>
-                        <?php echo $currentLang === 'en' ? 'Custom branding' : 'Уникальный брендинг'; ?>
+                        <span style="font-size:24px;">👨‍🍳</span>
+                        <?php echo $currentLang === 'en' ? 'Expert baristas' : 'Опытные бариста'; ?>
                     </strong>
-                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Unique visual identity that reflects your coffee shop\'s personality.' : 'Уникальная визуальная идентичность, отражающая характер вашей кофейни.'; ?></p>
+                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Our team consists of certified baristas passionate about creating the perfect cup.' : 'Наша команда состоит из сертифицированных бариста, увлечённых созданием идеальной чашки.'; ?></p>
                 </div>
                 <div class="card" style="border-left:4px solid #f97316;">
                     <strong style="display:flex; align-items:center; gap:8px;">
-                        <span style="font-size:24px;">⚡</span>
-                        <?php echo $currentLang === 'en' ? 'Fast loading' : 'Быстрая загрузка'; ?>
+                        <span style="font-size:24px;">❤️</span>
+                        <?php echo $currentLang === 'en' ? 'Cozy atmosphere' : 'Уютная атмосфера'; ?>
                     </strong>
-                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Optimized performance ensures quick page loads and smooth user experience.' : 'Оптимизированная производительность обеспечивает быструю загрузку и плавный UX.'; ?></p>
+                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'A warm, inviting space where you can relax, work, or meet with friends.' : 'Тёплое, гостеприимное пространство, где вы можете расслабиться, поработать или встретиться с друзьями.'; ?></p>
                 </div>
             </div>
         </section>
 
-        <!-- Testimonials / Reviews -->
+        <!-- Customer Reviews -->
         <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'What clients say' : 'Отзывы клиентов'; ?></h2>
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'What our customers say' : 'Что говорят наши клиенты'; ?></h2>
             <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px;">
                 <div class="card" style="padding:24px; background:#fff;">
                     <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
@@ -331,65 +323,72 @@ $note = $currentLang === 'en'
             </div>
         </section>
 
-        <!-- Technology Stack -->
-        <section class="section-block">
-            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Technology stack' : 'Технологический стек'; ?></h2>
-            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;">
-                <div class="card" style="text-align:center; padding:20px;">
-                    <div style="font-size:32px; margin-bottom:8px;">🎨</div>
-                    <strong>Design</strong>
-                    <p style="margin-top:6px; color:#5b3417; font-size:14px;"><?php echo $currentLang === 'en' ? 'Custom UI/UX' : 'Кастомный UI/UX'; ?></p>
-                </div>
-                <div class="card" style="text-align:center; padding:20px;">
-                    <div style="font-size:32px; margin-bottom:8px;">💻</div>
-                    <strong>Frontend</strong>
-                    <p style="margin-top:6px; color:#5b3417; font-size:14px;">HTML5, CSS3, JS</p>
-                </div>
-                <div class="card" style="text-align:center; padding:20px;">
-                    <div style="font-size:32px; margin-bottom:8px;">⚙️</div>
-                    <strong>Backend</strong>
-                    <p style="margin-top:6px; color:#5b3417; font-size:14px;">PHP, MySQL</p>
-                </div>
-                <div class="card" style="text-align:center; padding:20px;">
-                    <div style="font-size:32px; margin-bottom:8px;">📊</div>
-                    <strong>Analytics</strong>
-                    <p style="margin-top:6px; color:#5b3417; font-size:14px;">GA4, Events</p>
-                </div>
-            </div>
-        </section>
     </div>
 </main>
 
 <script>
     (function() {
+        // Форма заказа
         const form = document.getElementById('demoFormBeans');
-        if (!form) return;
-        const submitBtn = document.getElementById('demoFormBeansSubmit');
-        const statusEl = document.getElementById('demoFormBeansStatus');
+        if (form) {
+            const submitBtn = document.getElementById('demoFormBeansSubmit');
+            const statusEl = document.getElementById('demoFormBeansStatus');
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            statusEl.textContent = '';
-            submitBtn.disabled = true;
-            submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Sending...' : 'Отправляем...'; ?>';
-            try {
-                const formData = new FormData(form);
-                const res = await fetch('/backend/send.php', { method: 'POST', body: formData });
-                const data = await res.json().catch(() => ({}));
-                if (!res.ok || !data.success) {
-                    throw new Error(data.message || '<?php echo $currentLang === 'en' ? 'Error sending' : 'Ошибка отправки'; ?>');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                statusEl.textContent = '';
+                submitBtn.disabled = true;
+                submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Sending...' : 'Отправляем...'; ?>';
+                try {
+                    const formData = new FormData(form);
+                    const res = await fetch('/backend/send.php', { method: 'POST', body: formData });
+                    const data = await res.json().catch(() => ({}));
+                    if (!res.ok || !data.success) {
+                        throw new Error(data.message || '<?php echo $currentLang === 'en' ? 'Error sending' : 'Ошибка отправки'; ?>');
+                    }
+                    statusEl.style.color = '#16a34a';
+                    statusEl.textContent = '<?php echo $currentLang === 'en' ? 'Order sent! We will contact you soon.' : 'Заказ отправлен! Мы свяжемся с вами в ближайшее время.'; ?>';
+                    form.reset();
+                } catch (err) {
+                    statusEl.style.color = '#b91c1c';
+                    statusEl.textContent = err.message;
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Send order' : 'Отправить заказ'; ?>';
                 }
-                statusEl.style.color = '#16a34a';
-                statusEl.textContent = '<?php echo $currentLang === 'en' ? 'Sent! We will contact you.' : 'Отправлено! Свяжемся с вами.'; ?>';
-                form.reset();
-            } catch (err) {
-                statusEl.style.color = '#b91c1c';
-                statusEl.textContent = err.message;
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Send request' : 'Отправить'; ?>';
-            }
-        });
+            });
+        }
+
+        // Контактная форма
+        const contactForm = document.getElementById('demoFormBeansContact');
+        if (contactForm) {
+            const submitBtnContact = document.getElementById('demoFormBeansContactSubmit');
+            const statusElContact = document.getElementById('demoFormBeansContactStatus');
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                statusElContact.textContent = '';
+                submitBtnContact.disabled = true;
+                submitBtnContact.textContent = '<?php echo $currentLang === 'en' ? 'Sending...' : 'Отправляем...'; ?>';
+                try {
+                    const formData = new FormData(contactForm);
+                    const res = await fetch('/backend/send.php', { method: 'POST', body: formData });
+                    const data = await res.json().catch(() => ({}));
+                    if (!res.ok || !data.success) {
+                        throw new Error(data.message || '<?php echo $currentLang === 'en' ? 'Error sending' : 'Ошибка отправки'; ?>');
+                    }
+                    statusElContact.style.color = '#16a34a';
+                    statusElContact.textContent = '<?php echo $currentLang === 'en' ? 'Message sent! We will reply soon.' : 'Сообщение отправлено! Мы ответим в ближайшее время.'; ?>';
+                    contactForm.reset();
+                } catch (err) {
+                    statusElContact.style.color = '#b91c1c';
+                    statusElContact.textContent = err.message;
+                } finally {
+                    submitBtnContact.disabled = false;
+                    submitBtnContact.textContent = '<?php echo $currentLang === 'en' ? 'Send message' : 'Отправить сообщение'; ?>';
+                }
+            });
+        }
     })();
 </script>
 
