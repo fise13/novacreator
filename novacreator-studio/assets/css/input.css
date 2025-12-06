@@ -1,144 +1,170 @@
-/* Основной входной файл для Tailwind CSS */
+/* ============================================
+   DESIGN SYSTEM - NovaCreator Studio
+   Единая система дизайн-токенов и компонентов
+   ============================================ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Кастомные стили */
+/* ============================================
+   CSS DESIGN TOKENS (CSS Variables)
+   ============================================ */
 @layer base {
+  :root {
+    /* Цветовая палитра */
+    --color-neon-purple: #8B5CF6;
+    --color-neon-purple-light: #A78BFA;
+    --color-neon-purple-dark: #6D28D9;
+    --color-neon-purple-glow: rgba(139, 92, 246, 0.5);
+    --color-neon-purple-glow-light: rgba(139, 92, 246, 0.3);
+    
+    --color-neon-blue: #06B6D4;
+    --color-neon-blue-light: #22D3EE;
+    --color-neon-blue-dark: #0891B2;
+    --color-neon-blue-glow: rgba(6, 182, 212, 0.5);
+    --color-neon-blue-glow-light: rgba(6, 182, 212, 0.3);
+    
+    --color-dark-bg: #0A0A0F;
+    --color-dark-bg-lighter: #0F0F15;
+    --color-dark-surface: #111118;
+    --color-dark-surface-lighter: #161620;
+    --color-dark-border: #1F1F2E;
+    --color-dark-border-lighter: #2A2A3A;
+    
+    /* Семантические цвета */
+    --color-success: #10B981;
+    --color-error: #EF4444;
+    --color-warning: #F59E0B;
+    --color-info: #3B82F6;
+    
+    /* Типографика */
+    --font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    
+    /* Spacing (8px базовая единица) */
+    --spacing-xs: 0.25rem;    /* 4px */
+    --spacing-sm: 0.5rem;     /* 8px */
+    --spacing-md: 1rem;       /* 16px */
+    --spacing-lg: 1.5rem;     /* 24px */
+    --spacing-xl: 2rem;       /* 32px */
+    --spacing-2xl: 3rem;      /* 48px */
+    --spacing-3xl: 4rem;      /* 64px */
+    --spacing-4xl: 6rem;      /* 96px */
+    
+    /* Border Radius */
+    --radius-sm: 0.375rem;   /* 6px */
+    --radius-md: 0.5rem;     /* 8px */
+    --radius-lg: 0.75rem;     /* 12px */
+    --radius-xl: 1rem;       /* 16px */
+    --radius-2xl: 1.25rem;   /* 20px */
+    --radius-3xl: 1.5rem;    /* 24px */
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    --shadow-neon-purple: 0 0 20px var(--color-neon-purple-glow), 0 0 40px var(--color-neon-purple-glow-light);
+    --shadow-neon-blue: 0 0 20px var(--color-neon-blue-glow), 0 0 40px var(--color-neon-blue-glow-light);
+    
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Z-index scale */
+    --z-base: 0;
+    --z-dropdown: 10;
+    --z-sticky: 20;
+    --z-fixed: 30;
+    --z-modal-backdrop: 40;
+    --z-modal: 50;
+  }
+  
   /* Подключение шрифта Inter */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   
-  body {
-    @apply bg-dark-bg text-white font-sans antialiased;
-    /* Оптимизация для мобильных */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-  
-  /* Плавная прокрутка */
+  /* Базовые стили */
   html {
     scroll-behavior: smooth;
-    /* Улучшение производительности на мобильных */
     -webkit-tap-highlight-color: transparent;
-    /* Safe area insets для iPhone */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
   
+  body {
+    @apply bg-dark-bg text-white font-sans antialiased;
+    font-family: var(--font-family-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    line-height: 1.6;
+  }
+  
   /* Оптимизация touch для мобильных */
   * {
     -webkit-tap-highlight-color: transparent;
-    /* Улучшенная производительность на touch устройствах */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
   }
   
   /* Разрешаем выделение текста для контента */
-  p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, input, textarea, select {
+  p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, input, textarea, select, a {
     -webkit-user-select: text;
     user-select: text;
   }
   
-  /* Улучшенные стили для touch устройств */
-  .touch-device button,
-  .touch-device .btn-neon,
-  .touch-device .btn-outline,
-  .touch-device a {
-    /* Увеличиваем область нажатия */
-    padding: 0.875rem 1.5rem;
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  .touch-device .service-card {
-    /* Улучшенная обратная связь при touch */
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }
-  
-  .touch-device .service-card:active {
-    transform: scale(0.98);
-    opacity: 0.9;
-  }
-  
-  /* Улучшение производительности анимаций на мобильных */
+  /* Улучшение производительности анимаций */
   @media (prefers-reduced-motion: reduce) {
-    * {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
   
-  /* Оптимизация типографики для очень маленьких экранов */
+  /* Оптимизация типографики для маленьких экранов */
   @media (max-width: 374px) {
-    h1 {
-      font-size: 1.75rem !important;
-      line-height: 1.2 !important;
-    }
-    h2 {
-      font-size: 1.5rem !important;
-      line-height: 1.3 !important;
-    }
-    h3 {
-      font-size: 1.25rem !important;
-      line-height: 1.4 !important;
-    }
-    p {
-      font-size: 0.9375rem !important;
-      line-height: 1.6 !important;
-    }
+    h1 { font-size: 1.75rem !important; line-height: 1.2 !important; }
+    h2 { font-size: 1.5rem !important; line-height: 1.3 !important; }
+    h3 { font-size: 1.25rem !important; line-height: 1.4 !important; }
+    p { font-size: 0.9375rem !important; line-height: 1.6 !important; }
   }
   
-  /* Оптимизация для landscape ориентации на мобильных */
+  /* Оптимизация для landscape ориентации */
   @media (max-width: 896px) and (orientation: landscape) {
-    .min-h-screen {
-      min-height: auto !important;
-    }
-    section {
-      padding-top: 2rem !important;
-      padding-bottom: 2rem !important;
-    }
+    .min-h-screen { min-height: auto !important; }
+    section { padding-top: 2rem !important; padding-bottom: 2rem !important; }
   }
   
   /* Оптимизация производительности для мобильных */
   @media (max-width: 768px) {
-    /* Упрощаем blur эффекты на мобильных */
-    .blur-3xl {
-      filter: blur(40px);
-    }
+    .blur-3xl { filter: blur(40px); }
+    .blur-2xl { filter: blur(30px); }
     
-    .blur-2xl {
-      filter: blur(30px);
-    }
-    
-    /* Отключаем тяжелые анимации на слабых устройствах */
     @media (prefers-reduced-motion: no-preference) {
-      /* Упрощаем parallax на мобильных */
-      .parallax {
-        transform: none !important;
-      }
-    }
-    
-    /* Оптимизация для FAQ на мобильных */
-    .faq-answer {
-      font-size: 0.9375rem;
-      line-height: 1.6;
-    }
-    
-    /* Улучшенные отступы для FAQ */
-    .faq-answer p {
-      padding-top: 0.75rem;
+      .parallax { transform: none !important; }
     }
   }
   
   /* Lazy loading для изображений */
   img[loading="lazy"] {
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity var(--transition-base);
   }
   
   img[loading="lazy"].loaded {
@@ -160,63 +186,117 @@
   }
 }
 
+/* ============================================
+   КОМПОНЕНТЫ
+   ============================================ */
 @layer components {
-  /* Кнопка с неоновым эффектом - оптимизирована для мобильных */
+  /* ============================================
+     КНОПКИ
+     ============================================ */
+  
+  /* Основная кнопка с неоновым эффектом */
   .btn-neon {
-    @apply px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-neon-purple to-neon-blue 
+    @apply relative px-6 py-3 md:px-8 md:py-4 
+           bg-gradient-to-r from-neon-purple to-neon-blue 
            text-white font-semibold rounded-lg text-base md:text-lg
            transition-all duration-300 min-h-[44px] min-w-[120px]
-           hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] 
-           hover:scale-105 active:scale-95
-           touch-manipulation; /* Оптимизация для touch */
+           hover:shadow-neon-purple hover:scale-105 
+           active:scale-95 focus:outline-none focus:ring-2 
+           focus:ring-neon-purple focus:ring-offset-2 
+           focus:ring-offset-dark-bg
+           touch-manipulation;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
   }
   
-  /* Кнопка outline - оптимизирована для мобильных */
+  .btn-neon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+  
+  .btn-neon:hover::before {
+    opacity: 0.3;
+  }
+  
+  /* Outline кнопка */
   .btn-outline {
     @apply px-6 py-3 md:px-8 md:py-4 border-2 border-neon-purple 
            text-neon-purple font-semibold rounded-lg text-base md:text-lg
            transition-all duration-300 min-h-[44px] min-w-[120px]
            hover:bg-neon-purple hover:text-white 
-           hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]
+           hover:shadow-neon-purple hover:border-neon-purple
+           active:scale-95 focus:outline-none focus:ring-2 
+           focus:ring-neon-purple focus:ring-offset-2 
+           focus:ring-offset-dark-bg
            touch-manipulation;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
   }
   
-  /* Карточка услуги - оптимизирована для мобильных */
+  /* ============================================
+     КАРТОЧКИ
+     ============================================ */
+  
   .service-card {
-    @apply bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 
+    @apply relative bg-dark-surface border border-dark-border 
+           rounded-xl p-6 md:p-8 
            transition-all duration-300 
-           hover:border-neon-purple hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] 
-           hover:-translate-y-2
-           active:scale-[0.98] active:opacity-90;
-    /* Ripple эффект для мобильных */
-    position: relative;
-    overflow: hidden;
+           hover:border-neon-purple hover:shadow-lg
+           active:scale-[0.98] active:opacity-90
+           overflow-hidden;
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-smooth);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   
-  /* Ripple эффект при нажатии на мобильных */
-  .service-card::after {
+  /* Градиентный эффект при hover */
+  .service-card::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(139, 92, 246, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-    pointer-events: none;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(139, 92, 246, 0.1), 
+      transparent);
+    transition: left var(--transition-slow);
   }
   
-  .service-card:active::after {
-    width: 300px;
-    height: 300px;
+  .service-card:hover::before {
+    left: 100%;
+  }
+  
+  /* 3D эффект для карточек на десктопе */
+  @media (min-width: 768px) {
+    .service-card {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+      box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3),
+                  0 0 60px rgba(6, 182, 212, 0.2),
+                  inset 0 0 30px rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.5);
+    }
   }
   
   @media (max-width: 768px) {
     .service-card {
       @apply p-5 mb-4;
-      margin-bottom: 1rem;
     }
     
     .service-card:hover {
@@ -224,62 +304,68 @@
     }
   }
   
-  /* Заголовок секции - адаптивные размеры */
+  /* ============================================
+     ТИПОГРАФИКА
+     ============================================ */
+  
   .section-title {
-    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 
-           bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 
+           font-bold mb-4 md:mb-6 
+           bg-gradient-to-r from-neon-purple to-neon-blue 
+           bg-clip-text text-transparent
            leading-tight;
   }
   
-  /* Подзаголовок секции - адаптивные размеры */
   .section-subtitle {
-    @apply text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400 mb-8 md:mb-12 max-w-3xl
-           leading-relaxed px-4 md:px-0;
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400 
+           mb-8 md:mb-12 max-w-3xl leading-relaxed px-4 md:px-0;
   }
   
-  /* Оптимизация для очень маленьких экранов */
   @media (max-width: 374px) {
-    .section-title {
-      @apply text-2xl mb-3;
-    }
-    .section-subtitle {
-      @apply text-sm mb-6;
-    }
+    .section-title { @apply text-2xl mb-3; }
+    .section-subtitle { @apply text-sm mb-6; }
   }
   
-  /* Оптимизация длины строк для читаемости */
-  @media (max-width: 768px) {
-    p, li {
-      max-width: 65ch;
-    }
+  /* Градиентный текст */
+  .text-gradient {
+    @apply bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent;
+    text-shadow: 0 0 30px var(--color-neon-purple-glow-light),
+                 0 0 60px var(--color-neon-blue-glow-light);
   }
   
-  /* Инпут формы - оптимизирован для мобильных */
+  /* ============================================
+     ФОРМЫ
+     ============================================ */
+  
   .form-input {
-    @apply w-full px-4 py-3 md:px-6 md:py-4 bg-dark-surface border border-dark-border 
-           rounded-lg text-white placeholder-gray-500 text-base
-           focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/20 
+    @apply w-full px-4 py-3 md:px-6 md:py-4 bg-dark-surface 
+           border border-dark-border rounded-lg text-white 
+           placeholder-gray-500 text-base
+           focus:outline-none focus:border-neon-purple 
+           focus:ring-2 focus:ring-neon-purple/20 
            transition-all duration-300 min-h-[48px];
-    /* Убираем стили iOS */
-    -webkit-appearance: none;
-    appearance: none;
-    /* Улучшенная читаемость на мобильных */
+    border-radius: var(--radius-lg);
     font-size: 16px; /* Предотвращает zoom на iOS */
     line-height: 1.5;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: all var(--transition-base);
   }
   
-  /* Текстовая область формы - оптимизирована для мобильных */
   .form-textarea {
-    @apply w-full px-4 py-3 md:px-6 md:py-4 bg-dark-surface border border-dark-border 
-           rounded-lg text-white placeholder-gray-500 text-base
-           focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/20 
+    @apply w-full px-4 py-3 md:px-6 md:py-4 bg-dark-surface 
+           border border-dark-border rounded-lg text-white 
+           placeholder-gray-500 text-base
+           focus:outline-none focus:border-neon-purple 
+           focus:ring-2 focus:ring-neon-purple/20 
            transition-all duration-300 resize-none min-h-[140px];
-    /* Улучшенная читаемость на мобильных */
-    font-size: 16px; /* Предотвращает zoom на iOS */
+    border-radius: var(--radius-lg);
+    font-size: 16px;
     line-height: 1.6;
+    transition: all var(--transition-base);
   }
   
-  /* Визуализация ошибок валидации */
+  /* Валидация форм */
   .form-input:invalid:not(:placeholder-shown),
   .form-textarea:invalid:not(:placeholder-shown) {
     @apply border-red-500 focus:border-red-500 focus:ring-red-500/20;
@@ -290,211 +376,51 @@
     @apply border-green-500/50;
   }
   
-  /* Улучшенные отступы для форм на мобильных */
   @media (max-width: 768px) {
-    .contact-form {
-      @apply space-y-5;
-    }
-    
+    .contact-form { @apply space-y-5; }
     .form-input,
     .form-textarea {
       @apply px-4 py-3.5;
-      font-size: 16px; /* Важно для предотвращения zoom на iOS */
-    }
-  }
-}
-
-@layer utilities {
-  /* Градиентный текст */
-  .text-gradient {
-    @apply bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent;
-  }
-  
-  /* Неоновое свечение */
-  .glow-purple {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-  }
-  
-  .glow-blue {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-  }
-  
-  /* Анимация для счетчиков */
-  .counter-wrapper {
-    @apply transition-all duration-500;
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-  
-  .counter-wrapper:hover {
-    transform: scale(1.1);
-    animation: pulse-glow-fast 1s ease-in-out infinite;
-  }
-  
-  @keyframes pulse-glow {
-    0%, 100% {
-      filter: brightness(1);
-      text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
-    }
-    50% {
-      filter: brightness(1.2);
-      text-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 30px rgba(6, 182, 212, 0.4);
+      font-size: 16px;
     }
   }
   
-  @keyframes pulse-glow-fast {
-    0%, 100% {
-      filter: brightness(1.1);
-      text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
-    }
-    50% {
-      filter: brightness(1.3);
-      text-shadow: 0 0 25px rgba(139, 92, 246, 0.8), 0 0 35px rgba(6, 182, 212, 0.6);
-    }
+  /* ============================================
+     НАВИГАЦИЯ
+     ============================================ */
+  
+  .navbar {
+    @apply fixed top-0 left-0 right-0 z-50 
+           bg-dark-bg/95 backdrop-blur-xl 
+           border-b border-dark-border/80 
+           transition-all duration-300 
+           shadow-lg shadow-black/20;
+    padding-top: env(safe-area-inset-top);
   }
   
-  /* Анимация для прогресс-баров */
-  .progress-bar {
-    @apply transition-all duration-300 ease-out;
-    box-shadow: 0 0 8px rgba(139, 92, 246, 0.2);
-    transition: width 0.1s linear, box-shadow 0.3s ease;
-  }
-  
-  .progress-bar.progress-animated {
-    box-shadow: 0 0 12px rgba(139, 92, 246, 0.4), 0 0 20px rgba(6, 182, 212, 0.2);
-    animation: progress-glow 2s ease-out;
-  }
-  
-  @keyframes progress-glow {
-    0% {
-      box-shadow: 0 0 8px rgba(139, 92, 246, 0.2);
-    }
-    50% {
-      box-shadow: 0 0 15px rgba(139, 92, 246, 0.5), 0 0 25px rgba(6, 182, 212, 0.3);
-    }
-    100% {
-      box-shadow: 0 0 12px rgba(139, 92, 246, 0.4), 0 0 20px rgba(6, 182, 212, 0.2);
-    }
-  }
-  
-  .progress-item {
-    @apply opacity-0;
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-  
-  .progress-item:nth-child(1) {
-    animation-delay: 0s;
-  }
-  
-  .progress-item:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-  
-  .progress-item:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Индикатор прогресса прокрутки */
-  .scroll-progress-bar {
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-  }
-  
-  /* Кнопка "Наверх" */
-  #backToTop {
-    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
-  }
-  
-  #backToTop:hover {
-    box-shadow: 0 6px 30px rgba(139, 92, 246, 0.6), 0 0 40px rgba(6, 182, 212, 0.4);
-  }
-  
-  /* Анимация загрузки страницы */
-  body:not(.page-loaded) {
-    overflow: hidden;
-  }
-  
-  /* Улучшенные hover эффекты для карточек */
-  .service-card {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
-    transition: left 0.5s;
-  }
-  
-  .service-card:hover::before {
-    left: 100%;
-  }
-  
-  /* Sticky навигация с тенью при скролле (десктоп по умолчанию) */
   .navbar.scrolled {
-    @apply bg-dark-bg/95 shadow-lg;
+    @apply shadow-xl;
+    background: rgba(10, 10, 15, 0.98);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
-
-  /* Полностью переработанные стили шапки для мобильных */
-  /* Базовый вид навигации на смартфонах */
+  
+  /* Мобильное меню */
   @media (max-width: 768px) {
     .navbar {
       @apply border-b border-dark-border/80;
       background: rgba(10, 10, 15, 0.96);
-      box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.55),
-        0 0 0 1px rgba(139, 92, 246, 0.16);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55),
+                  0 0 0 1px rgba(139, 92, 246, 0.16);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
-
+    
     .navbar.scrolled {
       background: rgba(5, 5, 10, 0.98);
-      box-shadow:
-        0 8px 22px rgba(0, 0, 0, 0.7),
-        0 0 0 1px rgba(139, 92, 246, 0.18);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.7),
+                  0 0 0 1px rgba(139, 92, 246, 0.18);
     }
-
-    /* Компактная, но удобная зона для логотипа и бургер-кнопки */
-    .navbar .container {
-      @apply px-4;
-    }
-
-    .navbar .flex.items-center.justify-between {
-      min-height: 3.25rem;
-    }
-
-    .navbar a[aria-label*="home"] {
-      @apply gap-2;
-    }
-
-    .navbar a[aria-label*="home"] img {
-      box-shadow: 0 0 14px rgba(139, 92, 246, 0.45);
-    }
-
-    .navbar .text-gradient {
-      font-size: 0.95rem;
-      text-shadow:
-        0 0 14px rgba(139, 92, 246, 0.4),
-        0 0 22px rgba(6, 182, 212, 0.28);
-    }
-
-    /* Кнопка мобильного меню */
+    
     #mobileMenuBtn {
       @apply rounded-xl;
       -webkit-tap-highlight-color: rgba(139, 92, 246, 0.25);
@@ -502,43 +428,25 @@
       box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35),
                   0 6px 16px rgba(0, 0, 0, 0.65);
     }
-
+    
     #mobileMenuBtn:active {
       transform: scale(0.95);
     }
-
-    /* Анимация иконки гамбургера / крестика */
-    #mobileMenuBtn svg {
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: transform;
-    }
-
-    #mobileMenuBtn svg.rotate-90 {
-      transform: rotate(90deg);
-    }
-
-    /* Переключатель языков рядом с меню в десктопе и в мобильном меню */
-    [role="group"][aria-label*="language"] {
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
-    }
-
-    /* Overlay затемнения под выдвижным меню */
+    
     #mobileMenuOverlay {
       will-change: opacity;
-      transition: opacity 0.25s ease-out;
+      transition: opacity var(--transition-base);
       backdrop-filter: blur(22px) saturate(175%);
       -webkit-backdrop-filter: blur(22px) saturate(175%);
       background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(0, 0, 0, 0.88));
       transform: translateZ(0);
       -webkit-transform: translateZ(0);
     }
-
-    /* Выдвижное мобильное меню */
+    
     #mobileMenu {
       will-change: transform, opacity;
-      transition:
-        opacity 0.24s ease-out,
-        transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity var(--transition-base),
+                  transform var(--transition-base);
       backdrop-filter: blur(26px) saturate(180%);
       -webkit-backdrop-filter: blur(26px) saturate(180%);
       background: linear-gradient(
@@ -546,27 +454,24 @@
         rgba(10, 10, 15, 0.98),
         rgba(5, 5, 12, 0.98)
       );
-      box-shadow:
-        0 -10px 28px rgba(0, 0, 0, 0.85),
-        0 0 0 1px rgba(139, 92, 246, 0.16);
+      box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.85),
+                  0 0 0 1px rgba(139, 92, 246, 0.16);
     }
-
-    /* Элементы меню: крупные, удобные для нажатия, с четкой иерархией */
+    
     .mobile-menu-item {
       will-change: transform, opacity;
       -webkit-tap-highlight-color: rgba(139, 92, 246, 0.18);
-      border-radius: 0.9rem;
+      border-radius: var(--radius-xl);
       border: 1px solid rgba(31, 31, 46, 0.9);
       background: radial-gradient(
         circle at top left,
         rgba(15, 23, 42, 0.75),
         rgba(10, 10, 15, 0.95)
       );
-      box-shadow:
-        0 10px 24px rgba(0, 0, 0, 0.85),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.85),
+                  0 0 0 1px rgba(15, 23, 42, 0.9);
     }
-
+    
     .mobile-menu-item:hover {
       background: radial-gradient(
         circle at top left,
@@ -575,13 +480,12 @@
       );
       border-color: rgba(139, 92, 246, 0.6);
     }
-
+    
     .mobile-menu-item[aria-current="page"],
     .mobile-menu-item.text-neon-purple {
       border-color: rgba(139, 92, 246, 0.9);
-      box-shadow:
-        0 12px 28px rgba(139, 92, 246, 0.38),
-        0 0 0 1px rgba(6, 182, 212, 0.35);
+      box-shadow: 0 12px 28px rgba(139, 92, 246, 0.38),
+                  0 0 0 1px rgba(6, 182, 212, 0.35);
       background: linear-gradient(
         135deg,
         rgba(139, 92, 246, 0.24),
@@ -589,78 +493,36 @@
         rgba(10, 10, 15, 0.98)
       );
     }
-
-    .mobile-menu-item span {
-      font-size: 0.98rem;
-    }
-
-    /* Основная CTA-кнопка в меню (контакты) */
-    #mobileMenu a[href*="/contact"] {
-      border-width: 0;
-      border-radius: 1rem;
-      background-image: linear-gradient(90deg, #8B5CF6, #06B6D4);
-      box-shadow:
-        0 14px 32px rgba(139, 92, 246, 0.5),
-        0 0 32px rgba(6, 182, 212, 0.35);
-    }
-
-    #mobileMenu a[href*="/contact"]:active {
-      transform: scale(0.97);
-    }
-
-    /* Низ меню с language-switcher: прилипаем к нижней безопасной зоне */
-    .pb-safe {
-      padding-bottom: max(1.6rem, env(safe-area-inset-bottom));
-    }
   }
+}
 
-  /* Оптимизация для очень маленьких экранов до 374px */
-  @media (max-width: 374px) {
-    .navbar .container {
-      @apply px-3;
-    }
-
-    .navbar .flex.items-center.justify-between {
-      min-height: 3rem;
-    }
-
-    #mobileMenu {
-      top: calc(3rem + env(safe-area-inset-top, 0));
-      max-height: calc(100vh - 3rem - env(safe-area-inset-top, 0));
-    }
-
-    .mobile-menu-item {
-      @apply py-3 px-3 text-sm;
-      min-height: 48px;
-    }
-  }
-
-  /* Оптимизация для средних мобильных экранов 375–640px */
-  @media (min-width: 375px) and (max-width: 640px) {
-    .navbar .flex.items-center.justify-between {
-      min-height: 3.5rem;
-    }
-
-    #mobileMenu {
-      top: calc(3.5rem + env(safe-area-inset-top, 0));
-      max-height: calc(100vh - 3.5rem - env(safe-area-inset-top, 0));
-    }
-  }
-
-  /* Для iOS Safari: аккуратные blur‑эффекты */
-  @supports (-webkit-touch-callout: none) {
-    #mobileMenuOverlay {
-      -webkit-backdrop-filter: blur(22px) saturate(185%);
-      backdrop-filter: blur(22px) saturate(185%);
-    }
-
-    #mobileMenu {
-      -webkit-backdrop-filter: blur(28px) saturate(185%);
-      backdrop-filter: blur(28px) saturate(185%);
-    }
+/* ============================================
+   УТИЛИТЫ
+   ============================================ */
+@layer utilities {
+  /* Неоновое свечение */
+  .glow-purple {
+    box-shadow: var(--shadow-neon-purple);
   }
   
-  /* Плавающие частицы на фоне */
+  .glow-blue {
+    box-shadow: var(--shadow-neon-blue);
+  }
+  
+  /* Анимация появления элементов при скролле */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--transition-slow), 
+                transform var(--transition-slow);
+  }
+  
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Плавающие частицы */
   .floating-particles {
     position: absolute;
     top: 0;
@@ -675,7 +537,10 @@
   .particle {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.4), rgba(6, 182, 212, 0.3), transparent);
+    background: radial-gradient(circle, 
+      rgba(139, 92, 246, 0.4), 
+      rgba(6, 182, 212, 0.3), 
+      transparent);
     animation: float 15s infinite ease-in-out;
     will-change: transform, opacity;
   }
@@ -717,29 +582,10 @@
     }
   }
   
-  /* Улучшенные hover эффекты для карточек услуг */
-  .service-card {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s ease;
-  }
-  
-  @media (min-width: 768px) {
-    .service-card:hover {
-      transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
-      box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3),
-                  0 0 60px rgba(6, 182, 212, 0.2),
-                  inset 0 0 30px rgba(139, 92, 246, 0.1);
-      border-color: rgba(139, 92, 246, 0.5);
-    }
-  }
-  
-  /* Интерактивные иконки в карточках услуг */
+  /* Интерактивные иконки в карточках */
   .service-card .icon-wrapper {
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.4s ease;
+    transition: transform var(--transition-smooth),
+                box-shadow var(--transition-base);
   }
   
   .service-card:hover .icon-wrapper {
@@ -748,18 +594,10 @@
                 0 0 40px rgba(6, 182, 212, 0.3);
   }
   
-  .service-card .icon-wrapper svg {
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .service-card:hover .icon-wrapper svg {
-    transform: scale(1.15);
-  }
-  
   /* Градиентные акценты для ссылок */
   a.text-neon-purple {
     position: relative;
-    transition: color 0.3s ease;
+    transition: color var(--transition-base);
   }
   
   a.text-neon-purple::after {
@@ -769,17 +607,17 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #8B5CF6, #06B6D4);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(90deg, var(--color-neon-purple), var(--color-neon-blue));
+    transition: width var(--transition-smooth);
   }
   
   a.text-neon-purple:hover::after {
     width: 100%;
   }
   
-  /* Улучшенная кнопка "Наверх" */
+  /* Кнопка "Наверх" */
   #backToTop {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-smooth);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
@@ -794,95 +632,34 @@
     transform: scale(1.05) translateY(-1px);
   }
   
-  /* Индикатор прогресса для кнопки "Наверх" */
-  #backToTop::before {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: rgba(139, 92, 246, 0.5);
-    border-right-color: rgba(6, 182, 212, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    animation: rotate-border 3s linear infinite;
-  }
-  
-  #backToTop:hover::before {
-    opacity: 1;
-  }
-  
-  @keyframes rotate-border {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  /* Градиентные тени для заголовков */
-  .text-gradient {
-    text-shadow: 0 0 30px rgba(139, 92, 246, 0.4),
-                 0 0 60px rgba(6, 182, 212, 0.3);
-  }
-  
-  /* Улучшенные градиентные границы */
-  .gradient-border {
-    position: relative;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
-    border: 1px solid transparent;
-  }
-  
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(6, 182, 212, 0.5));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-  
-  /* Анимация появления элементов при скролле */
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Улучшенные эффекты для карточек */
-  .service-card {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-  
-  .service-card:hover {
-    transform: translateY(-8px);
-  }
-  
-  @media (min-width: 768px) {
-    .service-card:hover {
-      box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2),
-                  0 0 60px rgba(6, 182, 212, 0.15),
-                  inset 0 0 30px rgba(139, 92, 246, 0.05);
-    }
-  }
-  
   /* Параллакс эффект */
   .parallax {
     will-change: transform;
   }
+  
+  /* Оптимизация длины строк для читаемости */
+  @media (max-width: 768px) {
+    p, li {
+      max-width: 65ch;
+    }
+  }
+  
+  /* Touch оптимизации */
+  .touch-device button,
+  .touch-device .btn-neon,
+  .touch-device .btn-outline,
+  .touch-device a {
+    padding: 0.875rem 1.5rem;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .touch-device .service-card {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  
+  .touch-device .service-card:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
 }
-
