@@ -358,17 +358,13 @@ if ($currentLang === 'en') {
 
         <div class="grid gap-8 md:gap-10 md:grid-cols-2">
             <?php foreach ($projects as $index => $project): ?>
-                <button
-                    type="button"
+                <?php
+                    $demoLink = '/demo.php?project=' . urlencode($project['id']) . '&lang=' . urlencode($currentLang);
+                ?>
+                <a
                     class="service-card animate-on-scroll text-left w-full portfolio-card group relative overflow-hidden"
-                    data-project-id="<?php echo htmlspecialchars($project['id']); ?>"
-                    data-title="<?php echo htmlspecialchars($project['title']); ?>"
-                    data-tag="<?php echo htmlspecialchars($project['tag']); ?>"
-                    data-summary="<?php echo htmlspecialchars($project['summary']); ?>"
-                    data-before="<?php echo htmlspecialchars(implode('||', $project['before'])); ?>"
-                    data-after="<?php echo htmlspecialchars(implode('||', $project['after'])); ?>"
-                    data-result="<?php echo htmlspecialchars($project['result']); ?>"
-                    data-meta="<?php echo htmlspecialchars($project['meta']); ?>"
+                    href="<?php echo htmlspecialchars($demoLink); ?>"
+                    rel="noopener"
                     style="animation-delay: <?php echo $index * 0.1; ?>s;"
                 >
                     <!-- Декоративный фон -->
@@ -560,87 +556,15 @@ if ($currentLang === 'en') {
                         </div>
                         <div class="flex items-center justify-between pt-4 border-t border-dark-border/50">
                             <span class="text-sm md:text-base text-neon-purple font-semibold group-hover:text-neon-blue transition-colors">
-                                <?php echo $currentLang === 'en' ? 'View case study' : 'Открыть кейс'; ?>
+                                <?php echo $currentLang === 'en' ? 'Open demo layout' : 'Открыть демо‑макет'; ?>
                             </span>
                             <svg class="w-5 h-5 text-neon-purple group-hover:text-neon-blue group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                             </svg>
                         </div>
                     </div>
-                </button>
+                </a>
             <?php endforeach; ?>
-        </div>
-
-        <!-- Детальный кейс: до / после -->
-        <div id="portfolioCaseDetails" class="max-w-6xl mx-auto mt-16 hidden animate-on-scroll">
-            <div class="bg-gradient-to-br from-dark-surface via-dark-bg to-dark-surface border border-neon-purple/30 rounded-3xl p-8 md:p-12 shadow-2xl shadow-neon-purple/10 relative overflow-hidden">
-                <!-- Декоративные элементы -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-neon-purple/10 rounded-full blur-3xl -z-0"></div>
-                <div class="absolute bottom-0 left-0 w-48 h-48 bg-neon-blue/10 rounded-full blur-3xl -z-0"></div>
-                <div class="relative z-10">
-                    <div class="mb-8">
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 border border-neon-purple/30 mb-6">
-                            <span class="text-xs uppercase tracking-wider text-gray-300">
-                                <?php echo $currentLang === 'en' ? 'Case Study' : 'Кейс'; ?>
-                            </span>
-                        </div>
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                            <div>
-                                <h3 id="caseTitle" class="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-3"></h3>
-                                <p id="caseTag" class="text-base md:text-lg text-gray-400"></p>
-                            </div>
-                            <span id="caseMeta" class="px-4 py-2 text-sm font-semibold rounded-full bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 border border-neon-blue/40 text-neon-blue whitespace-nowrap">
-                            </span>
-                        </div>
-                        <p id="caseSummary" class="text-gray-200 text-lg md:text-xl leading-relaxed mb-8"></p>
-                    </div>
-
-                    <div class="grid gap-8 md:grid-cols-2 mb-8">
-                        <div class="bg-dark-bg/60 rounded-2xl p-6 md:p-8 border border-dark-border/50">
-                            <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 border border-red-500/30 flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="text-xl md:text-2xl font-bold text-gradient">
-                                    <?php echo $currentLang === 'en' ? 'Before:' : 'До:'; ?>
-                                </h4>
-                            </div>
-                            <ul id="caseBefore" class="space-y-4 text-gray-300"></ul>
-                        </div>
-                        <div class="bg-dark-bg/60 rounded-2xl p-6 md:p-8 border border-dark-border/50">
-                            <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/30 flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="text-xl md:text-2xl font-bold text-gradient">
-                                    <?php echo $currentLang === 'en' ? 'After:' : 'После:'; ?>
-                                </h4>
-                            </div>
-                            <ul id="caseAfter" class="space-y-4 text-gray-300"></ul>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-6 border-t border-dark-border/50">
-                        <div class="flex-1">
-                            <p id="caseResult" class="text-base md:text-lg text-gray-200 font-medium leading-relaxed"></p>
-                        </div>
-                        <button
-                            type="button"
-                            id="caseCloseBtn"
-                            class="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl border-2 border-dark-border text-gray-300 hover:bg-dark-bg/80 hover:border-neon-purple/50 transition-all duration-300 group"
-                        >
-                            <?php echo $currentLang === 'en' ? 'Close case' : 'Закрыть кейс'; ?>
-                            <svg class="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -665,97 +589,6 @@ if ($currentLang === 'en') {
         document.querySelectorAll('.animate-on-scroll').forEach(el => {
             observer.observe(el);
         });
-    });
-    
-    // Логика портфолио
-    document.addEventListener('DOMContentLoaded', function () {
-        const cards = document.querySelectorAll('.portfolio-card');
-        const details = document.getElementById('portfolioCaseDetails');
-        const titleEl = document.getElementById('caseTitle');
-        const tagEl = document.getElementById('caseTag');
-        const summaryEl = document.getElementById('caseSummary');
-        const beforeEl = document.getElementById('caseBefore');
-        const afterEl = document.getElementById('caseAfter');
-        const resultEl = document.getElementById('caseResult');
-        const metaEl = document.getElementById('caseMeta');
-        const closeBtn = document.getElementById('caseCloseBtn');
-        const particlesContainer = document.getElementById('portfolioParticles');
-
-        function openCase(card) {
-            const title = card.getAttribute('data-title') || '';
-            const tag = card.getAttribute('data-tag') || '';
-            const summary = card.getAttribute('data-summary') || '';
-            const beforeRaw = card.getAttribute('data-before') || '';
-            const afterRaw = card.getAttribute('data-after') || '';
-            const result = card.getAttribute('data-result') || '';
-            const meta = card.getAttribute('data-meta') || '';
-
-            titleEl.textContent = title;
-            tagEl.textContent = tag;
-            summaryEl.textContent = summary;
-            resultEl.textContent = result;
-            metaEl.textContent = meta;
-
-            beforeEl.innerHTML = '';
-            afterEl.innerHTML = '';
-
-            beforeRaw.split('||').forEach(function (item) {
-                const trimmed = item.trim();
-                if (!trimmed) return;
-                const li = document.createElement('li');
-                li.className = 'flex items-start gap-3';
-                li.innerHTML = '<svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span class="flex-1">' + trimmed + '</span>';
-                beforeEl.appendChild(li);
-            });
-
-            afterRaw.split('||').forEach(function (item) {
-                const trimmed = item.trim();
-                if (!trimmed) return;
-                const li = document.createElement('li');
-                li.className = 'flex items-start gap-3';
-                li.innerHTML = '<svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="flex-1">' + trimmed + '</span>';
-                afterEl.appendChild(li);
-            });
-
-            details.classList.remove('hidden');
-
-            details.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-
-        cards.forEach(function (card) {
-            card.addEventListener('click', function () {
-                openCase(card);
-            });
-        });
-
-        if (closeBtn && details) {
-            closeBtn.addEventListener('click', function () {
-                details.classList.add('hidden');
-            });
-        }
-
-        // Плавающие частицы в hero-блоке портфолио (облегчённая версия)
-        if (particlesContainer) {
-            const isMobile = window.innerWidth < 768;
-            const particleCount = isMobile ? 10 : 20;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-
-                const sizeClass = Math.random() < 0.5 ? 'particle-small' : 'particle-medium';
-                particle.classList.add(sizeClass);
-
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-
-                particlesContainer.appendChild(particle);
-            }
-        }
     });
 </script>
 
