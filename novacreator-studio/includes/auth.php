@@ -242,10 +242,10 @@ function hashPassword(string $password): string
 {
     // Пытаемся использовать Argon2id (лучший алгоритм, доступен в PHP 7.2+)
     if (defined('PASSWORD_ARGON2ID')) {
+        // Используем только поддерживаемые параметры (threads не поддерживается в некоторых реализациях)
         return password_hash($password, PASSWORD_ARGON2ID, [
             'memory_cost' => 65536, // 64 MB
             'time_cost' => 4,       // 4 итерации
-            'threads' => 3,         // 3 потока
         ]);
     }
     
