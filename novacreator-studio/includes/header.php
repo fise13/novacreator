@@ -247,21 +247,27 @@ $siteUrl = $scheme . '://' . $host;
                     <!-- Аккаунт (кнопка в стиле Xbox) -->
                     <div class="relative">
                         <?php
-                        function getInitials(string $name): string {
-                            $words = explode(' ', trim($name));
-                            if (count($words) >= 2) {
-                                return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+                        if (!function_exists('getInitials')) {
+                            function getInitials(string $name): string {
+                                $words = explode(' ', trim($name));
+                                if (count($words) >= 2) {
+                                    return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+                                }
+                                return strtoupper(substr($name, 0, 2));
                             }
-                            return strtoupper(substr($name, 0, 2));
                         }
-                        $userInitials = $currentUser ? getInitials($currentUser['name']) : '?';
+                        $userInitials = $currentUser ? getInitials($currentUser['name']) : null;
                         $userAvatar = $currentUser && !empty($currentUser['avatar_url']) ? $currentUser['avatar_url'] : null;
                         ?>
                         <button id="accountMenuBtn" class="relative w-10 h-10 rounded-full bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center text-white text-sm font-semibold shadow-lg shadow-neon-purple/30 hover:shadow-xl hover:shadow-neon-purple/50 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg overflow-hidden group" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $currentUser ? htmlspecialchars($currentUser['name']) : 'Аккаунт'; ?>">
                             <?php if ($userAvatar): ?>
                                 <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($currentUser['name']); ?>" class="w-full h-full object-cover rounded-full">
-                            <?php else: ?>
+                            <?php elseif ($userInitials): ?>
                                 <span class="relative z-10"><?php echo htmlspecialchars($userInitials); ?></span>
+                            <?php else: ?>
+                                <svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
                             <?php endif; ?>
                             <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/0 to-neon-blue/0 group-hover:from-neon-purple/20 group-hover:to-neon-blue/20 transition-all duration-300 rounded-full"></div>
                         </button>

@@ -9,7 +9,7 @@ function getUserWithProject(int $userId): ?array
 {
     $pdo = getDb();
     $stmt = $pdo->prepare(
-        'SELECT u.id, u.name, u.email, u.role, u.created_at,
+        'SELECT u.id, u.name, u.email, u.role, u.created_at, u.avatar_url,
                 p.status, p.progress_percent, p.time_spent_minutes,
                 p.stage, p.notes, p.started_at, p.updated_at
          FROM users u

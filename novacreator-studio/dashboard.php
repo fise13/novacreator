@@ -1,4 +1,9 @@
 <?php
+// Временно включаем отображение ошибок для отладки
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/user_service.php';
 
@@ -13,8 +18,14 @@ if (!$user || !isset($user['id'])) {
 
 $userData = getUserWithProject($user['id']);
 if (!$userData) {
-    // Если данных нет, создаем пустой массив
+    // Если данных нет, создаем пустой массив с данными пользователя
     $userData = [
+        'id' => $user['id'],
+        'name' => $user['name'],
+        'email' => $user['email'],
+        'role' => $user['role'],
+        'created_at' => $user['created_at'],
+        'avatar_url' => $user['avatar_url'] ?? null,
         'progress_percent' => 0,
         'status' => 'Ожидает обновления',
         'stage' => 'Скоро будет обновлено',
@@ -23,6 +34,9 @@ if (!$userData) {
         'started_at' => null,
         'notes' => null
     ];
+} else {
+    // Дополняем данными пользователя, если их нет
+    $userData['avatar_url'] = $userData['avatar_url'] ?? $user['avatar_url'] ?? null;
 }
 
 $pageTitle = 'Личный кабинет';
@@ -84,13 +98,15 @@ function minutesToHuman(int $minutes): string
     return $mins . ' мин';
 }
 
-function getInitials(string $name): string
-{
-    $words = explode(' ', trim($name));
-    if (count($words) >= 2) {
-        return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+if (!function_exists('getInitials')) {
+    function getInitials(string $name): string
+    {
+        $words = explode(' ', trim($name));
+        if (count($words) >= 2) {
+            return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+        }
+        return strtoupper(substr($name, 0, 2));
     }
-    return strtoupper(substr($name, 0, 2));
 }
 
 include __DIR__ . '/includes/header.php';
@@ -259,12 +275,12 @@ include __DIR__ . '/includes/header.php';
                     </div>
                     <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-neon-purple/30">
                         <?php 
-                        $avatarUrl = $user['avatar_url'] ?? null;
+                        $avatarUrl = $userData['avatar_url'] ?? null;
                         if ($avatarUrl): 
                         ?>
                             <img src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="Avatar" class="w-16 h-16 rounded-full object-cover">
                         <?php else: ?>
-                            <?php echo getInitials($user['name']); ?>
+                            <?php echo getInitials($userData['name'] ?? $user['name']); ?>
                         <?php endif; ?>
                     </div>
                 </div>
