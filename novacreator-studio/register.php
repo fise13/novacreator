@@ -1,33 +1,131 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/csrf.php';
+require_once __DIR__ . '/includes/email_verification.php';
 
 startSecureSession();
 
 $pageTitle = 'Регистрация';
 $errors = [];
 $success = false;
+$verificationStep = isset($_SESSION['email_verification']) && hasActiveVerification();
+$verificationEmail = getVerificationEmail();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Обработка запроса на отправку кода
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'send_code') {
     if (!validateCsrfToken($_POST['csrf_token'] ?? '')) {
         $errors[] = 'Не удалось подтвердить запрос. Обновите страницу и попробуйте снова.';
     } else {
-        $name = $_POST['name'] ?? '';
-        $email = $_POST['email'] ?? '';
+        $name = trim($_POST['name'] ?? '');
+        $email = trim(mb_strtolower($_POST['email'] ?? ''));
         $password = $_POST['password'] ?? '';
         $passwordConfirm = $_POST['password_confirm'] ?? '';
 
-        $result = registerUser($name, $email, $password, $passwordConfirm);
-        if ($result['success']) {
-            // Автовход после регистрации
-            loginUser($email, $password);
-            setFlash('success', 'Регистрация успешна. Добро пожаловать!');
-            header('Location: /dashboard.php');
-            exit;
+        // Валидация данных
+        $validationErrors = [];
+        if (mb_strlen($name) < 2) {
+            $validationErrors[] = 'Имя должно быть не короче 2 символов.';
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $validationErrors[] = 'Неверный email.';
+        }
+        if (strlen($password) < 8) {
+            $validationErrors[] = 'Пароль должен быть не короче 8 символов.';
+        }
+        if ($password !== $passwordConfirm) {
+            $validationErrors[] = 'Пароли не совпадают.';
+        }
+        if ($email === mb_strtolower(ROOT_ADMIN_EMAIL)) {
+            $validationErrors[] = 'Этот email зарезервирован для администратора.';
+        }
+        if (getUserByEmail($email)) {
+            $validationErrors[] = 'Пользователь с таким email уже существует.';
+        }
+
+        if ($validationErrors) {
+            $errors = $validationErrors;
         } else {
-            $errors = $result['errors'];
+            // Генерируем и отправляем код
+            $code = generateVerificationCode();
+            if (sendVerificationCode($email, $code)) {
+                // Сохраняем данные регистрации в сессию
+                $_SESSION['registration_data'] = [
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                ];
+                setVerificationCode($email, $code);
+                $verificationStep = true;
+                $verificationEmail = $email;
+                $success = true;
+            } else {
+                $errors[] = 'Не удалось отправить код подтверждения. Попробуйте позже.';
+            }
         }
     }
+}
+
+// Обработка подтверждения кода
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'verify_code') {
+    if (!validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        $errors[] = 'Не удалось подтвердить запрос. Обновите страницу и попробуйте снова.';
+    } else {
+        $code = trim($_POST['verification_code'] ?? '');
+        $email = $verificationEmail ?? '';
+
+        if (empty($code)) {
+            $errors[] = 'Введите код подтверждения.';
+        } elseif (strlen($code) !== 6 || !ctype_digit($code)) {
+            $errors[] = 'Код должен состоять из 6 цифр.';
+        } else {
+            $result = verifyEmailCode($email, $code);
+            if ($result['success']) {
+                // Код подтвержден - завершаем регистрацию
+                if (isset($_SESSION['registration_data'])) {
+                    $regData = $_SESSION['registration_data'];
+                    $registerResult = registerUser($regData['name'], $regData['email'], $regData['password'], $regData['password']);
+                    
+                    if ($registerResult['success']) {
+                        unset($_SESSION['registration_data']);
+                        // Автовход после регистрации
+                        loginUser($regData['email'], $regData['password']);
+                        setFlash('success', 'Регистрация успешна. Добро пожаловать!');
+                        header('Location: /dashboard.php');
+                        exit;
+                    } else {
+                        $errors = $registerResult['errors'];
+                    }
+                } else {
+                    $errors[] = 'Данные регистрации не найдены. Начните регистрацию заново.';
+                }
+            } else {
+                $errors[] = $result['error'];
+            }
+        }
+    }
+}
+
+// Обработка повторной отправки кода
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'resend_code') {
+    if (!validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        $errors[] = 'Не удалось подтвердить запрос.';
+    } elseif ($verificationEmail) {
+        $code = generateVerificationCode();
+        if (sendVerificationCode($verificationEmail, $code)) {
+            setVerificationCode($verificationEmail, $code);
+            $success = true;
+        } else {
+            $errors[] = 'Не удалось отправить код. Попробуйте позже.';
+        }
+    }
+}
+
+// Обработка отмены регистрации
+if (isset($_GET['cancel']) && $_GET['cancel'] == '1') {
+    unset($_SESSION['email_verification']);
+    unset($_SESSION['registration_data']);
+    header('Location: /register.php');
+    exit;
 }
 
 // Загружаем OAuth конфигурацию ДО header.php
@@ -57,9 +155,15 @@ include __DIR__ . '/includes/header.php';
                     </svg>
                     <div class="absolute inset-0 bg-gradient-to-br from-neon-purple/0 via-purple-600/0 to-neon-blue/0 group-hover:from-neon-purple/30 group-hover:via-purple-600/30 group-hover:to-neon-blue/30 transition-all duration-500"></div>
                 </div>
-                <h1 class="text-3xl font-bold text-gradient mb-2">Создать аккаунт</h1>
-                <p class="text-gray-400 text-sm">Доступ к личному кабинету и статусам вашего проекта</p>
+                <h1 class="text-3xl font-bold text-gradient mb-2"><?php echo $verificationStep ? 'Подтверждение email' : 'Создать аккаунт'; ?></h1>
+                <p class="text-gray-400 text-sm"><?php echo $verificationStep ? 'Введите код, отправленный на ваш email' : 'Доступ к личному кабинету и статусам вашего проекта'; ?></p>
             </div>
+
+            <?php if ($success && $verificationStep): ?>
+                <div class="mb-4 rounded-lg border border-green-500/40 bg-green-500/10 px-4 py-3 text-green-300 text-sm">
+                    Код подтверждения отправлен на <?php echo htmlspecialchars($verificationEmail); ?>
+                </div>
+            <?php endif; ?>
 
             <?php if ($errors): ?>
                 <div class="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-red-300 text-sm space-y-1">
@@ -69,44 +173,129 @@ include __DIR__ . '/includes/header.php';
                 </div>
             <?php endif; ?>
 
-            <form method="POST" class="space-y-5">
-                <?php echo csrfInput(); ?>
+            <?php if ($verificationStep): ?>
+                <!-- Форма подтверждения кода -->
+                <form method="POST" class="space-y-5" id="verificationForm">
+                    <?php echo csrfInput(); ?>
+                    <input type="hidden" name="action" value="verify_code">
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-300 mb-2">Имя</label>
-                    <input type="text" name="name" required minlength="2" autocomplete="name"
-                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
-                           placeholder="Ваше имя"
-                           value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-gray-300 mb-2">Email</label>
-                    <input type="email" name="email" required autocomplete="email"
-                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
-                           placeholder="you@example.com"
-                           value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Пароль</label>
-                        <input type="password" name="password" required minlength="8" autocomplete="new-password"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
-                               placeholder="Минимум 8 символов">
+                    <div class="text-center mb-6">
+                        <p class="text-gray-300 mb-2">Код отправлен на</p>
+                        <p class="text-neon-purple font-semibold"><?php echo htmlspecialchars($verificationEmail); ?></p>
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Подтверждение</label>
-                        <input type="password" name="password_confirm" required minlength="8" autocomplete="new-password"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
-                               placeholder="Повторите пароль">
-                    </div>
-                </div>
 
-                <button type="submit" class="w-full btn-neon py-3 rounded-lg font-semibold flex items-center justify-center space-x-2">
-                    <span>Зарегистрироваться</span>
-                </button>
-            </form>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-300 mb-2 text-center">Код подтверждения</label>
+                        <div class="relative">
+                            <input type="text" name="verification_code" required maxlength="6" pattern="[0-9]{6}" autocomplete="one-time-code"
+                                   class="w-full bg-dark-bg border-2 border-dark-border rounded-xl px-4 py-4 text-white text-center text-3xl font-mono tracking-[0.5em] focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple transition-all"
+                                   placeholder="000000"
+                                   id="verificationCodeInput"
+                                   autofocus>
+                            <div class="absolute inset-0 pointer-events-none rounded-xl border-2 border-transparent bg-gradient-to-r from-neon-purple/0 via-neon-blue/0 to-neon-purple/0 opacity-0 transition-opacity duration-300" id="codeGlow"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3 text-center">Введите 6-значный код из письма</p>
+                        <p class="text-xs text-gray-500 mt-1 text-center">Код действителен 15 минут</p>
+                    </div>
+
+                    <button type="submit" class="w-full btn-neon py-3 rounded-lg font-semibold flex items-center justify-center space-x-2">
+                        <span>Подтвердить</span>
+                    </button>
+
+                    <div class="text-center space-y-2">
+                        <form method="POST" class="inline">
+                            <?php echo csrfInput(); ?>
+                            <input type="hidden" name="action" value="resend_code">
+                            <button type="submit" class="text-sm text-gray-400 hover:text-neon-purple transition-colors">
+                                Отправить код повторно
+                            </button>
+                        </form>
+                        <div class="text-gray-500">|</div>
+                        <a href="/register.php?cancel=1" class="text-sm text-gray-400 hover:text-red-400 transition-colors">
+                            Отменить регистрацию
+                        </a>
+                    </div>
+                </form>
+
+                <script>
+                // Обработка ввода кода
+                document.addEventListener('DOMContentLoaded', function() {
+                    const codeInput = document.getElementById('verificationCodeInput');
+                    const codeGlow = document.getElementById('codeGlow');
+                    
+                    if (codeInput) {
+                        codeInput.addEventListener('input', function(e) {
+                            // Оставляем только цифры и ограничиваем 6 символами
+                            this.value = this.value.replace(/\D/g, '').slice(0, 6);
+                            
+                            // Подсветка при вводе
+                            if (this.value.length > 0 && codeGlow) {
+                                codeGlow.classList.remove('opacity-0');
+                                codeGlow.classList.add('opacity-20');
+                            }
+                        });
+                        
+                        codeInput.addEventListener('focus', function() {
+                            if (codeGlow) {
+                                codeGlow.classList.remove('opacity-0');
+                                codeGlow.classList.add('opacity-30');
+                            }
+                        });
+                        
+                        codeInput.addEventListener('blur', function() {
+                            if (this.value.length === 0 && codeGlow) {
+                                codeGlow.classList.add('opacity-0');
+                                codeGlow.classList.remove('opacity-20', 'opacity-30');
+                            }
+                        });
+                    }
+                });
+                </script>
+            <?php else: ?>
+                <!-- Форма регистрации -->
+                <form method="POST" class="space-y-5">
+                    <?php echo csrfInput(); ?>
+                    <input type="hidden" name="action" value="send_code">
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-300 mb-2">Имя</label>
+                        <input type="text" name="name" required minlength="2" autocomplete="name"
+                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                               placeholder="Ваше имя"
+                               value="<?php echo htmlspecialchars($_POST['name'] ?? $_SESSION['registration_data']['name'] ?? ''); ?>">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-300 mb-2">Email</label>
+                        <input type="email" name="email" required autocomplete="email"
+                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                               placeholder="you@example.com"
+                               value="<?php echo htmlspecialchars($_POST['email'] ?? $_SESSION['registration_data']['email'] ?? ''); ?>">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-300 mb-2">Пароль</label>
+                            <input type="password" name="password" required minlength="8" autocomplete="new-password"
+                                   class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                                   placeholder="Минимум 8 символов">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-300 mb-2">Подтверждение</label>
+                            <input type="password" name="password_confirm" required minlength="8" autocomplete="new-password"
+                                   class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                                   placeholder="Повторите пароль">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full btn-neon py-3 rounded-lg font-semibold flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Отправить код подтверждения</span>
+                    </button>
+                </form>
+            <?php endif; ?>
 
             <div class="mt-6">
                 <div class="relative">
