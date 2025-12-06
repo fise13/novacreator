@@ -356,13 +356,49 @@ if ($currentLang === 'en') {
             </p>
         </div>
 
+        <!-- Статистика портфолио -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16 animate-on-scroll">
+            <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-purple/50 transition-all duration-300">
+                <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
+                    <span class="counter-number" data-target="50" data-suffix="+">50+</span>
+                </div>
+                <div class="text-sm md:text-base text-gray-400">
+                    <?php echo $currentLang === 'en' ? 'Projects delivered' : 'Реализовано проектов'; ?>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-blue/50 transition-all duration-300">
+                <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
+                    <span class="counter-number" data-target="95" data-suffix="%">95%</span>
+                </div>
+                <div class="text-sm md:text-base text-gray-400">
+                    <?php echo $currentLang === 'en' ? 'Client satisfaction' : 'Довольных клиентов'; ?>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-purple/50 transition-all duration-300">
+                <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
+                    <span class="counter-number" data-target="3" data-suffix="x">3x</span>
+                </div>
+                <div class="text-sm md:text-base text-gray-400">
+                    <?php echo $currentLang === 'en' ? 'Average conversion growth' : 'Рост конверсии в среднем'; ?>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-blue/50 transition-all duration-300">
+                <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
+                    <span class="counter-number" data-target="24" data-suffix="/7">24/7</span>
+                </div>
+                <div class="text-sm md:text-base text-gray-400">
+                    <?php echo $currentLang === 'en' ? 'Support available' : 'Поддержка доступна'; ?>
+                </div>
+            </div>
+        </div>
+
         <div class="grid gap-8 md:gap-10 md:grid-cols-2">
             <?php foreach ($projects as $index => $project): ?>
                 <?php
                     $demoLink = '/demo/' . rawurlencode($project['id']) . '/?lang=' . urlencode($currentLang);
                 ?>
                 <a
-                    class="service-card animate-on-scroll text-left w-full portfolio-card group relative overflow-hidden"
+                    class="service-card animate-on-scroll text-left w-full portfolio-card group relative overflow-hidden transform hover:scale-[1.02] transition-all duration-500"
                     href="<?php echo htmlspecialchars($demoLink); ?>"
                     rel="noopener"
                     style="animation-delay: <?php echo $index * 0.1; ?>s;"
@@ -566,6 +602,67 @@ if ($currentLang === 'en') {
                 </a>
             <?php endforeach; ?>
         </div>
+
+        <!-- Дополнительная секция: Технологии и подход -->
+        <div class="mt-20 animate-on-scroll">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gradient">
+                    <?php echo $currentLang === 'en' ? 'Our approach' : 'Наш подход'; ?>
+                </h2>
+                <p class="text-lg text-gray-400 leading-relaxed">
+                    <?php echo $currentLang === 'en' 
+                        ? 'We combine modern design, proven UX patterns and technical excellence to create websites that convert visitors into customers.'
+                        : 'Мы сочетаем современный дизайн, проверенные UX-паттерны и техническое совершенство, чтобы создавать сайты, которые превращают посетителей в клиентов.'; ?>
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-8 hover:border-neon-purple/50 transition-all duration-300 group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gradient">
+                        <?php echo $currentLang === 'en' ? 'Design first' : 'Дизайн прежде всего'; ?>
+                    </h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        <?php echo $currentLang === 'en'
+                            ? 'Every pixel matters. We create interfaces that are not only beautiful but also intuitive and conversion-focused.'
+                            : 'Каждый пиксель важен. Мы создаём интерфейсы, которые не только красивы, но и интуитивны и ориентированы на конверсию.'; ?>
+                    </p>
+                </div>
+                <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-8 hover:border-neon-blue/50 transition-all duration-300 group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8 text-neon-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gradient">
+                        <?php echo $currentLang === 'en' ? 'Performance' : 'Производительность'; ?>
+                    </h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        <?php echo $currentLang === 'en'
+                            ? 'Fast loading, optimized images, clean code. Your site will rank better and convert more visitors.'
+                            : 'Быстрая загрузка, оптимизированные изображения, чистый код. Ваш сайт будет лучше ранжироваться и конвертировать больше посетителей.'; ?>
+                    </p>
+                </div>
+                <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-8 hover:border-neon-purple/50 transition-all duration-300 group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gradient">
+                        <?php echo $currentLang === 'en' ? 'Data-driven' : 'На основе данных'; ?>
+                    </h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        <?php echo $currentLang === 'en'
+                            ? 'We analyze user behavior, test hypotheses and continuously improve conversion rates based on real metrics.'
+                            : 'Мы анализируем поведение пользователей, тестируем гипотезы и постоянно улучшаем конверсию на основе реальных метрик.'; ?>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -588,6 +685,42 @@ if ($currentLang === 'en') {
         
         document.querySelectorAll('.animate-on-scroll').forEach(el => {
             observer.observe(el);
+        });
+
+        // Анимация счетчиков
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const suffix = element.getAttribute('data-suffix') || '';
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    element.textContent = target + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + suffix;
+                }
+            }, 16);
+        }
+
+        const counterObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target.querySelector('.counter-number');
+                    if (counter && !counter.classList.contains('counted')) {
+                        counter.classList.add('counted');
+                        animateCounter(counter);
+                    }
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter-number').forEach(counter => {
+            counterObserver.observe(counter.closest('div'));
         });
     });
 </script>

@@ -244,6 +244,119 @@ $note = $currentLang === 'en'
                 <div class="card"><strong><?php echo $currentLang === 'en' ? 'Tracking' : 'Трекинг'; ?></strong><p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Events: menu view, add, submit.' : 'События: просмотр, добавление, отправка.'; ?></p></div>
             </div>
         </section>
+
+        <!-- Gallery / Visual Showcase -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Visual showcase' : 'Визуальная витрина'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;">
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#fff7ed,#fff2da);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#f59e0b,#f97316); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Hero Section' : 'Hero секция'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Warm welcome' : 'Тёплое приветствие'; ?></strong>
+                    <p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Seasonal offers, hero image, clear CTA buttons.' : 'Сезонные предложения, hero-изображение, чёткие CTA.'; ?></p>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#fff7ed,#fff2da);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#8a4713,#5b3417); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Menu Cards' : 'Карточки меню'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Product showcase' : 'Витрина продуктов'; ?></strong>
+                    <p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'Filterable menu with images, descriptions, and prices.' : 'Фильтруемое меню с изображениями, описаниями и ценами.'; ?></p>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#fff7ed,#fff2da);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#fef3c7,#fde68a); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#5b3417; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Story Section' : 'История'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Brand story' : 'История бренда'; ?></strong>
+                    <p style="margin-top:8px; color:#5b3417;"><?php echo $currentLang === 'en' ? 'About the roastery, team, and coffee philosophy.' : 'Об обжарке, команде и философии кофе.'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features & Benefits -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Key features' : 'Ключевые особенности'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px;">
+                <div class="card" style="border-left:4px solid #f59e0b;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">☕</span>
+                        <?php echo $currentLang === 'en' ? 'Menu management' : 'Управление меню'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Easy-to-update menu with categories, seasonal items, and special offers.' : 'Легко обновляемое меню с категориями, сезонными позициями и спецпредложениями.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #f97316;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">📱</span>
+                        <?php echo $currentLang === 'en' ? 'Mobile-first design' : 'Мобильный дизайн'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Fully responsive layout optimized for all devices and screen sizes.' : 'Полностью адаптивная вёрстка, оптимизированная для всех устройств.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #f59e0b;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">🎨</span>
+                        <?php echo $currentLang === 'en' ? 'Custom branding' : 'Уникальный брендинг'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Unique visual identity that reflects your coffee shop\'s personality.' : 'Уникальная визуальная идентичность, отражающая характер вашей кофейни.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #f97316;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">⚡</span>
+                        <?php echo $currentLang === 'en' ? 'Fast loading' : 'Быстрая загрузка'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#5b3417; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Optimized performance ensures quick page loads and smooth user experience.' : 'Оптимизированная производительность обеспечивает быструю загрузку и плавный UX.'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Reviews -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'What clients say' : 'Отзывы клиентов'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px;">
+                <div class="card" style="padding:24px; background:#fff;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#f59e0b,#f97316); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;">A</div>
+                        <div>
+                            <strong style="display:block;"><?php echo $currentLang === 'en' ? 'Alex M.' : 'Алекс М.'; ?></strong>
+                            <span style="color:#8a4713; font-size:14px;"><?php echo $currentLang === 'en' ? 'Coffee Shop Owner' : 'Владелец кофейни'; ?></span>
+                        </div>
+                    </div>
+                    <p style="color:#5b3417; line-height:1.7; font-style:italic;">"<?php echo $currentLang === 'en' ? 'The website perfectly captures our warm atmosphere. Orders increased by 40%!' : 'Сайт идеально передаёт нашу тёплую атмосферу. Заказы выросли на 40%!'; ?>"</p>
+                    <div style="margin-top:12px; color:#f59e0b; font-size:18px;">★★★★★</div>
+                </div>
+                <div class="card" style="padding:24px; background:#fff;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#8a4713,#5b3417); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;">M</div>
+                        <div>
+                            <strong style="display:block;"><?php echo $currentLang === 'en' ? 'Maria K.' : 'Мария К.'; ?></strong>
+                            <span style="color:#8a4713; font-size:14px;"><?php echo $currentLang === 'en' ? 'Barista & Manager' : 'Бариста и менеджер'; ?></span>
+                        </div>
+                    </div>
+                    <p style="color:#5b3417; line-height:1.7; font-style:italic;">"<?php echo $currentLang === 'en' ? 'Customers love the easy menu navigation. Great UX design!' : 'Клиентам нравится удобная навигация по меню. Отличный UX-дизайн!'; ?>"</p>
+                    <div style="margin-top:12px; color:#f59e0b; font-size:18px;">★★★★★</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Technology stack' : 'Технологический стек'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;">
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">🎨</div>
+                    <strong>Design</strong>
+                    <p style="margin-top:6px; color:#5b3417; font-size:14px;"><?php echo $currentLang === 'en' ? 'Custom UI/UX' : 'Кастомный UI/UX'; ?></p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">💻</div>
+                    <strong>Frontend</strong>
+                    <p style="margin-top:6px; color:#5b3417; font-size:14px;">HTML5, CSS3, JS</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">⚙️</div>
+                    <strong>Backend</strong>
+                    <p style="margin-top:6px; color:#5b3417; font-size:14px;">PHP, MySQL</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">📊</div>
+                    <strong>Analytics</strong>
+                    <p style="margin-top:6px; color:#5b3417; font-size:14px;">GA4, Events</p>
+                </div>
+            </div>
+        </section>
     </div>
 </main>
 

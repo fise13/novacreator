@@ -235,6 +235,119 @@ $note = $currentLang === 'en'
                 <div class="card"><strong><?php echo $currentLang === 'en' ? 'Tracking' : 'Трекинг'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Events: CTA, calc, scroll depth.' : 'События: CTA, кальк, глубина скролла.'; ?></p></div>
             </div>
         </section>
+
+        <!-- Gallery / Visual Showcase -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Visual showcase' : 'Визуальная витрина'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;">
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#1e293b,#0f172a);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#6366f1,#4f46e5); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Hero Section' : 'Hero секция'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Trust-building intro' : 'Вступление, укрепляющее доверие'; ?></strong>
+                    <p style="margin-top:8px; color:#cbd5e1;"><?php echo $currentLang === 'en' ? 'Compelling headline with clear value proposition and trust signals.' : 'Убедительный заголовок с чётким ценностным предложением и сигналами доверия.'; ?></p>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#1e293b,#0f172a);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#8b5cf6,#7c3aed); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Roadmap' : 'Дорожная карта'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Clear process' : 'Прозрачный процесс'; ?></strong>
+                    <p style="margin-top:8px; color:#cbd5e1;"><?php echo $currentLang === 'en' ? 'Step-by-step timeline showing the construction process from start to finish.' : 'Пошаговый таймлайн, показывающий процесс строительства от начала до конца.'; ?></p>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#1e293b,#0f172a);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#06b6d4,#0891b2); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Pricing' : 'Стоимость'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Transparent pricing' : 'Прозрачное ценообразование'; ?></strong>
+                    <p style="margin-top:8px; color:#cbd5e1;"><?php echo $currentLang === 'en' ? 'Stage-based pricing breakdown with clear options and guarantees.' : 'Разбивка стоимости по этапам с чёткими опциями и гарантиями.'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features & Benefits -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Key features' : 'Ключевые особенности'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px;">
+                <div class="card" style="border-left:4px solid #6366f1;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">🏗️</span>
+                        <?php echo $currentLang === 'en' ? 'Process transparency' : 'Прозрачность процесса'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#cbd5e1; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Clear roadmap showing every stage of the construction process with timelines.' : 'Чёткая дорожная карта, показывающая каждый этап строительства со сроками.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #8b5cf6;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">💰</span>
+                        <?php echo $currentLang === 'en' ? 'Budget calculator' : 'Калькулятор бюджета'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#cbd5e1; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Interactive calculator to estimate project costs based on requirements.' : 'Интерактивный калькулятор для оценки стоимости проекта на основе требований.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #06b6d4;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">📋</span>
+                        <?php echo $currentLang === 'en' ? 'Documentation' : 'Документация'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#cbd5e1; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Easy access to contracts, guarantees, and project documentation.' : 'Лёгкий доступ к договорам, гарантиям и проектной документации.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #6366f1;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">🤝</span>
+                        <?php echo $currentLang === 'en' ? 'Trust building' : 'Укрепление доверия'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#cbd5e1; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Testimonials, case studies, and guarantees to build client confidence.' : 'Отзывы, кейсы и гарантии для укрепления доверия клиентов.'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Reviews -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Client testimonials' : 'Отзывы клиентов'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px;">
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#1e293b,#0f172a);">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#6366f1,#4f46e5); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;">R</div>
+                        <div>
+                            <strong style="display:block;"><?php echo $currentLang === 'en' ? 'Robert K.' : 'Роберт К.'; ?></strong>
+                            <span style="color:#94a3b8; font-size:14px;"><?php echo $currentLang === 'en' ? 'Property Developer' : 'Застройщик'; ?></span>
+                        </div>
+                    </div>
+                    <p style="color:#cbd5e1; line-height:1.7; font-style:italic;">"<?php echo $currentLang === 'en' ? 'The roadmap feature helped us convert 40% more leads. Excellent UX!' : 'Функция дорожной карты помогла нам конвертировать на 40% больше лидов. Отличный UX!'; ?>"</p>
+                    <div style="margin-top:12px; color:#fbbf24; font-size:18px;">★★★★★</div>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#1e293b,#0f172a);">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#8b5cf6,#7c3aed); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;">L</div>
+                        <div>
+                            <strong style="display:block;"><?php echo $currentLang === 'en' ? 'Lisa M.' : 'Лиза М.'; ?></strong>
+                            <span style="color:#94a3b8; font-size:14px;"><?php echo $currentLang === 'en' ? 'Construction Manager' : 'Менеджер по строительству'; ?></span>
+                        </div>
+                    </div>
+                    <p style="color:#cbd5e1; line-height:1.7; font-style:italic;">"<?php echo $currentLang === 'en' ? 'Professional design that builds trust. Clients love the transparency!' : 'Профессиональный дизайн, который укрепляет доверие. Клиентам нравится прозрачность!'; ?>"</p>
+                    <div style="margin-top:12px; color:#fbbf24; font-size:18px;">★★★★★</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Technology stack' : 'Технологический стек'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;">
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">🎨</div>
+                    <strong>Design</strong>
+                    <p style="margin-top:6px; color:#cbd5e1; font-size:14px;"><?php echo $currentLang === 'en' ? 'Custom UI/UX' : 'Кастомный UI/UX'; ?></p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">💻</div>
+                    <strong>Frontend</strong>
+                    <p style="margin-top:6px; color:#cbd5e1; font-size:14px;">HTML5, CSS3, JS</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">⚙️</div>
+                    <strong>Backend</strong>
+                    <p style="margin-top:6px; color:#cbd5e1; font-size:14px;">PHP, MySQL</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">📊</div>
+                    <strong>Analytics</strong>
+                    <p style="margin-top:6px; color:#cbd5e1; font-size:14px;">GA4, Events</p>
+                </div>
+            </div>
+        </section>
     </div>
 </main>
 

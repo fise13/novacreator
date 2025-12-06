@@ -222,6 +222,119 @@ $note = $currentLang === 'en'
                 <div class="card"><strong><?php echo $currentLang === 'en' ? 'Tracking' : 'Трекинг'; ?></strong><p style="margin-top:8px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Events: filter, room click, submit.' : 'События: фильтр, выбор номера, отправка.'; ?></p></div>
             </div>
         </section>
+
+        <!-- Gallery / Visual Showcase -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Visual showcase' : 'Визуальная витрина'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;">
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#ecfdf5,#d1fae5);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#10b981,#059669); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Booking System' : 'Система бронирования'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Smart filters' : 'Умные фильтры'; ?></strong>
+                    <p style="margin-top:8px; color:#065f46;"><?php echo $currentLang === 'en' ? 'Easy date selection, guest count, and room type filtering.' : 'Простой выбор дат, количества гостей и фильтрация по типу номера.'; ?></p>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#ecfdf5,#d1fae5);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#059669,#047857); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Room Gallery' : 'Галерея номеров'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Beautiful rooms' : 'Красивые номера'; ?></strong>
+                    <p style="margin-top:8px; color:#065f46;"><?php echo $currentLang === 'en' ? 'High-quality images showcasing each room with amenities and details.' : 'Высококачественные изображения каждого номера с удобствами и деталями.'; ?></p>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#ecfdf5,#d1fae5);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#10b981,#059669); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Location Map' : 'Карта локации'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Easy navigation' : 'Простая навигация'; ?></strong>
+                    <p style="margin-top:8px; color:#065f46;"><?php echo $currentLang === 'en' ? 'Interactive map showing hotel location and nearby attractions.' : 'Интерактивная карта с расположением отеля и близлежащими достопримечательностями.'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features & Benefits -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Key features' : 'Ключевые особенности'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px;">
+                <div class="card" style="border-left:4px solid #10b981;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">🏨</span>
+                        <?php echo $currentLang === 'en' ? 'Room management' : 'Управление номерами'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#065f46; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Easy-to-update room inventory with availability calendar and pricing.' : 'Легко обновляемый инвентарь номеров с календарём доступности и ценами.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #059669;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">📅</span>
+                        <?php echo $currentLang === 'en' ? 'Booking system' : 'Система бронирования'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#065f46; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Streamlined booking process with real-time availability checking.' : 'Оптимизированный процесс бронирования с проверкой доступности в реальном времени.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #10b981;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">📱</span>
+                        <?php echo $currentLang === 'en' ? 'Mobile booking' : 'Мобильное бронирование'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#065f46; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Fully responsive design for seamless mobile booking experience.' : 'Полностью адаптивный дизайн для беспроблемного мобильного бронирования.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #059669;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">⭐</span>
+                        <?php echo $currentLang === 'en' ? 'Guest reviews' : 'Отзывы гостей'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#065f46; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Integrated review system to build trust and showcase guest satisfaction.' : 'Встроенная система отзывов для укрепления доверия и демонстрации удовлетворённости гостей.'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Reviews -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Guest reviews' : 'Отзывы гостей'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px;">
+                <div class="card" style="padding:24px; background:#fff;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#10b981,#059669); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;">M</div>
+                        <div>
+                            <strong style="display:block;"><?php echo $currentLang === 'en' ? 'Michael P.' : 'Майкл П.'; ?></strong>
+                            <span style="color:#047857; font-size:14px;"><?php echo $currentLang === 'en' ? 'Hotel Guest' : 'Гость отеля'; ?></span>
+                        </div>
+                    </div>
+                    <p style="color:#065f46; line-height:1.7; font-style:italic;">"<?php echo $currentLang === 'en' ? 'Booking was so easy! The website is beautiful and user-friendly.' : 'Бронирование было таким простым! Сайт красивый и удобный.'; ?>"</p>
+                    <div style="margin-top:12px; color:#fbbf24; font-size:18px;">★★★★★</div>
+                </div>
+                <div class="card" style="padding:24px; background:#fff;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#059669,#047857); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;">A</div>
+                        <div>
+                            <strong style="display:block;"><?php echo $currentLang === 'en' ? 'Anna W.' : 'Анна В.'; ?></strong>
+                            <span style="color:#047857; font-size:14px;"><?php echo $currentLang === 'en' ? 'Hotel Manager' : 'Менеджер отеля'; ?></span>
+                        </div>
+                    </div>
+                    <p style="color:#065f46; line-height:1.7; font-style:italic;">"<?php echo $currentLang === 'en' ? 'Direct bookings increased by 70%! The booking system works perfectly.' : 'Прямые бронирования выросли на 70%! Система бронирования работает отлично.'; ?>"</p>
+                    <div style="margin-top:12px; color:#fbbf24; font-size:18px;">★★★★★</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Technology stack' : 'Технологический стек'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;">
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">🎨</div>
+                    <strong>Design</strong>
+                    <p style="margin-top:6px; color:#065f46; font-size:14px;"><?php echo $currentLang === 'en' ? 'Custom UI/UX' : 'Кастомный UI/UX'; ?></p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">💻</div>
+                    <strong>Frontend</strong>
+                    <p style="margin-top:6px; color:#065f46; font-size:14px;">HTML5, CSS3, JS</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">⚙️</div>
+                    <strong>Backend</strong>
+                    <p style="margin-top:6px; color:#065f46; font-size:14px;">PHP, MySQL</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">📊</div>
+                    <strong>Analytics</strong>
+                    <p style="margin-top:6px; color:#065f46; font-size:14px;">GA4, Events</p>
+                </div>
+            </div>
+        </section>
     </div>
 </main>
 

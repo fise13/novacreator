@@ -217,6 +217,119 @@ $note = $currentLang === 'en'
                 <div class="card"><strong><?php echo $currentLang === 'en' ? 'Tracking' : 'Трекинг'; ?></strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Events: view, add-to-cart, checkout steps.' : 'События: просмотр, корзина, шаги чекаута.'; ?></p></div>
             </div>
         </section>
+
+        <!-- Gallery / Visual Showcase -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Visual showcase' : 'Визуальная витрина'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;">
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#f1f5f9,#e2e8f0);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#3b82f6,#2563eb); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Product Catalog' : 'Каталог товаров'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Smart filtering' : 'Умная фильтрация'; ?></strong>
+                    <p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Advanced filters by price, brand, specs, and ratings.' : 'Продвинутые фильтры по цене, бренду, характеристикам и рейтингам.'; ?></p>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#f1f5f9,#e2e8f0);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#8b5cf6,#7c3aed); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Shopping Cart' : 'Корзина покупок'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Seamless checkout' : 'Беспроблемный чекаут'; ?></strong>
+                    <p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Intuitive cart with promo codes and delivery options.' : 'Интуитивная корзина с промокодами и вариантами доставки.'; ?></p>
+                </div>
+                <div class="card" style="padding:24px; background:linear-gradient(135deg,#f1f5f9,#e2e8f0);">
+                    <div style="width:100%; height:180px; background:linear-gradient(135deg,#06b6d4,#0891b2); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;"><?php echo $currentLang === 'en' ? 'Product Details' : 'Детали товара'; ?></div>
+                    <strong><?php echo $currentLang === 'en' ? 'Rich product pages' : 'Насыщенные страницы товаров'; ?></strong>
+                    <p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Detailed specs, reviews, related items, and recommendations.' : 'Подробные характеристики, отзывы, похожие товары и рекомендации.'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features & Benefits -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Key features' : 'Ключевые особенности'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px;">
+                <div class="card" style="border-left:4px solid #3b82f6;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">🛒</span>
+                        <?php echo $currentLang === 'en' ? 'E-commerce ready' : 'Готов к продажам'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#475569; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Full shopping cart functionality with inventory management and order tracking.' : 'Полнофункциональная корзина с управлением запасами и отслеживанием заказов.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #8b5cf6;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">🔍</span>
+                        <?php echo $currentLang === 'en' ? 'Advanced search' : 'Продвинутый поиск'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#475569; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Powerful search with filters, sorting, and smart recommendations.' : 'Мощный поиск с фильтрами, сортировкой и умными рекомендациями.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #06b6d4;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">📱</span>
+                        <?php echo $currentLang === 'en' ? 'Mobile optimized' : 'Мобильная оптимизация'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#475569; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Perfect shopping experience on smartphones and tablets.' : 'Идеальный опыт покупок на смартфонах и планшетах.'; ?></p>
+                </div>
+                <div class="card" style="border-left:4px solid #3b82f6;">
+                    <strong style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">⚡</span>
+                        <?php echo $currentLang === 'en' ? 'Fast performance' : 'Быстрая работа'; ?>
+                    </strong>
+                    <p style="margin-top:10px; color:#475569; line-height:1.6;"><?php echo $currentLang === 'en' ? 'Optimized for speed with lazy loading and efficient caching.' : 'Оптимизировано для скорости с ленивой загрузкой и эффективным кешированием.'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Reviews -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Client feedback' : 'Отзывы клиентов'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px;">
+                <div class="card" style="padding:24px; background:#fff;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#3b82f6,#2563eb); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;">D</div>
+                        <div>
+                            <strong style="display:block;"><?php echo $currentLang === 'en' ? 'David R.' : 'Давид Р.'; ?></strong>
+                            <span style="color:#64748b; font-size:14px;"><?php echo $currentLang === 'en' ? 'Tech Store Owner' : 'Владелец техно-магазина'; ?></span>
+                        </div>
+                    </div>
+                    <p style="color:#475569; line-height:1.7; font-style:italic;">"<?php echo $currentLang === 'en' ? 'Sales increased by 85% after launch. The filtering system is amazing!' : 'Продажи выросли на 85% после запуска. Система фильтрации потрясающая!'; ?>"</p>
+                    <div style="margin-top:12px; color:#fbbf24; font-size:18px;">★★★★★</div>
+                </div>
+                <div class="card" style="padding:24px; background:#fff;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#8b5cf6,#7c3aed); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;">E</div>
+                        <div>
+                            <strong style="display:block;"><?php echo $currentLang === 'en' ? 'Emma T.' : 'Эмма Т.'; ?></strong>
+                            <span style="color:#64748b; font-size:14px;"><?php echo $currentLang === 'en' ? 'E-commerce Manager' : 'Менеджер интернет-магазина'; ?></span>
+                        </div>
+                    </div>
+                    <p style="color:#475569; line-height:1.7; font-style:italic;">"<?php echo $currentLang === 'en' ? 'The checkout process is so smooth. Customer satisfaction is through the roof!' : 'Процесс оформления заказа такой плавный. Удовлетворённость клиентов зашкаливает!'; ?>"</p>
+                    <div style="margin-top:12px; color:#fbbf24; font-size:18px;">★★★★★</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Technology stack' : 'Технологический стек'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;">
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">🎨</div>
+                    <strong>Design</strong>
+                    <p style="margin-top:6px; color:#475569; font-size:14px;"><?php echo $currentLang === 'en' ? 'Custom UI/UX' : 'Кастомный UI/UX'; ?></p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">💻</div>
+                    <strong>Frontend</strong>
+                    <p style="margin-top:6px; color:#475569; font-size:14px;">HTML5, CSS3, JS</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">⚙️</div>
+                    <strong>Backend</strong>
+                    <p style="margin-top:6px; color:#475569; font-size:14px;">PHP, MySQL</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <div style="font-size:32px; margin-bottom:8px;">📊</div>
+                    <strong>Analytics</strong>
+                    <p style="margin-top:6px; color:#475569; font-size:14px;">GA4, Events</p>
+                </div>
+            </div>
+        </section>
     </div>
 </main>
 
