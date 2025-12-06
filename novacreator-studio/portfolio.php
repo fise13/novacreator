@@ -359,7 +359,7 @@ if ($currentLang === 'en') {
         <div class="grid gap-8 md:gap-10 md:grid-cols-2">
             <?php foreach ($projects as $index => $project): ?>
                 <?php
-                    $demoLink = '/demo.php?project=' . urlencode($project['id']) . '&lang=' . urlencode($currentLang);
+                    $demoLink = '/demo/' . rawurlencode($project['id']) . '/?lang=' . urlencode($currentLang);
                 ?>
                 <a
                     class="service-card animate-on-scroll text-left w-full portfolio-card group relative overflow-hidden"
