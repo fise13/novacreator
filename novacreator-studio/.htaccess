@@ -108,7 +108,7 @@
 </IfModule>
 
 # ЗАЩИТА ФАЙЛОВ
-<FilesMatch "\.(env|json|config\.php|gitignore|htaccess)$">
+<FilesMatch "\.(env|json|config\.php|gitignore|htaccess|db|sqlite)$">
     Order allow,deny
     Deny from all
 </FilesMatch>

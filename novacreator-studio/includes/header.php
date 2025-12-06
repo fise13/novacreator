@@ -3,9 +3,8 @@
  * Общий header для всех страниц
  * Содержит навигацию и мета-теги
  */
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/auth.php';
+startSecureSession();
 
 // Подключаем систему защиты от ботов (должно быть первым)
 require_once __DIR__ . '/bot_detection.php';
@@ -18,6 +17,9 @@ require_once __DIR__ . '/i18n.php';
 $currentLang = getCurrentLanguage();
 $langMap = ['ru' => 'ru', 'en' => 'en'];
 $htmlLang = $langMap[$currentLang] ?? 'ru';
+
+// Текущий пользователь (если авторизован)
+$currentUser = getAuthenticatedUser();
 
 // Определяем базовый URL для RSS и других ссылок
 $host = $_SERVER['HTTP_HOST'] ?? 'novacreatorstudio.com';
@@ -230,6 +232,30 @@ $siteUrl = $scheme . '://' . $host;
                             <span class="relative z-10">EN</span>
                         </a>
                     </div>
+
+                    <!-- Аккаунт -->
+                    <div class="flex items-center space-x-2">
+                        <?php if ($currentUser): ?>
+                            <a href="/dashboard.php" class="px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors">
+                                Кабинет
+                            </a>
+                            <?php if (($currentUser['role'] ?? '') === 'admin'): ?>
+                                <a href="/adm/" class="px-4 py-2 text-sm rounded-lg border border-neon-purple/60 text-neon-purple hover:border-neon-blue hover:text-neon-blue transition-colors">
+                                    Админ
+                                </a>
+                            <?php endif; ?>
+                            <a href="/logout.php" class="px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors">
+                                Выход
+                            </a>
+                        <?php else: ?>
+                            <a href="/login.php" class="px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors">
+                                Войти
+                            </a>
+                            <a href="/register.php" class="px-4 py-2 text-sm rounded-lg bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-neon-purple/30 shadow-lg hover:shadow-xl hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all">
+                                Регистрация
+                            </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 
                 <!-- Кнопка мобильного меню -->
@@ -300,6 +326,28 @@ $siteUrl = $scheme . '://' . $host;
                         <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </span>
                 </a>
+
+                <!-- Аккаунт в мобильном меню -->
+                <?php if ($currentUser): ?>
+                    <a href="/dashboard.php" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-dark-border hover:border-neon-purple transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
+                        Личный кабинет
+                    </a>
+                    <?php if (($currentUser['role'] ?? '') === 'admin'): ?>
+                        <a href="/adm/" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-neon-purple/60 hover:border-neon-blue transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
+                            Админка
+                        </a>
+                    <?php endif; ?>
+                    <a href="/logout.php" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-dark-border hover:border-neon-purple transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
+                        Выйти
+                    </a>
+                <?php else: ?>
+                    <a href="/login.php" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-dark-border hover:border-neon-purple transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
+                        Войти
+                    </a>
+                    <a href="/register.php" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all duration-200 shadow-lg shadow-neon-purple/30 hover:shadow-xl active:scale-[0.98] opacity-0 transform translate-y-3">
+                        Регистрация
+                    </a>
+                <?php endif; ?>
                 
                 <!-- Переключатель языка в мобильном меню -->
                 <div class="mobile-menu-item mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-dark-border/60 opacity-0 transform translate-y-3 pb-safe" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
