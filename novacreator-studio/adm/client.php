@@ -35,6 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'stage' => trim($_POST['stage'] ?? ''),
             'notes' => trim($_POST['notes'] ?? ''),
             'started_at' => !empty($_POST['started_at']) ? trim($_POST['started_at']) : null,
+            'avg_progress_per_day' => !empty($_POST['avg_progress_per_day']) ? trim($_POST['avg_progress_per_day']) : null,
+            'avg_hours_per_day' => !empty($_POST['avg_hours_per_day']) ? trim($_POST['avg_hours_per_day']) : null,
+            'estimated_completion_days' => !empty($_POST['estimated_completion_days']) ? trim($_POST['estimated_completion_days']) : null,
         ];
         
         upsertProject($payload);
@@ -52,7 +55,7 @@ $timeSpent = (int)($client['time_spent_minutes'] ?? 0);
 $updatedAt = $client['updated_at'] ?? null;
 $startedAt = $client['started_at'] ?? null;
 
-// Вычисляем метрики
+// Вычисляем метрики (используем сохраненные значения или вычисляем автоматически)
 $startedAtTimestamp = null;
 if ($startedAt) {
     $startedAtTimestamp = strtotime($startedAt);
@@ -64,10 +67,25 @@ $daysActive = 0;
 if ($startedAtTimestamp) {
     $daysActive = max(0, ceil((time() - $startedAtTimestamp) / 86400));
 }
-$avgProgressPerDay = $daysActive > 0 ? round($progress / $daysActive, 1) : 0;
-$estimatedCompletion = $avgProgressPerDay > 0 ? ceil((100 - $progress) / $avgProgressPerDay) : 0;
-$hoursSpent = round($timeSpent / 60, 1);
-$avgHoursPerDay = $daysActive > 0 ? round($hoursSpent / $daysActive, 1) : 0;
+
+// Используем сохраненные значения или вычисляем автоматически
+$avgProgressPerDay = $client['avg_progress_per_day'] ?? null;
+if ($avgProgressPerDay === null) {
+    $avgProgressPerDay = $daysActive > 0 ? round($progress / $daysActive, 1) : 0;
+}
+
+$avgHoursPerDay = $client['avg_hours_per_day'] ?? null;
+if ($avgHoursPerDay === null) {
+    $hoursSpent = round($timeSpent / 60, 1);
+    $avgHoursPerDay = $daysActive > 0 ? round($hoursSpent / $daysActive, 1) : 0;
+} else {
+    $hoursSpent = round($timeSpent / 60, 1);
+}
+
+$estimatedCompletion = $client['estimated_completion_days'] ?? null;
+if ($estimatedCompletion === null) {
+    $estimatedCompletion = $avgProgressPerDay > 0 ? ceil((100 - $progress) / $avgProgressPerDay) : 0;
+}
 
 function minutesToHuman(int $minutes): string
 {
@@ -206,27 +224,40 @@ include __DIR__ . '/../includes/header.php';
                 </div>
             </div>
 
-            <!-- Дополнительные метрики (только для просмотра) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-2xl p-4">
-                    <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Средний прогресс</p>
-                    <p class="text-2xl font-bold text-white"><?php echo $avgProgressPerDay; ?>%</p>
-                    <p class="text-xs text-gray-500 mt-1">Прогресс в день</p>
-                </div>
-                <div class="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30 rounded-2xl p-4">
-                    <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Среднее время</p>
-                    <p class="text-2xl font-bold text-white"><?php echo $avgHoursPerDay; ?>ч</p>
-                    <p class="text-xs text-gray-500 mt-1">Часов в день</p>
-                </div>
-                <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-2xl p-4">
-                    <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Оценка завершения</p>
-                    <p class="text-2xl font-bold text-white"><?php echo $estimatedCompletion; ?></p>
-                    <p class="text-xs text-gray-500 mt-1">Дней до завершения</p>
-                </div>
-                <div class="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-2xl p-4">
-                    <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Дней активно</p>
-                    <p class="text-2xl font-bold text-white"><?php echo $daysActive; ?></p>
-                    <p class="text-xs text-gray-500 mt-1">С момента старта</p>
+            <!-- Дополнительные метрики (редактируемые) -->
+            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl">
+                <h2 class="text-xl font-semibold text-white mb-6">Дополнительные метрики</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-300 mb-2">Средний прогресс в день (%)</label>
+                        <input type="number" name="avg_progress_per_day" step="0.1" min="0" 
+                               value="<?php echo $avgProgressPerDay !== null ? htmlspecialchars($avgProgressPerDay) : ''; ?>" 
+                               placeholder="Авто"
+                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                        <p class="text-xs text-gray-500 mt-1">Оставьте пустым для автоматического расчета</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-300 mb-2">Среднее время в день (часы)</label>
+                        <input type="number" name="avg_hours_per_day" step="0.1" min="0" 
+                               value="<?php echo $avgHoursPerDay !== null ? htmlspecialchars($avgHoursPerDay) : ''; ?>" 
+                               placeholder="Авто"
+                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                        <p class="text-xs text-gray-500 mt-1">Оставьте пустым для автоматического расчета</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-300 mb-2">Оценка завершения (дней)</label>
+                        <input type="number" name="estimated_completion_days" min="0" 
+                               value="<?php echo $estimatedCompletion !== null ? htmlspecialchars($estimatedCompletion) : ''; ?>" 
+                               placeholder="Авто"
+                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                        <p class="text-xs text-gray-500 mt-1">Оставьте пустым для автоматического расчета</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-300 mb-2">Дней активно</label>
+                        <input type="text" value="<?php echo $daysActive; ?>" disabled
+                               class="w-full bg-dark-bg/50 border border-dark-border rounded-lg px-4 py-3 text-white cursor-not-allowed">
+                        <p class="text-xs text-gray-500 mt-1">Вычисляется автоматически</p>
+                    </div>
                 </div>
             </div>
 

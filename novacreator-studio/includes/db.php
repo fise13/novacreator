@@ -83,10 +83,30 @@ function runMigrations(PDO $pdo): void
             stage TEXT,
             notes TEXT,
             started_at TEXT,
+            avg_progress_per_day REAL,
+            avg_hours_per_day REAL,
+            estimated_completion_days INTEGER,
             updated_at TEXT NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         );'
     );
+    
+    // Миграция: добавляем поля для метрик, если их нет
+    try {
+        $pdo->exec('ALTER TABLE projects ADD COLUMN avg_progress_per_day REAL;');
+    } catch (PDOException $e) {
+        // Колонка уже существует
+    }
+    try {
+        $pdo->exec('ALTER TABLE projects ADD COLUMN avg_hours_per_day REAL;');
+    } catch (PDOException $e) {
+        // Колонка уже существует
+    }
+    try {
+        $pdo->exec('ALTER TABLE projects ADD COLUMN estimated_completion_days INTEGER;');
+    } catch (PDOException $e) {
+        // Колонка уже существует
+    }
 
     // OAuth конфигурация
     $pdo->exec(

@@ -73,15 +73,28 @@ $chartLabels = array_reverse($chartLabels);
 $chartProgress = array_reverse($chartProgress);
 $chartTime = array_reverse($chartTime);
 
-// Вычисляем дополнительные метрики
+// Вычисляем дополнительные метрики (используем сохраненные значения или вычисляем автоматически)
 $daysActive = 0;
 if ($startedAtTimestamp) {
     $daysActive = max(0, ceil((time() - $startedAtTimestamp) / 86400));
 }
-$avgProgressPerDay = $daysActive > 0 ? round($progress / $daysActive, 1) : 0;
-$estimatedCompletion = $avgProgressPerDay > 0 ? ceil((100 - $progress) / $avgProgressPerDay) : 0;
+
+// Используем сохраненные значения или вычисляем автоматически
+$avgProgressPerDay = $userData['avg_progress_per_day'] ?? null;
+if ($avgProgressPerDay === null) {
+    $avgProgressPerDay = $daysActive > 0 ? round($progress / $daysActive, 1) : 0;
+}
+
 $hoursSpent = round($timeSpent / 60, 1);
-$avgHoursPerDay = $daysActive > 0 ? round($hoursSpent / $daysActive, 1) : 0;
+$avgHoursPerDay = $userData['avg_hours_per_day'] ?? null;
+if ($avgHoursPerDay === null) {
+    $avgHoursPerDay = $daysActive > 0 ? round($hoursSpent / $daysActive, 1) : 0;
+}
+
+$estimatedCompletion = $userData['estimated_completion_days'] ?? null;
+if ($estimatedCompletion === null) {
+    $estimatedCompletion = $avgProgressPerDay > 0 ? ceil((100 - $progress) / $avgProgressPerDay) : 0;
+}
 
 function minutesToHuman(int $minutes): string
 {

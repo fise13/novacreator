@@ -30,3 +30,8 @@ Thumbs.db
 *.tmp
 *.cache
 
+# База данных (содержит данные пользователей - не должна попадать в git)
+novacreator-studio/data/app.db
+novacreator-studio/data/*.db
+novacreator-studio/data/*.db-journal
+
