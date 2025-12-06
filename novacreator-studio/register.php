@@ -95,9 +95,15 @@ include __DIR__ . '/includes/header.php';
             </form>
 
             <?php
-            require_once __DIR__ . '/includes/oauth_config.php';
-            $googleEnabled = isOAuthEnabled('google');
-            $appleEnabled = isOAuthEnabled('apple');
+            try {
+                require_once __DIR__ . '/includes/oauth_config.php';
+                $googleEnabled = function_exists('isOAuthEnabled') ? isOAuthEnabled('google') : false;
+                $appleEnabled = function_exists('isOAuthEnabled') ? isOAuthEnabled('apple') : false;
+            } catch (Exception $e) {
+                error_log('OAuth config error: ' . $e->getMessage());
+                $googleEnabled = false;
+                $appleEnabled = false;
+            }
             if ($googleEnabled || $appleEnabled):
             ?>
             <div class="mt-6">

@@ -173,14 +173,20 @@ function getAppleOAuthConfig(): array
 // Проверка, включен ли OAuth
 function isOAuthEnabled(string $provider): bool
 {
-    if ($provider === 'google') {
-        $config = getGoogleOAuthConfig();
-        return !empty($config['client_id']) && !empty($config['client_secret']);
-    }
-    
-    if ($provider === 'apple') {
-        $config = getAppleOAuthConfig();
-        return !empty($config['client_id']) && !empty($config['team_id']) && !empty($config['key_id']);
+    try {
+        if ($provider === 'google') {
+            $config = getGoogleOAuthConfig();
+            $enabled = !empty($config['client_id']) && !empty($config['client_secret']);
+            return $enabled;
+        }
+        
+        if ($provider === 'apple') {
+            $config = getAppleOAuthConfig();
+            return !empty($config['client_id']) && !empty($config['team_id']) && !empty($config['key_id']);
+        }
+    } catch (Exception $e) {
+        error_log('OAuth enabled check error: ' . $e->getMessage());
+        return false;
     }
     
     return false;
