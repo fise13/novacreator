@@ -244,25 +244,69 @@ $siteUrl = $scheme . '://' . $host;
                         </a>
                     </div>
 
-                    <!-- Аккаунт (дропдаун) -->
+                    <!-- Аккаунт (кнопка в стиле Xbox) -->
                     <div class="relative">
-                        <button id="accountMenuBtn" class="flex items-center space-x-2 px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg" aria-expanded="false" aria-haspopup="true">
-                            <span><?php echo $currentUser ? htmlspecialchars($currentUser['name']) : 'Аккаунт'; ?></span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
+                        <?php
+                        function getInitials(string $name): string {
+                            $words = explode(' ', trim($name));
+                            if (count($words) >= 2) {
+                                return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+                            }
+                            return strtoupper(substr($name, 0, 2));
+                        }
+                        $userInitials = $currentUser ? getInitials($currentUser['name']) : '?';
+                        $userAvatar = $currentUser && !empty($currentUser['avatar_url']) ? $currentUser['avatar_url'] : null;
+                        ?>
+                        <button id="accountMenuBtn" class="relative w-10 h-10 rounded-full bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center text-white text-sm font-semibold shadow-lg shadow-neon-purple/30 hover:shadow-xl hover:shadow-neon-purple/50 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg overflow-hidden group" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $currentUser ? htmlspecialchars($currentUser['name']) : 'Аккаунт'; ?>">
+                            <?php if ($userAvatar): ?>
+                                <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($currentUser['name']); ?>" class="w-full h-full object-cover rounded-full">
+                            <?php else: ?>
+                                <span class="relative z-10"><?php echo htmlspecialchars($userInitials); ?></span>
+                            <?php endif; ?>
+                            <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/0 to-neon-blue/0 group-hover:from-neon-purple/20 group-hover:to-neon-blue/20 transition-all duration-300 rounded-full"></div>
                         </button>
-                        <div id="accountMenu" class="absolute right-0 mt-2 w-48 bg-dark-surface border border-dark-border rounded-xl shadow-xl opacity-0 pointer-events-none transition-opacity duration-150 z-50 hidden">
+                        <div id="accountMenu" class="absolute right-0 mt-3 w-56 bg-dark-surface/98 backdrop-blur-xl border border-dark-border rounded-2xl shadow-2xl opacity-0 pointer-events-none transition-all duration-200 z-50 hidden transform translate-y-2">
                             <div class="py-2">
                                 <?php if ($currentUser): ?>
-                                    <a href="/dashboard.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Кабинет</a>
+                                    <div class="px-4 py-3 border-b border-dark-border">
+                                        <p class="text-sm font-semibold text-white truncate"><?php echo htmlspecialchars($currentUser['name']); ?></p>
+                                        <p class="text-xs text-gray-400 truncate mt-0.5"><?php echo htmlspecialchars($currentUser['email']); ?></p>
+                                    </div>
+                                    <a href="/dashboard.php" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg/50 transition-colors group">
+                                        <svg class="w-5 h-5 text-gray-400 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                        </svg>
+                                        <span>Личный кабинет</span>
+                                    </a>
                                     <?php if ($isRootAdmin): ?>
-                                        <a href="/adm/" class="block px-4 py-2 text-sm text-neon-purple hover:text-neon-blue hover:bg-dark-bg transition-colors">Админ</a>
+                                        <a href="/adm/" class="flex items-center gap-3 px-4 py-3 text-sm text-neon-purple hover:text-neon-blue hover:bg-dark-bg/50 transition-colors group">
+                                            <svg class="w-5 h-5 text-neon-purple group-hover:text-neon-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            <span>Админ-панель</span>
+                                        </a>
                                     <?php endif; ?>
-                                    <a href="/logout.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Выйти</a>
+                                    <div class="border-t border-dark-border my-1"></div>
+                                    <a href="/logout.php" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-red-400 hover:bg-dark-bg/50 transition-colors group">
+                                        <svg class="w-5 h-5 text-gray-400 group-hover:text-red-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                        </svg>
+                                        <span>Выйти</span>
+                                    </a>
                                 <?php else: ?>
-                                    <a href="/login.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Вход</a>
-                                    <a href="/register.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Регистрация</a>
+                                    <a href="/login.php" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg/50 transition-colors group">
+                                        <svg class="w-5 h-5 text-gray-400 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                        </svg>
+                                        <span>Вход</span>
+                                    </a>
+                                    <a href="/register.php" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg/50 transition-colors group">
+                                        <svg class="w-5 h-5 text-gray-400 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                        </svg>
+                                        <span>Регистрация</span>
+                                    </a>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -448,13 +492,16 @@ $siteUrl = $scheme . '://' . $host;
                     }
                 }
 
-            // Дропдаун аккаунта (по клику, не закрывается сразу)
+            // Дропдаун аккаунта (по клику, не закрывается сразу) - улучшенная анимация
             function closeAccountMenu() {
                 if (!accountMenu) return;
                 isAccountOpen = false;
-                accountMenu.classList.add('hidden');
                 accountMenu.style.opacity = '0';
+                accountMenu.style.transform = 'translateY(-8px)';
                 accountMenu.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    accountMenu.classList.add('hidden');
+                }, 200);
                 accountBtn?.setAttribute('aria-expanded', 'false');
             }
 
@@ -462,6 +509,7 @@ $siteUrl = $scheme . '://' . $host;
                 if (!accountMenu) return;
                 isAccountOpen = true;
                 accountMenu.classList.remove('hidden');
+                accountMenu.style.transform = 'translateY(0)';
                 setTimeout(() => {
                     accountMenu.style.opacity = '1';
                     accountMenu.style.pointerEvents = 'auto';
