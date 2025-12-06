@@ -3,8 +3,8 @@
  * Инициирует OAuth авторизацию через Apple
  */
 
+require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/oauth_config.php';
-require_once __DIR__ . '/../../includes/csrf.php';
 
 startSecureSession();
 
