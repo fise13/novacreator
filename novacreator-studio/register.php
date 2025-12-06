@@ -50,11 +50,12 @@ include __DIR__ . '/includes/header.php';
     <div class="max-w-xl w-full">
         <div class="bg-dark-surface/80 border border-dark-border rounded-2xl shadow-2xl p-8 backdrop-blur">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center shadow-lg">
-                    <svg class="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5Z" />
+                <div class="w-20 h-20 mx-auto mb-4 rounded-3xl bg-gradient-to-br from-neon-purple via-purple-600 to-neon-blue flex items-center justify-center shadow-2xl shadow-neon-purple/50 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <svg class="w-11 h-11 text-white relative z-10 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM3 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 019.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
                     </svg>
+                    <div class="absolute inset-0 bg-gradient-to-br from-neon-purple/0 via-purple-600/0 to-neon-blue/0 group-hover:from-neon-purple/30 group-hover:via-purple-600/30 group-hover:to-neon-blue/30 transition-all duration-500"></div>
                 </div>
                 <h1 class="text-3xl font-bold text-gradient mb-2">Создать аккаунт</h1>
                 <p class="text-gray-400 text-sm">Доступ к личному кабинету и статусам вашего проекта</p>

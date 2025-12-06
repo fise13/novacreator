@@ -263,18 +263,23 @@ $siteUrl = $scheme . '://' . $host;
                         $userName = $currentUser && isset($currentUser['name']) ? trim($currentUser['name']) : '';
                         // Получаем аватар: проверяем наличие и валидность URL
                         $userAvatar = null;
-                        if ($currentUser && isset($currentUser['avatar_url'])) {
-                            $avatarUrl = trim($currentUser['avatar_url']);
-                            if (!empty($avatarUrl) && filter_var($avatarUrl, FILTER_VALIDATE_URL)) {
-                                $userAvatar = $avatarUrl;
+                        if ($currentUser) {
+                            // Проверяем avatar_url напрямую из массива
+                            $avatarUrl = $currentUser['avatar_url'] ?? null;
+                            if ($avatarUrl) {
+                                $avatarUrl = trim($avatarUrl);
+                                // Более мягкая проверка - просто проверяем, что это не пустая строка и начинается с http
+                                if (!empty($avatarUrl) && (strpos($avatarUrl, 'http://') === 0 || strpos($avatarUrl, 'https://') === 0)) {
+                                    $userAvatar = $avatarUrl;
+                                }
                             }
                         }
                         $userInitials = $userName ? getInitials($userName) : '';
                         ?>
                         <button id="accountMenuBtn" class="relative w-10 h-10 rounded-full bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center text-white text-sm font-semibold shadow-lg shadow-neon-purple/30 hover:shadow-xl hover:shadow-neon-purple/50 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg overflow-hidden group" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $userName ? htmlspecialchars($userName) : 'Аккаунт'; ?>">
                             <?php if ($userAvatar): ?>
-                                <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($userName); ?>" class="w-full h-full object-cover rounded-full" id="userAvatarImg" onerror="this.style.display='none'; document.getElementById('userAvatarFallback').style.display='flex';">
-                                <span id="userAvatarFallback" class="relative z-10 text-xs font-bold leading-none hidden items-center justify-center w-full h-full"><?php echo $userInitials ? htmlspecialchars($userInitials) : ''; ?></span>
+                                <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($userName); ?>" class="w-full h-full object-cover rounded-full" id="userAvatarImg" loading="lazy" onerror="this.style.display='none'; const fallback = document.getElementById('userAvatarFallback'); if(fallback) fallback.style.display='flex';">
+                                <span id="userAvatarFallback" class="absolute inset-0 flex items-center justify-center text-xs font-bold leading-none hidden z-10"><?php echo $userInitials ? htmlspecialchars($userInitials) : ''; ?></span>
                             <?php elseif ($userInitials): ?>
                                 <span class="relative z-10 text-xs font-bold leading-none"><?php echo htmlspecialchars($userInitials); ?></span>
                             <?php else: ?>

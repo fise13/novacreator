@@ -89,11 +89,12 @@ include __DIR__ . '/includes/header.php';
     <div class="max-w-md w-full">
         <div class="bg-dark-surface/80 border border-dark-border rounded-2xl shadow-2xl p-8 backdrop-blur">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center shadow-lg">
-                    <svg class="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.657 0 3-1.79 3-4s-1.343-4-3-4-3 1.79-3 4 1.343 4 3 4z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.5 21a5.5 5.5 0 0 1 11 0" />
+                <div class="w-20 h-20 mx-auto mb-4 rounded-3xl bg-gradient-to-br from-neon-purple via-purple-600 to-neon-blue flex items-center justify-center shadow-2xl shadow-neon-purple/50 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <svg class="w-11 h-11 text-white relative z-10 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                     </svg>
+                    <div class="absolute inset-0 bg-gradient-to-br from-neon-purple/0 via-purple-600/0 to-neon-blue/0 group-hover:from-neon-purple/30 group-hover:via-purple-600/30 group-hover:to-neon-blue/30 transition-all duration-500"></div>
                 </div>
                 <h1 class="text-3xl font-bold text-gradient mb-2">Вход в аккаунт</h1>
                 <p class="text-gray-400 text-sm">Доступ к личному кабинету и статусам проекта</p>
