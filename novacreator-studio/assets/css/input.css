@@ -403,105 +403,95 @@
     background: rgba(10, 10, 15, 0.98);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
-
+  
   /* Мобильное меню */
   @media (max-width: 768px) {
     .navbar {
       @apply border-b border-dark-border/80;
       background: rgba(10, 10, 15, 0.96);
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55),
-        0 0 0 1px rgba(139, 92, 246, 0.16);
+                  0 0 0 1px rgba(139, 92, 246, 0.16);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
-
+    
     .navbar.scrolled {
       background: rgba(5, 5, 10, 0.98);
       box-shadow: 0 8px 22px rgba(0, 0, 0, 0.7),
-        0 0 0 1px rgba(139, 92, 246, 0.18);
+                  0 0 0 1px rgba(139, 92, 246, 0.18);
     }
-
-    /* Улучшенная бургер-кнопка */
+    
     #mobileMenuBtn {
       @apply rounded-xl;
       -webkit-tap-highlight-color: rgba(139, 92, 246, 0.25);
-      background: radial-gradient(circle at 30% 0, rgba(139, 92, 246, 0.15), transparent);
-      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.2),
-                  0 2px 8px rgba(0, 0, 0, 0.3);
-      transition: all var(--transition-base);
+      background: radial-gradient(circle at 30% 0, rgba(139, 92, 246, 0.24), transparent);
+      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35),
+                  0 6px 16px rgba(0, 0, 0, 0.65);
     }
     
-    #mobileMenuBtn:hover {
-      background: radial-gradient(circle at 30% 0, rgba(139, 92, 246, 0.25), transparent);
-      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.4),
-                  0 4px 12px rgba(139, 92, 246, 0.2);
-    }
-
     #mobileMenuBtn:active {
       transform: scale(0.95);
-    }
-
-    /* Анимация линий бургера */
-    .burger-line {
-      transition: all var(--transition-smooth);
-      will-change: transform, opacity, top, bottom;
-    }
-    
-    /* Компактное мобильное меню (выдвигается справа) */
-    #mobileMenu {
-      background: rgba(17, 17, 24, 0.98);
-      border-left: 1px solid rgba(139, 92, 246, 0.2);
-      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5),
-                  0 0 0 1px rgba(139, 92, 246, 0.1);
-    }
-    
-    /* Элементы меню */
-    .mobile-menu-item {
-      transition: all var(--transition-base);
-      will-change: transform, opacity;
-    }
-    
-    .mobile-menu-item:hover {
-      background: rgba(10, 10, 15, 0.6) !important;
-    }
-    
-    /* Активный элемент меню */
-    .mobile-menu-item[aria-current="page"] {
-      background: rgba(139, 92, 246, 0.1) !important;
-      border-left: 2px solid var(--color-neon-purple);
     }
     
     #mobileMenuOverlay {
       will-change: opacity;
       transition: opacity var(--transition-base);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(22px) saturate(175%);
+      -webkit-backdrop-filter: blur(22px) saturate(175%);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(0, 0, 0, 0.88));
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
     
-    /* Дополнительные стили для компактного меню */
     #mobileMenu {
-      will-change: transform;
-      transition: transform var(--transition-smooth);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      will-change: transform, opacity;
+      transition: opacity var(--transition-base),
+                  transform var(--transition-base);
+      backdrop-filter: blur(26px) saturate(180%);
+      -webkit-backdrop-filter: blur(26px) saturate(180%);
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 15, 0.98),
+        rgba(5, 5, 12, 0.98)
+      );
+      box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.85),
+                  0 0 0 1px rgba(139, 92, 246, 0.16);
     }
-
-    /* Элементы меню */
+    
     .mobile-menu-item {
       will-change: transform, opacity;
       -webkit-tap-highlight-color: rgba(139, 92, 246, 0.18);
-      transition: all var(--transition-base);
-    }
-
-    .mobile-menu-item:hover {
-      background: rgba(10, 10, 15, 0.6) !important;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(31, 31, 46, 0.9);
+      background: radial-gradient(
+        circle at top left,
+        rgba(15, 23, 42, 0.75),
+        rgba(10, 10, 15, 0.95)
+      );
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.85),
+                  0 0 0 1px rgba(15, 23, 42, 0.9);
     }
     
-    /* Активный элемент меню */
-    .mobile-menu-item[aria-current="page"] {
-      background: rgba(139, 92, 246, 0.1) !important;
-      border-left: 2px solid var(--color-neon-purple);
+    .mobile-menu-item:hover {
+      background: radial-gradient(
+        circle at top left,
+        rgba(15, 23, 42, 0.9),
+        rgba(10, 10, 15, 0.98)
+      );
+      border-color: rgba(139, 92, 246, 0.6);
+    }
+    
+    .mobile-menu-item[aria-current="page"],
+    .mobile-menu-item.text-neon-purple {
+      border-color: rgba(139, 92, 246, 0.9);
+      box-shadow: 0 12px 28px rgba(139, 92, 246, 0.38),
+                  0 0 0 1px rgba(6, 182, 212, 0.35);
+      background: linear-gradient(
+        135deg,
+        rgba(139, 92, 246, 0.24),
+        rgba(6, 182, 212, 0.18),
+        rgba(10, 10, 15, 0.98)
+      );
     }
   }
 }
