@@ -15,6 +15,13 @@ $note = $currentLang === 'en'
 ?>
 
 <style>
+    /* Компактный header для демо */
+    #mainNavbar { padding-top: 0 !important; padding-bottom: 0 !important; }
+    #mainNavbar .container { padding-top: 8px; padding-bottom: 8px; }
+    #mainNavbar .flex.items-center.justify-between { height: 62px !important; }
+    #mainNavbar img { width: 40px !important; height: 40px !important; }
+    #mainNavbar span.text-gradient { font-size: 1.05rem !important; }
+
     :root { --bg: #0f1115; --accent: #f97316; --accent2: #f59e0b; }
     .shell { background: radial-gradient(circle at 70% 20%, rgba(249,115,22,0.2), transparent 45%), var(--bg); color:#f5f5f5; }
     .container { max-width: 1220px; margin:0 auto; padding:90px 20px 100px; }
@@ -39,6 +46,18 @@ $note = $currentLang === 'en'
     .card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:14px; }
     .floaty { animation: floaty 7s ease-in-out infinite; }
     @keyframes floaty { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
+
+    /* Дополнения */
+    .section-block { margin-top: 44px; }
+    .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+    .kpi-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:14px; }
+    .kpi-value { font-size:32px; font-weight:800; color:#fbbf24; }
+    .screen-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+    .screen { background:rgba(255,255,255,0.03); border:1px dashed rgba(249,115,22,0.35); border-radius:14px; padding:14px; min-height:150px; }
+    .flow { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+    .flow-step { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:14px; }
+    .faq { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+    .faq-item { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:14px; }
 </style>
 
 <main class="shell">
@@ -109,6 +128,50 @@ $note = $currentLang === 'en'
                 <div class="pill" style="margin-top:12px; background:rgba(255,255,255,0.06); color:#fbbf24;">
                     <?php echo $currentLang === 'en' ? 'Guarantee & docs placeholders' : 'Гарантии и документы — плейсхолдеры'; ?>
                 </div>
+            </div>
+        </section>
+
+        <!-- Показатели -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Metrics (demo data)' : 'Показатели (демо-данные)'; ?></h2>
+            <div class="kpi-grid">
+                <div class="kpi-card"><div class="kpi-value">+27%</div><p style="color:#f3f4f6;"><?php echo $currentLang === 'en' ? 'Inquiry rate' : 'Рост заявок'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">2.1×</div><p style="color:#f3f4f6;"><?php echo $currentLang === 'en' ? 'CTR to CTA' : 'CTR к CTA'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">63s</div><p style="color:#f3f4f6;"><?php echo $currentLang === 'en' ? 'Time on page' : 'Время на странице'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">4.6</div><p style="color:#f3f4f6;"><?php echo $currentLang === 'en' ? 'Trust (placeholder)' : 'Доверие (плейсхолдер)'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Экраны -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Screens / pages' : 'Экраны / страницы'; ?></h2>
+            <div class="screen-grid">
+                <div class="screen"><strong>Hero</strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Offer, CTA, trust badges.' : 'Оффер, CTA, бейджи доверия.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Roadmap' : 'Дорожная карта'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? '4-step timeline.' : 'Таймлайн на 4 шага.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Pricing' : 'Стоимость'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Breakdown by stage.' : 'Разбивка по этапам.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Guarantees' : 'Гарантии'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Docs placeholders.' : 'Плейсхолдеры документов.'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Flow -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;">Flow</h2>
+            <div class="flow">
+                <div class="flow-step"><strong>1. Hero</strong><p style="color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'See offer' : 'Оффер'; ?></p></div>
+                <div class="flow-step"><strong>2. Steps</strong><p style="color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Roadmap detail' : 'Детализация шагов'; ?></p></div>
+                <div class="flow-step"><strong>3. Pricing</strong><p style="color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Budget clarity' : 'Прозрачность бюджета'; ?></p></div>
+                <div class="flow-step"><strong>4. CTA</strong><p style="color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Disabled CTA' : 'Отключённая CTA'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;">FAQ</h2>
+            <div class="faq">
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Is form live?' : 'Форма живая?'; ?></strong><p style="margin-top:6px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Disabled in demo.' : 'Отключена в демо.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Docs?' : 'Документы?'; ?></strong><p style="margin-top:6px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Placeholders only.' : 'Только плейсхолдеры.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Calculator?' : 'Калькулятор?'; ?></strong><p style="margin-top:6px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'CTA disabled.' : 'CTA отключена.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Go live?' : 'Запуск?'; ?></strong><p style="margin-top:6px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Can connect forms/payments.' : 'Подключим формы/оплаты при запуске.'; ?></p></div>
             </div>
         </section>
     </div>

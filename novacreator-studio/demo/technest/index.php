@@ -15,6 +15,13 @@ $note = $currentLang === 'en'
 ?>
 
 <style>
+    /* Компактный header для демо */
+    #mainNavbar { padding-top: 0 !important; padding-bottom: 0 !important; }
+    #mainNavbar .container { padding-top: 8px; padding-bottom: 8px; }
+    #mainNavbar .flex.items-center.justify-between { height: 62px !important; }
+    #mainNavbar img { width: 40px !important; height: 40px !important; }
+    #mainNavbar span.text-gradient { font-size: 1.05rem !important; }
+
     :root { --bg: #f2f7fb; --accent: #0ea5e9; --accent2: #6366f1; --text: #0b1624; }
     .shell { background: radial-gradient(circle at 25% 10%, rgba(99,102,241,0.14), transparent 40%), var(--bg); color:var(--text); }
     .container { max-width: 1220px; margin:0 auto; padding:86px 20px 96px; }
@@ -40,6 +47,18 @@ $note = $currentLang === 'en'
     .mock .cta-ghost { position:absolute; bottom:24px; right:18px; width:140px; height:44px; border-radius:12px; border:1px solid #0ea5e9; }
     .floaty { animation: floaty 7s ease-in-out infinite; }
     @keyframes floaty { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
+
+    /* Дополнения */
+    .section-block { margin-top: 42px; }
+    .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+    .kpi-card { background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:16px; box-shadow:0 10px 28px rgba(0,0,0,0.04); }
+    .kpi-value { font-size:32px; font-weight:800; color:#0ea5e9; }
+    .screen-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+    .screen { background:#fff; border:1px dashed #cbd5e1; border-radius:14px; padding:14px; min-height:150px; }
+    .flow { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+    .flow-step { background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:14px; }
+    .faq { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+    .faq-item { background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:14px; }
 </style>
 
 <main class="shell">
@@ -91,6 +110,50 @@ $note = $currentLang === 'en'
                 <div class="pdp"></div>
                 <div class="cta"></div>
                 <div class="cta-ghost"></div>
+            </div>
+        </section>
+
+        <!-- Показатели -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Metrics (demo data)' : 'Показатели (демо-данные)'; ?></h2>
+            <div class="kpi-grid">
+                <div class="kpi-card"><div class="kpi-value">+35%</div><p style="color:#334155;"><?php echo $currentLang === 'en' ? 'CTR catalog → PDP' : 'CTR каталог → PDP'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">2.4×</div><p style="color:#334155;"><?php echo $currentLang === 'en' ? 'Add-to-cart rate' : 'Добавление в корзину'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">68s</div><p style="color:#334155;"><?php echo $currentLang === 'en' ? 'Time on PDP' : 'Время на PDP'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">4.8</div><p style="color:#334155;"><?php echo $currentLang === 'en' ? 'UX satisfaction (placeholder)' : 'Удовлетворённость UX (плейсхолдер)'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Экраны -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Screens / pages' : 'Экраны / страницы'; ?></h2>
+            <div class="screen-grid">
+                <div class="screen"><strong>Catalog</strong><p style="margin-top:8px; color:#334155;"><?php echo $currentLang === 'en' ? 'Filters, sort (decorative).' : 'Фильтры, сортировка (декор).'; ?></p></div>
+                <div class="screen"><strong>PDP</strong><p style="margin-top:8px; color:#334155;"><?php echo $currentLang === 'en' ? 'Gallery, specs, recommendations.' : 'Галерея, спеки, рекомендации.'; ?></p></div>
+                <div class="screen"><strong>Cart</strong><p style="margin-top:8px; color:#334155;"><?php echo $currentLang === 'en' ? 'Totals, delivery steps (static).' : 'Итоги, шаги доставки (статик).'; ?></p></div>
+                <div class="screen"><strong>Support</strong><p style="margin-top:8px; color:#334155;"><?php echo $currentLang === 'en' ? 'FAQ, contacts.' : 'FAQ, контакты.'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Flow -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;">Flow</h2>
+            <div class="flow">
+                <div class="flow-step"><strong>1. Catalog</strong><p style="color:#334155;"><?php echo $currentLang === 'en' ? 'Browse / filter (static).' : 'Смотрим / фильтруем (статик).'; ?></p></div>
+                <div class="flow-step"><strong>2. PDP</strong><p style="color:#334155;"><?php echo $currentLang === 'en' ? 'Specs, upsell (demo).' : 'Спеки, апселл (демо).'; ?></p></div>
+                <div class="flow-step"><strong>3. Cart</strong><p style="color:#334155;"><?php echo $currentLang === 'en' ? 'Totals placeholder.' : 'Итоги плейсхолдер.'; ?></p></div>
+                <div class="flow-step"><strong>4. Checkout</strong><p style="color:#334155;"><?php echo $currentLang === 'en' ? 'Payment disabled.' : 'Оплата отключена.'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;">FAQ</h2>
+            <div class="faq">
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Are filters live?' : 'Фильтры работают?'; ?></strong><p style="margin-top:6px; color:#334155;"><?php echo $currentLang === 'en' ? 'Decorative only.' : 'Только декоративно.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Payments?' : 'Оплаты?'; ?></strong><p style="margin-top:6px; color:#334155;"><?php echo $currentLang === 'en' ? 'Disabled in demo.' : 'Отключены в демо.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'User accounts?' : 'Аккаунты?'; ?></strong><p style="margin-top:6px; color:#334155;"><?php echo $currentLang === 'en' ? 'Not connected.' : 'Не подключены.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Can go live?' : 'Запуск?'; ?></strong><p style="margin-top:6px; color:#334155;"><?php echo $currentLang === 'en' ? 'Yes, can wire payments later.' : 'Да, можем подключить оплаты позже.'; ?></p></div>
             </div>
         </section>
     </div>

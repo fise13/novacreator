@@ -15,6 +15,13 @@ $note = $currentLang === 'en'
 ?>
 
 <style>
+    /* Компактный header для демо */
+    #mainNavbar { padding-top: 0 !important; padding-bottom: 0 !important; }
+    #mainNavbar .container { padding-top: 8px; padding-bottom: 8px; }
+    #mainNavbar .flex.items-center.justify-between { height: 62px !important; }
+    #mainNavbar img { width: 40px !important; height: 40px !important; }
+    #mainNavbar span.text-gradient { font-size: 1.05rem !important; }
+
     :root { --bg: #f1fbf8; --accent: #14b8a6; --accent2: #06b6d4; --text: #07312b; }
     .shell { background: radial-gradient(circle at 80% 12%, rgba(20,184,166,0.22), transparent 45%), var(--bg); color:var(--text); }
     .container { max-width: 1200px; margin:0 auto; padding:86px 20px 96px; }
@@ -37,6 +44,18 @@ $note = $currentLang === 'en'
     .room { background:linear-gradient(135deg, rgba(20,184,166,0.12), rgba(6,182,212,0.12)); border:1px solid rgba(20,184,166,0.25); border-radius:16px; padding:14px; box-shadow:0 12px 32px rgba(20,184,166,0.12); }
     .floaty { animation: floaty 7s ease-in-out infinite; }
     @keyframes floaty { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
+
+    /* Дополнения */
+    .section-block { margin-top: 42px; }
+    .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+    .kpi-card { background:#fff; border:1px solid #d0f2eb; border-radius:16px; padding:16px; box-shadow:0 10px 32px rgba(20,184,166,0.12); }
+    .kpi-value { font-size:32px; font-weight:800; color:#0f766e; }
+    .screen-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+    .screen { background:#fff; border:1px dashed #bfeee4; border-radius:14px; padding:14px; min-height:150px; }
+    .flow { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+    .flow-step { background:#fff; border:1px solid #d0f2eb; border-radius:14px; padding:14px; }
+    .faq { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+    .faq-item { background:#fff; border:1px solid #d0f2eb; border-radius:14px; padding:14px; }
 </style>
 
 <main class="shell">
@@ -96,6 +115,50 @@ $note = $currentLang === 'en'
                     <p style="margin:6px 0 10px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Fast Wi‑Fi, desk, coffee corner.' : 'Быстрый Wi‑Fi, стол, кофе-поинт.'; ?></p>
                     <?php echo buttonDisabled($currentLang === 'en' ? 'Check availability' : 'Проверить наличие'); ?>
                 </div>
+            </div>
+        </section>
+
+        <!-- Показатели -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Metrics (demo data)' : 'Показатели (демо-данные)'; ?></h2>
+            <div class="kpi-grid">
+                <div class="kpi-card"><div class="kpi-value">+31%</div><p style="color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Search-to-book click' : 'Клики поиск→бронир.'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">2.2×</div><p style="color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Request rate' : 'Частота запросов'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">74s</div><p style="color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Time on page' : 'Время на странице'; ?></p></div>
+                <div class="kpi-card"><div class="kpi-value">4.8</div><p style="color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Satisfaction (placeholder)' : 'Удовлетворённость (плейсхолдер)'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Экраны -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Screens / pages' : 'Экраны / страницы'; ?></h2>
+            <div class="screen-grid">
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Hero & filters' : 'Герой и фильтры'; ?></strong><p style="margin-top:8px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Dates, guests, purpose.' : 'Даты, гости, цель.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Rooms' : 'Номера'; ?></strong><p style="margin-top:8px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Room cards with badges.' : 'Карточки номеров с бейджами.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Details' : 'Детали'; ?></strong><p style="margin-top:8px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Amenities, photos (static).' : 'Удобства, фото (статик).'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Map / Contacts' : 'Карта / Контакты'; ?></strong><p style="margin-top:8px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Static map, contact info.' : 'Статичная карта, контакты.'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Flow -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;">Flow</h2>
+            <div class="flow">
+                <div class="flow-step"><strong>1. Filters</strong><p style="color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Set dates/guests (static).' : 'Задаём даты/гостей (статик).'; ?></p></div>
+                <div class="flow-step"><strong>2. Pick room</strong><p style="color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Choose card' : 'Выбор карточки'; ?></p></div>
+                <div class="flow-step"><strong>3. CTA</strong><p style="color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Booking CTA disabled' : 'CTA брони отключена'; ?></p></div>
+                <div class="flow-step"><strong>4. Info</strong><p style="color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Map & contacts placeholders' : 'Карта и контакты — плейсхолдеры'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;">FAQ</h2>
+            <div class="faq">
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Is booking live?' : 'Работает бронь?'; ?></strong><p style="margin-top:6px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'No, demo only.' : 'Нет, демо.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Payments?' : 'Оплата?'; ?></strong><p style="margin-top:6px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Disabled in demo.' : 'Отключена в демо.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Availability?' : 'Наличие?'; ?></strong><p style="margin-top:6px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'Placeholder only.' : 'Только плейсхолдер.'; ?></p></div>
+                <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Go live?' : 'Запуск?'; ?></strong><p style="margin-top:6px; color:#0f3f38;"><?php echo $currentLang === 'en' ? 'We can connect real booking.' : 'Подключим реальную бронь.'; ?></p></div>
             </div>
         </section>
     </div>
