@@ -20,6 +20,7 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
 
 // Текущий пользователь (если авторизован)
 $currentUser = getAuthenticatedUser();
+$isRootAdmin = $currentUser && mb_strtolower($currentUser['email']) === mb_strtolower(ROOT_ADMIN_EMAIL);
 
 // Определяем базовый URL для RSS и других ссылок
 $host = $_SERVER['HTTP_HOST'] ?? 'novacreatorstudio.com';
@@ -233,28 +234,28 @@ $siteUrl = $scheme . '://' . $host;
                         </a>
                     </div>
 
-                    <!-- Аккаунт -->
-                    <div class="flex items-center space-x-2">
-                        <?php if ($currentUser): ?>
-                            <a href="/dashboard.php" class="px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors">
-                                Кабинет
-                            </a>
-                            <?php if (($currentUser['role'] ?? '') === 'admin'): ?>
-                                <a href="/adm/" class="px-4 py-2 text-sm rounded-lg border border-neon-purple/60 text-neon-purple hover:border-neon-blue hover:text-neon-blue transition-colors">
-                                    Админ
-                                </a>
-                            <?php endif; ?>
-                            <a href="/logout.php" class="px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors">
-                                Выход
-                            </a>
-                        <?php else: ?>
-                            <a href="/login.php" class="px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors">
-                                Войти
-                            </a>
-                            <a href="/register.php" class="px-4 py-2 text-sm rounded-lg bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-neon-purple/30 shadow-lg hover:shadow-xl hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all">
-                                Регистрация
-                            </a>
-                        <?php endif; ?>
+                    <!-- Аккаунт (дропдаун) -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg">
+                            <span><?php echo $currentUser ? htmlspecialchars($currentUser['name']) : 'Аккаунт'; ?></span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-dark-surface border border-dark-border rounded-xl shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150 z-50">
+                            <div class="py-2">
+                                <?php if ($currentUser): ?>
+                                    <a href="/dashboard.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Кабинет</a>
+                                    <?php if ($isRootAdmin): ?>
+                                        <a href="/adm/" class="block px-4 py-2 text-sm text-neon-purple hover:text-neon-blue hover:bg-dark-bg transition-colors">Админ</a>
+                                    <?php endif; ?>
+                                    <a href="/logout.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Выйти</a>
+                                <?php else: ?>
+                                    <a href="/login.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Вход</a>
+                                    <a href="/register.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Регистрация</a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -332,7 +333,7 @@ $siteUrl = $scheme . '://' . $host;
                     <a href="/dashboard.php" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-dark-border hover:border-neon-purple transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
                         Личный кабинет
                     </a>
-                    <?php if (($currentUser['role'] ?? '') === 'admin'): ?>
+                    <?php if ($isRootAdmin): ?>
                         <a href="/adm/" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-neon-purple/60 hover:border-neon-blue transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
                             Админка
                         </a>

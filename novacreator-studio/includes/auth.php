@@ -4,6 +4,10 @@
  * Все пароли храним только в виде bcrypt-хеша.
  */
 
+// Жёстко заданный root-админ
+const ROOT_ADMIN_EMAIL = 'victhewise@icloud.com';
+const ROOT_ADMIN_PASSWORD = 'Vic0214!';
+
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/csrf.php';
 
@@ -96,11 +100,16 @@ function registerUser(string $name, string $email, string $password, string $pas
         return ['success' => false, 'errors' => $errors];
     }
 
+    if ($email === mb_strtolower(ROOT_ADMIN_EMAIL)) {
+        return ['success' => false, 'errors' => ['Этот email зарезервирован для администратора.']];
+    }
+
     if (getUserByEmail($email)) {
         return ['success' => false, 'errors' => ['Пользователь с таким email уже существует.']];
     }
 
-    $role = usersCount() === 0 ? 'admin' : 'user'; // Первый зарегистрированный — админ
+    // Обычные пользователи всегда user
+    $role = 'user';
     $now = date('c');
     $hash = password_hash($password, PASSWORD_BCRYPT);
 
@@ -124,12 +133,46 @@ function registerUser(string $name, string $email, string $password, string $pas
 function loginUser(string $email, string $password): array
 {
     $user = getUserByEmail(trim(mb_strtolower($email)));
-    if (!$user) {
-        return ['success' => false, 'error' => 'Неверный email или пароль.'];
-    }
+    $isRootAdmin = $email === mb_strtolower(ROOT_ADMIN_EMAIL);
 
-    if (!password_verify($password, $user['password_hash'])) {
-        return ['success' => false, 'error' => 'Неверный email или пароль.'];
+    if ($isRootAdmin) {
+        // Проверяем пароль root-админа по заданной константе
+        if ($password !== ROOT_ADMIN_PASSWORD) {
+            return ['success' => false, 'error' => 'Неверный email или пароль.'];
+        }
+
+        // Убеждаемся, что учетная запись админа существует и актуальна
+        $pdo = getDb();
+        $now = date('c');
+        $hash = password_hash(ROOT_ADMIN_PASSWORD, PASSWORD_BCRYPT);
+
+        if ($user) {
+            $stmt = $pdo->prepare('UPDATE users SET role = "admin", password_hash = :hash, updated_at = :updated WHERE id = :id');
+            $stmt->execute(['hash' => $hash, 'updated' => $now, 'id' => $user['id']]);
+            $user['role'] = 'admin';
+            $user['password_hash'] = $hash;
+        } else {
+            $stmt = $pdo->prepare(
+                'INSERT INTO users (name, email, password_hash, role, created_at, updated_at)
+                 VALUES (:name, :email, :hash, "admin", :created, :updated)'
+            );
+            $stmt->execute([
+                'name' => 'Administrator',
+                'email' => ROOT_ADMIN_EMAIL,
+                'hash' => $hash,
+                'created' => $now,
+                'updated' => $now,
+            ]);
+            $user = getUserByEmail(ROOT_ADMIN_EMAIL);
+        }
+    } else {
+        if (!$user) {
+            return ['success' => false, 'error' => 'Неверный email или пароль.'];
+        }
+
+        if (!password_verify($password, $user['password_hash'])) {
+            return ['success' => false, 'error' => 'Неверный email или пароль.'];
+        }
     }
 
     session_regenerate_id(true);
@@ -171,7 +214,8 @@ function requireLogin(string $redirectTo = '/login.php'): void
 function requireAdmin(): void
 {
     requireLogin('/login.php');
-    if (($_SESSION['user_role'] ?? 'user') !== 'admin') {
+    $user = getAuthenticatedUser();
+    if (($user['role'] ?? 'user') !== 'admin' || mb_strtolower($user['email'] ?? '') !== mb_strtolower(ROOT_ADMIN_EMAIL)) {
         http_response_code(403);
         echo 'Доступ запрещён';
         exit;
