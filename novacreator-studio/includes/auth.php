@@ -1,7 +1,7 @@
 <?php
 /**
  * Аутентификация и сессии.
- * Все пароли храним только в виде bcrypt-хеша.
+ * Все пароли храним в виде Argon2id-хеша (лучший алгоритм) или bcrypt (fallback).
  */
 
 // Жёстко заданный root-админ
@@ -111,7 +111,8 @@ function registerUser(string $name, string $email, string $password, string $pas
     // Обычные пользователи всегда user
     $role = 'user';
     $now = date('c');
-    $hash = password_hash($password, PASSWORD_BCRYPT);
+    // Используем Argon2id (лучший алгоритм) или bcrypt как fallback
+    $hash = hashPassword($password);
 
     $pdo = getDb();
     $stmt = $pdo->prepare(
@@ -144,7 +145,7 @@ function loginUser(string $email, string $password): array
         // Убеждаемся, что учетная запись админа существует и актуальна
         $pdo = getDb();
         $now = date('c');
-        $hash = password_hash(ROOT_ADMIN_PASSWORD, PASSWORD_BCRYPT);
+        $hash = hashPassword(ROOT_ADMIN_PASSWORD);
 
         if ($user) {
             $stmt = $pdo->prepare('UPDATE users SET role = "admin", password_hash = :hash, updated_at = :updated WHERE id = :id');
@@ -170,8 +171,20 @@ function loginUser(string $email, string $password): array
             return ['success' => false, 'error' => 'Неверный email или пароль.'];
         }
 
-        if (!password_verify($password, $user['password_hash'])) {
+        if (!verifyPassword($password, $user['password_hash'])) {
             return ['success' => false, 'error' => 'Неверный email или пароль.'];
+        }
+        
+        // Обновляем хеш, если используется старый алгоритм
+        if (passwordNeedsRehash($user['password_hash'])) {
+            $pdo = getDb();
+            $newHash = hashPassword($password);
+            $stmt = $pdo->prepare('UPDATE users SET password_hash = :hash, updated_at = :updated WHERE id = :id');
+            $stmt->execute([
+                'hash' => $newHash,
+                'updated' => date('c'),
+                'id' => $user['id']
+            ]);
         }
     }
 
@@ -220,5 +233,51 @@ function requireAdmin(): void
         echo 'Доступ запрещён';
         exit;
     }
+}
+
+/**
+ * Хеширует пароль используя лучший доступный алгоритм (Argon2id > bcrypt)
+ */
+function hashPassword(string $password): string
+{
+    // Пытаемся использовать Argon2id (лучший алгоритм, доступен в PHP 7.2+)
+    if (defined('PASSWORD_ARGON2ID')) {
+        return password_hash($password, PASSWORD_ARGON2ID, [
+            'memory_cost' => 65536, // 64 MB
+            'time_cost' => 4,       // 4 итерации
+            'threads' => 3,         // 3 потока
+        ]);
+    }
+    
+    // Fallback на bcrypt
+    return password_hash($password, PASSWORD_BCRYPT, [
+        'cost' => 12, // Увеличиваем cost для лучшей безопасности
+    ]);
+}
+
+/**
+ * Проверяет пароль, поддерживая все форматы хешей
+ */
+function verifyPassword(string $password, string $hash): bool
+{
+    return password_verify($password, $hash);
+}
+
+/**
+ * Проверяет, нуждается ли хеш в обновлении (переход на более безопасный алгоритм)
+ */
+function passwordNeedsRehash(string $hash): bool
+{
+    if (defined('PASSWORD_ARGON2ID')) {
+        // Если хеш не Argon2id, нужно обновить
+        return password_needs_rehash($hash, PASSWORD_ARGON2ID, [
+            'memory_cost' => 65536,
+            'time_cost' => 4,
+            'threads' => 3,
+        ]);
+    }
+    
+    // Проверяем bcrypt с cost >= 12
+    return password_needs_rehash($hash, PASSWORD_BCRYPT, ['cost' => 12]);
 }
 

@@ -42,12 +42,35 @@ function runMigrations(PDO $pdo): void
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
-            password_hash TEXT NOT NULL,
+            password_hash TEXT,
+            oauth_provider TEXT,
+            oauth_id TEXT,
+            avatar_url TEXT,
             role TEXT NOT NULL DEFAULT "user",
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL
         );'
     );
+    
+    // Миграция: добавляем OAuth поля, если их нет
+    try {
+        $pdo->exec('ALTER TABLE users ADD COLUMN oauth_provider TEXT;');
+    } catch (PDOException $e) {
+        // Колонка уже существует
+    }
+    try {
+        $pdo->exec('ALTER TABLE users ADD COLUMN oauth_id TEXT;');
+    } catch (PDOException $e) {
+        // Колонка уже существует
+    }
+    try {
+        $pdo->exec('ALTER TABLE users ADD COLUMN avatar_url TEXT;');
+    } catch (PDOException $e) {
+        // Колонка уже существует
+    }
+    
+    // Создаём индекс для OAuth поиска
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_oauth ON users(oauth_provider, oauth_id);');
 
     // Проекты/статусы клиентов
     $pdo->exec(
