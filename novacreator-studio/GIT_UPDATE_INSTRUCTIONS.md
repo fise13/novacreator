@@ -9,16 +9,19 @@
 ### 1. Перед обновлением (рекомендуется):
 
 ```bash
+# Проверка защиты данных
+cd novacreator-studio
+php scripts/verify_data_protection.php
+
+# Автоматический бэкап (рекомендуется)
+./scripts/backup_before_update.sh
+
+# Или вручную:
 # Создайте резервную копию базы данных
 cp novacreator-studio/data/app.db novacreator-studio/data/app.db.backup.$(date +%Y%m%d_%H%M%S)
 
-# Создайте резервную копию OAuth конфигурации (ВАЖНО!)
-cd novacreator-studio
+# Создайте резервную копию OAuth конфигурации
 php scripts/export_oauth_config.php > data/backups/oauth_config_backup.json
-
-# Или используйте автоматический скрипт
-chmod +x scripts/backup_oauth.sh
-./scripts/backup_oauth.sh
 ```
 
 ### 2. Обновление кода:
@@ -53,8 +56,11 @@ php scripts/import_oauth_config.php data/backups/oauth_config_backup.json
 1. ✅ База данных `data/app.db` удалена из Git индекса
 2. ✅ Добавлена в `.gitignore` для предотвращения будущих коммитов
 3. ✅ Добавлены поля для метрик в таблицу `projects`
-4. ✅ Миграции настроены на автоматическое добавление новых полей
+4. ✅ Миграции настроены на автоматическое добавление новых полей (БЕЗ удаления данных)
 5. ✅ Созданы скрипты для экспорта/импорта OAuth конфигурации
+6. ✅ Создан скрипт автоматического бэкапа перед обновлением
+7. ✅ Создан скрипт проверки защиты данных
+8. ✅ OAuth credentials встроены в код для гарантированной работы
 
 ## Резервное копирование OAuth конфигурации:
 

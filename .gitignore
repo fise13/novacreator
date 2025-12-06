@@ -34,7 +34,18 @@ Thumbs.db
 novacreator-studio/data/app.db
 novacreator-studio/data/*.db
 novacreator-studio/data/*.db-journal
+novacreator-studio/data/*.db-shm
+novacreator-studio/data/*.db-wal
+
+# Резервные копии (содержат данные пользователей и секретные ключи)
+novacreator-studio/data/backups/
+novacreator-studio/data/*.backup
+novacreator-studio/data/*.backup.*
 
 # Резервные копии OAuth конфигурации (содержат секретные ключи)
 novacreator-studio/data/backups/oauth_config*.json
+
+# Другие файлы данных (могут содержать персональные данные)
+novacreator-studio/data/*.json
+novacreator-studio/data/*.log
 
