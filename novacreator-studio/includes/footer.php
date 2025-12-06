@@ -107,10 +107,11 @@ $currentLang = getCurrentLanguage();
     
     <!-- Плавающий CTA виджет -->
     <?php 
-    if (!function_exists('generateFloatingCTA')) {
-        require_once __DIR__ . '/cta_components.php';
-    }
-    generateFloatingCTA($currentLang); 
+    // Floating CTA disabled
+    // if (!function_exists('generateFloatingCTA')) {
+    //     require_once __DIR__ . '/cta_components.php';
+    // }
+    // generateFloatingCTA($currentLang); 
     ?>
     
     <!-- Кнопка "Наверх" -->
