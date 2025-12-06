@@ -131,6 +131,10 @@ function saveOAuthConfigToDb(string $provider, array $config): bool
 // Google OAuth настройки
 function getGoogleOAuthConfig(): array
 {
+    // Дефолтные значения (гарантированная установка на сервере)
+    $defaultClientId = '394392440430-atshc1pnu69bbgal894ob1rs15phovjo.apps.googleusercontent.com';
+    $defaultClientSecret = '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';
+    
     // Сначала проверяем переменные окружения (приоритет)
     $clientId = getenv('GOOGLE_CLIENT_ID');
     $clientSecret = getenv('GOOGLE_CLIENT_SECRET');
@@ -144,10 +148,14 @@ function getGoogleOAuthConfig(): array
         }
     }
     
+    // Если все еще пусто, используем дефолтные значения
+    $clientId = $clientId ?: $defaultClientId;
+    $clientSecret = $clientSecret ?: $defaultClientSecret;
+    
     // Возвращаем конфигурацию
     return [
-        'client_id' => $clientId ?: '',
-        'client_secret' => $clientSecret ?: '',
+        'client_id' => $clientId,
+        'client_secret' => $clientSecret,
         'redirect_uri' => getOAuthBaseUrl() . '/oauth/google/callback.php',
         'auth_url' => 'https://accounts.google.com/o/oauth2/v2/auth',
         'token_url' => 'https://oauth2.googleapis.com/token',

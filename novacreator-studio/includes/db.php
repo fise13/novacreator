@@ -131,23 +131,28 @@ function runMigrations(PDO $pdo): void
     $now = date('c');
     
     // Google OAuth конфигурация
+    // Дефолтные значения (гарантированная установка на сервере)
+    $defaultClientId = '394392440430-atshc1pnu69bbgal894ob1rs15phovjo.apps.googleusercontent.com';
+    $defaultClientSecret = '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';
+    
     $stmt = $pdo->prepare('SELECT id, client_id, client_secret FROM oauth_config WHERE provider = :provider LIMIT 1');
     $stmt->execute(['provider' => 'google']);
     $existing = $stmt->fetch();
     
-    // Получаем секреты из переменных окружения (приоритет)
+    // Получаем секреты из переменных окружения (приоритет), иначе используем дефолтные значения
     $envClientId = getenv('GOOGLE_CLIENT_ID');
     $envClientSecret = getenv('GOOGLE_CLIENT_SECRET');
     
+    // Используем переменные окружения, если они есть, иначе дефолтные значения
+    $clientId = $envClientId ?: $defaultClientId;
+    $clientSecret = $envClientSecret ?: $defaultClientSecret;
+    
     if (!$existing) {
-        // Создаем новую запись
+        // Создаем новую запись с дефолтными значениями
         $stmt = $pdo->prepare(
             'INSERT INTO oauth_config (provider, client_id, client_secret, redirect_uri, auth_url, token_url, userinfo_url, created_at, updated_at)
              VALUES (:provider, :client_id, :client_secret, :redirect_uri, :auth_url, :token_url, :userinfo_url, :created_at, :updated_at)'
         );
-        
-        $clientId = $envClientId ?: '';
-        $clientSecret = $envClientSecret ?: '';
         
         $stmt->execute([
             'provider' => 'google',
@@ -160,13 +165,13 @@ function runMigrations(PDO $pdo): void
             'created_at' => $now,
             'updated_at' => $now,
         ]);
-    } elseif (!empty($envClientId) && !empty($envClientSecret)) {
-        // Если переменные окружения установлены, обновляем БД (но только если там пусто или отличается)
+    } else {
+        // Обновляем, если в БД пусто или значения отличаются
         $needsUpdate = false;
-        if (empty($existing['client_id']) || $existing['client_id'] !== $envClientId) {
+        if (empty($existing['client_id']) || $existing['client_id'] !== $clientId) {
             $needsUpdate = true;
         }
-        if (empty($existing['client_secret']) || $existing['client_secret'] !== $envClientSecret) {
+        if (empty($existing['client_secret']) || $existing['client_secret'] !== $clientSecret) {
             $needsUpdate = true;
         }
         
@@ -176,8 +181,8 @@ function runMigrations(PDO $pdo): void
             );
             $stmt->execute([
                 'provider' => 'google',
-                'client_id' => $envClientId,
-                'client_secret' => $envClientSecret,
+                'client_id' => $clientId,
+                'client_secret' => $clientSecret,
                 'updated_at' => $now,
             ]);
         }
