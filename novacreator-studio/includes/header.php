@@ -235,14 +235,14 @@ $siteUrl = $scheme . '://' . $host;
                     </div>
 
                     <!-- Аккаунт (дропдаун) -->
-                    <div class="relative group">
-                        <button class="flex items-center space-x-2 px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg">
+                    <div class="relative">
+                        <button id="accountMenuBtn" class="flex items-center space-x-2 px-4 py-2 text-sm rounded-lg border border-dark-border text-gray-200 hover:text-neon-purple hover:border-neon-purple transition-colors focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg" aria-expanded="false" aria-haspopup="true">
                             <span><?php echo $currentUser ? htmlspecialchars($currentUser['name']) : 'Аккаунт'; ?></span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        <div class="absolute right-0 mt-2 w-48 bg-dark-surface border border-dark-border rounded-xl shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150 z-50">
+                        <div id="accountMenu" class="absolute right-0 mt-2 w-48 bg-dark-surface border border-dark-border rounded-xl shadow-xl opacity-0 pointer-events-none transition-opacity duration-150 z-50 hidden">
                             <div class="py-2">
                                 <?php if ($currentUser): ?>
                                     <a href="/dashboard.php" class="block px-4 py-2 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg transition-colors">Кабинет</a>
@@ -375,6 +375,9 @@ $siteUrl = $scheme . '://' . $host;
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
             let isMenuOpen = false;
+            const accountBtn = document.getElementById('accountMenuBtn');
+            const accountMenu = document.getElementById('accountMenu');
+            let isAccountOpen = false;
             
             if (mobileMenuBtn && mobileMenu && mobileMenuOverlay) {
                 // Функция открытия меню
@@ -434,6 +437,48 @@ $siteUrl = $scheme . '://' . $host;
                         icon.style.transform = 'rotate(90deg)';
                     }
                 }
+
+            // Дропдаун аккаунта (по клику, не закрывается сразу)
+            function closeAccountMenu() {
+                if (!accountMenu) return;
+                isAccountOpen = false;
+                accountMenu.classList.add('hidden');
+                accountMenu.style.opacity = '0';
+                accountMenu.style.pointerEvents = 'none';
+                accountBtn?.setAttribute('aria-expanded', 'false');
+            }
+
+            function openAccountMenu() {
+                if (!accountMenu) return;
+                isAccountOpen = true;
+                accountMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    accountMenu.style.opacity = '1';
+                    accountMenu.style.pointerEvents = 'auto';
+                }, 10);
+                accountBtn?.setAttribute('aria-expanded', 'true');
+            }
+
+            if (accountBtn && accountMenu) {
+                accountBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (isAccountOpen) {
+                        closeAccountMenu();
+                    } else {
+                        openAccountMenu();
+                    }
+                });
+
+                accountMenu.addEventListener('click', (e) => {
+                    e.stopPropagation(); // позволяем кликать внутри, не закрывая
+                });
+
+                document.addEventListener('click', () => {
+                    if (isAccountOpen) {
+                        closeAccountMenu();
+                    }
+                });
+            }
                 
                 // Функция закрытия меню
                 function closeMenu() {
