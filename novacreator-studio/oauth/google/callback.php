@@ -99,7 +99,15 @@ $pdo = getDb();
 $email = trim(mb_strtolower($userData['email']));
 $oauthId = $userData['id'];
 $name = $userData['name'] ?? $userData['given_name'] ?? 'Пользователь';
-$avatarUrl = $userData['picture'] ?? null;
+// Получаем аватар из Google, если он есть
+$avatarUrl = null;
+if (!empty($userData['picture'])) {
+    $avatarUrl = trim($userData['picture']);
+    // Проверяем, что это валидный URL
+    if (!filter_var($avatarUrl, FILTER_VALIDATE_URL)) {
+        $avatarUrl = null;
+    }
+}
 
 // Проверяем, существует ли пользователь с таким email или OAuth ID
 $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email OR (oauth_provider = "google" AND oauth_id = :oauth_id) LIMIT 1');
@@ -117,8 +125,8 @@ if ($user) {
             'id' => $user['id']
         ]);
     } else {
-        // Обновляем аватар, если изменился
-        if ($avatarUrl && $user['avatar_url'] !== $avatarUrl) {
+        // Обновляем аватар, если он есть и изменился или отсутствовал
+        if ($avatarUrl && ($user['avatar_url'] !== $avatarUrl || empty($user['avatar_url']))) {
             $stmt = $pdo->prepare('UPDATE users SET avatar_url = :avatar_url, updated_at = :updated WHERE id = :id');
             $stmt->execute([
                 'avatar_url' => $avatarUrl,
@@ -144,6 +152,9 @@ if ($user) {
     ]);
     $user = getUserByEmail($email);
 }
+
+// Обновляем данные пользователя из БД, чтобы получить актуальный avatar_url
+$user = getUserById($user['id']);
 
 // Авторизуем пользователя
 session_regenerate_id(true);

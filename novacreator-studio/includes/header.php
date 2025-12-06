@@ -261,12 +261,20 @@ $siteUrl = $scheme . '://' . $host;
                             }
                         }
                         $userName = $currentUser && isset($currentUser['name']) ? trim($currentUser['name']) : '';
-                        $userAvatar = $currentUser && isset($currentUser['avatar_url']) && !empty(trim($currentUser['avatar_url'])) ? trim($currentUser['avatar_url']) : null;
+                        // Получаем аватар: проверяем наличие и валидность URL
+                        $userAvatar = null;
+                        if ($currentUser && isset($currentUser['avatar_url'])) {
+                            $avatarUrl = trim($currentUser['avatar_url']);
+                            if (!empty($avatarUrl) && filter_var($avatarUrl, FILTER_VALIDATE_URL)) {
+                                $userAvatar = $avatarUrl;
+                            }
+                        }
                         $userInitials = $userName ? getInitials($userName) : '';
                         ?>
                         <button id="accountMenuBtn" class="relative w-10 h-10 rounded-full bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center text-white text-sm font-semibold shadow-lg shadow-neon-purple/30 hover:shadow-xl hover:shadow-neon-purple/50 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg overflow-hidden group" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $userName ? htmlspecialchars($userName) : 'Аккаунт'; ?>">
                             <?php if ($userAvatar): ?>
-                                <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($userName); ?>" class="w-full h-full object-cover rounded-full">
+                                <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($userName); ?>" class="w-full h-full object-cover rounded-full" id="userAvatarImg" onerror="this.style.display='none'; document.getElementById('userAvatarFallback').style.display='flex';">
+                                <span id="userAvatarFallback" class="relative z-10 text-xs font-bold leading-none hidden items-center justify-center w-full h-full"><?php echo $userInitials ? htmlspecialchars($userInitials) : ''; ?></span>
                             <?php elseif ($userInitials): ?>
                                 <span class="relative z-10 text-xs font-bold leading-none"><?php echo htmlspecialchars($userInitials); ?></span>
                             <?php else: ?>
