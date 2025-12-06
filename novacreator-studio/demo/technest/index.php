@@ -15,12 +15,21 @@ $note = $currentLang === 'en'
 ?>
 
 <style>
-    /* Компактный header для демо */
+    /* Компактный header для демо и скрытие боевых пунктов */
     #mainNavbar { padding-top: 0 !important; padding-bottom: 0 !important; }
     #mainNavbar .container { padding-top: 8px; padding-bottom: 8px; }
     #mainNavbar .flex.items-center.justify-between { height: 62px !important; }
     #mainNavbar img { width: 40px !important; height: 40px !important; }
     #mainNavbar span.text-gradient { font-size: 1.05rem !important; }
+    #mainNavbar .nav-link,
+    #mainNavbar [role="menubar"],
+    #mainNavbar #accountMenuBtn,
+    #mainNavbar #accountMenu,
+    #mainNavbar #mobileMenuBtn,
+    #mainNavbar #mobileMenu,
+    #mainNavbar #mobileMenuOverlay,
+    #mainNavbar .flex.items-center.space-x-1,
+    #mainNavbar .relative.inline-flex.items-center.justify-center.px-5.py-2 { display:none !important; }
 
     :root { --bg: #f2f7fb; --accent: #0ea5e9; --accent2: #6366f1; --text: #0b1624; }
     .shell { background: radial-gradient(circle at 25% 10%, rgba(99,102,241,0.14), transparent 40%), var(--bg); color:var(--text); }
@@ -113,6 +122,25 @@ $note = $currentLang === 'en'
             </div>
         </section>
 
+        <!-- Заявка -->
+        <section class="section-block" id="demo-request">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Request a project' : 'Оставить заявку'; ?></h2>
+            <form id="demoFormTech" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;">
+                <input type="hidden" name="form_name" value="Demo: TechNest">
+                <input type="hidden" name="service" value="store-demo">
+                <input type="hidden" name="type" value="contact">
+                <input type="text" name="name" placeholder="<?php echo $currentLang === 'en' ? 'Name' : 'Имя'; ?>" required class="card" style="min-height:60px;">
+                <input type="tel" name="phone" placeholder="<?php echo $currentLang === 'en' ? 'Phone' : 'Телефон'; ?>" required class="card" style="min-height:60px;">
+                <input type="email" name="email" placeholder="Email" required class="card" style="min-height:60px;">
+                <input type="text" name="website" value="" autocomplete="off" style="display:none;">
+                <textarea name="message" placeholder="<?php echo $currentLang === 'en' ? 'Describe your store task' : 'Опишите задачу для магазина'; ?>" required class="card" style="min-height:120px; grid-column:1/-1;"></textarea>
+                <div style="grid-column:1/-1; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                    <button type="submit" class="btn btn-main" id="demoFormTechSubmit"><?php echo $currentLang === 'en' ? 'Send request' : 'Отправить'; ?></button>
+                    <span id="demoFormTechStatus" style="color:#0ea5e9;"></span>
+                </div>
+            </form>
+        </section>
+
         <!-- Показатели -->
         <section class="section-block">
             <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Metrics (demo data)' : 'Показатели (демо-данные)'; ?></h2>
@@ -156,8 +184,74 @@ $note = $currentLang === 'en'
                 <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Can go live?' : 'Запуск?'; ?></strong><p style="margin-top:6px; color:#334155;"><?php echo $currentLang === 'en' ? 'Yes, can wire payments later.' : 'Да, можем подключить оплаты позже.'; ?></p></div>
             </div>
         </section>
+
+        <!-- Capabilities -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'What we can ship' : 'Что можем реализовать'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Catalog UX' : 'UX каталога'; ?></strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Facets, badges, promos, quick-view.' : 'Фасеты, бейджи, промо, квик-вью.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'PDP depth' : 'Глубина PDP'; ?></strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Comparisons, bundles, cross/upsell.' : 'Сравнения, бандлы, кросс/апселл.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Checkout UX' : 'UX чекаута'; ?></strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? '1–2 steps, delivery/payment matrix.' : '1–2 шага, матрица доставки/оплаты.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Integrations' : 'Интеграции'; ?></strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'CRM/ERP, payments, analytics (on go-live).' : 'CRM/ERP, оплаты, аналитика (в проде).'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Components -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Component library' : 'Библиотека компонентов'; ?></h2>
+            <div class="screen-grid">
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Cards' : 'Карточки'; ?></strong><p style="margin-top:8px; color:#334155;">SKU, promo, rating, stock.</p></div>
+                <div class="screen"><strong>Filters</strong><p style="margin-top:8px; color:#334155;"><?php echo $currentLang === 'en' ? 'Price slider, brand, specs.' : 'Цена, бренд, характеристики.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Cart widgets' : 'Виджеты корзины'; ?></strong><p style="margin-top:8px; color:#334155;"><?php echo $currentLang === 'en' ? 'Mini-cart, promo code, delivery calc.' : 'Мини-корзина, промокод, доставка.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Support' : 'Поддержка'; ?></strong><p style="margin-top:8px; color:#334155;"><?php echo $currentLang === 'en' ? 'FAQ, chat hook, returns info.' : 'FAQ, чат-хук, возвраты.'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Performance & SEO -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;">Performance / SEO</h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px;">
+                <div class="card"><strong>LCP</strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Hero optimization, lazy images.' : 'Оптимизация hero, lazy изображений.'; ?></p></div>
+                <div class="card"><strong>CLS</strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Reserved spaces, stable UI.' : 'Резерв мест, стабильный UI.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Schema' : 'Схемы'; ?></strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Product, Breadcrumb, FAQ, Offer.' : 'Product, Breadcrumb, FAQ, Offer.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Tracking' : 'Трекинг'; ?></strong><p style="margin-top:8px; color:#475569;"><?php echo $currentLang === 'en' ? 'Events: view, add-to-cart, checkout steps.' : 'События: просмотр, корзина, шаги чекаута.'; ?></p></div>
+            </div>
+        </section>
     </div>
 </main>
+
+<script>
+    (function() {
+        const form = document.getElementById('demoFormTech');
+        if (!form) return;
+        const submitBtn = document.getElementById('demoFormTechSubmit');
+        const statusEl = document.getElementById('demoFormTechStatus');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            statusEl.textContent = '';
+            submitBtn.disabled = true;
+            submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Sending...' : 'Отправляем...'; ?>';
+            try {
+                const formData = new FormData(form);
+                const res = await fetch('/backend/send.php', { method: 'POST', body: formData });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data.success) {
+                    throw new Error(data.message || '<?php echo $currentLang === 'en' ? 'Error sending' : 'Ошибка отправки'; ?>');
+                }
+                statusEl.style.color = '#16a34a';
+                statusEl.textContent = '<?php echo $currentLang === 'en' ? 'Sent! We will contact you.' : 'Отправлено! Свяжемся с вами.'; ?>';
+                form.reset();
+            } catch (err) {
+                statusEl.style.color = '#b91c1c';
+                statusEl.textContent = err.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Send request' : 'Отправить'; ?>';
+            }
+        });
+    })();
+</script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
 

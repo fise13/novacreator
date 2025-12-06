@@ -15,12 +15,21 @@ $note = $currentLang === 'en'
 ?>
 
 <style>
-    /* Компактный header для демо */
+    /* Компактный header для демо и скрытие боевых пунктов */
     #mainNavbar { padding-top: 0 !important; padding-bottom: 0 !important; }
     #mainNavbar .container { padding-top: 8px; padding-bottom: 8px; }
     #mainNavbar .flex.items-center.justify-between { height: 62px !important; }
     #mainNavbar img { width: 40px !important; height: 40px !important; }
     #mainNavbar span.text-gradient { font-size: 1.05rem !important; }
+    #mainNavbar .nav-link,
+    #mainNavbar [role="menubar"],
+    #mainNavbar #accountMenuBtn,
+    #mainNavbar #accountMenu,
+    #mainNavbar #mobileMenuBtn,
+    #mainNavbar #mobileMenu,
+    #mainNavbar #mobileMenuOverlay,
+    #mainNavbar .flex.items-center.space-x-1,
+    #mainNavbar .relative.inline-flex.items-center.justify-center.px-5.py-2 { display:none !important; }
 
     :root { --bg: #0f1115; --accent: #f97316; --accent2: #f59e0b; }
     .shell { background: radial-gradient(circle at 70% 20%, rgba(249,115,22,0.2), transparent 45%), var(--bg); color:#f5f5f5; }
@@ -131,6 +140,25 @@ $note = $currentLang === 'en'
             </div>
         </section>
 
+        <!-- Заявка -->
+        <section class="section-block" id="demo-request">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Request a project' : 'Оставить заявку'; ?></h2>
+            <form id="demoFormUrban" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;">
+                <input type="hidden" name="form_name" value="Demo: UrbanFrame">
+                <input type="hidden" name="service" value="builder-demo">
+                <input type="hidden" name="type" value="contact">
+                <input type="text" name="name" placeholder="<?php echo $currentLang === 'en' ? 'Name' : 'Имя'; ?>" required class="card" style="min-height:60px;">
+                <input type="tel" name="phone" placeholder="<?php echo $currentLang === 'en' ? 'Phone' : 'Телефон'; ?>" required class="card" style="min-height:60px;">
+                <input type="email" name="email" placeholder="Email" required class="card" style="min-height:60px;">
+                <input type="text" name="website" value="" autocomplete="off" style="display:none;">
+                <textarea name="message" placeholder="<?php echo $currentLang === 'en' ? 'Brief your project' : 'Опишите проект'; ?>" required class="card" style="min-height:120px; grid-column:1/-1;"></textarea>
+                <div style="grid-column:1/-1; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                    <button type="submit" class="btn btn-main" id="demoFormUrbanSubmit"><?php echo $currentLang === 'en' ? 'Send request' : 'Отправить'; ?></button>
+                    <span id="demoFormUrbanStatus" style="color:#fbbf24;"></span>
+                </div>
+            </form>
+        </section>
+
         <!-- Показатели -->
         <section class="section-block">
             <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Metrics (demo data)' : 'Показатели (демо-данные)'; ?></h2>
@@ -174,8 +202,74 @@ $note = $currentLang === 'en'
                 <div class="faq-item"><strong><?php echo $currentLang === 'en' ? 'Go live?' : 'Запуск?'; ?></strong><p style="margin-top:6px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Can connect forms/payments.' : 'Подключим формы/оплаты при запуске.'; ?></p></div>
             </div>
         </section>
+
+        <!-- Capabilities -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'What we can ship' : 'Что можем реализовать'; ?></h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Process clarity' : 'Прозрачный процесс'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Roadmap, timelines, milestones.' : 'Дорожная карта, сроки, этапы.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Budget' : 'Бюджет'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Stage-based breakdown, options.' : 'Разбивка по этапам, опции.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Trust' : 'Доверие'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Docs, guarantees, cases.' : 'Документы, гарантии, кейсы.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Leads' : 'Заявки'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'CTA, calculator, callback.' : 'CTA, калькулятор, коллбек.'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Components -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;"><?php echo $currentLang === 'en' ? 'Component library' : 'Библиотека компонентов'; ?></h2>
+            <div class="screen-grid">
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Hero' : 'Hero'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Offer, CTA, trust.' : 'Оффер, CTA, доверие.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Roadmap' : 'Этапы'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? '4 steps timeline.' : 'Таймлайн из 4 шагов.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Pricing' : 'Стоимость'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Stage breakdown.' : 'Разбивка по этапам.'; ?></p></div>
+                <div class="screen"><strong><?php echo $currentLang === 'en' ? 'Guarantees' : 'Гарантии'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Docs placeholders.' : 'Документы-плейсхолдеры.'; ?></p></div>
+            </div>
+        </section>
+
+        <!-- Performance / SEO -->
+        <section class="section-block">
+            <h2 class="title" style="font-size:30px; margin-bottom:12px;">Performance / SEO</h2>
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+                <div class="card"><strong>LCP</strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Optimized hero media.' : 'Оптимизация медиа hero.'; ?></p></div>
+                <div class="card"><strong>CLS</strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Stable layout.' : 'Стабильный лейаут.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Schema' : 'Схемы'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Organization, FAQ, HowTo.' : 'Organization, FAQ, HowTo.'; ?></p></div>
+                <div class="card"><strong><?php echo $currentLang === 'en' ? 'Tracking' : 'Трекинг'; ?></strong><p style="margin-top:8px; color:#e5e7eb;"><?php echo $currentLang === 'en' ? 'Events: CTA, calc, scroll depth.' : 'События: CTA, кальк, глубина скролла.'; ?></p></div>
+            </div>
+        </section>
     </div>
 </main>
+
+<script>
+    (function() {
+        const form = document.getElementById('demoFormUrban');
+        if (!form) return;
+        const submitBtn = document.getElementById('demoFormUrbanSubmit');
+        const statusEl = document.getElementById('demoFormUrbanStatus');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            statusEl.textContent = '';
+            submitBtn.disabled = true;
+            submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Sending...' : 'Отправляем...'; ?>';
+            try {
+                const formData = new FormData(form);
+                const res = await fetch('/backend/send.php', { method: 'POST', body: formData });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data.success) {
+                    throw new Error(data.message || '<?php echo $currentLang === 'en' ? 'Error sending' : 'Ошибка отправки'; ?>');
+                }
+                statusEl.style.color = '#22c55e';
+                statusEl.textContent = '<?php echo $currentLang === 'en' ? 'Sent! We will contact you.' : 'Отправлено! Свяжемся с вами.'; ?>';
+                form.reset();
+            } catch (err) {
+                statusEl.style.color = '#f87171';
+                statusEl.textContent = err.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Send request' : 'Отправить'; ?>';
+            }
+        });
+    })();
+</script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
 
