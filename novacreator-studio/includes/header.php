@@ -20,6 +20,20 @@ $htmlLang = $langMap[$currentLang] ?? 'ru';
 
 // Текущий пользователь (если авторизован)
 $currentUser = getAuthenticatedUser();
+// Убеждаемся, что avatar_url загружен из БД (на случай, если getUserById не вернул его)
+if ($currentUser && isset($_SESSION['user_id'])) {
+    // Если avatar_url не установлен, загружаем из БД
+    if (!isset($currentUser['avatar_url']) || empty($currentUser['avatar_url'])) {
+        require_once __DIR__ . '/db.php';
+        $pdo = getDb();
+        $stmt = $pdo->prepare('SELECT avatar_url FROM users WHERE id = :id LIMIT 1');
+        $stmt->execute(['id' => (int)$_SESSION['user_id']]);
+        $avatarData = $stmt->fetch();
+        if ($avatarData && !empty($avatarData['avatar_url'])) {
+            $currentUser['avatar_url'] = $avatarData['avatar_url'];
+        }
+    }
+}
 $isRootAdmin = $currentUser && mb_strtolower($currentUser['email']) === mb_strtolower(ROOT_ADMIN_EMAIL);
 
 // Определяем базовый URL для RSS и других ссылок
@@ -268,9 +282,21 @@ $siteUrl = $scheme . '://' . $host;
                             $avatarUrl = $currentUser['avatar_url'] ?? null;
                             if ($avatarUrl) {
                                 $avatarUrl = trim($avatarUrl);
-                                // Более мягкая проверка - просто проверяем, что это не пустая строка и начинается с http
-                                if (!empty($avatarUrl) && (strpos($avatarUrl, 'http://') === 0 || strpos($avatarUrl, 'https://') === 0)) {
-                                    $userAvatar = $avatarUrl;
+                                // Очень мягкая проверка - если не пустая строка и длиннее 5 символов, считаем валидным
+                                if (!empty($avatarUrl) && strlen($avatarUrl) > 5) {
+                                    // Если начинается с http или https - используем как есть
+                                    if (strpos($avatarUrl, 'http://') === 0 || strpos($avatarUrl, 'https://') === 0) {
+                                        $userAvatar = $avatarUrl;
+                                    } elseif (strpos($avatarUrl, '//') === 0) {
+                                        // Если начинается с //, добавляем https:
+                                        $userAvatar = 'https:' . $avatarUrl;
+                                    } elseif (strpos($avatarUrl, '.') !== false) {
+                                        // Если содержит точку (вероятно домен), добавляем https://
+                                        $userAvatar = 'https://' . ltrim($avatarUrl, '/');
+                                    } else {
+                                        // В остальных случаях просто используем как есть
+                                        $userAvatar = $avatarUrl;
+                                    }
                                 }
                             }
                         }

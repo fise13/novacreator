@@ -125,8 +125,8 @@ if ($user) {
             'id' => $user['id']
         ]);
     } else {
-        // Обновляем аватар, если он есть и изменился или отсутствовал
-        if ($avatarUrl && ($user['avatar_url'] !== $avatarUrl || empty($user['avatar_url']))) {
+        // Всегда обновляем аватар, если он есть от Google (чтобы получить актуальное фото)
+        if ($avatarUrl) {
             $stmt = $pdo->prepare('UPDATE users SET avatar_url = :avatar_url, updated_at = :updated WHERE id = :id');
             $stmt->execute([
                 'avatar_url' => $avatarUrl,
