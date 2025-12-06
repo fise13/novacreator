@@ -88,7 +88,75 @@ function runMigrations(PDO $pdo): void
         );'
     );
 
+    // OAuth конфигурация
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS oauth_config (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            provider TEXT NOT NULL UNIQUE,
+            client_id TEXT,
+            client_secret TEXT,
+            team_id TEXT,
+            key_id TEXT,
+            private_key_path TEXT,
+            redirect_uri TEXT,
+            auth_url TEXT,
+            token_url TEXT,
+            userinfo_url TEXT,
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL
+        );'
+    );
+    
+    // Вставляем дефолтные значения, если их нет (гарантируем наличие на сервере)
+    $now = date('c');
+    
+    // Google OAuth конфигурация
+    $stmt = $pdo->prepare('SELECT id FROM oauth_config WHERE provider = :provider LIMIT 1');
+    $stmt->execute(['provider' => 'google']);
+    if (!$stmt->fetch()) {
+        $stmt = $pdo->prepare(
+            'INSERT INTO oauth_config (provider, client_id, client_secret, redirect_uri, auth_url, token_url, userinfo_url, created_at, updated_at)
+             VALUES (:provider, :client_id, :client_secret, :redirect_uri, :auth_url, :token_url, :userinfo_url, :created_at, :updated_at)'
+        );
+        // Получаем секреты из переменных окружения или используем пустые значения
+        // На сервере эти значения должны быть установлены через переменные окружения
+        // или обновлены после развертывания через функцию saveOAuthConfigToDb()
+        $clientId = getenv('GOOGLE_CLIENT_ID') ?: '';
+        $clientSecret = getenv('GOOGLE_CLIENT_SECRET') ?: '';
+        
+        $stmt->execute([
+            'provider' => 'google',
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'redirect_uri' => '',
+            'auth_url' => 'https://accounts.google.com/o/oauth2/v2/auth',
+            'token_url' => 'https://oauth2.googleapis.com/token',
+            'userinfo_url' => 'https://www.googleapis.com/oauth2/v2/userinfo',
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+    }
+    
+    // Apple OAuth конфигурация (пустая, для будущего использования)
+    $stmt = $pdo->prepare('SELECT id FROM oauth_config WHERE provider = :provider LIMIT 1');
+    $stmt->execute(['provider' => 'apple']);
+    if (!$stmt->fetch()) {
+        $stmt = $pdo->prepare(
+            'INSERT INTO oauth_config (provider, redirect_uri, auth_url, token_url, created_at, updated_at)
+             VALUES (:provider, :redirect_uri, :auth_url, :token_url, :created_at, :updated_at)'
+        );
+        $stmt->execute([
+            'provider' => 'apple',
+            'redirect_uri' => '',
+            'auth_url' => 'https://appleid.apple.com/auth/authorize',
+            'token_url' => 'https://appleid.apple.com/auth/token',
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+    }
+
     $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);');
     $pdo->exec('CREATE INDEX IF NOT EXISTS idx_projects_user_id ON projects(user_id);');
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_oauth_config_provider ON oauth_config(provider);');
 }
 
