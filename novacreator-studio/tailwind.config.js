@@ -32,22 +32,22 @@ module.exports = {
             glowDark: 'rgba(6, 182, 212, 0.7)',
           },
         },
-        // Темная палитра с градациями
+        // Темная палитра с градациями (использует CSS переменные)
         dark: {
           bg: {
-            DEFAULT: '#0A0A0F',
-            lighter: '#0F0F15',
+            DEFAULT: 'var(--color-bg)',
+            lighter: 'var(--color-bg-lighter)',
             lightest: '#14141A',
           },
           surface: {
-            DEFAULT: '#111118',
-            lighter: '#161620',
+            DEFAULT: 'var(--color-surface)',
+            lighter: 'var(--color-surface-lighter)',
             lightest: '#1B1B28',
             hover: '#1A1A24',
           },
           border: {
-            DEFAULT: '#1F1F2E',
-            lighter: '#2A2A3A',
+            DEFAULT: 'var(--color-border)',
+            lighter: 'var(--color-border-lighter)',
             lightest: '#35354A',
             hover: '#3A3A50',
           },

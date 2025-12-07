@@ -25,12 +25,23 @@
     --color-neon-blue-glow: rgba(6, 182, 212, 0.5);
     --color-neon-blue-glow-light: rgba(6, 182, 212, 0.3);
     
+    /* Темная тема (по умолчанию) */
     --color-dark-bg: #0A0A0F;
     --color-dark-bg-lighter: #0F0F15;
     --color-dark-surface: #111118;
     --color-dark-surface-lighter: #161620;
     --color-dark-border: #1F1F2E;
     --color-dark-border-lighter: #2A2A3A;
+    
+    --color-bg: var(--color-dark-bg);
+    --color-bg-lighter: var(--color-dark-bg-lighter);
+    --color-surface: var(--color-dark-surface);
+    --color-surface-lighter: var(--color-dark-surface-lighter);
+    --color-border: var(--color-dark-border);
+    --color-border-lighter: var(--color-dark-border-lighter);
+    --color-text: #FFFFFF;
+    --color-text-secondary: #9CA3AF;
+    --color-text-muted: #6B7280;
     
     /* Семантические цвета */
     --color-success: #10B981;
@@ -89,6 +100,32 @@
     --z-modal: 50;
   }
   
+  /* Светлая тема */
+  :root.light {
+    --color-bg: #FFFFFF;
+    --color-bg-lighter: #F9FAFB;
+    --color-surface: #F3F4F6;
+    --color-surface-lighter: #E5E7EB;
+    --color-border: #D1D5DB;
+    --color-border-lighter: #9CA3AF;
+    --color-text: #111827;
+    --color-text-secondary: #4B5563;
+    --color-text-muted: #6B7280;
+  }
+  
+  /* Темная тема (явно) */
+  :root.dark {
+    --color-bg: var(--color-dark-bg);
+    --color-bg-lighter: var(--color-dark-bg-lighter);
+    --color-surface: var(--color-dark-surface);
+    --color-surface-lighter: var(--color-dark-surface-lighter);
+    --color-border: var(--color-dark-border);
+    --color-border-lighter: var(--color-dark-border-lighter);
+    --color-text: #FFFFFF;
+    --color-text-secondary: #9CA3AF;
+    --color-text-muted: #6B7280;
+  }
+  
   /* Подключение шрифта Inter */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   
@@ -103,12 +140,15 @@
   }
   
   body {
-    @apply bg-dark-bg text-white font-sans antialiased;
+    @apply font-sans antialiased;
     font-family: var(--font-family-base);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     line-height: 1.6;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   /* Оптимизация touch для мобильных */

@@ -42,8 +42,12 @@ $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset
 $scheme = $isSecure ? 'https' : 'http';
 $siteUrl = $scheme . '://' . $host;
 ?>
+<?php
+// Подключаем переключатель темы
+require_once __DIR__ . '/theme_switcher.php';
+?>
 <!DOCTYPE html>
-<html lang="<?php echo $htmlLang; ?>" itemscope itemtype="https://schema.org/WebSite">
+<html lang="<?php echo $htmlLang; ?>" itemscope itemtype="https://schema.org/WebSite" class="<?php echo $currentTheme; ?>">
 <head>
     <meta charset="UTF-8">
     <!-- Viewport оптимизирован для мобильных устройств с поддержкой safe area insets -->
@@ -219,7 +223,7 @@ $siteUrl = $scheme . '://' . $host;
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-<body class="bg-dark-bg text-white overflow-x-hidden">
+<body class="overflow-x-hidden" style="background-color: var(--color-bg); color: var(--color-text);">
     <!-- Индикатор прогресса прокрутки -->
     <div class="scroll-progress-bar fixed top-0 left-0 h-1 bg-gradient-to-r from-neon-purple to-neon-blue z-50" style="width: 0%; transition: width 0.1s ease-out;"></div>
     
@@ -248,6 +252,16 @@ $siteUrl = $scheme . '://' . $host;
                         <span class="relative z-10"><?php echo htmlspecialchars(t('nav.contact')); ?></span>
                     </a>
                     
+                    <!-- Переключатель темы -->
+                    <button id="themeToggle" class="relative w-10 h-10 rounded-lg bg-dark-surface/50 border border-dark-border flex items-center justify-center text-gray-300 hover:text-neon-purple hover:border-neon-purple/50 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg" aria-label="Переключить тему" title="Переключить тему">
+                        <svg id="themeIconLight" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="themeIconDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+
                     <!-- Переключатель языка -->
                     <div class="flex items-center space-x-1 ml-3 pl-3 border-l border-dark-border bg-dark-surface/50 rounded-lg p-1" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
                         <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 min-w-[40px] text-center focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md shadow-neon-purple/30' : 'text-gray-400 hover:text-gray-300 hover:bg-dark-bg/50'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
@@ -475,6 +489,46 @@ $siteUrl = $scheme . '://' . $host;
             </div>
         </div>
     </nav>
+    
+    <!-- Скрипт для переключения темы -->
+    <script>
+        (function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIconLight = document.getElementById('themeIconLight');
+            const themeIconDark = document.getElementById('themeIconDark');
+            
+            function updateThemeIcon() {
+                if (!themeIconLight || !themeIconDark) return;
+                const isLight = document.documentElement.classList.contains('light');
+                if (isLight) {
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    themeIconLight.classList.add('hidden');
+                    themeIconDark.classList.remove('hidden');
+                }
+            }
+            
+            if (themeToggle && window.setTheme) {
+                themeToggle.addEventListener('click', function() {
+                    const currentTheme = window.getTheme();
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    window.setTheme(newTheme);
+                    updateThemeIcon();
+                });
+                
+                // Обновляем иконку при загрузке
+                updateThemeIcon();
+                
+                // Слушаем изменения темы
+                const observer = new MutationObserver(updateThemeIcon);
+                observer.observe(document.documentElement, {
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+            }
+        })();
+    </script>
     
     <!-- Скрипт для мобильного меню - оптимизирован для touch -->
     <script>
