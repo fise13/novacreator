@@ -431,11 +431,19 @@
   
   .navbar {
     @apply fixed top-0 left-0 right-0 z-50 
-           bg-dark-bg/95 backdrop-blur-xl 
-           border-b border-dark-border/80 
+           backdrop-blur-xl 
+           border-b 
            transition-all duration-300 
-           shadow-lg shadow-black/20;
+           shadow-lg;
     padding-top: env(safe-area-inset-top);
+    background-color: rgba(10, 10, 15, 0.95);
+    border-color: rgba(31, 31, 46, 0.8);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+  
+  :root.light .navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: rgba(209, 213, 219, 0.8);
   }
   
   .navbar.scrolled {
@@ -447,7 +455,8 @@
   /* Мобильное меню */
   @media (max-width: 768px) {
     .navbar {
-      @apply border-b border-dark-border/80;
+      @apply border-b;
+      border-color: rgba(31, 31, 46, 0.8);
       background: rgba(10, 10, 15, 0.96);
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55),
                   0 0 0 1px rgba(139, 92, 246, 0.16);
