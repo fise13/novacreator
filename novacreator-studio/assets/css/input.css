@@ -42,6 +42,14 @@
     --color-text: #FFFFFF;
     --color-text-secondary: #9CA3AF;
     --color-text-muted: #6B7280;
+    --color-text-base: #FFFFFF;
+    --color-text-light: #E5E7EB;
+    --color-text-dark: #1F2937;
+    --color-text-gradient-start: #8B5CF6;
+    --color-text-gradient-end: #06B6D4;
+    --color-shadow-base: rgba(0, 0, 0, 0.6);
+    --color-shadow-light: rgba(0, 0, 0, 0.4);
+    --color-shadow-dark: rgba(0, 0, 0, 0.7);
     
     /* Семантические цвета */
     --color-success: #10B981;
@@ -109,8 +117,18 @@
     --color-border: #D1D5DB;
     --color-border-lighter: #9CA3AF;
     --color-text: #111827;
-    --color-text-secondary: #4B5563;
+    --color-text-secondary: #374151;
     --color-text-muted: #6B7280;
+    --color-neon-purple: #6D28D9;
+    --color-neon-blue: #0891B2;
+    --color-text-base: #111827;
+    --color-text-light: #374151;
+    --color-text-dark: #0A0A0F;
+    --color-text-gradient-start: #6D28D9;
+    --color-text-gradient-end: #0891B2;
+    --color-shadow-base: rgba(0, 0, 0, 0.1);
+    --color-shadow-light: rgba(0, 0, 0, 0.05);
+    --color-shadow-dark: rgba(0, 0, 0, 0.2);
   }
   
   /* Темная тема (явно) */
@@ -238,15 +256,15 @@
   .btn-neon {
     @apply relative px-6 py-3 md:px-8 md:py-4 
            bg-gradient-to-r from-neon-purple to-neon-blue 
-           text-white font-semibold rounded-lg text-base md:text-lg
+           font-semibold rounded-lg text-base md:text-lg
            transition-all duration-300 min-h-[44px] min-w-[120px]
            hover:shadow-neon-purple hover:scale-105 
            active:scale-95 focus:outline-none focus:ring-2 
            focus:ring-neon-purple focus:ring-offset-2 
-           focus:ring-offset-dark-bg
            touch-manipulation;
     border-radius: var(--radius-lg);
     transition: all var(--transition-base);
+    color: white;
   }
   
   .btn-neon::before {
@@ -378,8 +396,8 @@
      ============================================ */
   
   .form-input {
-    @apply w-full px-4 py-3 md:px-6 md:py-4 bg-dark-surface 
-           border border-dark-border rounded-lg text-white 
+    @apply w-full px-4 py-3 md:px-6 md:py-4 
+           border rounded-lg 
            placeholder-gray-500 text-base
            focus:outline-none focus:border-neon-purple 
            focus:ring-2 focus:ring-neon-purple/20 
@@ -390,11 +408,14 @@
     -webkit-appearance: none;
     appearance: none;
     transition: all var(--transition-base);
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
   }
   
   .form-textarea {
-    @apply w-full px-4 py-3 md:px-6 md:py-4 bg-dark-surface 
-           border border-dark-border rounded-lg text-white 
+    @apply w-full px-4 py-3 md:px-6 md:py-4 
+           border rounded-lg 
            placeholder-gray-500 text-base
            focus:outline-none focus:border-neon-purple 
            focus:ring-2 focus:ring-neon-purple/20 
