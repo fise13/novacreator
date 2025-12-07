@@ -186,9 +186,11 @@ function initForms() {
         form.addEventListener('submit', async function(e) {
             e.preventDefault(); // Предотвращаем стандартную отправку формы
             
-            // Валидация полей перед отправкой
+            // Улучшенная валидация полей перед отправкой
             const emailInput = form.querySelector('input[type="email"]');
             const phoneInput = form.querySelector('input[type="tel"]');
+            const nameInput = form.querySelector('input[name="name"]');
+            const messageInput = form.querySelector('textarea[name="message"]');
             
             // Функция валидации email
             function validateEmail(email) {
@@ -203,53 +205,92 @@ function initForms() {
                 return phoneRegex.test(cleanPhone) && cleanPhone.length >= 10;
             }
             
+            // Функция очистки ошибок
+            function clearErrors() {
+                form.querySelectorAll('.border-red-500').forEach(el => {
+                    el.classList.remove('border-red-500');
+                });
+                form.querySelectorAll('.error-message').forEach(el => {
+                    el.remove();
+                });
+            }
+            
+            // Функция показа ошибки
+            function showError(input, message) {
+                input.classList.add('border-red-500');
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message text-red-400 text-sm mt-1';
+                errorDiv.textContent = message;
+                input.parentNode.appendChild(errorDiv);
+            }
+            
+            clearErrors();
             let isValid = true;
             
-            // Проверка email
-            if (emailInput) {
-                const email = emailInput.value.trim();
-                if (email && !validateEmail(email)) {
+            // Проверка имени
+            if (nameInput && nameInput.hasAttribute('required')) {
+                const name = nameInput.value.trim();
+                if (!name || name.length < 2) {
                     isValid = false;
-                    emailInput.classList.add('border-red-500');
-                    emailInput.focus();
-                    const emailError = document.getElementById('email-error');
-                    if (emailError) {
-                        emailError.classList.remove('hidden');
-                        emailError.classList.add('text-red-400');
-                    }
+                    showError(nameInput, 'Имя должно содержать минимум 2 символа');
+                }
+            }
+            
+            // Проверка email
+            if (emailInput && emailInput.hasAttribute('required')) {
+                const email = emailInput.value.trim();
+                if (!email) {
+                    isValid = false;
+                    showError(emailInput, 'Email обязателен для заполнения');
+                } else if (!validateEmail(email)) {
+                    isValid = false;
+                    showError(emailInput, 'Введите корректный email адрес');
                 }
             }
             
             // Проверка телефона
-            if (phoneInput) {
+            if (phoneInput && phoneInput.hasAttribute('required')) {
                 const phone = phoneInput.value.trim();
-                if (phone && !validatePhone(phone)) {
+                if (!phone) {
                     isValid = false;
-                    phoneInput.classList.add('border-red-500');
-                    if (!emailInput || !emailInput.value.trim() || validateEmail(emailInput.value.trim())) {
-                        phoneInput.focus();
-                    }
-                    const phoneError = document.getElementById('phone-error');
-                    if (phoneError) {
-                        phoneError.classList.remove('hidden');
-                        phoneError.classList.add('text-red-400');
-                    }
+                    showError(phoneInput, 'Телефон обязателен для заполнения');
+                } else if (!validatePhone(phone)) {
+                    isValid = false;
+                    showError(phoneInput, 'Введите корректный номер телефона (например: +7 700 123 45 67)');
+                }
+            }
+            
+            // Проверка сообщения
+            if (messageInput && messageInput.hasAttribute('required')) {
+                const message = messageInput.value.trim();
+                if (!message || message.length < 10) {
+                    isValid = false;
+                    showError(messageInput, 'Сообщение должно содержать минимум 10 символов');
                 }
             }
             
             // Если валидация не прошла, не отправляем форму
             if (!isValid) {
                 showNotification('Пожалуйста, исправьте ошибки в форме перед отправкой.', 'error');
+                // Прокручиваем к первой ошибке
+                const firstError = form.querySelector('.border-red-500');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
                 return;
             }
             
             // Получаем кнопку отправки
             const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
+            const originalText = submitBtn.innerHTML;
+            const originalDisabled = submitBtn.disabled;
             
-            // Показываем состояние загрузки
+            // Показываем состояние загрузки с улучшенной визуализацией
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Отправка...';
+            submitBtn.style.opacity = '0.7';
+            submitBtn.style.cursor = 'not-allowed';
+            submitBtn.innerHTML = '<span class="flex items-center justify-center"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Отправка...</span>';
             
             // Собираем данные формы
             const formData = new FormData(form);
@@ -329,8 +370,10 @@ function initForms() {
                 showNotification('Ошибка соединения. Проверьте интернет и попробуйте снова.', 'error');
             } finally {
                 // Восстанавливаем кнопку
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+                submitBtn.disabled = originalDisabled;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = '';
+                submitBtn.innerHTML = originalText;
             }
         });
     });
