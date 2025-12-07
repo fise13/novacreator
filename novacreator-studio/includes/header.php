@@ -311,53 +311,53 @@ $siteUrl = $scheme . '://' . $host;
                             <?php else: ?>
                                 <svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
+                            </svg>
                             <?php endif; ?>
                             <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/0 to-neon-blue/0 group-hover:from-neon-purple/20 group-hover:to-neon-blue/20 transition-all duration-300 rounded-full"></div>
                         </button>
-                        <div id="accountMenu" class="absolute right-0 mt-3 w-56 bg-dark-surface/95 backdrop-blur-2xl border border-dark-border/80 rounded-2xl shadow-2xl opacity-0 pointer-events-none transition-all duration-200 z-50 hidden transform translate-y-2" style="backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);">
+                        <div id="accountMenu" class="absolute right-0 mt-3 w-56 bg-dark-bg/98 backdrop-blur-3xl border border-dark-border/60 rounded-2xl shadow-2xl opacity-0 pointer-events-none transition-all duration-200 z-50 hidden transform translate-y-2" style="backdrop-filter: blur(40px) saturate(200%); -webkit-backdrop-filter: blur(40px) saturate(200%); background-color: rgba(10, 10, 15, 0.98);">
                             <div class="py-2">
                                 <?php if ($currentUser): ?>
-                                    <div class="px-4 py-3 border-b border-dark-border/50">
-                                        <p class="text-sm font-semibold text-white truncate"><?php echo htmlspecialchars($currentUser['name']); ?></p>
-                                        <p class="text-xs text-gray-300 truncate mt-0.5"><?php echo htmlspecialchars($currentUser['email']); ?></p>
+                                    <div class="px-4 py-3 border-b border-dark-border/40 bg-dark-surface/30">
+                                        <p class="text-sm font-semibold text-white truncate drop-shadow-sm"><?php echo htmlspecialchars($currentUser['name']); ?></p>
+                                        <p class="text-xs text-gray-200 truncate mt-0.5 drop-shadow-sm"><?php echo htmlspecialchars($currentUser['email']); ?></p>
                                     </div>
                                     <?php if (!$isRootAdmin): ?>
-                                        <a href="/dashboard.php" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg/50 transition-colors group">
-                                            <svg class="w-5 h-5 text-gray-400 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <a href="/dashboard.php" class="flex items-center gap-3 px-4 py-3 text-sm text-white hover:text-neon-purple hover:bg-dark-surface/60 transition-colors group">
+                                            <svg class="w-5 h-5 text-gray-200 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                             </svg>
-                                            <span>Личный кабинет</span>
+                                            <span class="drop-shadow-sm">Личный кабинет</span>
                                         </a>
                                     <?php endif; ?>
                                     <?php if ($isRootAdmin): ?>
-                                        <a href="/adm/" class="flex items-center gap-3 px-4 py-3 text-sm text-neon-purple hover:text-neon-blue hover:bg-dark-bg/50 transition-colors group">
+                                        <a href="/adm/" class="flex items-center gap-3 px-4 py-3 text-sm text-neon-purple hover:text-neon-blue hover:bg-dark-surface/60 transition-colors group">
                                             <svg class="w-5 h-5 text-neon-purple group-hover:text-neon-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             </svg>
-                                            <span>Админ-панель</span>
+                                            <span class="drop-shadow-sm">Админ-панель</span>
                                         </a>
                                     <?php endif; ?>
-                                    <div class="border-t border-dark-border/50 my-1"></div>
-                                    <a href="/logout.php" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-red-400 hover:bg-dark-bg/50 transition-colors group">
-                                        <svg class="w-5 h-5 text-gray-300 group-hover:text-red-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="border-t border-dark-border/40 my-1"></div>
+                                    <a href="/logout.php" class="flex items-center gap-3 px-4 py-3 text-sm text-white hover:text-red-400 hover:bg-dark-surface/60 transition-colors group">
+                                        <svg class="w-5 h-5 text-gray-200 group-hover:text-red-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                         </svg>
-                                        <span>Выйти</span>
+                                        <span class="drop-shadow-sm">Выйти</span>
                                     </a>
                                 <?php else: ?>
-                                    <a href="/login.php" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg/50 transition-colors group">
-                                        <svg class="w-5 h-5 text-gray-300 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <a href="/login.php" class="flex items-center gap-3 px-4 py-3 text-sm text-white hover:text-neon-purple hover:bg-dark-surface/60 transition-colors group">
+                                        <svg class="w-5 h-5 text-gray-200 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                                         </svg>
-                                        <span>Вход</span>
+                                        <span class="drop-shadow-sm">Вход</span>
                                     </a>
-                                    <a href="/register.php" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-neon-purple hover:bg-dark-bg/50 transition-colors group">
-                                        <svg class="w-5 h-5 text-gray-300 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <a href="/register.php" class="flex items-center gap-3 px-4 py-3 text-sm text-white hover:text-neon-purple hover:bg-dark-surface/60 transition-colors group">
+                                        <svg class="w-5 h-5 text-gray-200 group-hover:text-neon-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                                         </svg>
-                                        <span>Регистрация</span>
+                                        <span class="drop-shadow-sm">Регистрация</span>
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -437,9 +437,9 @@ $siteUrl = $scheme . '://' . $host;
                 <!-- Аккаунт в мобильном меню -->
                 <?php if ($currentUser): ?>
                     <?php if (!$isRootAdmin): ?>
-                        <a href="/dashboard.php" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-dark-border hover:border-neon-purple transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
-                            Личный кабинет
-                        </a>
+                    <a href="/dashboard.php" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-dark-border hover:border-neon-purple transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
+                        Личный кабинет
+                    </a>
                     <?php endif; ?>
                     <?php if ($isRootAdmin): ?>
                         <a href="/adm/" class="mobile-menu-item block w-full px-6 sm:px-7 py-3 text-base sm:text-lg font-semibold text-white rounded-xl bg-dark-surface/80 border border-neon-purple/60 hover:border-neon-blue transition-all duration-200 active:scale-[0.98] opacity-0 transform translate-y-3">
