@@ -13,118 +13,23 @@ $pageMetaKeywords = t('seo.pages.portfolio.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция -->
-<section class="relative overflow-hidden pt-32 pb-20">
+<!-- Hero секция - минималистичный стиль holymedia.kz -->
+<section class="relative overflow-hidden pt-24 md:pt-32 pb-16 md:pb-20" style="background-color: var(--color-bg);">
     <!-- Фоновые акценты -->
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute -top-32 -left-16 w-64 h-64 md:w-96 md:h-96 bg-neon-purple/20 rounded-full blur-3xl md:blur-2xl"></div>
-        <div class="absolute top-1/3 -right-10 w-72 h-72 md:w-[26rem] md:h-[26rem] bg-neon-blue/20 rounded-full blur-3xl md:blur-2xl"></div>
-        <div class="floating-particles" id="portfolioParticles"></div>
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 md:w-[32rem] md:h-[32rem] rounded-full blur-3xl opacity-20 animate-pulse parallax" data-speed="0.3" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); animation-duration: 4s;"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 md:w-[32rem] md:h-[32rem] rounded-full blur-3xl opacity-20 animate-pulse parallax" data-speed="0.5" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); animation-delay: 1.5s; animation-duration: 5s;"></div>
     </div>
 
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div class="max-w-7xl mx-auto">
             <div class="animate-on-scroll">
-                <p class="text-xs uppercase tracking-[0.22em] text-gray-500 mb-4">
-                    <?php echo $currentLang === 'en' ? 'Case studies & concepts' : 'Кейсы и концепты'; ?>
-                </p>
-                <h1 class="section-title mb-4">
+                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold mb-8 md:mb-12 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.portfolio.title')); ?>
                 </h1>
-                <p class="section-subtitle mb-8 md:mb-10 px-0">
+                <p class="text-xl md:text-2xl lg:text-3xl mb-12 leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
                     <?php echo htmlspecialchars(t('pages.portfolio.subtitle')); ?>
                 </p>
-                <div class="flex flex-wrap items-center gap-4 md:gap-6">
-                    <div class="gradient-border rounded-xl px-4 py-3 md:px-5 md:py-4 bg-dark-surface/80">
-                        <div class="text-sm uppercase tracking-wide text-gray-400 mb-1">
-                            <?php echo $currentLang === 'en' ? 'Experience' : 'Опыт'; ?>
-                        </div>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-3xl md:text-4xl font-bold text-gradient">
-                                <span class="counter-number" data-target="10" data-suffix="+">10+</span>
-                            </span>
-                            <span class="text-sm text-gray-400">
-                                <?php echo $currentLang === 'en' ? 'years in digital' : 'лет в диджитал-среде'; ?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="rounded-xl border border-dark-border bg-dark-surface/70 px-4 py-3 md:px-5 md:py-4 flex-1 min-w-[220px]">
-                        <div class="text-sm uppercase tracking-wide text-gray-400 mb-1">
-                            <?php echo $currentLang === 'en' ? 'Formats' : 'Форматы'; ?>
-                        </div>
-                        <p class="text-sm md:text-base text-gray-300 leading-relaxed">
-                            <?php if ($currentLang === 'en'): ?>
-                                Landing pages, e‑commerce, booking systems and local businesses — from first wireframe to measurable growth.
-                            <?php else: ?>
-                                Лендинги, интернет‑магазины, сайты бронирования и локальный бизнес — от первого вайрфрейма до измеримого роста.
-                            <?php endif; ?>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Визуальная витрина портфолио -->
-            <div class="animate-on-scroll lg:justify-self-end">
-                <div class="relative w-full max-w-md lg:max-w-lg mx-auto">
-                    <!-- Основной макет -->
-                    <div class="relative rounded-2xl bg-gradient-to-br from-neon-purple/20 via-dark-surface to-neon-blue/20 border border-dark-border/80 shadow-2xl overflow-hidden">
-                        <div class="flex items-center justify-between px-4 py-3 border-b border-dark-border/80 bg-dark-bg/80">
-                            <div class="flex items-center space-x-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/80"></span>
-                                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
-                            </div>
-                            <span class="text-xs text-gray-400 truncate max-w-[140px] md:max-w-[200px]">
-                                <?php echo $currentLang === 'en' ? 'concept-landing.novacreator-studio.com' : 'concept-landing.novacreator-studio.com'; ?>
-                            </span>
-                        </div>
-                        <div class="aspect-[16/10] bg-gradient-to-br from-dark-bg via-[#111827] to-dark-surface relative overflow-hidden">
-                            <div class="absolute inset-0 opacity-80 mix-blend-screen pointer-events-none">
-                                <div class="absolute -left-10 top-8 w-40 h-40 rounded-full bg-neon-purple/40 blur-3xl"></div>
-                                <div class="absolute right-0 bottom-0 w-56 h-56 rounded-full bg-neon-blue/40 blur-3xl"></div>
-                            </div>
-                            <div class="relative h-full w-full flex items-center justify-center">
-                                <div class="text-center px-6">
-                                    <p class="text-[11px] uppercase tracking-[0.25em] text-gray-500 mb-3">
-                                        <?php echo $currentLang === 'en' ? 'Portfolio preview' : 'Превью портфолио'; ?>
-                                    </p>
-                                    <p class="text-2xl md:text-3xl font-semibold text-gradient mb-2">
-                                        <?php echo $currentLang === 'en'
-                                            ? 'Real businesses. Clear “before / after”.'
-                                            : 'Реальный бизнес. Понятное “до / после”.'; ?>
-                                    </p>
-                                    <p class="text-xs md:text-sm text-gray-300 max-w-sm mx-auto leading-relaxed">
-                                        <?php echo $currentLang === 'en'
-                                            ? 'Scroll down to see how websites change numbers, not just layouts.'
-                                            : 'Листайте ниже, чтобы увидеть, как дизайн меняет цифры, а не только макеты.'; ?>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Маленькие карточки типов проектов -->
-                    <div class="absolute -bottom-6 -left-2 w-36 md:w-40 bg-dark-bg/95 border border-dark-border rounded-xl p-3 shadow-lg backdrop-blur">
-                        <p class="text-[11px] uppercase tracking-wide text-gray-400 mb-1">
-                            <?php echo $currentLang === 'en' ? 'Formats' : 'Форматы'; ?>
-                        </p>
-                        <p class="text-xs text-gray-300">
-                            <?php echo $currentLang === 'en'
-                                ? 'Coffee shops, trainers, developers, hotels, e‑commerce.'
-                                : 'Кофейни, тренеры, застройщики, отели, e‑commerce.'; ?>
-                        </p>
-                    </div>
-                    <div class="absolute -top-6 -right-4 w-32 md:w-40 bg-dark-bg/95 border border-dark-border rounded-xl p-3 shadow-lg backdrop-blur text-right">
-                        <p class="text-[11px] uppercase tracking-wide text-gray-400 mb-1">
-                            <?php echo $currentLang === 'en' ? 'Focus' : 'Фокус'; ?>
-                        </p>
-                        <p class="text-xs text-gray-300">
-                            <?php echo $currentLang === 'en'
-                                ? 'From structure and UX to measurable conversions.'
-                                : 'От структуры и UX до измеримых конверсий.'; ?>
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -392,17 +297,37 @@ if ($currentLang === 'en') {
             </div>
         </div>
 
-        <div class="grid gap-8 md:gap-10 md:grid-cols-2">
+        <div class="space-y-16 md:space-y-20">
             <?php foreach ($projects as $index => $project): ?>
                 <?php
                     $demoLink = '/demo/' . rawurlencode($project['id']) . '/?lang=' . urlencode($currentLang);
                 ?>
-                <a
-                    class="service-card animate-on-scroll text-left w-full portfolio-card group relative overflow-hidden transform hover:scale-[1.02] transition-all duration-500"
-                    href="<?php echo htmlspecialchars($demoLink); ?>"
-                    rel="noopener"
-                    style="animation-delay: <?php echo $index * 0.1; ?>s;"
-                >
+                <div class="animate-on-scroll" style="animation-delay: <?php echo $index * 0.1; ?>s;">
+                    <div class="mb-6">
+                        <span class="text-sm uppercase tracking-wider mb-4 block" style="color: var(--color-text-secondary);">
+                            <?php echo htmlspecialchars($project['tagBadge']); ?>
+                        </span>
+                        <h3 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                            <a href="<?php echo htmlspecialchars($demoLink); ?>" class="hover:underline transition-all" rel="noopener">
+                                <?php echo htmlspecialchars($project['title']); ?>
+                            </a>
+                        </h3>
+                        <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                            <?php echo htmlspecialchars($project['summary']); ?>
+                        </p>
+                        <p class="text-lg md:text-xl mb-8 leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                            <?php echo htmlspecialchars($project['result']); ?>
+                        </p>
+                        <a href="<?php echo htmlspecialchars($demoLink); ?>" class="inline-flex items-center gap-2 text-lg font-semibold hover:gap-4 transition-all" style="color: var(--color-text);" rel="noopener">
+                            <?php echo $currentLang === 'en' ? 'View project' : 'Посмотреть проект'; ?>
+                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
                     <!-- Декоративный фон -->
                     <div class="absolute top-0 right-0 w-40 h-40 bg-neon-purple/5 rounded-full blur-3xl -z-0 group-hover:bg-neon-purple/10 transition-colors duration-300"></div>
                     <div class="absolute bottom-0 left-0 w-32 h-32 bg-neon-blue/5 rounded-full blur-3xl -z-0 group-hover:bg-neon-blue/10 transition-colors duration-300"></div>
