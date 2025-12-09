@@ -115,8 +115,11 @@ function initAnimations() {
 /**
  * Инициализация навигации
  * Плавная прокрутка к якорям и активное состояние меню
+ * Оптимизировано для мобильных устройств
  */
 function initNavigation() {
+    const isMobile = window.innerWidth < 768;
+    
     // Обработка кликов по ссылкам с якорями
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -129,20 +132,46 @@ function initNavigation() {
             
             const target = document.querySelector(href);
             if (target) {
+                // На мобильных используем более быстрое поведение
+                const behavior = isMobile ? 'smooth' : 'smooth';
+                const block = isMobile ? 'start' : 'start';
+                
                 // Плавная прокрутка к элементу
                 target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                    behavior: behavior,
+                    block: block
                 });
+                
+                // На мобильных добавляем небольшую задержку для лучшего UX
+                if (isMobile) {
+                    setTimeout(() => {
+                        target.focus();
+                    }, 300);
+                }
             }
-        });
+        }, { passive: false });
     });
 
     // Изменение стиля навигации при скролле
+    // Оптимизировано с использованием throttle для мобильных
     const navbar = document.querySelector('.navbar');
     if (navbar) {
         let lastScrollY = window.scrollY;
         let ticking = false;
+        
+        // Throttle функция для оптимизации
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        }
         
         function updateNavbar() {
             const scrollY = window.scrollY;
@@ -166,21 +195,64 @@ function initNavigation() {
             ticking = false;
         }
         
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(updateNavbar);
-                ticking = true;
-            }
-        }, { passive: true });
+        // Используем throttle для мобильных устройств
+        const scrollHandler = isMobile 
+            ? throttle(() => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            }, 100)
+            : function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            };
+        
+        window.addEventListener('scroll', scrollHandler, { passive: true });
     }
 }
 
 /**
  * Инициализация обработки форм
  * Отправка данных через fetch API на backend
+ * Оптимизировано для мобильных устройств
  */
 function initForms() {
     const forms = document.querySelectorAll('.contact-form');
+    const isMobile = window.innerWidth < 768;
+    
+    // Оптимизация форм для мобильных
+    if (isMobile) {
+        // Улучшаем input type для мобильных клавиатур
+        const emailInputs = document.querySelectorAll('input[type="email"]');
+        emailInputs.forEach(input => {
+            input.setAttribute('autocomplete', 'email');
+            input.setAttribute('inputmode', 'email');
+        });
+        
+        const telInputs = document.querySelectorAll('input[type="tel"]');
+        telInputs.forEach(input => {
+            input.setAttribute('autocomplete', 'tel');
+            input.setAttribute('inputmode', 'tel');
+        });
+        
+        const nameInputs = document.querySelectorAll('input[name="name"]');
+        nameInputs.forEach(input => {
+            input.setAttribute('autocomplete', 'name');
+        });
+        
+        // Предотвращаем zoom на iOS при фокусе (размер шрифта должен быть минимум 16px)
+        const textInputs = document.querySelectorAll('input, textarea');
+        textInputs.forEach(input => {
+            const computedStyle = window.getComputedStyle(input);
+            const fontSize = parseFloat(computedStyle.fontSize);
+            if (fontSize < 16) {
+                input.style.fontSize = '16px';
+            }
+        });
+    }
     
     forms.forEach(form => {
         form.addEventListener('submit', async function(e) {
@@ -622,16 +694,37 @@ function initProgressBars() {
 /**
  * Индикатор прогресса прокрутки страницы
  * Показывает, сколько страницы уже прочитано
+ * Оптимизировано для мобильных устройств
  */
 function initScrollProgress() {
     const progressBar = document.querySelector('.scroll-progress-bar');
     if (!progressBar) return;
     
-    window.addEventListener('scroll', function() {
+    const isMobile = window.innerWidth < 768;
+    let ticking = false;
+    
+    // Throttle для мобильных устройств
+    function updateProgress() {
         const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrolled = (window.pageYOffset / windowHeight) * 100;
         progressBar.style.width = scrolled + '%';
-    });
+        ticking = false;
+    }
+    
+    const scrollHandler = isMobile 
+        ? function() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateProgress);
+                ticking = true;
+            }
+        }
+        : function() {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.pageYOffset / windowHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        };
+    
+    window.addEventListener('scroll', scrollHandler, { passive: true });
 }
 
 /**
