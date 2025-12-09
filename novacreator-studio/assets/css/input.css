@@ -1682,7 +1682,7 @@
     animation: float 6s ease-in-out infinite;
   }
   
-  /* Бургер-меню в стиле holymedia.kz - боковая панель справа */
+  /* Бургер-меню в стиле holymedia.kz - минималистичный дизайн */
   #burgerMenu {
     will-change: transform, opacity;
     position: fixed !important;
@@ -1702,23 +1702,34 @@
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
-    /* Оптимизация для iPhone */
+    /* Минималистичный стиль - без теней и лишних эффектов */
     -webkit-tap-highlight-color: transparent;
     touch-action: pan-y;
   }
   
-  /* Кнопка закрытия меню - оптимизация для мобильных */
+  /* Кнопка закрытия - минималистичная */
   #burgerCloseBtn {
-    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);
+    -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     user-select: none;
     -webkit-user-select: none;
+    background: none;
+    border: none;
   }
   
-  #burgerCloseBtn:active {
-    transform: scale(0.95);
-    background-color: var(--color-surface);
+  /* Элементы меню - чистый минимализм */
+  #burgerMenu a,
+  #burgerMenu button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    text-decoration: none;
+    border: none;
+    background: none;
+  }
+  
+  #burgerMenu a:hover,
+  #burgerMenu button:hover {
+    text-decoration: none;
   }
   
   /* Overlay для бургер-меню */
@@ -1747,22 +1758,21 @@
       padding-right: env(safe-area-inset-right) !important;
     }
     
-    .mobile-menu-item {
-      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.15);
+    /* Минималистичные элементы меню для мобильных */
+    #burgerMenu a {
+      -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
-      min-height: 48px;
-      min-width: 44px;
+      min-height: 44px;
       display: flex;
       align-items: center;
       user-select: none;
       -webkit-user-select: none;
     }
     
-    /* Улучшенная кнопка закрытия для мобильных */
+    /* Простая кнопка закрытия */
     #burgerCloseBtn {
       min-width: 44px;
       min-height: 44px;
-      border-width: 2px;
     }
   }
   
