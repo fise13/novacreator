@@ -388,11 +388,11 @@ require_once __DIR__ . '/theme_switcher.php';
                 
                 <!-- Кнопка бургер-меню -->
                 <div class="flex items-center flex-shrink-0 md:hidden">
-                    <button class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 min-w-[44px] min-h-[44px] touch-manipulation flex-shrink-0 active:scale-95 focus:outline-none" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="burgerMenu" type="button" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);">
-                        <svg id="burgerIcon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                    <button class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 min-w-[44px] min-h-[44px] touch-manipulation flex-shrink-0 active:scale-95 focus:outline-none relative" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="burgerMenu" type="button" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);">
+                        <svg id="burgerIcon" class="w-5 h-5 absolute transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
-                        <svg id="burgerCloseIcon" class="w-5 h-5 transition-transform duration-300 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                        <svg id="burgerCloseIcon" class="w-5 h-5 absolute transition-all duration-300 opacity-0 rotate-90 scale-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
@@ -401,105 +401,96 @@ require_once __DIR__ . '/theme_switcher.php';
         </div>
     </nav>
     
-    <!-- Новое полноэкранное бургер-меню - стиль holymedia.kz -->
-    <div id="burgerOverlay" class="fixed inset-0 hidden opacity-0 transition-opacity duration-300" style="background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9998; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important;"></div>
-    
-    <div id="burgerMenu" class="fixed inset-y-0 right-0 hidden overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" aria-describedby="burgerMenuDescription" aria-hidden="true" style="background-color: var(--color-bg); width: 80vw !important; max-width: 420px !important; height: 100vh !important; position: fixed !important; top: 0 !important; right: 0 !important; bottom: 0 !important; z-index: 9999 !important; border-left: 1px solid var(--color-border);">
-        <style>
-            #burgerMenu::-webkit-scrollbar {
-                width: 6px;
-            }
-            #burgerMenu::-webkit-scrollbar-track {
-                background: var(--color-bg);
-            }
-            #burgerMenu::-webkit-scrollbar-thumb {
-                background: var(--color-neon-purple);
-                border-radius: 3px;
-            }
-            #burgerMenu::-webkit-scrollbar-thumb:hover {
-                background: var(--color-neon-blue);
-            }
-        </style>
-        <div class="min-h-screen flex flex-col px-4 sm:px-6 py-6 sm:py-8" style="padding-top: max(1rem, env(safe-area-inset-top, 1rem)); padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));">
-            <!-- Верхняя панель только с кнопкой закрытия -->
-            <div class="flex items-center justify-between mb-8 flex-shrink-0 pt-6">
-                <span class="text-xl font-bold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
-                <button id="burgerCloseBtn" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 touch-manipulation" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" aria-label="Закрыть">
-                    <svg class="w-5 h-5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+    <!-- Полноэкранное бургер-меню в стиле holymedia.kz -->
+    <div id="burgerMenu" class="fixed inset-0 hidden overflow-y-auto z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="background-color: var(--color-bg); transform: translateY(-100%); opacity: 0; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out;">
+        <div class="min-h-screen flex flex-col px-6 sm:px-8 py-8 sm:py-12" style="padding-top: max(2rem, calc(env(safe-area-inset-top, 0px) + 2rem)); padding-bottom: max(2rem, calc(env(safe-area-inset-bottom, 0px) + 2rem));">
+            <!-- Верхняя панель -->
+            <div class="flex items-center justify-between mb-12 sm:mb-16 flex-shrink-0">
+                <span class="text-2xl sm:text-3xl font-bold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
+                <button id="burgerCloseBtn" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 touch-manipulation" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" aria-label="Закрыть меню">
+                    <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
-                
-                <!-- Контент меню -->
-                <div class="flex-1 flex flex-col space-y-6 w-full max-w-lg mx-auto">
+            
+            <!-- Контент меню -->
+            <div class="flex-1 flex flex-col justify-center max-w-2xl mx-auto w-full">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 ?>
                 
-                <!-- Навигационные ссылки - минималистичный стиль -->
-                <nav role="navigation" aria-label="Основная навигация" class="space-y-2">
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="mobile-menu-item block px-4 py-3 text-lg font-medium transition-colors duration-200 hover:underline <?php echo $currentPage == 'index' ? 'font-semibold' : ''; ?>" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.home')); ?></a>
+                <!-- Навигационные ссылки - большие и простые как на holymedia.kz -->
+                <nav role="navigation" aria-label="Основная навигация" class="space-y-4 sm:space-y-6">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="mobile-menu-item block text-3xl sm:text-4xl md:text-5xl font-bold transition-all duration-300 hover:opacity-70 active:opacity-50 <?php echo $currentPage == 'index' ? 'opacity-100' : 'opacity-80'; ?>" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('nav.home')); ?>
+                    </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="mobile-menu-item block px-4 py-3 text-lg font-medium transition-colors duration-200 hover:underline <?php echo $currentPage == 'services' ? 'font-semibold' : ''; ?>" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.services')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="mobile-menu-item block text-3xl sm:text-4xl md:text-5xl font-bold transition-all duration-300 hover:opacity-70 active:opacity-50 <?php echo $currentPage == 'services' ? 'opacity-100' : 'opacity-80'; ?>" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('nav.services')); ?>
+                    </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="mobile-menu-item block px-4 py-3 text-lg font-medium transition-colors duration-200 hover:underline <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="mobile-menu-item block text-3xl sm:text-4xl md:text-5xl font-bold transition-all duration-300 hover:opacity-70 active:opacity-50 <?php echo $currentPage == 'seo' ? 'opacity-100' : 'opacity-80'; ?>" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('nav.seo')); ?>
+                    </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="mobile-menu-item block px-4 py-3 text-lg font-medium transition-colors duration-200 hover:underline <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="mobile-menu-item block text-3xl sm:text-4xl md:text-5xl font-bold transition-all duration-300 hover:opacity-70 active:opacity-50 <?php echo $currentPage == 'ads' ? 'opacity-100' : 'opacity-80'; ?>" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('nav.ads')); ?>
+                    </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="mobile-menu-item block px-4 py-3 text-lg font-medium transition-colors duration-200 hover:underline <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.about')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="mobile-menu-item block text-3xl sm:text-4xl md:text-5xl font-bold transition-all duration-300 hover:opacity-70 active:opacity-50 <?php echo $currentPage == 'about' ? 'opacity-100' : 'opacity-80'; ?>" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('nav.about')); ?>
+                    </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="mobile-menu-item block px-6 py-3 mt-4 text-lg font-semibold rounded-lg transition-all duration-200 active:scale-95" aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>" style="background-color: var(--color-text); color: var(--color-bg);">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="mobile-menu-item block mt-8 sm:mt-12 text-3xl sm:text-4xl md:text-5xl font-bold transition-all duration-300 hover:opacity-70 active:opacity-50" aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </a>
                 </nav>
                 
-                <!-- Аккаунт в мобильном меню - минималистичный стиль -->
-                <?php if ($currentUser): ?>
-                    <div class="space-y-2 mb-6 mt-6 pt-6 border-t" style="border-color: var(--color-border);">
+                <!-- Дополнительные ссылки -->
+                <div class="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t space-y-4" style="border-color: var(--color-border);">
+                    <?php if ($currentUser): ?>
                         <?php if (!$isRootAdmin): ?>
-                        <a href="/dashboard.php" class="mobile-menu-item block px-4 py-3 text-base font-medium transition-colors duration-200 hover:underline" style="color: var(--color-text);">
-                            Личный кабинет
-                        </a>
+                            <a href="/dashboard.php" class="mobile-menu-item block text-xl sm:text-2xl font-medium transition-all duration-300 hover:opacity-70 active:opacity-50" style="color: var(--color-text-secondary);">
+                                Личный кабинет
+                            </a>
                         <?php endif; ?>
                         <?php if ($isRootAdmin): ?>
-                            <a href="/adm/" class="mobile-menu-item block px-4 py-3 text-base font-medium transition-colors duration-200 hover:underline" style="color: var(--color-text);">
+                            <a href="/adm/" class="mobile-menu-item block text-xl sm:text-2xl font-medium transition-all duration-300 hover:opacity-70 active:opacity-50" style="color: var(--color-text-secondary);">
                                 Админ-панель
                             </a>
                         <?php endif; ?>
-                        <a href="/logout.php" class="mobile-menu-item block px-4 py-3 text-base font-medium transition-colors duration-200 hover:underline" style="color: var(--color-text);">
+                        <a href="/logout.php" class="mobile-menu-item block text-xl sm:text-2xl font-medium transition-all duration-300 hover:opacity-70 active:opacity-50" style="color: var(--color-text-secondary);">
                             Выйти
                         </a>
-                    </div>
-                <?php else: ?>
-                    <div class="space-y-2 mb-6 mt-6 pt-6 border-t" style="border-color: var(--color-border);">
-                        <a href="/login.php" class="mobile-menu-item block px-4 py-3 text-base font-medium transition-colors duration-200 hover:underline" style="color: var(--color-text);">
+                    <?php else: ?>
+                        <a href="/login.php" class="mobile-menu-item block text-xl sm:text-2xl font-medium transition-all duration-300 hover:opacity-70 active:opacity-50" style="color: var(--color-text-secondary);">
                             Войти
                         </a>
-                        <a href="/register.php" class="mobile-menu-item block px-6 py-3 mt-2 text-base font-semibold rounded-lg transition-all duration-200 active:scale-95" style="background-color: var(--color-text); color: var(--color-bg);">
+                        <a href="/register.php" class="mobile-menu-item block text-xl sm:text-2xl font-medium transition-all duration-300 hover:opacity-70 active:opacity-50" style="color: var(--color-text-secondary);">
                             Регистрация
                         </a>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
                 
-                <!-- Переключатель темы и языка в мобильном меню -->
-                <div class="mt-6 pt-6 border-t flex-shrink-0 pb-safe flex items-center justify-between" role="group" aria-label="Настройки" style="border-color: var(--color-border); padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));">
+                <!-- Переключатель темы и языка внизу -->
+                <div class="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t flex items-center justify-between flex-shrink-0 pb-safe" role="group" aria-label="Настройки" style="border-color: var(--color-border); padding-bottom: max(2rem, calc(env(safe-area-inset-bottom, 0px) + 2rem));">
                     <!-- Переключатель темы -->
-                    <button id="burgerThemeToggle" class="relative w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 active:scale-95 touch-manipulation" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" aria-label="Переключить тему оформления">
-                        <svg id="burgerThemeIconLight" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <button id="burgerThemeToggle" class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-lg flex items-center justify-center transition-all duration-300 active:scale-95 touch-manipulation" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" aria-label="Переключить тему оформления">
+                        <svg id="burgerThemeIconLight" class="w-5 h-5 sm:w-6 sm:h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                         </svg>
-                        <svg id="burgerThemeIconDark" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <svg id="burgerThemeIconDark" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                         </svg>
                     </button>
                     
                     <!-- Переключатель языка -->
                     <div id="burgerLangGroup" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" class="flex items-center gap-2 rounded-lg p-1" style="background-color: var(--color-surface); border: 1px solid var(--color-border);">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 text-center focus:outline-none <?php echo $currentLang === 'ru' ? 'font-semibold' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
+                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-4 py-2 text-base sm:text-lg font-medium rounded-md transition-all duration-300 text-center focus:outline-none <?php echo $currentLang === 'ru' ? 'font-semibold' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
                             RU
                         </a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 text-center focus:outline-none <?php echo $currentLang === 'en' ? 'font-semibold' : ''; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
+                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-4 py-2 text-base sm:text-lg font-medium rounded-md transition-all duration-300 text-center focus:outline-none <?php echo $currentLang === 'en' ? 'font-semibold' : ''; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
                             EN
                         </a>
                     </div>
@@ -548,34 +539,55 @@ require_once __DIR__ . '/theme_switcher.php';
         })();
     </script>
     
-    <!-- Новый скрипт для бургер-меню -->
+    <!-- Оптимизированный скрипт для бургер-меню в стиле holymedia.kz -->
     <script>
         (function() {
             'use strict';
             
             const burgerBtn = document.getElementById('burgerBtn');
             const burgerMenu = document.getElementById('burgerMenu');
-            const burgerOverlay = document.getElementById('burgerOverlay');
             const burgerCloseBtn = document.getElementById('burgerCloseBtn');
             const burgerThemeToggle = document.getElementById('burgerThemeToggle');
             const burgerThemeIconLight = document.getElementById('burgerThemeIconLight');
             const burgerThemeIconDark = document.getElementById('burgerThemeIconDark');
+            const burgerIcon = document.getElementById('burgerIcon');
+            const burgerCloseIcon = document.getElementById('burgerCloseIcon');
             
             let isBurgerOpen = false;
+            let savedScrollY = 0;
             
-            // Функция открытия меню
+            // Функция переключения иконки бургера
+            function toggleBurgerIcon(isOpen) {
+                if (!burgerIcon || !burgerCloseIcon) return;
+                
+                if (isOpen) {
+                    burgerIcon.style.opacity = '0';
+                    burgerIcon.style.transform = 'rotate(-90deg) scale(0)';
+                    burgerCloseIcon.style.opacity = '1';
+                    burgerCloseIcon.style.transform = 'rotate(0deg) scale(1)';
+                } else {
+                    burgerIcon.style.opacity = '1';
+                    burgerIcon.style.transform = 'rotate(0deg) scale(1)';
+                    burgerCloseIcon.style.opacity = '0';
+                    burgerCloseIcon.style.transform = 'rotate(90deg) scale(0)';
+                }
+            }
+            
+            // Функция открытия меню - полноэкранное как на holymedia.kz
             function openBurgerMenu() {
-                if (!burgerMenu || !burgerOverlay) return;
+                if (!burgerMenu) return;
                 
                 isBurgerOpen = true;
+                savedScrollY = window.scrollY;
+                
+                // Переключаем иконку
+                toggleBurgerIcon(true);
                 
                 // Блокируем скролл body
-                const scrollY = window.scrollY;
                 document.body.style.position = 'fixed';
-                document.body.style.top = `-${scrollY}px`;
+                document.body.style.top = `-${savedScrollY}px`;
                 document.body.style.width = '100%';
                 document.body.style.overflow = 'hidden';
-                document.body.style.height = '100vh';
                 document.documentElement.style.overflow = 'hidden';
                 
                 // Скрываем navbar
@@ -584,93 +596,79 @@ require_once __DIR__ . '/theme_switcher.php';
                     navbar.style.display = 'none';
                 }
                 
-                // Скрываем весь контент кроме меню
-                const mainContent = document.querySelector('main, .container, section, .content');
-                if (mainContent) {
-                    mainContent.style.visibility = 'hidden';
-                    mainContent.style.pointerEvents = 'none';
-                }
-                
-                // Показываем overlay и меню
-                burgerOverlay.classList.remove('hidden');
+                // Показываем меню
                 burgerMenu.classList.remove('hidden');
+                burgerMenu.setAttribute('aria-hidden', 'false');
                 
-                // Анимация элементов меню
-                const menuItems = burgerMenu.querySelectorAll('.mobile-menu-item, button, .flex-1 > div');
+                // Анимация появления меню
+                requestAnimationFrame(() => {
+                    burgerMenu.style.transform = 'translateY(0)';
+                    burgerMenu.style.opacity = '1';
+                });
+                
+                // Анимация элементов меню с задержкой (оптимизировано для мобильных)
+                const menuItems = burgerMenu.querySelectorAll('.mobile-menu-item');
+                const isMobile = window.innerWidth < 768;
+                const delay = isMobile ? 30 : 50;
+                
                 menuItems.forEach((item, index) => {
                     item.style.opacity = '0';
                     item.style.transform = 'translateY(20px)';
-                    item.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
                     
                     setTimeout(() => {
+                        item.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                         item.style.opacity = '1';
                         item.style.transform = 'translateY(0)';
-                    }, 50 + (index * 30));
+                    }, 50 + (index * delay));
                 });
                 
-                // Принудительно устанавливаем стили
-                burgerOverlay.style.display = 'block';
-                burgerMenu.style.display = 'block';
-                burgerOverlay.style.zIndex = '9998';
-                burgerMenu.style.zIndex = '9999';
-                burgerOverlay.style.position = 'fixed';
-                burgerMenu.style.position = 'fixed';
-                
-                const langGroup = document.getElementById('burgerLangGroup');
-                if (langGroup) {
-                    setTimeout(() => langGroup.classList.add('lang-show'), 80);
-                }
-
-                setTimeout(() => {
-                    burgerOverlay.style.opacity = '1';
-                }, 10);
+                // Обновляем aria-expanded
+                burgerBtn?.setAttribute('aria-expanded', 'true');
             }
             
             // Функция закрытия меню
             function closeBurgerMenu() {
-                if (!burgerMenu || !burgerOverlay) return;
+                if (!burgerMenu) return;
                 
                 isBurgerOpen = false;
                 
+                // Переключаем иконку
+                toggleBurgerIcon(false);
+                
+                // Анимация закрытия
+                burgerMenu.style.transform = 'translateY(-100%)';
+                burgerMenu.style.opacity = '0';
+                
                 // Восстанавливаем скролл
-                const scrollY = document.body.style.top;
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.width = '';
-                document.body.style.overflow = '';
-                document.body.style.height = '';
-                document.documentElement.style.overflow = '';
-                
-                if (scrollY) {
-                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
-                }
-                
-                // Показываем navbar
-                const navbar = document.getElementById('mainNavbar');
-                if (navbar) {
-                    navbar.style.display = '';
-                }
-                
-                // Показываем контент обратно
-                const mainContent = document.querySelector('main, .container, section, .content');
-                if (mainContent) {
-                    mainContent.style.visibility = '';
-                    mainContent.style.pointerEvents = '';
-                }
-                const langGroup = document.getElementById('burgerLangGroup');
-                if (langGroup) {
-                    langGroup.classList.remove('lang-show');
-                }
-                
-                // Скрываем overlay и меню
-                burgerOverlay.style.opacity = '0';
-                
                 setTimeout(() => {
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+                    document.body.style.overflow = '';
+                    document.body.style.height = '';
+                    document.documentElement.style.overflow = '';
+                    
+                    window.scrollTo(0, savedScrollY);
+                    
+                    // Показываем navbar
+                    const navbar = document.getElementById('mainNavbar');
+                    if (navbar) {
+                        navbar.style.display = '';
+                    }
+                    
                     burgerMenu.classList.add('hidden');
-                    burgerOverlay.classList.add('hidden');
-                    burgerOverlay.style.display = '';
-                    burgerMenu.style.display = '';
+                    burgerMenu.setAttribute('aria-hidden', 'true');
+                    
+                    // Сбрасываем анимации элементов
+                    const menuItems = burgerMenu.querySelectorAll('.mobile-menu-item');
+                    menuItems.forEach(item => {
+                        item.style.opacity = '';
+                        item.style.transform = '';
+                        item.style.transition = '';
+                    });
                 }, 300);
+                
+                burgerBtn?.setAttribute('aria-expanded', 'false');
             }
             
             // Обработчики событий
@@ -694,12 +692,6 @@ require_once __DIR__ . '/theme_switcher.php';
                 });
             }
             
-            if (burgerOverlay) {
-                burgerOverlay.addEventListener('click', function() {
-                    closeBurgerMenu();
-                });
-            }
-            
             // Закрытие по Escape
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && isBurgerOpen) {
@@ -711,7 +703,7 @@ require_once __DIR__ . '/theme_switcher.php';
             if (burgerMenu) {
                 burgerMenu.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', function() {
-                        closeBurgerMenu();
+                        setTimeout(() => closeBurgerMenu(), 100);
                     });
                 });
             }
@@ -741,11 +733,6 @@ require_once __DIR__ . '/theme_switcher.php';
                     if ('vibrate' in navigator) {
                         navigator.vibrate(10);
                     }
-                    
-                    this.style.transform = 'scale(0.9)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
                 });
                 
                 updateBurgerThemeIcon();
