@@ -938,17 +938,10 @@
       opacity: 1;
     }
     
-    /* Скрываем navbar при открытом меню */
-    body:has(#burgerMenu:not(.hidden)) #mainNavbar {
-      display: none !important;
-    }
+    /* Скрываем navbar при открытом меню - проверяем display: block вместо класса hidden */
+    /* Убрано, так как используем display: none/block через JavaScript */
     
-    /* Скрываем весь контент за overlay при открытом меню */
-    #burgerOverlay:not(.hidden) ~ *,
-    body:has(#burgerMenu:not(.hidden)) > *:not(#burgerOverlay):not(#burgerMenu) {
-      visibility: hidden;
-      pointer-events: none;
-    }
+    /* Скрываем весь контент за overlay при открытом меню - убрано, так как используем overlay */
     
     /* Убеждаемся, что overlay и меню всегда поверх всего */
     #burgerOverlay,
