@@ -404,24 +404,26 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Overlay для бургер-меню -->
     <div id="burgerOverlay" class="fixed inset-0 opacity-0 transition-opacity duration-300 z-[9998]" style="display: none; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);"></div>
     
-    <!-- Боковое меню справа - минималистичный стиль holymedia.kz -->
-    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 overflow-y-auto z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); border-left: 1px solid var(--color-border); transform: translateX(100%); opacity: 0; transition: transform 0.25s ease-out, opacity 0.2s ease-out; padding-top: env(safe-area-inset-top);">
-        <div class="flex flex-col h-full px-6 py-6" style="padding-top: max(1.5rem, calc(env(safe-area-inset-top, 0px) + 1.5rem)); padding-bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem));">
-            <!-- Верхняя панель - минималистичная -->
-            <div class="flex items-center justify-between mb-12 flex-shrink-0">
+    <!-- Боковое меню справа - минималистичный стиль holymedia.kz с перетеканием из header -->
+    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 overflow-y-auto z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;">
+        <!-- Перетекание из header - верхняя часть -->
+        <div class="h-16 sm:h-18 md:h-20 border-b" style="background-color: var(--color-bg); border-color: var(--color-border); padding-top: env(safe-area-inset-top);">
+            <div class="flex items-center justify-between h-full px-6">
                 <span class="text-lg font-medium" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
-                <button id="burgerCloseBtn" class="w-8 h-8 flex items-center justify-center transition-opacity duration-200 hover:opacity-60 active:opacity-40 touch-manipulation min-w-[44px] min-h-[44px]" style="color: var(--color-text);" aria-label="Закрыть меню">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                <button id="burgerCloseBtn" class="w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px]" style="color: #ef4444;" aria-label="Закрыть меню">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
+        </div>
+        
+        <!-- Контент меню -->
+        <div class="flex flex-col px-6 py-6" style="padding-bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem));">
             
-            <!-- Контент меню -->
-            <div class="flex-1 flex flex-col">
-                <?php 
-                $currentPage = basename($_SERVER['PHP_SELF'], '.php');
-                ?>
+            <?php 
+            $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+            ?>
                 
                 <!-- Навигационные ссылки - чистый минимализм как на holymedia.kz -->
                 <nav role="navigation" aria-label="Основная навигация" class="space-y-2 mb-8">
