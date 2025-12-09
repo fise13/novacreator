@@ -379,9 +379,9 @@ require_once __DIR__ . '/theme_switcher.php';
                     </div>
                 </div>
                 
-                <!-- Кнопка мобильного меню -->
+                <!-- Кнопка бургер-меню -->
                 <div class="flex items-center flex-shrink-0">
-                    <button class="md:hidden text-gray-300 hover:text-neon-purple active:text-neon-purple focus:text-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg rounded-lg transition-all duration-200 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0 hover:bg-dark-surface/50 active:bg-dark-surface/70 active:scale-95" id="mobileMenuBtn" aria-label="<?php echo htmlspecialchars(t('nav.menu')); ?>" aria-expanded="false" aria-controls="mobileMenu" type="button">
+                    <button class="md:hidden text-gray-300 hover:text-neon-purple active:text-neon-purple focus:text-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg rounded-lg transition-all duration-200 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0 hover:bg-dark-surface/50 active:bg-dark-surface/70 active:scale-95" id="burgerBtn" aria-label="<?php echo htmlspecialchars(t('nav.menu')); ?>" type="button">
                         <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -391,36 +391,35 @@ require_once __DIR__ . '/theme_switcher.php';
         </div>
     </nav>
     
-    <!-- Затемнение фона для мобильного меню -->
-    <div class="fixed inset-0 z-[60] transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay" role="button" tabindex="-1" aria-label="<?php echo htmlspecialchars(t('nav.closeMenu')); ?>" style="background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); will-change: backdrop-filter, opacity; transform: translateZ(0); -webkit-transform: translateZ(0);"></div>
+    <!-- Новое полноэкранное бургер-меню -->
+    <div id="burgerOverlay" class="fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-300" style="background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"></div>
     
-    <!-- Мобильное меню - полноэкранное, со скроллом -->
-    <div class="fixed inset-0 z-[70] overflow-y-auto overflow-x-hidden hidden shadow-2xl transform translate-x-full transition-transform duration-300 ease-out" id="mobileMenu" role="menu" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" aria-orientation="vertical" style="background-color: var(--color-surface); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--color-neon-purple) var(--color-bg); width: 100vw !important; height: 100vh !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; position: fixed !important; z-index: 9999 !important;">
-            <style>
-                #mobileMenu::-webkit-scrollbar {
-                    width: 6px;
-                }
-                #mobileMenu::-webkit-scrollbar-track {
-                    background: var(--color-bg);
-                }
-                #mobileMenu::-webkit-scrollbar-thumb {
-                    background: var(--color-neon-purple);
-                    border-radius: 3px;
-                }
-                #mobileMenu::-webkit-scrollbar-thumb:hover {
-                    background: var(--color-neon-blue);
-                }
-            </style>
-            <div class="min-h-screen flex flex-col px-4 sm:px-6 py-6 sm:py-8" style="padding-top: max(1.5rem, env(safe-area-inset-top, 1.5rem)); padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));">
-                <!-- Заголовок меню с кнопкой закрытия -->
-                <div class="flex items-center justify-between mb-6 pb-4 border-b flex-shrink-0" style="border-color: var(--color-border);">
-                    <h2 class="text-lg font-medium opacity-70" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.menu')); ?></h2>
-                    <button id="mobileMenuCloseBtn" class="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation" style="background-color: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-border);" aria-label="Закрыть меню">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
+    <div id="burgerMenu" class="fixed inset-0 z-[110] hidden overflow-y-auto" style="background-color: var(--color-surface); width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
+        <style>
+            #burgerMenu::-webkit-scrollbar {
+                width: 6px;
+            }
+            #burgerMenu::-webkit-scrollbar-track {
+                background: var(--color-bg);
+            }
+            #burgerMenu::-webkit-scrollbar-thumb {
+                background: var(--color-neon-purple);
+                border-radius: 3px;
+            }
+            #burgerMenu::-webkit-scrollbar-thumb:hover {
+                background: var(--color-neon-blue);
+            }
+        </style>
+        <div class="min-h-screen flex flex-col px-4 sm:px-6 py-6 sm:py-8" style="padding-top: max(1.5rem, env(safe-area-inset-top, 1.5rem)); padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));">
+            <!-- Заголовок меню с кнопкой закрытия -->
+            <div class="flex items-center justify-between mb-6 pb-4 border-b flex-shrink-0" style="border-color: var(--color-border);">
+                <h2 class="text-lg font-medium opacity-70" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.menu')); ?></h2>
+                <button id="burgerCloseBtn" class="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation" style="background-color: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-border);" aria-label="Закрыть меню">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
                 
                 <!-- Контент меню -->
                 <div class="flex-1 flex flex-col justify-center space-y-6 max-w-md mx-auto w-full">
@@ -544,11 +543,11 @@ require_once __DIR__ . '/theme_switcher.php';
                     <div class="mb-4">
                         <div class="flex items-center justify-between mb-3">
                             <span class="text-base font-semibold" style="color: var(--color-text);">Тема:</span>
-                            <button id="mobileThemeToggle" class="relative w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue)); border: 2px solid var(--color-border);" aria-label="Переключить тему">
-                                <svg id="mobileThemeIconLight" class="w-7 h-7 hidden text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <button id="burgerThemeToggle" class="relative w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue)); border: 2px solid var(--color-border);" aria-label="Переключить тему">
+                                <svg id="burgerThemeIconLight" class="w-7 h-7 hidden text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                                 </svg>
-                                <svg id="mobileThemeIconDark" class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <svg id="burgerThemeIconDark" class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                                 </svg>
                             </button>
@@ -572,7 +571,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
     
     <!-- Скрипт для переключения темы -->
     <script>
@@ -614,105 +613,144 @@ require_once __DIR__ . '/theme_switcher.php';
         })();
     </script>
     
-    <!-- Скрипт для мобильного меню - оптимизирован для touch -->
+    <!-- Новый скрипт для бургер-меню -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-            let isMenuOpen = false;
-            const accountBtn = document.getElementById('accountMenuBtn');
-            const accountMenu = document.getElementById('accountMenu');
-            let isAccountOpen = false;
+        (function() {
+            'use strict';
             
-            const mobileMenuCloseBtn = document.getElementById('mobileMenuCloseBtn');
-            const mobileThemeToggle = document.getElementById('mobileThemeToggle');
-            const mobileThemeIconLight = document.getElementById('mobileThemeIconLight');
-            const mobileThemeIconDark = document.getElementById('mobileThemeIconDark');
+            const burgerBtn = document.getElementById('burgerBtn');
+            const burgerMenu = document.getElementById('burgerMenu');
+            const burgerOverlay = document.getElementById('burgerOverlay');
+            const burgerCloseBtn = document.getElementById('burgerCloseBtn');
+            const burgerThemeToggle = document.getElementById('burgerThemeToggle');
+            const burgerThemeIconLight = document.getElementById('burgerThemeIconLight');
+            const burgerThemeIconDark = document.getElementById('burgerThemeIconDark');
             
-            // Переключение темы в мобильном меню
-            if (mobileThemeToggle && window.setTheme) {
-                function updateMobileThemeIcon() {
-                    if (!mobileThemeIconLight || !mobileThemeIconDark) return;
+            let isBurgerOpen = false;
+            
+            // Функция открытия меню
+            function openBurgerMenu() {
+                if (!burgerMenu || !burgerOverlay) return;
+                
+                isBurgerOpen = true;
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+                
+                burgerOverlay.classList.remove('hidden');
+                burgerMenu.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    burgerOverlay.style.opacity = '1';
+                }, 10);
+            }
+            
+            // Функция закрытия меню
+            function closeBurgerMenu() {
+                if (!burgerMenu || !burgerOverlay) return;
+                
+                isBurgerOpen = false;
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+                
+                burgerOverlay.style.opacity = '0';
+                
+                setTimeout(() => {
+                    burgerMenu.classList.add('hidden');
+                    burgerOverlay.classList.add('hidden');
+                }, 300);
+            }
+            
+            // Обработчики событий
+            if (burgerBtn) {
+                burgerBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (isBurgerOpen) {
+                        closeBurgerMenu();
+                    } else {
+                        openBurgerMenu();
+                    }
+                });
+            }
+            
+            if (burgerCloseBtn) {
+                burgerCloseBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeBurgerMenu();
+                });
+            }
+            
+            if (burgerOverlay) {
+                burgerOverlay.addEventListener('click', function() {
+                    closeBurgerMenu();
+                });
+            }
+            
+            // Закрытие по Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && isBurgerOpen) {
+                    closeBurgerMenu();
+                }
+            });
+            
+            // Закрытие при клике на ссылку
+            if (burgerMenu) {
+                burgerMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        closeBurgerMenu();
+                    });
+                });
+            }
+            
+            // Переключение темы в бургер-меню
+            if (burgerThemeToggle && window.setTheme) {
+                function updateBurgerThemeIcon() {
+                    if (!burgerThemeIconLight || !burgerThemeIconDark) return;
                     const isLight = document.documentElement.classList.contains('light');
                     if (isLight) {
-                        mobileThemeIconLight.classList.remove('hidden');
-                        mobileThemeIconDark.classList.add('hidden');
+                        burgerThemeIconLight.classList.remove('hidden');
+                        burgerThemeIconDark.classList.add('hidden');
                     } else {
-                        mobileThemeIconLight.classList.add('hidden');
-                        mobileThemeIconDark.classList.remove('hidden');
+                        burgerThemeIconLight.classList.add('hidden');
+                        burgerThemeIconDark.classList.remove('hidden');
                     }
                 }
                 
-                mobileThemeToggle.addEventListener('click', function(e) {
+                burgerThemeToggle.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     const currentTheme = window.getTheme();
                     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
                     window.setTheme(newTheme);
-                    updateMobileThemeIcon();
+                    updateBurgerThemeIcon();
                     
-                    // Haptic feedback на мобильных устройствах
                     if ('vibrate' in navigator) {
                         navigator.vibrate(10);
                     }
                     
-                    // Анимация кнопки
                     this.style.transform = 'scale(0.9)';
                     setTimeout(() => {
                         this.style.transform = '';
                     }, 150);
                 });
                 
-                // Обновляем иконку при загрузке
-                updateMobileThemeIcon();
+                updateBurgerThemeIcon();
                 
-                // Слушаем изменения темы (синхронизация с десктопным переключателем)
-                const observer = new MutationObserver(updateMobileThemeIcon);
+                const observer = new MutationObserver(updateBurgerThemeIcon);
                 observer.observe(document.documentElement, {
                     attributes: true,
                     attributeFilter: ['class']
                 });
             }
             
-            if (mobileMenuBtn && mobileMenu && mobileMenuOverlay) {
-                // Функция открытия меню (справа)
-                function openMenu() {
-                    isMenuOpen = true;
-                    
-                    // Обновляем ARIA атрибуты
-                    mobileMenuBtn.setAttribute('aria-expanded', 'true');
-                    mobileMenuBtn.setAttribute('aria-label', '<?php echo htmlspecialchars(t('nav.closeMenu')); ?>');
-                    
-                    // Показываем overlay
-                    mobileMenuOverlay.classList.remove('hidden');
-                    mobileMenuOverlay.setAttribute('tabindex', '0');
-                    setTimeout(() => {
-                        mobileMenuOverlay.style.opacity = '1';
-                    }, 10);
-                    
-                    // Показываем меню и сдвигаем справа (полноэкранное)
-                    mobileMenu.classList.remove('hidden');
-                    // Убеждаемся, что меню можно прокручивать
-                    mobileMenu.style.overflowY = 'auto';
-                    mobileMenu.style.overflowX = 'hidden';
-                    setTimeout(() => {
-                        mobileMenu.style.transform = 'translateX(0)';
-                    }, 10);
-                    
-                    // Предотвращаем скролл body при открытом меню
-                    document.body.style.overflow = 'hidden';
-                    document.body.style.position = 'fixed';
-                    document.body.style.width = '100%';
-                    
-                    // Меняем иконку на крестик
-                    const icon = mobileMenuBtn.querySelector('svg');
-                    if (icon) {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>';
-                    }
-                }
-
-            // Дропдаун аккаунта (по клику, не закрывается сразу) - улучшенная анимация
+            // Дропдаун аккаунта
+            const accountBtn = document.getElementById('accountMenuBtn');
+            const accountMenu = document.getElementById('accountMenu');
+            let isAccountOpen = false;
+            
             function closeAccountMenu() {
                 if (!accountMenu) return;
                 isAccountOpen = false;
@@ -724,7 +762,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 }, 200);
                 accountBtn?.setAttribute('aria-expanded', 'false');
             }
-
+            
             function openAccountMenu() {
                 if (!accountMenu) return;
                 isAccountOpen = true;
@@ -736,7 +774,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 }, 10);
                 accountBtn?.setAttribute('aria-expanded', 'true');
             }
-
+            
             if (accountBtn && accountMenu) {
                 accountBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -746,132 +784,18 @@ require_once __DIR__ . '/theme_switcher.php';
                         openAccountMenu();
                     }
                 });
-
+                
                 accountMenu.addEventListener('click', (e) => {
-                    e.stopPropagation(); // позволяем кликать внутри, не закрывая
+                    e.stopPropagation();
                 });
-
+                
                 document.addEventListener('click', () => {
                     if (isAccountOpen) {
                         closeAccountMenu();
                     }
                 });
             }
-                
-                // Функция закрытия меню
-                function closeMenu() {
-                    isMenuOpen = false;
-                    
-                    // Обновляем ARIA атрибуты
-                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                    mobileMenuBtn.setAttribute('aria-label', '<?php echo htmlspecialchars(t('nav.menu')); ?>');
-                    mobileMenuOverlay.setAttribute('tabindex', '-1');
-                    
-                    mobileMenuOverlay.style.opacity = '0';
-                    
-                    // Сдвигаем меню вправо (скрываем)
-                    mobileMenu.style.transform = 'translateX(100%)';
-                    
-                    // Восстанавливаем скролл
-                    document.body.style.overflow = '';
-                    document.body.style.position = '';
-                    document.body.style.width = '';
-                    
-                    // Закрываем после завершения анимации
-                    setTimeout(() => {
-                        mobileMenu.classList.add('hidden');
-                        mobileMenuOverlay.classList.add('hidden');
-                    }, 300);
-                    
-                    // Меняем иконку на гамбургер
-                    const icon = mobileMenuBtn.querySelector('svg');
-                    if (icon) {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>';
-                    }
-                }
-                
-                // Обработка клика/тапа на кнопку меню
-                mobileMenuBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    if (isMenuOpen) {
-                        closeMenu();
-                    } else {
-                        openMenu();
-                    }
-                });
-                
-                // Закрытие меню при клике на затемнение
-                mobileMenuOverlay.addEventListener('click', function() {
-                    closeMenu();
-                });
-                
-                // Закрытие меню кнопкой закрытия
-                if (mobileMenuCloseBtn) {
-                    mobileMenuCloseBtn.addEventListener('click', function() {
-                        closeMenu();
-                    });
-                }
-                
-                // Закрытие меню при нажатии Enter/Space на overlay
-                mobileMenuOverlay.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        closeMenu();
-                        mobileMenuBtn.focus();
-                    }
-                });
-                
-                // Закрытие меню при клике на ссылку внутри меню
-                mobileMenu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', function() {
-                        closeMenu();
-                    });
-                });
-                
-                // Swipe жесты для закрытия меню (свайп вправо)
-                let touchStartX = 0;
-                let touchEndX = 0;
-                
-                mobileMenu.addEventListener('touchstart', function(e) {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
-                
-                mobileMenu.addEventListener('touchend', function(e) {
-                    touchEndX = e.changedTouches[0].screenX;
-                    handleSwipe();
-                }, { passive: true });
-                
-                function handleSwipe() {
-                    const swipeDistance = touchStartX - touchEndX;
-                    const minSwipeDistance = 100;
-                    
-                    // Swipe вправо для закрытия меню
-                    if (swipeDistance > minSwipeDistance && isMenuOpen) {
-                        closeMenu();
-                    }
-                }
-                
-                // Закрытие меню при изменении размера окна (переход на десктоп)
-                let resizeTimer;
-                window.addEventListener('resize', function() {
-                    clearTimeout(resizeTimer);
-                    resizeTimer = setTimeout(() => {
-                        if (window.innerWidth >= 768 && isMenuOpen) {
-                            closeMenu();
-                        }
-                    }, 150);
-                });
-                
-                // Закрытие меню при нажатии Escape
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && isMenuOpen) {
-                        closeMenu();
-                    }
-                });
-            }
-        });
+        })();
     </script>
     
     <!-- Breadcrumbs -->
