@@ -95,6 +95,16 @@
     Header set Referrer-Policy "strict-origin-when-cross-origin"
     Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
     
+    # HSTS (Strict Transport Security) - только для HTTPS
+    <If "%{HTTPS} == 'on'">
+        Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    </If>
+    
+    # Content Security Policy (CSP) - базовая версия
+    # Примечание: CSP может потребовать настройки под конкретные inline скрипты
+    # Для production рекомендуется использовать nonce или hash для inline скриптов
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
+    
     # Производительность - кеширование
     <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|eot|css|js)$">
         Header set Cache-Control "max-age=31536000, public, immutable"

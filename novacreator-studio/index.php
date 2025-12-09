@@ -15,6 +15,7 @@ $pageMetaKeywords = t('seo.pages.index.keywords');
 include 'includes/header.php';
 ?>
 
+<main id="main-content">
 <!-- Hero секция - полностью переработанный дизайн -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24">
     <!-- Фоновые декоративные элементы - улучшенные -->
@@ -680,6 +681,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+</main>
 
 <?php include 'includes/footer.php'; ?>
 
