@@ -393,8 +393,8 @@ require_once __DIR__ . '/theme_switcher.php';
         <!-- Затемнение фона для мобильного меню -->
         <div class="fixed inset-0 z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay" role="button" tabindex="-1" aria-label="<?php echo htmlspecialchars(t('nav.closeMenu')); ?>" style="background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); will-change: backdrop-filter, opacity; transform: translateZ(0); -webkit-transform: translateZ(0);"></div>
         
-        <!-- Мобильное меню - справа, со скроллом -->
-        <div class="fixed right-0 top-0 bottom-0 w-80 max-w-[90vw] z-50 overflow-y-auto overflow-x-hidden hidden shadow-2xl transform translate-x-full transition-transform duration-300 ease-out" id="mobileMenu" role="menu" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" aria-orientation="vertical" style="background-color: var(--color-surface); border-left: 1px solid var(--color-border); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--color-neon-purple) var(--color-bg);">
+        <!-- Мобильное меню - полноэкранное, со скроллом -->
+        <div class="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden hidden shadow-2xl transform translate-x-full transition-transform duration-300 ease-out" id="mobileMenu" role="menu" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" aria-orientation="vertical" style="background-color: var(--color-surface); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--color-neon-purple) var(--color-bg);">
             <style>
                 #mobileMenu::-webkit-scrollbar {
                     width: 6px;
@@ -410,111 +410,132 @@ require_once __DIR__ . '/theme_switcher.php';
                     background: var(--color-neon-blue);
                 }
             </style>
-            <div class="px-4 sm:px-5 py-5 sm:py-6 space-y-3 min-h-full flex flex-col">
+            <div class="min-h-screen flex flex-col px-4 sm:px-6 py-6 sm:py-8" style="padding-top: max(1.5rem, env(safe-area-inset-top, 1.5rem)); padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));">
                 <!-- Заголовок меню с кнопкой закрытия -->
-                <div class="flex items-center justify-between mb-4 pb-4 border-b flex-shrink-0 sticky top-0 z-10" style="border-color: var(--color-border); background-color: var(--color-surface); padding-top: env(safe-area-inset-top, 0);">
-                    <h2 class="text-xl font-bold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.menu')); ?></h2>
-                    <button id="mobileMenuCloseBtn" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation" style="background-color: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-border);" aria-label="Закрыть меню">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b flex-shrink-0" style="border-color: var(--color-border);">
+                    <h2 class="text-lg font-medium opacity-70" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.menu')); ?></h2>
+                    <button id="mobileMenuCloseBtn" class="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation" style="background-color: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-border);" aria-label="Закрыть меню">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
                 
-                <!-- Контент меню с прокруткой -->
-                <div class="flex-1 overflow-y-auto overflow-x-hidden space-y-3">
+                <!-- Контент меню -->
+                <div class="flex-1 flex flex-col justify-center space-y-6 max-w-md mx-auto w-full">
                 <?php 
                 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 ?>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="mobile-menu-item block py-4 px-5 text-base rounded-xl transition-all duration-200 min-h-[56px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'index' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>">
-                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.home')); ?></span>
-                    <?php if ($currentPage == 'index'): ?>
-                        <svg class="w-5 h-5 text-neon-purple ml-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                
+                <!-- Бейдж -->
+                <div class="flex justify-center mb-4">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+                        <div class="w-2 h-2 rounded-full bg-gradient-to-r from-neon-purple to-neon-blue"></div>
+                        <span class="text-xs font-medium uppercase tracking-wider" style="color: var(--color-text-secondary);">ЦИФРОВОЕ АГЕНТСТВО</span>
+                    </div>
+                </div>
+                
+                <!-- Главный заголовок -->
+                <h1 class="text-4xl sm:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent leading-tight">
+                    Превращаем идеи в цифровой успех
+                </h1>
+                
+                <!-- Описание -->
+                <p class="text-base sm:text-lg text-center mb-8 leading-relaxed" style="color: var(--color-text-secondary); max-w-lg mx-auto;">
+                    Digital-маркетинг, который работает. SEO-оптимизация, разработка сайтов, Google Ads и аналитика. Работаем с компаниями по всему Казахстану и помогаем достигать результатов.
+                </p>
+                
+                <!-- Кнопки CTA -->
+                <div class="space-y-4 mb-8">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="block w-full px-6 py-4 text-base font-semibold rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all duration-200 shadow-lg hover:shadow-xl active:scale-[0.97] min-h-[56px] flex items-center justify-center text-white" role="menuitem">
+                        Начать проект
+                    </a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="block w-full px-6 py-4 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[56px] flex items-center justify-center" style="color: var(--color-text); background-color: var(--color-bg); border: 2px solid var(--color-neon-purple);" onmouseover="this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.backgroundColor='var(--color-bg)';" role="menuitem">
+                        Посмотреть работы
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
-                    <?php endif; ?>
-                </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="mobile-menu-item block py-4 px-5 text-base rounded-xl transition-all duration-200 min-h-[56px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'services' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>">
-                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.services')); ?></span>
-                    <?php if ($currentPage == 'services'): ?>
-                        <svg class="w-5 h-5 ml-3 flex-shrink-0" style="color: var(--color-neon-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    <?php endif; ?>
-                </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="mobile-menu-item block py-4 px-5 text-base rounded-xl transition-all duration-200 min-h-[56px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>">
-                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.seo')); ?></span>
-                    <?php if ($currentPage == 'seo'): ?>
-                        <svg class="w-5 h-5 ml-3 flex-shrink-0" style="color: var(--color-neon-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    <?php endif; ?>
-                </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="mobile-menu-item block py-4 px-5 text-base rounded-xl transition-all duration-200 min-h-[56px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>">
-                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.ads')); ?></span>
-                    <?php if ($currentPage == 'ads'): ?>
-                        <svg class="w-5 h-5 ml-3 flex-shrink-0" style="color: var(--color-neon-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    <?php endif; ?>
-                </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="mobile-menu-item block py-4 px-5 text-base rounded-xl transition-all duration-200 min-h-[56px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>">
-                    <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.about')); ?></span>
-                    <?php if ($currentPage == 'about'): ?>
-                        <svg class="w-5 h-5 ml-3 flex-shrink-0" style="color: var(--color-neon-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    <?php endif; ?>
-                </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="mobile-menu-item block relative w-full px-6 py-4 text-base font-semibold rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all duration-200 shadow-lg hover:shadow-xl active:scale-[0.97] mt-4 min-h-[56px]" style="color: white;" role="menuitem">
-                    <span class="relative z-10 flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        <?php echo htmlspecialchars(t('nav.contact')); ?>
-                    </span>
-                </a>
-
+                    </a>
+                </div>
+                
+                <!-- Статистика -->
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold mb-1 bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">10+</div>
+                        <div class="text-xs" style="color: var(--color-text-secondary);">Лет опыта команды</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold mb-1 bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">100%</div>
+                        <div class="text-xs" style="color: var(--color-text-secondary);">Онлайн работа</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold mb-1 bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">50+</div>
+                        <div class="text-xs" style="color: var(--color-text-secondary);">Проектов</div>
+                    </div>
+                </div>
+                
+                <!-- Навигационные ссылки -->
+                <div class="space-y-2 mb-6">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="mobile-menu-item block py-3 px-5 text-base rounded-xl transition-all duration-200 min-h-[52px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'index' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>">
+                        <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.home')); ?></span>
+                    </a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="mobile-menu-item block py-3 px-5 text-base rounded-xl transition-all duration-200 min-h-[52px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'services' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>">
+                        <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.services')); ?></span>
+                    </a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="mobile-menu-item block py-3 px-5 text-base rounded-xl transition-all duration-200 min-h-[52px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>">
+                        <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.seo')); ?></span>
+                    </a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="mobile-menu-item block py-3 px-5 text-base rounded-xl transition-all duration-200 min-h-[52px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>">
+                        <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.ads')); ?></span>
+                    </a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="mobile-menu-item block py-3 px-5 text-base rounded-xl transition-all duration-200 min-h-[52px] flex items-center touch-manipulation active:scale-[0.98] <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" style="color: var(--color-text-secondary); background-color: var(--color-bg); border: 1px solid var(--color-border);" onmouseover="this.style.color='var(--color-text)'; this.style.backgroundColor='var(--color-surface)';" onmouseout="this.style.color='var(--color-text-secondary)'; this.style.backgroundColor='var(--color-bg)';" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>">
+                        <span class="flex-1 font-medium"><?php echo htmlspecialchars(t('nav.about')); ?></span>
+                    </a>
+                </div>
+                
                 <!-- Аккаунт в мобильном меню -->
                 <?php if ($currentUser): ?>
-                    <?php if (!$isRootAdmin): ?>
-                    <a href="/dashboard.php" class="mobile-menu-item block w-full px-6 py-3.5 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[56px] flex items-center" style="color: var(--color-text); background-color: var(--color-surface); border: 1px solid var(--color-border);" onmouseover="this.style.backgroundColor='var(--color-surface-lighter)';" onmouseout="this.style.backgroundColor='var(--color-surface)';">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                        Личный кабинет
-                    </a>
-                    <?php endif; ?>
-                    <?php if ($isRootAdmin): ?>
-                        <a href="/adm/" class="mobile-menu-item block w-full px-6 py-3.5 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[56px] flex items-center" style="color: var(--color-neon-purple); background-color: var(--color-surface); border: 1px solid var(--color-neon-purple);" onmouseover="this.style.backgroundColor='var(--color-surface-lighter)';" onmouseout="this.style.backgroundColor='var(--color-surface)';">
+                    <div class="space-y-2 mb-6">
+                        <?php if (!$isRootAdmin): ?>
+                        <a href="/dashboard.php" class="mobile-menu-item block w-full px-6 py-3 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[52px] flex items-center" style="color: var(--color-text); background-color: var(--color-surface); border: 1px solid var(--color-border);" onmouseover="this.style.backgroundColor='var(--color-surface-lighter)';" onmouseout="this.style.backgroundColor='var(--color-surface)';">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
-                            Админка
+                            Личный кабинет
                         </a>
-                    <?php endif; ?>
-                    <a href="/logout.php" class="mobile-menu-item block w-full px-6 py-3.5 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[56px] flex items-center" style="color: var(--color-text); background-color: var(--color-surface); border: 1px solid var(--color-border);" onmouseover="this.style.color='#EF4444'; this.style.borderColor='#EF4444';" onmouseout="this.style.color='var(--color-text)'; this.style.borderColor='var(--color-border)';">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                        </svg>
-                        Выйти
-                    </a>
+                        <?php endif; ?>
+                        <?php if ($isRootAdmin): ?>
+                            <a href="/adm/" class="mobile-menu-item block w-full px-6 py-3 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[52px] flex items-center" style="color: var(--color-neon-purple); background-color: var(--color-surface); border: 1px solid var(--color-neon-purple);" onmouseover="this.style.backgroundColor='var(--color-surface-lighter)';" onmouseout="this.style.backgroundColor='var(--color-surface)';">
+                                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                Админка
+                            </a>
+                        <?php endif; ?>
+                        <a href="/logout.php" class="mobile-menu-item block w-full px-6 py-3 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[52px] flex items-center" style="color: var(--color-text); background-color: var(--color-surface); border: 1px solid var(--color-border);" onmouseover="this.style.color='#EF4444'; this.style.borderColor='#EF4444';" onmouseout="this.style.color='var(--color-text)'; this.style.borderColor='var(--color-border)';">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Выйти
+                        </a>
+                    </div>
                 <?php else: ?>
-                    <a href="/login.php" class="mobile-menu-item block w-full px-6 py-3.5 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[56px] flex items-center" style="color: var(--color-text); background-color: var(--color-surface); border: 1px solid var(--color-border);" onmouseover="this.style.backgroundColor='var(--color-surface-lighter)';" onmouseout="this.style.backgroundColor='var(--color-surface)';">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                        </svg>
-                        Войти
-                    </a>
-                    <a href="/register.php" class="mobile-menu-item block w-full px-6 py-3.5 text-base font-semibold rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all duration-200 shadow-lg hover:shadow-xl active:scale-[0.98] min-h-[56px] flex items-center justify-center" style="color: white;">
-                        <svg class="w-5 h-5 mr-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                        </svg>
-                        Регистрация
-                    </a>
+                    <div class="space-y-2 mb-6">
+                        <a href="/login.php" class="mobile-menu-item block w-full px-6 py-3 text-base font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] min-h-[52px] flex items-center" style="color: var(--color-text); background-color: var(--color-surface); border: 1px solid var(--color-border);" onmouseover="this.style.backgroundColor='var(--color-surface-lighter)';" onmouseout="this.style.backgroundColor='var(--color-surface)';">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                            </svg>
+                            Войти
+                        </a>
+                        <a href="/register.php" class="mobile-menu-item block w-full px-6 py-3 text-base font-semibold rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all duration-200 shadow-lg hover:shadow-xl active:scale-[0.98] min-h-[52px] flex items-center justify-center text-white">
+                            <svg class="w-5 h-5 mr-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                            </svg>
+                            Регистрация
+                        </a>
+                    </div>
                 <?php endif; ?>
-                </div>
                 
                 <!-- Переключатель темы и языка в мобильном меню -->
                 <div class="mt-4 pt-4 border-t flex-shrink-0 pb-safe" style="border-color: var(--color-border); padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));">
@@ -669,7 +690,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         mobileMenuOverlay.style.opacity = '1';
                     }, 10);
                     
-                    // Показываем меню и сдвигаем справа
+                    // Показываем меню и сдвигаем справа (полноэкранное)
                     mobileMenu.classList.remove('hidden');
                     // Убеждаемся, что меню можно прокручивать
                     mobileMenu.style.overflowY = 'auto';
