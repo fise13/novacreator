@@ -13,7 +13,6 @@ if (!$user || !isset($user['id'])) {
 
 $userData = getUserWithProject($user['id']);
 if (!$userData) {
-    // Если данных нет, создаем пустой массив с данными пользователя
     $userData = [
         'id' => $user['id'],
         'name' => $user['name'],
@@ -30,7 +29,6 @@ if (!$userData) {
         'notes' => null
     ];
 } else {
-    // Дополняем данными пользователя, если их нет
     $userData['avatar_url'] = $userData['avatar_url'] ?? $user['avatar_url'] ?? null;
 }
 
@@ -42,7 +40,7 @@ $timeSpent = (int)($userData['time_spent_minutes'] ?? 0);
 $updatedAt = $userData['updated_at'] ?? null;
 $startedAt = $userData['started_at'] ?? null;
 
-// Генерируем данные для графиков (симуляция исторических данных)
+// Генерируем данные для графиков
 $startedAtTimestamp = null;
 if ($startedAt) {
     $startedAtTimestamp = strtotime($startedAt);
@@ -61,10 +59,8 @@ for ($i = 0; $i < min(14, $daysSinceStart); $i++) {
         $date = date('d.m');
     }
     $chartLabels[] = $date;
-    // Симулируем прогресс (увеличивается со временем)
     $simulatedProgress = max(0, min(100, $progress - ($i * 5) + rand(-3, 3)));
     $chartProgress[] = max(0, $simulatedProgress);
-    // Симулируем время работы
     $simulatedTime = max(0, $timeSpent - ($i * 30) + rand(-15, 15));
     $chartTime[] = max(0, $simulatedTime);
 }
@@ -73,13 +69,11 @@ $chartLabels = array_reverse($chartLabels);
 $chartProgress = array_reverse($chartProgress);
 $chartTime = array_reverse($chartTime);
 
-// Вычисляем дополнительные метрики (используем сохраненные значения или вычисляем автоматически)
 $daysActive = 0;
 if ($startedAtTimestamp) {
     $daysActive = max(0, ceil((time() - $startedAtTimestamp) / 86400));
 }
 
-// Используем сохраненные значения или вычисляем автоматически
 $avgProgressPerDay = $userData['avg_progress_per_day'] ?? null;
 if ($avgProgressPerDay === null) {
     $avgProgressPerDay = $daysActive > 0 ? round($progress / $daysActive, 1) : 0;
@@ -120,213 +114,135 @@ if (!function_exists('getInitials')) {
 include __DIR__ . '/includes/header.php';
 ?>
 
-<main class="min-h-screen bg-gradient-to-b from-dark-bg via-dark-bg/90 to-dark-bg pt-28 pb-16 px-4">
-    <div class="container mx-auto max-w-7xl space-y-8">
-        <!-- Заголовок с анимацией -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 animate-fade-in">
-            <div>
-                <p class="text-sm text-gray-400 animate-slide-in-left">Здравствуйте, <span class="text-neon-purple font-semibold"><?php echo htmlspecialchars($user['name']); ?></span></p>
-                <h1 class="text-3xl md:text-4xl font-bold text-gradient animate-slide-in-left" style="animation-delay: 0.1s;">Личный кабинет</h1>
-                <p class="text-gray-400 text-sm mt-1 animate-slide-in-left" style="animation-delay: 0.2s;">Здесь отображается статус работы над вашим проектом.</p>
-            </div>
-            <div class="flex items-center gap-3 animate-slide-in-right">
-                <a href="/logout.php" class="px-4 py-2 rounded-lg border border-dark-border text-gray-300 hover:text-neon-purple hover:border-neon-purple transition-all duration-300 hover:scale-105 active:scale-95">
-                    Выйти
-                </a>
-            </div>
+<!-- Личный кабинет - минималистичный стиль holymedia.kz -->
+<main class="min-h-screen pt-24 pb-16 px-4 md:px-6 lg:px-8" style="background-color: var(--color-bg);">
+    <div class="container mx-auto max-w-7xl">
+        <!-- Заголовок - большой и простой -->
+        <div class="mb-16 md:mb-20 animate-on-scroll">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4" style="color: var(--color-text);">
+                Личный кабинет
+            </h1>
+            <p class="text-xl md:text-2xl font-light" style="color: var(--color-text-secondary);">
+                Здравствуйте, <?php echo htmlspecialchars($user['name']); ?>
+            </p>
         </div>
 
-        <!-- Краткие метрики с анимацией -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-gradient-to-br from-neon-purple/10 to-neon-blue/10 border border-neon-purple/30 rounded-2xl p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.1s;">
-                <div class="flex items-center justify-between mb-2">
-                    <p class="text-xs uppercase tracking-wide text-gray-400">Статус</p>
-                    <svg class="w-5 h-5 text-neon-purple animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <p class="text-lg font-semibold text-white mb-1"><?php echo htmlspecialchars($statusText); ?></p>
-                <p class="text-xs text-gray-500"><?php echo htmlspecialchars($stageText); ?></p>
+        <!-- Краткие метрики - минималистичные карточки -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Статус</p>
+                <p class="text-2xl font-semibold mb-1" style="color: var(--color-text);"><?php echo htmlspecialchars($statusText); ?></p>
+                <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars($stageText); ?></p>
             </div>
-            <div class="bg-gradient-to-br from-neon-blue/10 to-neon-purple/10 border border-neon-blue/30 rounded-2xl p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.2s;">
+            
+            <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Прогресс</p>
                 <div class="flex items-center justify-between mb-2">
-                    <p class="text-xs uppercase tracking-wide text-gray-400">Прогресс</p>
-                    <svg class="w-5 h-5 text-neon-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                    </svg>
+                    <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $progress; ?>%</p>
                 </div>
-                <div class="flex items-center justify-between">
-                    <p class="text-2xl font-bold text-white"><?php echo $progress; ?>%</p>
-                    <div class="w-24 bg-dark-bg border border-dark-border rounded-full h-2 overflow-hidden">
-                        <div class="h-2 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full progress-bar-animate" style="width: <?php echo max(0, min(100, $progress)); ?>%;"></div>
-                    </div>
+                <div class="w-full h-1 rounded-full overflow-hidden" style="background-color: var(--color-border);">
+                    <div class="h-full transition-all duration-1000 ease-out" style="width: <?php echo max(0, min(100, $progress)); ?>%; background-color: var(--color-text);"></div>
                 </div>
             </div>
-            <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-2xl p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.3s;">
-                <div class="flex items-center justify-between mb-2">
-                    <p class="text-xs uppercase tracking-wide text-gray-400">Время работы</p>
-                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <p class="text-2xl font-bold text-white"><?php echo minutesToHuman($timeSpent); ?></p>
+            
+            <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Время работы</p>
+                <p class="text-3xl font-bold mb-1" style="color: var(--color-text);"><?php echo minutesToHuman($timeSpent); ?></p>
                 <?php if ($updatedAt): ?>
-                    <p class="text-xs text-gray-500 mt-1">Обновлено: <?php 
+                    <p class="text-sm" style="color: var(--color-text-secondary);">
+                        <?php 
                         $updatedAtTimestamp = $updatedAt ? strtotime($updatedAt) : false;
-                        echo $updatedAtTimestamp ? htmlspecialchars(date('d.m.Y', $updatedAtTimestamp)) : htmlspecialchars($updatedAt ?? '');
-                    ?></p>
+                        echo $updatedAtTimestamp ? 'Обновлено: ' . htmlspecialchars(date('d.m.Y', $updatedAtTimestamp)) : '';
+                        ?>
+                    </p>
                 <?php endif; ?>
             </div>
-            <div class="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-2xl p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.4s;">
-                <div class="flex items-center justify-between mb-2">
-                    <p class="text-xs uppercase tracking-wide text-gray-400">Дней активно</p>
-                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                </div>
-                <p class="text-2xl font-bold text-white"><?php echo $daysActive; ?></p>
-                <p class="text-xs text-gray-500 mt-1"><?php echo $avgProgressPerDay > 0 ? $avgProgressPerDay . '%/день' : 'Нет данных'; ?></p>
+            
+            <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Дней активно</p>
+                <p class="text-3xl font-bold mb-1" style="color: var(--color-text);"><?php echo $daysActive; ?></p>
+                <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $avgProgressPerDay > 0 ? $avgProgressPerDay . '%/день' : 'Нет данных'; ?></p>
             </div>
         </div>
 
-        <!-- Графики -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- График прогресса -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl animate-fade-in-up" style="animation-delay: 0.3s;">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <h3 class="text-xl font-semibold text-white">Прогресс проекта</h3>
-                        <p class="text-sm text-gray-400">Динамика выполнения за последние дни</p>
-                    </div>
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
-                </div>
+        <!-- Графики - простые и чистые -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);">Прогресс проекта</h3>
+                <p class="text-base mb-6" style="color: var(--color-text-secondary);">Динамика выполнения за последние дни</p>
                 <canvas id="progressChart" class="w-full" style="max-height: 300px;"></canvas>
             </div>
 
-            <!-- Круговой график -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl animate-fade-in-up" style="animation-delay: 0.4s;">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <h3 class="text-xl font-semibold text-white">Распределение времени</h3>
-                        <p class="text-sm text-gray-400">Анализ работы над проектом</p>
-                    </div>
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                        </svg>
-                    </div>
-                </div>
+            <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);">Распределение времени</h3>
+                <p class="text-base mb-6" style="color: var(--color-text-secondary);">Анализ работы над проектом</p>
                 <canvas id="timeChart" class="w-full" style="max-height: 300px;"></canvas>
             </div>
         </div>
 
         <!-- Дополнительная статистика -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl hover:border-neon-purple/50 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-400">Средний прогресс</p>
-                        <p class="text-2xl font-bold text-white"><?php echo $avgProgressPerDay; ?>%</p>
-                    </div>
-                </div>
-                <p class="text-xs text-gray-500">Прогресс в день</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Средний прогресс</p>
+                <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $avgProgressPerDay; ?>%</p>
+                <p class="text-sm mt-1" style="color: var(--color-text-secondary);">Прогресс в день</p>
             </div>
 
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl hover:border-neon-blue/50 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
-                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-400">Среднее время</p>
-                        <p class="text-2xl font-bold text-white"><?php echo $avgHoursPerDay; ?>ч</p>
-                    </div>
-                </div>
-                <p class="text-xs text-gray-500">Часов в день</p>
+            <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Среднее время</p>
+                <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $avgHoursPerDay; ?>ч</p>
+                <p class="text-sm mt-1" style="color: var(--color-text-secondary);">Часов в день</p>
             </div>
 
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl hover:border-green-500/50 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.7s;">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500/20 to-emerald-500/20 flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-400">Оценка завершения</p>
-                        <p class="text-2xl font-bold text-white"><?php echo $estimatedCompletion; ?></p>
-                    </div>
-                </div>
-                <p class="text-xs text-gray-500">Дней до завершения</p>
+            <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Оценка завершения</p>
+                <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $estimatedCompletion; ?></p>
+                <p class="text-sm mt-1" style="color: var(--color-text-secondary);">Дней до завершения</p>
             </div>
         </div>
 
         <!-- Форма отправки сообщения -->
-        <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl animate-fade-in-up" style="animation-delay: 0.4s;">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="text-xl font-semibold text-white">Отправить сообщение</h3>
-                    <p class="text-sm text-gray-400">Свяжитесь с создателем проекта или администратором</p>
-                </div>
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                    </svg>
-                </div>
-            </div>
+        <div class="mb-16 animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
+            <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);">Отправить сообщение</h3>
+            <p class="text-base mb-6" style="color: var(--color-text-secondary);">Свяжитесь с создателем проекта или администратором</p>
             
-            <form id="messageForm" class="space-y-4">
+            <form id="messageForm" class="space-y-6">
                 <?php echo csrfInput(); ?>
                 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-300 mb-2">Тема сообщения</label>
+                    <label class="block text-sm font-medium mb-2" style="color: var(--color-text);">Тема сообщения</label>
                     <input type="text" name="subject" id="messageSubject" 
-                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                           class="w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:opacity-70"
+                           style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);"
                            placeholder="Например: Вопрос по проекту"
                            value="Сообщение из личного кабинета">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-300 mb-2">Ваше сообщение</label>
+                    <label class="block text-sm font-medium mb-2" style="color: var(--color-text);">Ваше сообщение</label>
                     <textarea name="message" id="messageText" rows="5" required
-                              class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple resize-none"
+                              class="w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:opacity-70 resize-none"
+                              style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);"
                               placeholder="Напишите ваше сообщение здесь..."></textarea>
-                    <p class="text-xs text-gray-500 mt-1">Сообщение будет отправлено в Telegram</p>
+                    <p class="text-sm mt-1" style="color: var(--color-text-secondary);">Сообщение будет отправлено в Telegram</p>
                 </div>
                 
                 <button type="submit" id="sendMessageBtn" 
-                        class="w-full btn-neon py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all duration-300">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                    </svg>
-                    <span>Отправить сообщение</span>
+                        class="w-full px-6 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:opacity-70 active:opacity-50"
+                        style="background-color: var(--color-text); color: var(--color-bg);">
+                    Отправить сообщение
                 </button>
                 
                 <div id="messageResult" class="hidden"></div>
             </form>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Информация о пользователе -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl animate-fade-in-up" style="animation-delay: 0.5s;">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <p class="text-sm text-gray-400">Ваша учётная запись</p>
-                        <h2 class="text-xl font-semibold text-white"><?php echo htmlspecialchars($user['name']); ?></h2>
-                    </div>
-                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-purple to-neon-blue flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-neon-purple/30">
+        <!-- Информация о пользователе и проекте -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <h3 class="text-2xl font-bold mb-6" style="color: var(--color-text);">Ваша учётная запись</h3>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold" style="background-color: var(--color-surface); color: var(--color-text);">
                         <?php 
                         $avatarUrl = $userData['avatar_url'] ?? null;
                         if ($avatarUrl): 
@@ -336,77 +252,63 @@ include __DIR__ . '/includes/header.php';
                             <?php echo getInitials($userData['name'] ?? $user['name']); ?>
                         <?php endif; ?>
                     </div>
+                    <div>
+                        <p class="text-xl font-semibold" style="color: var(--color-text);"><?php echo htmlspecialchars($user['name']); ?></p>
+                        <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars($user['email']); ?></p>
+                    </div>
                 </div>
-                <dl class="space-y-3 text-sm">
-                    <div class="flex items-center justify-between py-2 border-b border-dark-border/50">
-                        <dt class="text-gray-400">Email</dt>
-                        <dd class="font-medium text-white"><?php echo htmlspecialchars($user['email']); ?></dd>
+                <div class="space-y-3 text-sm border-t pt-4" style="border-color: var(--color-border);">
+                    <div class="flex items-center justify-between">
+                        <span style="color: var(--color-text-secondary);">Роль</span>
+                        <span class="font-medium" style="color: var(--color-text);"><?php echo htmlspecialchars($user['role']); ?></span>
                     </div>
-                    <div class="flex items-center justify-between py-2 border-b border-dark-border/50">
-                        <dt class="text-gray-400">Роль</dt>
-                        <dd class="font-medium text-white px-3 py-1 rounded-lg bg-neon-purple/20 text-neon-purple"><?php echo htmlspecialchars($user['role']); ?></dd>
-                    </div>
-                    <div class="flex items-center justify-between py-2 border-b border-dark-border/50">
-                        <dt class="text-gray-400">Создан</dt>
-                        <dd class="font-medium text-white"><?php 
+                    <div class="flex items-center justify-between">
+                        <span style="color: var(--color-text-secondary);">Создан</span>
+                        <span class="font-medium" style="color: var(--color-text);">
+                            <?php 
                             $createdAtTimestamp = isset($user['created_at']) ? strtotime($user['created_at']) : false;
                             echo $createdAtTimestamp ? htmlspecialchars(date('d.m.Y', $createdAtTimestamp)) : htmlspecialchars($user['created_at'] ?? '');
-                        ?></dd>
+                            ?>
+                        </span>
                     </div>
-                    <div class="flex items-center justify-between py-2">
-                        <dt class="text-gray-400">Всего часов</dt>
-                        <dd class="font-medium text-white"><?php echo $hoursSpent; ?>ч</dd>
-                    </div>
-                </dl>
-            </div>
-
-            <!-- Статус проекта -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl animate-fade-in-up" style="animation-delay: 0.6s;">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <p class="text-sm text-gray-400">Статус проекта</p>
-                        <h2 class="text-xl font-semibold text-white">
-                            <?php echo htmlspecialchars($statusText); ?>
-                        </h2>
-                    </div>
-                    <div class="w-16 h-16 rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center text-white shadow-lg shadow-neon-blue/30">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h10M9 20h6" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5h14l1 5H4l1-5Z" />
-                        </svg>
+                    <div class="flex items-center justify-between">
+                        <span style="color: var(--color-text-secondary);">Всего часов</span>
+                        <span class="font-medium" style="color: var(--color-text);"><?php echo $hoursSpent; ?>ч</span>
                     </div>
                 </div>
+            </div>
 
-                <div class="space-y-4 text-sm">
+            <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <h3 class="text-2xl font-bold mb-6" style="color: var(--color-text);">Статус проекта</h3>
+                <div class="space-y-6">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-gray-400">Текущий этап</p>
-                            <span class="text-xs text-neon-purple font-semibold">Активно</span>
+                            <span class="text-sm" style="color: var(--color-text-secondary);">Текущий этап</span>
                         </div>
-                        <p class="font-medium text-white text-lg"><?php echo htmlspecialchars($stageText); ?></p>
+                        <p class="text-xl font-semibold mb-4" style="color: var(--color-text);"><?php echo htmlspecialchars($stageText); ?></p>
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-gray-400">Прогресс</p>
-                            <span class="text-xs text-white font-semibold"><?php echo $progress; ?>%</span>
+                            <span class="text-sm" style="color: var(--color-text-secondary);">Прогресс</span>
+                            <span class="text-sm font-semibold" style="color: var(--color-text);"><?php echo $progress; ?>%</span>
                         </div>
-                        <div class="w-full bg-dark-bg rounded-full h-3 mt-2 overflow-hidden border border-dark-border">
-                            <div class="h-3 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full progress-bar-animate" style="width: <?php echo $progress; ?>%;"></div>
+                        <div class="w-full h-2 rounded-full overflow-hidden" style="background-color: var(--color-border);">
+                            <div class="h-full transition-all duration-1000 ease-out" style="width: <?php echo $progress; ?>%; background-color: var(--color-text);"></div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <div class="bg-dark-bg/50 rounded-lg p-3 border border-dark-border/50">
-                            <p class="text-xs text-gray-400 mb-1">Время работы</p>
-                            <p class="text-lg font-bold text-white"><?php echo minutesToHuman($timeSpent); ?></p>
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t" style="border-color: var(--color-border);">
+                        <div class="p-4 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-surface);">
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Время работы</p>
+                            <p class="text-xl font-bold" style="color: var(--color-text);"><?php echo minutesToHuman($timeSpent); ?></p>
                         </div>
-                        <div class="bg-dark-bg/50 rounded-lg p-3 border border-dark-border/50">
-                            <p class="text-xs text-gray-400 mb-1">Дней активно</p>
-                            <p class="text-lg font-bold text-white"><?php echo $daysActive; ?></p>
+                        <div class="p-4 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-surface);">
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Дней активно</p>
+                            <p class="text-xl font-bold" style="color: var(--color-text);"><?php echo $daysActive; ?></p>
                         </div>
                     </div>
                     <div>
-                        <p class="text-gray-400 mb-2">Комментарий</p>
-                        <p class="font-medium leading-relaxed text-white bg-dark-bg/50 rounded-lg p-3 border border-dark-border/50">
+                        <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Комментарий</p>
+                        <p class="text-base leading-relaxed p-4 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-surface); color: var(--color-text);">
                             <?php echo htmlspecialchars($userData['notes'] ?: 'Пока нет дополнительных комментариев.'); ?>
                         </p>
                     </div>
@@ -414,63 +316,46 @@ include __DIR__ . '/includes/header.php';
             </div>
         </div>
 
-        <!-- Хронология с улучшенной анимацией -->
-        <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl animate-fade-in-up" style="animation-delay: 0.7s;">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="text-xl font-semibold text-white">Хронология проекта</h3>
-                    <p class="text-sm text-gray-400">История работы над вашим проектом</p>
-                </div>
-                <?php if ($updatedAt): ?>
-                    <span class="text-sm text-gray-400 bg-dark-bg px-3 py-1 rounded-lg border border-dark-border">
-                        Обновлено: <?php 
-                            $updatedAtTimestamp2 = $updatedAt ? strtotime($updatedAt) : false;
-                            echo $updatedAtTimestamp2 ? htmlspecialchars(date('d.m.Y H:i', $updatedAtTimestamp2)) : htmlspecialchars($updatedAt ?? '');
-                        ?>
-                    </span>
-                <?php endif; ?>
-            </div>
+        <!-- Хронология проекта -->
+        <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
+            <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);">Хронология проекта</h3>
+            <p class="text-base mb-6" style="color: var(--color-text-secondary);">История работы над вашим проектом</p>
 
             <?php if (!empty($startedAt)): ?>
                 <div class="relative pl-6 space-y-6">
-                    <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neon-purple via-neon-blue to-green-400"></div>
+                    <div class="absolute left-0 top-0 bottom-0 w-px" style="background-color: var(--color-border);"></div>
                     
-                    <div class="flex items-start gap-4 animate-slide-in-right" style="animation-delay: 0.1s;">
-                        <div class="relative z-10 w-4 h-4 rounded-full bg-neon-purple border-4 border-dark-surface shadow-lg shadow-neon-purple/50 animate-pulse"></div>
-                        <div class="flex-1 bg-dark-bg/50 rounded-xl p-4 border border-dark-border hover:border-neon-purple/50 transition-all duration-300">
-                            <p class="text-xs text-gray-400 mb-1">Старт работ</p>
-                            <p class="text-white font-semibold text-lg"><?php echo $startedAtTimestamp ? htmlspecialchars(date('d.m.Y', $startedAtTimestamp)) : htmlspecialchars($startedAt); ?></p>
-                            <p class="text-sm text-gray-500 mt-1">Проект был запущен</p>
+                    <div class="flex items-start gap-4">
+                        <div class="relative z-10 w-3 h-3 rounded-full -ml-1.5 mt-1.5" style="background-color: var(--color-text);"></div>
+                        <div class="flex-1 pb-6">
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Старт работ</p>
+                            <p class="text-lg font-semibold" style="color: var(--color-text);"><?php echo $startedAtTimestamp ? htmlspecialchars(date('d.m.Y', $startedAtTimestamp)) : htmlspecialchars($startedAt); ?></p>
                         </div>
                     </div>
                     
-                    <div class="flex items-start gap-4 animate-slide-in-right" style="animation-delay: 0.2s;">
-                        <div class="relative z-10 w-4 h-4 rounded-full bg-neon-blue border-4 border-dark-surface shadow-lg shadow-neon-blue/50"></div>
-                        <div class="flex-1 bg-dark-bg/50 rounded-xl p-4 border border-dark-border hover:border-neon-blue/50 transition-all duration-300">
-                            <p class="text-xs text-gray-400 mb-1">Текущий этап</p>
-                            <p class="text-white font-semibold text-lg"><?php echo htmlspecialchars($stageText); ?></p>
-                            <p class="text-sm text-gray-500 mt-1">Работа продолжается</p>
+                    <div class="flex items-start gap-4">
+                        <div class="relative z-10 w-3 h-3 rounded-full -ml-1.5 mt-1.5" style="background-color: var(--color-text);"></div>
+                        <div class="flex-1 pb-6">
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Текущий этап</p>
+                            <p class="text-lg font-semibold" style="color: var(--color-text);"><?php echo htmlspecialchars($stageText); ?></p>
                         </div>
                     </div>
                     
-                    <div class="flex items-start gap-4 animate-slide-in-right" style="animation-delay: 0.3s;">
-                        <div class="relative z-10 w-4 h-4 rounded-full bg-green-400 border-4 border-dark-surface shadow-lg shadow-green-400/50"></div>
-                        <div class="flex-1 bg-dark-bg/50 rounded-xl p-4 border border-dark-border hover:border-green-400/50 transition-all duration-300">
-                            <p class="text-xs text-gray-400 mb-1">Прогресс</p>
-                            <p class="text-white font-semibold text-lg"><?php echo $progress; ?>% выполнено</p>
-                            <div class="w-full bg-dark-surface rounded-full h-2 mt-2 overflow-hidden">
-                                <div class="h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full progress-bar-animate" style="width: <?php echo $progress; ?>%;"></div>
+                    <div class="flex items-start gap-4">
+                        <div class="relative z-10 w-3 h-3 rounded-full -ml-1.5 mt-1.5" style="background-color: var(--color-text);"></div>
+                        <div class="flex-1">
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Прогресс</p>
+                            <p class="text-lg font-semibold mb-2" style="color: var(--color-text);"><?php echo $progress; ?>% выполнено</p>
+                            <div class="w-full h-1 rounded-full overflow-hidden" style="background-color: var(--color-border);">
+                                <div class="h-full transition-all duration-1000 ease-out" style="width: <?php echo $progress; ?>%; background-color: var(--color-text);"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             <?php else: ?>
                 <div class="text-center py-12">
-                    <svg class="w-16 h-16 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <p class="text-gray-400 text-lg">Мы ещё не добавили детали по вашему проекту.</p>
-                    <p class="text-gray-500 text-sm mt-2">Как только начнём — здесь появится таймлайн.</p>
+                    <p class="text-lg mb-2" style="color: var(--color-text-secondary);">Мы ещё не добавили детали по вашему проекту.</p>
+                    <p class="text-sm" style="color: var(--color-text-secondary);">Как только начнём — здесь появится таймлайн.</p>
                 </div>
             <?php endif; ?>
         </div>
@@ -488,19 +373,16 @@ document.addEventListener('DOMContentLoaded', function() {
         datasets: [{
             label: 'Прогресс (%)',
             data: <?php echo json_encode($chartProgress); ?>,
-            borderColor: 'rgb(139, 92, 246)',
-            backgroundColor: 'rgba(139, 92, 246, 0.1)',
-            borderWidth: 3,
-            fill: true,
+            borderColor: 'var(--color-text)',
+            backgroundColor: 'transparent',
+            borderWidth: 2,
+            fill: false,
             tension: 0.4,
-            pointRadius: 5,
-            pointHoverRadius: 7,
-            pointBackgroundColor: 'rgb(139, 92, 246)',
-            pointBorderColor: '#fff',
-            pointBorderWidth: 2,
-            pointHoverBackgroundColor: 'rgb(167, 139, 250)',
-            pointHoverBorderColor: '#fff',
-            pointHoverBorderWidth: 3
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointBackgroundColor: 'var(--color-text)',
+            pointBorderColor: 'var(--color-bg)',
+            pointBorderWidth: 2
         }]
     };
 
@@ -513,17 +395,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <?php echo round($timeSpent * 0.1); ?>
             ],
             backgroundColor: [
-                'rgba(139, 92, 246, 0.8)',
-                'rgba(59, 130, 246, 0.8)',
-                'rgba(16, 185, 129, 0.8)'
+                'var(--color-text)',
+                'rgba(0, 0, 0, 0.1)',
+                'rgba(0, 0, 0, 0.05)'
             ],
-            borderColor: [
-                'rgb(139, 92, 246)',
-                'rgb(59, 130, 246)',
-                'rgb(16, 185, 129)'
-            ],
-            borderWidth: 2,
-            hoverOffset: 10
+            borderWidth: 0
         }]
     };
 
@@ -537,18 +413,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 responsive: true,
                 maintainAspectRatio: false,
                 animation: {
-                    duration: 2000,
-                    easing: 'easeInOutQuart'
+                    duration: 1500,
+                    easing: 'easeOutQuart'
                 },
                 plugins: {
                     legend: {
                         display: false
                     },
                     tooltip: {
-                        backgroundColor: 'rgba(10, 10, 15, 0.95)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        borderColor: 'rgb(139, 92, 246)',
+                        backgroundColor: 'var(--color-bg)',
+                        titleColor: 'var(--color-text)',
+                        bodyColor: 'var(--color-text)',
+                        borderColor: 'var(--color-border)',
                         borderWidth: 1,
                         padding: 12,
                         cornerRadius: 8
@@ -559,10 +435,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         beginAtZero: true,
                         max: 100,
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
+                            color: 'var(--color-border)'
                         },
                         ticks: {
-                            color: '#9CA3AF',
+                            color: 'var(--color-text-secondary)',
                             callback: function(value) {
                                 return value + '%';
                             }
@@ -570,10 +446,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     x: {
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
+                            display: false
                         },
                         ticks: {
-                            color: '#9CA3AF'
+                            color: 'var(--color-text-secondary)'
                         }
                     }
                 }
@@ -593,14 +469,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 animation: {
                     animateRotate: true,
                     animateScale: true,
-                    duration: 2000,
-                    easing: 'easeInOutQuart'
+                    duration: 1500,
+                    easing: 'easeOutQuart'
                 },
                 plugins: {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            color: '#9CA3AF',
+                            color: 'var(--color-text-secondary)',
                             padding: 15,
                             font: {
                                 size: 12
@@ -608,10 +484,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     },
                     tooltip: {
-                        backgroundColor: 'rgba(10, 10, 15, 0.95)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        borderColor: 'rgb(139, 92, 246)',
+                        backgroundColor: 'var(--color-bg)',
+                        titleColor: 'var(--color-text)',
+                        bodyColor: 'var(--color-text)',
+                        borderColor: 'var(--color-border)',
                         borderWidth: 1,
                         padding: 12,
                         cornerRadius: 8,
@@ -625,29 +501,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 },
-                cutout: '60%'
+                cutout: '70%'
             }
         });
     }
-
-    // Анимация появления элементов
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.animate-fade-in-up').forEach(el => {
-        observer.observe(el);
-    });
 
     // Обработка отправки сообщения
     const messageForm = document.getElementById('messageForm');
@@ -663,11 +520,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const submitBtn = sendMessageBtn;
             const originalText = submitBtn.innerHTML;
             
-            // Блокируем кнопку и показываем загрузку
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Отправка...</span>';
+            submitBtn.innerHTML = 'Отправка...';
+            submitBtn.style.opacity = '0.5';
             
-            // Скрываем предыдущий результат
             messageResult.classList.add('hidden');
             
             try {
@@ -679,115 +535,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Успешная отправка
-                    messageResult.className = 'rounded-lg border border-green-500/40 bg-green-500/10 px-4 py-3 text-green-300 text-sm';
+                    messageResult.className = 'p-4 border rounded-lg text-sm';
+                    messageResult.style.borderColor = 'var(--color-border)';
+                    messageResult.style.backgroundColor = 'var(--color-surface)';
+                    messageResult.style.color = 'var(--color-text)';
                     messageResult.textContent = data.message || 'Сообщение успешно отправлено!';
                     messageResult.classList.remove('hidden');
                     
-                    // Очищаем форму
                     messageText.value = '';
                     
-                    // Показываем успешное сообщение на 5 секунд
                     setTimeout(() => {
                         messageResult.classList.add('hidden');
                     }, 5000);
                 } else {
-                    // Ошибка
-                    messageResult.className = 'rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-red-300 text-sm';
+                    messageResult.className = 'p-4 border rounded-lg text-sm';
+                    messageResult.style.borderColor = '#ef4444';
+                    messageResult.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                    messageResult.style.color = '#ef4444';
                     messageResult.textContent = data.message || 'Ошибка при отправке сообщения. Попробуйте позже.';
                     messageResult.classList.remove('hidden');
                 }
             } catch (error) {
-                // Ошибка сети
-                messageResult.className = 'rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-red-300 text-sm';
+                messageResult.className = 'p-4 border rounded-lg text-sm';
+                messageResult.style.borderColor = '#ef4444';
+                messageResult.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                messageResult.style.color = '#ef4444';
                 messageResult.textContent = 'Ошибка соединения. Проверьте интернет и попробуйте снова.';
                 messageResult.classList.remove('hidden');
             } finally {
-                // Восстанавливаем кнопку
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
+                submitBtn.style.opacity = '1';
             }
         });
     }
 });
 </script>
 
-<style>
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes progressBar {
-    from {
-        width: 0;
-    }
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-}
-
-.animate-fade-in-up {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.animate-slide-in-left {
-    animation: slideInLeft 0.6s ease-out;
-}
-
-.animate-slide-in-right {
-    animation: slideInRight 0.6s ease-out;
-}
-
-.progress-bar-animate {
-    animation: progressBar 1.5s ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .animate-fade-in,
-    .animate-fade-in-up,
-    .animate-slide-in-left,
-    .animate-slide-in-right,
-    .progress-bar-animate {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
-}
-</style>
-
 <?php include __DIR__ . '/includes/footer.php'; ?>
-
-
-

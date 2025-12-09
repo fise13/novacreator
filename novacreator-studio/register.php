@@ -45,23 +45,16 @@ try {
 include __DIR__ . '/includes/header.php';
 ?>
 
-<main class="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-bg via-dark-bg/80 to-dark-bg pt-28 pb-12 px-4">
-    <div class="max-w-xl w-full">
-        <div class="bg-dark-surface/80 border border-dark-border rounded-2xl shadow-2xl p-8 backdrop-blur">
+<main class="min-h-screen flex items-center justify-center pt-28 pb-12 px-4" style="background-color: var(--color-bg);">
+    <div class="max-w-xl w-full animate-on-scroll">
+        <div class="p-8 border rounded-lg" style="background-color: var(--color-bg); border-color: var(--color-border);">
             <div class="text-center mb-8">
-                <div class="w-20 h-20 mx-auto mb-4 rounded-3xl bg-gradient-to-br from-neon-purple via-purple-600 to-neon-blue flex items-center justify-center shadow-2xl shadow-neon-purple/50 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <svg class="w-11 h-11 text-white relative z-10 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM3 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 019.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
-                    </svg>
-                    <div class="absolute inset-0 bg-gradient-to-br from-neon-purple/0 via-purple-600/0 to-neon-blue/0 group-hover:from-neon-purple/30 group-hover:via-purple-600/30 group-hover:to-neon-blue/30 transition-all duration-500"></div>
-                </div>
-                <h1 class="text-3xl font-bold text-gradient mb-2">Создать аккаунт</h1>
-                <p class="text-gray-400 text-sm">Доступ к личному кабинету и статусам вашего проекта</p>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">Регистрация</h1>
+                <p class="text-lg font-light" style="color: var(--color-text-secondary);">Создайте аккаунт для доступа к личному кабинету</p>
             </div>
 
             <?php if ($errors): ?>
-                <div class="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-red-300 text-sm space-y-1">
+                <div class="mb-6 p-4 border rounded-lg text-sm space-y-1" style="border-color: #ef4444; background-color: rgba(239, 68, 68, 0.1); color: #ef4444;">
                     <?php foreach ($errors as $err): ?>
                         <p><?php echo htmlspecialchars($err); ?></p>
                     <?php endforeach; ?>
@@ -72,53 +65,59 @@ include __DIR__ . '/includes/header.php';
                 <?php echo csrfInput(); ?>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-300 mb-2">Имя</label>
+                    <label class="block text-sm font-medium mb-2" style="color: var(--color-text);">Имя</label>
                     <input type="text" name="name" required minlength="2" autocomplete="name"
-                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                           class="w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:opacity-70"
+                           style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);"
                            placeholder="Ваше имя"
                            value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-300 mb-2">Email</label>
+                    <label class="block text-sm font-medium mb-2" style="color: var(--color-text);">Email</label>
                     <input type="email" name="email" required autocomplete="email"
-                           class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                           class="w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:opacity-70"
+                           style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);"
                            placeholder="you@example.com"
                            value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Пароль</label>
+                        <label class="block text-sm font-medium mb-2" style="color: var(--color-text);">Пароль</label>
                         <input type="password" name="password" required minlength="8" autocomplete="new-password"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                               class="w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:opacity-70"
+                               style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);"
                                placeholder="Минимум 8 символов">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Подтверждение</label>
+                        <label class="block text-sm font-medium mb-2" style="color: var(--color-text);">Подтверждение</label>
                         <input type="password" name="password_confirm" required minlength="8" autocomplete="new-password"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"
+                               class="w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:opacity-70"
+                               style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);"
                                placeholder="Повторите пароль">
                     </div>
                 </div>
 
-                <button type="submit" class="w-full btn-neon py-3 rounded-lg font-semibold flex items-center justify-center space-x-2">
-                    <span>Зарегистрироваться</span>
+                <button type="submit" class="w-full px-6 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:opacity-70 active:opacity-50"
+                        style="background-color: var(--color-text); color: var(--color-bg);">
+                    Зарегистрироваться
                 </button>
             </form>
 
-            <div class="mt-6">
+            <div class="mt-8">
                 <div class="relative">
                     <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-dark-border"></div>
+                        <div class="w-full border-t" style="border-color: var(--color-border);"></div>
                     </div>
                     <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-dark-surface/80 text-gray-400">или</span>
+                        <span class="px-2" style="background-color: var(--color-bg); color: var(--color-text-secondary);">или</span>
                     </div>
                 </div>
 
                 <div class="mt-6 space-y-3">
-                    <a href="/oauth/google/initiate.php" class="w-full flex items-center justify-center px-4 py-3 border border-dark-border rounded-lg bg-dark-bg hover:bg-dark-bg/80 hover:border-neon-purple/50 text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+                    <a href="/oauth/google/initiate.php" class="w-full flex items-center justify-center px-4 py-3 border rounded-lg transition-all duration-200 hover:opacity-70 active:opacity-50"
+                       style="border-color: var(--color-border); background-color: var(--color-bg); color: var(--color-text);">
                         <svg class="w-5 h-5 mr-3 flex-shrink-0" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -129,7 +128,8 @@ include __DIR__ . '/includes/header.php';
                     </a>
 
                     <?php if ($appleEnabled): ?>
-                    <a href="/oauth/apple/initiate.php" class="w-full flex items-center justify-center px-4 py-3 border border-dark-border rounded-lg bg-dark-bg hover:bg-dark-bg/80 text-white transition-colors">
+                    <a href="/oauth/apple/initiate.php" class="w-full flex items-center justify-center px-4 py-3 border rounded-lg transition-all duration-200 hover:opacity-70 active:opacity-50"
+                       style="border-color: var(--color-border); background-color: var(--color-bg); color: var(--color-text);">
                         <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                         </svg>
@@ -139,9 +139,9 @@ include __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
-            <div class="mt-6 text-center text-sm text-gray-400">
+            <div class="mt-6 text-center text-sm" style="color: var(--color-text-secondary);">
                 Уже есть аккаунт?
-                <a href="/login.php" class="text-neon-purple hover:text-neon-blue font-semibold">Войти</a>
+                <a href="/login.php" class="font-medium hover:opacity-70 transition-opacity duration-200" style="color: var(--color-text);">Войти</a>
             </div>
         </div>
     </div>
