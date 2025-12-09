@@ -425,11 +425,13 @@ require_once __DIR__ . '/theme_switcher.php';
         <div class="min-h-screen flex flex-col px-4 sm:px-6 py-6 sm:py-8" style="padding-top: max(1rem, env(safe-area-inset-top, 1rem)); padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));">
             <!-- Верхняя панель только с кнопкой закрытия -->
             <div class="flex items-center justify-end mb-4 flex-shrink-0">
-                <button id="burgerCloseBtn" class="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation" style="background-color: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-border);" aria-label="Закрыть главное меню навигации">
+                <button id="burgerCloseBtn" class="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 touch-manipulation group relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15)); border: 2px solid rgba(139, 92, 246, 0.4);" aria-label="Закрыть главное меню навигации">
                     <span class="sr-only">Закрыть</span>
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <svg class="w-7 h-7 relative z-10 transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--color-neon-purple); filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
+                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-blue opacity-0 group-active:opacity-20 transition-opacity duration-200 rounded-2xl"></div>
                 </button>
             </div>
                 
