@@ -389,12 +389,13 @@ require_once __DIR__ . '/theme_switcher.php';
                 </div>
             </div>
         </div>
-        
-        <!-- Затемнение фона для мобильного меню -->
-        <div class="fixed inset-0 z-40 transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay" role="button" tabindex="-1" aria-label="<?php echo htmlspecialchars(t('nav.closeMenu')); ?>" style="background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); will-change: backdrop-filter, opacity; transform: translateZ(0); -webkit-transform: translateZ(0);"></div>
-        
-        <!-- Мобильное меню - полноэкранное, со скроллом -->
-        <div class="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden hidden shadow-2xl transform translate-x-full transition-transform duration-300 ease-out" id="mobileMenu" role="menu" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" aria-orientation="vertical" style="background-color: var(--color-surface); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--color-neon-purple) var(--color-bg);">
+    </nav>
+    
+    <!-- Затемнение фона для мобильного меню -->
+    <div class="fixed inset-0 z-[60] transition-opacity duration-300 hidden opacity-0" id="mobileMenuOverlay" role="button" tabindex="-1" aria-label="<?php echo htmlspecialchars(t('nav.closeMenu')); ?>" style="background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); will-change: backdrop-filter, opacity; transform: translateZ(0); -webkit-transform: translateZ(0);"></div>
+    
+    <!-- Мобильное меню - полноэкранное, со скроллом -->
+    <div class="fixed inset-0 z-[70] overflow-y-auto overflow-x-hidden hidden shadow-2xl transform translate-x-full transition-transform duration-300 ease-out" id="mobileMenu" role="menu" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" aria-orientation="vertical" style="background-color: var(--color-surface); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--color-neon-purple) var(--color-bg); width: 100vw !important; height: 100vh !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; position: fixed !important; z-index: 9999 !important;">
             <style>
                 #mobileMenu::-webkit-scrollbar {
                     width: 6px;
