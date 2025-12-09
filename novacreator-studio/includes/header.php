@@ -402,10 +402,10 @@ require_once __DIR__ . '/theme_switcher.php';
     </nav>
     
     <!-- Overlay для бургер-меню -->
-    <div id="burgerOverlay" class="fixed inset-0 hidden opacity-0 transition-opacity duration-300 z-[9998]" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);"></div>
+    <div id="burgerOverlay" class="fixed inset-0 opacity-0 transition-opacity duration-300 z-[9998]" style="display: none; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);"></div>
     
     <!-- Боковое меню справа в стиле holymedia.kz -->
-    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 hidden overflow-y-auto z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="width: 85vw; max-width: 400px; background-color: var(--color-bg); border-left: 1px solid var(--color-border); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-out; padding-top: env(safe-area-inset-top);">
+    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 overflow-y-auto z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); border-left: 1px solid var(--color-border); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-out; padding-top: env(safe-area-inset-top);">
         <div class="flex flex-col h-full px-6 py-8" style="padding-top: max(2rem, calc(env(safe-area-inset-top, 0px) + 2rem)); padding-bottom: max(2rem, calc(env(safe-area-inset-bottom, 0px) + 2rem));">
             <!-- Верхняя панель -->
             <div class="flex items-center justify-between mb-8 flex-shrink-0">
@@ -596,12 +596,15 @@ require_once __DIR__ . '/theme_switcher.php';
                 document.body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
                 
-                // Показываем overlay и меню (убираем hidden и display: none)
-                burgerOverlay.classList.remove('hidden');
+                // Показываем overlay и меню
                 burgerOverlay.style.display = 'block';
-                burgerMenu.classList.remove('hidden');
                 burgerMenu.style.display = 'block';
                 burgerMenu.setAttribute('aria-hidden', 'false');
+                
+                // Принудительно применяем начальные стили
+                burgerOverlay.style.opacity = '0';
+                burgerMenu.style.transform = 'translateX(100%)';
+                burgerMenu.style.opacity = '0';
                 
                 // Небольшая задержка перед анимацией, чтобы браузер успел применить display
                 setTimeout(() => {
@@ -627,7 +630,7 @@ require_once __DIR__ . '/theme_switcher.php';
                             item.style.transform = 'translateX(0)';
                         }, 50 + (index * delay));
                     });
-                }, 10);
+                }, 20);
                 
                 // Обновляем aria-expanded
                 burgerBtn?.setAttribute('aria-expanded', 'true');
@@ -658,10 +661,11 @@ require_once __DIR__ . '/theme_switcher.php';
                     
                     window.scrollTo(0, savedScrollY);
                     
-                    burgerOverlay.classList.add('hidden');
                     burgerOverlay.style.display = 'none';
-                    burgerMenu.classList.add('hidden');
+                    burgerOverlay.style.opacity = '0';
                     burgerMenu.style.display = 'none';
+                    burgerMenu.style.transform = 'translateX(100%)';
+                    burgerMenu.style.opacity = '0';
                     burgerMenu.setAttribute('aria-hidden', 'true');
                     
                     // Сбрасываем анимации элементов

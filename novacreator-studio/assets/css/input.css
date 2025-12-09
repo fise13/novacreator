@@ -1640,21 +1640,7 @@
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    transform: translateX(100%);
-    opacity: 0;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                opacity 0.2s ease-out;
     box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
-    display: none;
-  }
-  
-  #burgerMenu:not(.hidden) {
-    display: block !important;
-  }
-  
-  #burgerMenu[style*="display: block"] {
-    transform: translateX(0);
-    opacity: 1;
   }
   
   /* Overlay для бургер-меню */
@@ -1666,12 +1652,7 @@
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
-    opacity: 0;
     transition: opacity 0.3s ease-out;
-  }
-  
-  #burgerOverlay:not(.hidden) {
-    opacity: 1;
   }
   
   /* Оптимизация для мобильных */
