@@ -519,31 +519,47 @@ require_once __DIR__ . '/theme_switcher.php';
                 <!-- Переключатель темы и языка в мобильном меню -->
                 <div class="mt-4 pt-4 border-t flex-shrink-0 pb-safe" style="border-color: var(--color-border); padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));">
                     <!-- Переключатель темы -->
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="text-base font-semibold" style="color: var(--color-text);">Тема:</span>
-                            <button id="burgerThemeToggle" class="relative w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue)); border: 2px solid var(--color-border);" aria-label="Переключить тему">
-                                <svg id="burgerThemeIconLight" class="w-7 h-7 hidden text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <div class="mb-6">
+                        <button id="burgerThemeToggle" class="relative w-full h-14 rounded-xl flex items-center justify-between px-4 transition-all duration-200 active:scale-[0.98] touch-manipulation group" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);" aria-label="Переключить тему">
+                            <span class="text-base font-semibold group-hover:text-white transition-colors" style="color: var(--color-text-secondary);">Тема оформления</span>
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-r from-neon-purple to-neon-blue shadow-lg">
+                                <svg id="burgerThemeIconLight" class="w-5 h-5 hidden text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                                 </svg>
-                                <svg id="burgerThemeIconDark" class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <svg id="burgerThemeIconDark" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                                 </svg>
-                            </button>
-                        </div>
+                            </div>
+                        </button>
                     </div>
                     
                     <!-- Переключатель языка -->
-                    <div role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
+                    <div id="burgerLangGroup" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" class="lang-group">
                         <div class="flex items-center justify-between mb-3">
                             <span class="text-base font-semibold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.language')); ?>:</span>
                         </div>
-                        <div class="flex items-center gap-2 rounded-xl p-1.5 border shadow-sm" style="background-color: var(--color-bg); border-color: var(--color-border);">
-                            <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="flex-1 px-4 py-3 text-base font-semibold rounded-lg transition-all duration-200 text-center focus:outline-none touch-manipulation active:scale-95 <?php echo $currentLang === 'ru' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md' : ''; ?>" style="<?php echo $currentLang !== 'ru' ? 'color: var(--color-text-secondary); background-color: var(--color-surface);' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
-                                RU
+                        <div class="flex items-center gap-3 p-1.5">
+                            <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="lang-item flex-1 relative overflow-hidden group px-4 py-3 text-base font-bold rounded-xl transition-all duration-300 text-center focus:outline-none touch-manipulation <?php echo $currentLang === 'ru' ? 'text-white shadow-lg shadow-neon-purple/30' : 'text-gray-400 hover:text-white bg-white/5 border border-white/5 hover:bg-white/10'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
+                                <?php if ($currentLang === 'ru'): ?>
+                                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-blue opacity-100 transition-opacity duration-300"></div>
+                                <?php endif; ?>
+                                <span class="relative z-10 flex items-center justify-center gap-2">
+                                    <span class="uppercase">RU</span>
+                                    <?php if ($currentLang === 'ru'): ?>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    <?php endif; ?>
+                                </span>
                             </a>
-                            <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="flex-1 px-4 py-3 text-base font-semibold rounded-lg transition-all duration-200 text-center focus:outline-none touch-manipulation active:scale-95 <?php echo $currentLang === 'en' ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white shadow-md' : ''; ?>" style="<?php echo $currentLang !== 'en' ? 'color: var(--color-text-secondary); background-color: var(--color-surface);' : ''; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
-                                EN
+                            <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="lang-item flex-1 relative overflow-hidden group px-4 py-3 text-base font-bold rounded-xl transition-all duration-300 text-center focus:outline-none touch-manipulation <?php echo $currentLang === 'en' ? 'text-white shadow-lg shadow-neon-purple/30' : 'text-gray-400 hover:text-white bg-white/5 border border-white/5 hover:bg-white/10'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
+                                <?php if ($currentLang === 'en'): ?>
+                                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-blue opacity-100 transition-opacity duration-300"></div>
+                                <?php endif; ?>
+                                <span class="relative z-10 flex items-center justify-center gap-2">
+                                    <span class="uppercase">EN</span>
+                                    <?php if ($currentLang === 'en'): ?>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    <?php endif; ?>
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -639,6 +655,19 @@ require_once __DIR__ . '/theme_switcher.php';
                 burgerOverlay.classList.remove('hidden');
                 burgerMenu.classList.remove('hidden');
                 
+                // Анимация элементов меню
+                const menuItems = burgerMenu.querySelectorAll('.mobile-menu-item, button, .flex-1 > div');
+                menuItems.forEach((item, index) => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    item.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                    
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 50 + (index * 30));
+                });
+                
                 // Принудительно устанавливаем стили
                 burgerOverlay.style.display = 'block';
                 burgerMenu.style.display = 'block';
@@ -647,6 +676,11 @@ require_once __DIR__ . '/theme_switcher.php';
                 burgerOverlay.style.position = 'fixed';
                 burgerMenu.style.position = 'fixed';
                 
+                const langGroup = document.getElementById('burgerLangGroup');
+                if (langGroup) {
+                    setTimeout(() => langGroup.classList.add('lang-show'), 80);
+                }
+
                 setTimeout(() => {
                     burgerOverlay.style.opacity = '1';
                 }, 10);
@@ -682,6 +716,10 @@ require_once __DIR__ . '/theme_switcher.php';
                 if (mainContent) {
                     mainContent.style.visibility = '';
                     mainContent.style.pointerEvents = '';
+                }
+                const langGroup = document.getElementById('burgerLangGroup');
+                if (langGroup) {
+                    langGroup.classList.remove('lang-show');
                 }
                 
                 // Скрываем overlay и меню
