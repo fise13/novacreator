@@ -608,33 +608,75 @@
       -webkit-transform: translateZ(0);
     }
     
-    /* Новое бургер-меню */
+    /* Улучшенное бургер-меню */
     #burgerMenu {
       will-change: transform, opacity;
-      transition: opacity var(--transition-base);
-      backdrop-filter: blur(26px) saturate(180%);
-      -webkit-backdrop-filter: blur(26px) saturate(180%);
+      position: fixed !important;
+      inset: 0;
+      z-index: 9999 !important;
       background: linear-gradient(
         to bottom,
         rgba(10, 10, 15, 0.98),
         rgba(5, 5, 12, 0.98)
       );
+      backdrop-filter: blur(26px) saturate(180%);
+      -webkit-backdrop-filter: blur(26px) saturate(180%);
       box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.85),
                   0 0 0 1px rgba(139, 92, 246, 0.16);
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
+      overflow-y: auto;
       width: 100vw !important;
       max-width: 100vw !important;
       height: 100vh !important;
       max-height: 100vh !important;
-      left: 0 !important;
-      right: 0 !important;
-      top: 0 !important;
-      bottom: 0 !important;
-      position: fixed !important;
-      z-index: 9999 !important;
       margin: 0 !important;
       padding: 0 !important;
+      
+      /* Оптимизированные анимации с transform */
+      transform: translateX(100%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+                  opacity 0.3s ease-out;
+    }
+    
+    #burgerMenu:not(.hidden) {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    #burgerMenu.opening {
+      transform: translateX(0);
+    }
+    
+    #burgerMenu.closing {
+      transform: translateX(100%);
+    }
+    
+    /* Индикатор прогресса */
+    #burgerMenu::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(to right, 
+        var(--color-neon-purple), 
+        var(--color-neon-blue));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10000;
+    }
+    
+    #burgerMenu.opening::before {
+      transform: scaleX(1);
+    }
+    
+    #burgerMenu.closing::before {
+      transform: scaleX(0);
+      transform-origin: right;
     }
     
     :root.light #burgerMenu {
@@ -649,16 +691,22 @@
     
     #burgerOverlay {
       position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
+      inset: 0;
+      z-index: 9998 !important;
       width: 100vw !important;
       height: 100vh !important;
-      z-index: 9998 !important;
       margin: 0 !important;
       padding: 0 !important;
       pointer-events: auto !important;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+    
+    #burgerOverlay:not(.hidden) {
+      opacity: 1;
     }
     
     /* Скрываем navbar при открытом меню */
@@ -712,11 +760,17 @@
       border: 1px solid var(--color-border);
       background-color: var(--color-bg);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      transition: all var(--transition-base);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
+      touch-action: manipulation;
     }
     
+    .mobile-menu-item.animated {
+      will-change: auto;
+    }
+    
+    /* Микро-анимация ripple эффект */
     .mobile-menu-item::before {
       content: '';
       position: absolute;
@@ -731,8 +785,27 @@
       transition: left 0.3s ease;
     }
     
+    .mobile-menu-item::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+      pointer-events: none;
+    }
+    
     .mobile-menu-item:active::before {
       left: 100%;
+    }
+    
+    .mobile-menu-item:active::after {
+      width: 300px;
+      height: 300px;
     }
     
     .mobile-menu-item:hover,
@@ -741,6 +814,12 @@
       border-color: var(--color-neon-purple);
       transform: translateX(4px);
       box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+      outline: none;
+    }
+    
+    .mobile-menu-item:focus-visible {
+      outline: 2px solid var(--color-neon-purple);
+      outline-offset: 2px;
     }
     
     .mobile-menu-item[aria-current="page"] {
@@ -764,6 +843,103 @@
       bottom: 0;
       width: 3px;
       background: linear-gradient(to bottom, var(--color-neon-purple), var(--color-neon-blue));
+      border-radius: 0 3px 3px 0;
+    }
+    
+    /* Анимация иконки стрелки */
+    .mobile-menu-item .arrow-icon,
+    .mobile-menu-item svg {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .mobile-menu-item:hover .arrow-icon,
+    .mobile-menu-item:hover svg {
+      transform: translateX(4px) scale(1.1);
+    }
+    
+    /* Адаптация для landscape */
+    #burgerMenu.landscape-mode {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+    
+    #burgerMenu.landscape-mode .mobile-menu-item {
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Анимация иконки бургера */
+    #burgerBtn svg {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    #burgerBtn[aria-expanded="true"] #burgerIcon {
+      transform: rotate(90deg);
+    }
+    
+    /* Safe area insets для бургер-меню */
+    @supports (padding: max(0px)) {
+      #burgerMenu {
+        padding-top: max(1.5rem, env(safe-area-inset-top, 1.5rem));
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));
+        padding-left: max(1rem, env(safe-area-inset-left, 1rem));
+        padding-right: max(1rem, env(safe-area-inset-right, 1rem));
+      }
+      
+      #burgerCloseBtn {
+        top: max(1.5rem, env(safe-area-inset-top, 1.5rem));
+        right: max(1rem, env(safe-area-inset-right, 1rem));
+      }
+    }
+    
+    /* Адаптация для очень маленьких экранов */
+    @media (max-width: 374px) {
+      #burgerMenu {
+        padding: 1rem;
+      }
+      
+      .mobile-menu-item {
+        font-size: 1.125rem;
+        padding: 0.875rem 1rem;
+      }
+    }
+    
+    /* Адаптация для landscape ориентации */
+    @media (max-height: 500px) and (orientation: landscape) {
+      #burgerMenu {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+      
+      .mobile-menu-item {
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      #burgerLangGroup {
+        margin-top: 1rem;
+      }
+    }
+    
+    /* Улучшенные easing функции */
+    :root {
+      --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+      --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* Поддержка prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      #burgerMenu,
+      .mobile-menu-item,
+      #burgerOverlay {
+        transition: none !important;
+        animation: none !important;
+      }
+      
+      #burgerMenu::before {
+        display: none;
+      }
     }
   }
 }
@@ -772,6 +948,31 @@
    УТИЛИТЫ
    ============================================ */
 @layer utilities {
+  /* Screen reader only - скрытый текст для доступности */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  .sr-only:focus,
+  .focus\:not-sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+  
   /* Неоновое свечение */
   .glow-purple {
     box-shadow: var(--shadow-neon-purple);
