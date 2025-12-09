@@ -25,31 +25,13 @@
     --color-neon-blue-glow: rgba(6, 182, 212, 0.5);
     --color-neon-blue-glow-light: rgba(6, 182, 212, 0.3);
     
-    /* Темная тема (по умолчанию) */
+    /* Темная тема (по умолчанию) - оставляем для совместимости */
     --color-dark-bg: #0A0A0F;
     --color-dark-bg-lighter: #0F0F15;
     --color-dark-surface: #111118;
     --color-dark-surface-lighter: #161620;
     --color-dark-border: #1F1F2E;
     --color-dark-border-lighter: #2A2A3A;
-    
-    --color-bg: var(--color-dark-bg);
-    --color-bg-lighter: var(--color-dark-bg-lighter);
-    --color-surface: var(--color-dark-surface);
-    --color-surface-lighter: var(--color-dark-surface-lighter);
-    --color-border: var(--color-dark-border);
-    --color-border-lighter: var(--color-dark-border-lighter);
-    --color-text: #FFFFFF;
-    --color-text-secondary: #9CA3AF;
-    --color-text-muted: #6B7280;
-    --color-text-base: #FFFFFF;
-    --color-text-light: #E5E7EB;
-    --color-text-dark: #1F2937;
-    --color-text-gradient-start: #8B5CF6;
-    --color-text-gradient-end: #06B6D4;
-    --color-shadow-base: rgba(0, 0, 0, 0.6);
-    --color-shadow-light: rgba(0, 0, 0, 0.4);
-    --color-shadow-dark: rgba(0, 0, 0, 0.7);
     
     /* Семантические цвета */
     --color-success: #10B981;
@@ -108,27 +90,28 @@
     --z-modal: 50;
   }
   
-  /* Светлая тема */
-  :root.light {
+  /* Светлая тема - новый дизайн */
+  :root.light,
+  :root {
     --color-bg: #FFFFFF;
     --color-bg-lighter: #F9FAFB;
     --color-surface: #F3F4F6;
     --color-surface-lighter: #E5E7EB;
-    --color-border: #D1D5DB;
-    --color-border-lighter: #9CA3AF;
+    --color-border: #E5E7EB;
+    --color-border-lighter: #D1D5DB;
     --color-text: #111827;
     --color-text-secondary: #374151;
     --color-text-muted: #6B7280;
-    --color-neon-purple: #6D28D9;
-    --color-neon-blue: #0891B2;
+    --color-neon-purple: #9333EA;
+    --color-neon-blue: #2563EB;
     --color-text-base: #111827;
     --color-text-light: #374151;
     --color-text-dark: #0A0A0F;
-    --color-text-gradient-start: #6D28D9;
-    --color-text-gradient-end: #0891B2;
-    --color-shadow-base: rgba(0, 0, 0, 0.1);
-    --color-shadow-light: rgba(0, 0, 0, 0.05);
-    --color-shadow-dark: rgba(0, 0, 0, 0.2);
+    --color-text-gradient-start: #2563EB;
+    --color-text-gradient-end: #9333EA;
+    --color-shadow-base: rgba(0, 0, 0, 0.05);
+    --color-shadow-light: rgba(0, 0, 0, 0.02);
+    --color-shadow-dark: rgba(0, 0, 0, 0.1);
   }
   
   /* Темная тема (явно) */
@@ -164,8 +147,8 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     line-height: 1.6;
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: #FFFFFF;
+    color: #111827;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
@@ -714,20 +697,15 @@
            transition-all duration-300 
            shadow-lg;
     padding-top: env(safe-area-inset-top);
-    background-color: rgba(10, 10, 15, 0.95);
-    border-color: rgba(31, 31, 46, 0.8);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  }
-  
-  :root.light .navbar {
     background-color: rgba(255, 255, 255, 0.95);
-    border-color: rgba(209, 213, 219, 0.8);
+    border-color: rgba(229, 231, 235, 0.8);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   }
   
   .navbar.scrolled {
     @apply shadow-xl;
-    background: rgba(10, 10, 15, 0.98);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   
   /* Мобильное меню */
