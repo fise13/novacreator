@@ -419,12 +419,12 @@ require_once __DIR__ . '/theme_switcher.php';
         <div class="min-h-screen flex flex-col px-4 sm:px-6 py-6 sm:py-8" style="padding-top: max(1rem, env(safe-area-inset-top, 1rem)); padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));">
             <!-- Верхняя панель только с кнопкой закрытия -->
             <div class="flex items-center justify-end mb-6 flex-shrink-0">
-                <button id="burgerCloseBtn" class="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 touch-manipulation group relative overflow-hidden shadow-2xl" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border: 3px solid rgba(139, 92, 246, 0.6); box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(6, 182, 212, 0.2);" aria-label="Закрыть">
-                    <svg class="w-8 h-8 relative z-10 transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="color: #8B5CF6; stroke-width: 3; filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.8));">
+                <button id="burgerCloseBtn" class="w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 touch-manipulation group relative overflow-hidden shadow-2xl" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(6, 182, 212, 0.4)); border: 4px solid rgba(139, 92, 246, 0.7); box-shadow: 0 0 30px rgba(139, 92, 246, 0.5), 0 0 60px rgba(6, 182, 212, 0.3), inset 0 0 20px rgba(139, 92, 246, 0.2);" aria-label="Закрыть">
+                    <svg class="w-10 h-10 relative z-10 transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="color: #8B5CF6; stroke-width: 3.5; filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.9));">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
-                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/40 to-neon-blue/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-blue opacity-0 group-active:opacity-30 transition-opacity duration-200 rounded-2xl"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/50 to-neon-blue/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-blue opacity-0 group-active:opacity-30 transition-opacity duration-200 rounded-3xl"></div>
                 </button>
             </div>
                 
@@ -527,12 +527,12 @@ require_once __DIR__ . '/theme_switcher.php';
                 <div class="mt-4 pt-4 border-t flex-shrink-0 pb-safe" role="group" aria-label="Настройки" style="border-color: var(--color-border); padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));">
                     <!-- Переключатель темы без текста -->
                     <div class="mb-6">
-                        <button id="burgerThemeToggle" class="relative w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 active:scale-[0.95] touch-manipulation group mx-auto shadow-2xl hover:scale-110" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(6, 182, 212, 0.25)); border: 3px solid rgba(139, 92, 246, 0.5); box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(6, 182, 212, 0.15);" aria-label="Переключить тему оформления">
-                            <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-                            <svg id="burgerThemeIconLight" class="w-8 h-8 relative z-10 hidden text-white transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true" style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));">
+                        <button id="burgerThemeToggle" class="relative w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300 active:scale-[0.95] touch-manipulation group mx-auto shadow-2xl hover:scale-110" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.35), rgba(6, 182, 212, 0.35)); border: 4px solid rgba(139, 92, 246, 0.6); box-shadow: 0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(6, 182, 212, 0.25), inset 0 0 20px rgba(139, 92, 246, 0.15);" aria-label="Переключить тему оформления">
+                            <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/40 to-neon-blue/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                            <svg id="burgerThemeIconLight" class="w-10 h-10 relative z-10 hidden text-white transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3" aria-hidden="true" style="filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                             </svg>
-                            <svg id="burgerThemeIconDark" class="w-8 h-8 relative z-10 text-white transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true" style="filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));">
+                            <svg id="burgerThemeIconDark" class="w-10 h-10 relative z-10 text-white transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3" aria-hidden="true" style="filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.7));">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                             </svg>
                         </button>
