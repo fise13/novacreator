@@ -86,13 +86,26 @@ include 'includes/header.php';
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center animate-on-scroll">
-                <div class="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] font-extrabold mb-8 leading-none tracking-tighter transition-all duration-300 hover:scale-105" style="color: var(--color-text);">
-                    <span class="counter-number inline-block" data-target="120" data-suffix="+">0</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
+                <!-- 10+ лет в digital -->
+                <div class="text-center animate-on-scroll">
+                    <div class="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] font-extrabold mb-8 leading-none tracking-tighter transition-all duration-300 hover:scale-105" style="color: var(--color-text);">
+                        <span class="counter-number inline-block" data-target="10" data-suffix="+">0</span>
+                    </div>
+                    <p class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'years in digital' : 'лет в digital сфере'; ?>
+                    </p>
                 </div>
-                <p class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light" style="color: var(--color-text-secondary);">
-                    <?php echo $currentLang === 'en' ? 'projects' : 'проектов'; ?>
-                </p>
+                
+                <!-- 100% онлайн работ -->
+                <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
+                    <div class="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] font-extrabold mb-8 leading-none tracking-tighter transition-all duration-300 hover:scale-105" style="color: var(--color-text);">
+                        <span class="counter-number inline-block" data-target="100" data-suffix="%">0</span>
+                    </div>
+                    <p class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'online work' : 'онлайн работ'; ?>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
