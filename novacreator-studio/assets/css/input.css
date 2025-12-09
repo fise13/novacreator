@@ -350,9 +350,9 @@
     }
     
     /* Отключаем parallax на мобильных для производительности */
-    .parallax { 
-      transform: none !important;
-      will-change: auto;
+      .parallax { 
+        transform: none !important;
+        will-change: auto;
     }
     
     /* Улучшенные touch targets для мобильных (42-48px) */
@@ -533,8 +533,8 @@
     .portfolio-grid,
     [class*="portfolio"] .grid {
       grid-template-columns: 1fr !important;
-    }
-    
+  }
+  
     /* Contact форма - одна колонка */
     .contact-form,
     form[class*="contact"] {

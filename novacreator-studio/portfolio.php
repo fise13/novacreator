@@ -265,7 +265,7 @@ if ($currentLang === 'en') {
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-12 md:mb-16 animate-on-scroll">
             <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-purple/50 transition-all duration-300">
                 <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
-                    <span class="counter-number" data-target="50" data-suffix="+">0</span>
+                    <span class="counter-number" data-target="50" data-suffix="+">50+</span>
                 </div>
                 <div class="text-sm md:text-base text-gray-400">
                     <?php echo $currentLang === 'en' ? 'Projects delivered' : 'Реализовано проектов'; ?>
@@ -273,7 +273,7 @@ if ($currentLang === 'en') {
             </div>
             <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-blue/50 transition-all duration-300">
                 <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
-                    <span class="counter-number" data-target="95" data-suffix="%">0</span>
+                    <span class="counter-number" data-target="95" data-suffix="%">95%</span>
                 </div>
                 <div class="text-sm md:text-base text-gray-400">
                     <?php echo $currentLang === 'en' ? 'Client satisfaction' : 'Довольных клиентов'; ?>
@@ -281,7 +281,7 @@ if ($currentLang === 'en') {
             </div>
             <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-purple/50 transition-all duration-300">
                 <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
-                    <span class="counter-number" data-target="3" data-suffix="x">0</span>
+                    <span class="counter-number" data-target="3" data-suffix="x">3x</span>
                 </div>
                 <div class="text-sm md:text-base text-gray-400">
                     <?php echo $currentLang === 'en' ? 'Average conversion growth' : 'Рост конверсии в среднем'; ?>
@@ -289,7 +289,7 @@ if ($currentLang === 'en') {
             </div>
             <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-blue/50 transition-all duration-300">
                 <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
-                    <span class="counter-number" data-target="24" data-suffix="/7">0</span>
+                    <span class="counter-number" data-target="24" data-suffix="/7">24/7</span>
                 </div>
                 <div class="text-sm md:text-base text-gray-400">
                     <?php echo $currentLang === 'en' ? 'Support available' : 'Поддержка доступна'; ?>

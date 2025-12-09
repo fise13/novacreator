@@ -85,7 +85,7 @@ $currentLang = getCurrentLanguage();
                 <!-- Копирайт -->
                 <div class="border-t mt-8 md:mt-12 pt-6 md:pt-8 text-center" style="border-color: var(--color-border);">
                     <p class="text-base sm:text-lg" style="color: var(--color-text-secondary);">&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(t('site.name')); ?>. <?php echo htmlspecialchars(t('common.allRightsReserved')); ?>.</p>
-                </div>
+            </div>
         </div>
     </footer>
     

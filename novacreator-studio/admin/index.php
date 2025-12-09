@@ -48,7 +48,7 @@ include 'includes/header.php';
                 <div class="flex-1">
                     <p class="text-gray-400 text-base mb-2 font-medium">Всего статей</p>
                     <p class="text-5xl md:text-6xl font-extrabold text-gradient leading-none"><?php echo $totalArticles; ?></p>
-                </div>
+                        </div>
                 <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center shadow-lg">
                     <i class="fas fa-file-alt text-white text-2xl"></i>
                 </div>
@@ -67,27 +67,27 @@ include 'includes/header.php';
                 <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center shadow-lg">
                     <i class="fas fa-eye text-white text-2xl"></i>
                 </div>
-            </div>
+                        </div>
             <div class="pt-4 border-t border-neon-blue/20">
                 <p class="text-xs text-gray-500">Общая статистика</p>
-            </div>
-        </div>
+                    </div>
+                </div>
         
         <div class="admin-card bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border-2 border-neon-purple/40 rounded-2xl p-8 animate-fade-in hover:scale-105 transition-transform shadow-lg hover:shadow-xl" style="animation-delay: 0.2s;">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex-1">
                     <p class="text-gray-400 text-base mb-2 font-medium">Среднее просмотров</p>
                     <p class="text-5xl md:text-6xl font-extrabold text-gradient leading-none"><?php echo $avgViews; ?></p>
-                </div>
+                        </div>
                 <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center shadow-lg">
                     <i class="fas fa-chart-line text-white text-2xl"></i>
-                </div>
+                        </div>
             </div>
             <div class="pt-4 border-t border-neon-purple/20">
                 <p class="text-xs text-gray-500">На статью</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
     <!-- Заголовок и действия - увеличенный и улучшенный -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
@@ -130,7 +130,7 @@ include 'includes/header.php';
                 </a>
             <?php endif; ?>
         </form>
-    </div>
+            </div>
 
     <!-- Список статей -->
     <?php if (empty($filteredArticles)): ?>
@@ -143,9 +143,9 @@ include 'includes/header.php';
                 <a href="edit.php" class="btn-neon btn-admin inline-flex items-center space-x-3 px-8 py-4 text-lg">
                     <i class="fas fa-plus text-xl"></i>
                     <span>Создать первую статью</span>
-                </a>
+                    </a>
             <?php endif; ?>
-        </div>
+                </div>
             <?php else: ?>
         <div class="bg-dark-surface border-2 border-dark-border rounded-2xl overflow-hidden animate-fade-in shadow-xl">
             <!-- Десктоп таблица -->

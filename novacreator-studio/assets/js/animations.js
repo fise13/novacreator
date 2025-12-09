@@ -15,19 +15,10 @@
     
     /**
      * Оптимизированная анимация счетчика с requestAnimationFrame
-     * Исправлена для правильного отображения префиксов и суффиксов
      */
     function animateCounter(element, target, prefix = '', suffix = '', duration = 2000) {
         const startTime = performance.now();
         const startValue = 0;
-        
-        // Определяем, является ли значение отрицательным (через target или prefix)
-        const isNegativeTarget = target < 0;
-        const isNegativePrefix = prefix === '-';
-        const isNegative = isNegativeTarget || isNegativePrefix;
-        
-        // Используем абсолютное значение для анимации
-        const absTarget = Math.abs(target);
         
         function updateCounter(currentTime) {
             const elapsed = currentTime - startTime;
@@ -35,54 +26,15 @@
             
             // Используем easing функцию для плавности
             const easedProgress = easeInOutCubic(progress);
-            const currentValue = Math.floor(startValue + absTarget * easedProgress);
+            const currentValue = Math.floor(startValue + (target - startValue) * easedProgress);
             
-            // Правильно формируем текст с учетом префикса и суффикса
-            let displayText = '';
-            
-            // Если есть префикс (кроме минуса, который обрабатывается отдельно), добавляем его
-            if (prefix && prefix !== '-') {
-                displayText = prefix;
-            }
-            
-            // Добавляем значение с учетом знака
-            if (isNegative) {
-                displayText += '-' + currentValue;
-            } else {
-                displayText += currentValue;
-            }
-            
-            // Если есть суффикс, добавляем его
-            if (suffix) {
-                displayText += suffix;
-            }
-            
-            element.textContent = displayText;
+            element.textContent = prefix + currentValue + suffix;
             
             if (progress < 1) {
                 requestAnimationFrame(updateCounter);
             } else {
-                // Финальное значение - гарантируем правильный формат
-                let finalText = '';
-                
-                // Если есть префикс (кроме минуса), добавляем его
-                if (prefix && prefix !== '-') {
-                    finalText = prefix;
-                }
-                
-                // Добавляем финальное значение
-                if (isNegative) {
-                    finalText += '-' + absTarget;
-                } else {
-                    finalText += target;
-                }
-                
-                // Если есть суффикс, добавляем его
-                if (suffix) {
-                    finalText += suffix;
-                }
-                
-                element.textContent = finalText;
+                // Финальное значение
+                element.textContent = prefix + target + suffix;
                 element.style.willChange = 'auto';
             }
         }
@@ -117,34 +69,8 @@
                     const suffix = entry.target.getAttribute('data-suffix') || '';
                     const duration = parseInt(entry.target.getAttribute('data-duration')) || (isMobile ? 1500 : 2000);
                     
-                    // Проверяем текущее значение - если оно уже установлено (не "0"), используем его как начальное
-                    const currentText = entry.target.textContent.trim();
-                    const hasInitialValue = currentText && currentText !== '0' && !/^[+\-]?0[%+\-x\/]?$/.test(currentText);
-                    
-                    // Устанавливаем начальное значение правильно
-                    const isNegativePrefix = prefix === '-';
-                    let initialText = '';
-                    
-                    if (!hasInitialValue) {
-                        // Если есть префикс (кроме минуса), добавляем его
-                        if (prefix && prefix !== '-') {
-                            initialText = prefix;
-                        }
-                        
-                        // Добавляем ноль (если префикс минус, то будет "-0")
-                        if (isNegativePrefix) {
-                            initialText += '-0';
-                        } else {
-                            initialText += '0';
-                        }
-                        
-                        // Если есть суффикс, добавляем его
-                        if (suffix) {
-                            initialText += suffix;
-                        }
-                        
-                        entry.target.textContent = initialText;
-                    }
+                    // Устанавливаем начальное значение
+                    entry.target.textContent = prefix + '0' + suffix;
                     
                     // Небольшая задержка для плавности
                     requestAnimationFrame(() => {
