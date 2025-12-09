@@ -402,7 +402,7 @@ require_once __DIR__ . '/theme_switcher.php';
     </nav>
     
     <!-- Overlay для бургер-меню -->
-    <div id="burgerOverlay" class="fixed inset-0 hidden opacity-0 transition-opacity duration-300 z-[9998]" style="background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);"></div>
+    <div id="burgerOverlay" class="fixed inset-0 hidden opacity-0 transition-opacity duration-300 z-[9998]" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);"></div>
     
     <!-- Боковое меню справа в стиле holymedia.kz -->
     <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 hidden overflow-y-auto z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="width: 85vw; max-width: 400px; background-color: var(--color-bg); border-left: 1px solid var(--color-border); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-out; padding-top: env(safe-area-inset-top);">
@@ -596,33 +596,38 @@ require_once __DIR__ . '/theme_switcher.php';
                 document.body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
                 
-                // Показываем overlay и меню
+                // Показываем overlay и меню (убираем hidden и display: none)
                 burgerOverlay.classList.remove('hidden');
+                burgerOverlay.style.display = 'block';
                 burgerMenu.classList.remove('hidden');
+                burgerMenu.style.display = 'block';
                 burgerMenu.setAttribute('aria-hidden', 'false');
                 
-                // Анимация появления меню справа
-                requestAnimationFrame(() => {
-                    burgerOverlay.style.opacity = '1';
-                    burgerMenu.style.transform = 'translateX(0)';
-                    burgerMenu.style.opacity = '1';
-                });
-                
-                // Анимация элементов меню с задержкой (оптимизировано для мобильных)
-                const menuItems = burgerMenu.querySelectorAll('.mobile-menu-item');
-                const isMobile = window.innerWidth < 768;
-                const delay = isMobile ? 20 : 30;
-                
-                menuItems.forEach((item, index) => {
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateX(20px)';
+                // Небольшая задержка перед анимацией, чтобы браузер успел применить display
+                setTimeout(() => {
+                    // Анимация появления меню справа
+                    requestAnimationFrame(() => {
+                        burgerOverlay.style.opacity = '1';
+                        burgerMenu.style.transform = 'translateX(0)';
+                        burgerMenu.style.opacity = '1';
+                    });
                     
-                    setTimeout(() => {
-                        item.style.transition = 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateX(0)';
-                    }, 30 + (index * delay));
-                });
+                    // Анимация элементов меню с задержкой (оптимизировано для мобильных)
+                    const menuItems = burgerMenu.querySelectorAll('.mobile-menu-item');
+                    const isMobile = window.innerWidth < 768;
+                    const delay = isMobile ? 20 : 30;
+                    
+                    menuItems.forEach((item, index) => {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateX(20px)';
+                        
+                        setTimeout(() => {
+                            item.style.transition = 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 50 + (index * delay));
+                    });
+                }, 10);
                 
                 // Обновляем aria-expanded
                 burgerBtn?.setAttribute('aria-expanded', 'true');
@@ -654,7 +659,9 @@ require_once __DIR__ . '/theme_switcher.php';
                     window.scrollTo(0, savedScrollY);
                     
                     burgerOverlay.classList.add('hidden');
+                    burgerOverlay.style.display = 'none';
                     burgerMenu.classList.add('hidden');
+                    burgerMenu.style.display = 'none';
                     burgerMenu.setAttribute('aria-hidden', 'true');
                     
                     // Сбрасываем анимации элементов

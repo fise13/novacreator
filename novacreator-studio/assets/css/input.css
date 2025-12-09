@@ -1645,9 +1645,14 @@
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                 opacity 0.2s ease-out;
     box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+    display: none;
   }
   
   #burgerMenu:not(.hidden) {
+    display: block !important;
+  }
+  
+  #burgerMenu[style*="display: block"] {
     transform: translateX(0);
     opacity: 1;
   }
@@ -1658,9 +1663,9 @@
     position: fixed !important;
     inset: 0 !important;
     z-index: 9998 !important;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     opacity: 0;
     transition: opacity 0.3s ease-out;
   }
