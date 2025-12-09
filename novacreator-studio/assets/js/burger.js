@@ -360,8 +360,6 @@
             burgerLangGroup.classList.add('lang-show');
         }
 
-        // Объявление для screen readers
-        announceToScreenReader('Меню открыто. Используйте Tab или стрелки для навигации, Escape для закрытия.');
 
         // Тактильная обратная связь
         provideHapticFeedback('light');
@@ -376,7 +374,7 @@
     }
 
     /**
-     * Закрытие меню
+     * Закрытие меню с красивой анимацией ухода
      */
     function closeMenu() {
         if (!isOpen) return;
@@ -388,51 +386,85 @@
         burgerBtn.setAttribute('aria-expanded', 'false');
         burgerMenu.setAttribute('aria-hidden', 'true');
 
-        // Разблокируем скролл
-        unlockBodyScroll();
-
-        // Показываем navbar
-        if (mainNavbar) {
-            mainNavbar.style.display = '';
+        // Анимация ухода элементов меню (обратная stagger)
+        const menuItems = burgerMenu.querySelectorAll(SELECTORS.mobileMenuItems);
+        const reducedMotion = prefersReducedMotion();
+        
+        if (!reducedMotion) {
+            menuItems.forEach((item, index) => {
+                const delay = (menuItems.length - index - 1) * 30;
+                setTimeout(() => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(20px)';
+                    item.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                }, delay);
+            });
         }
 
-        // Скрываем overlay и меню
-        burgerOverlay.style.opacity = '0';
-        burgerMenu.classList.remove('open');
-
-        // Сбрасываем стили элементов
-        const menuItems = burgerMenu.querySelectorAll(SELECTORS.mobileMenuItems);
-        menuItems.forEach(item => {
-            item.style.opacity = '';
-            item.style.transform = '';
-            item.style.willChange = '';
-            item.classList.remove('animated');
-        });
-
+        // Анимация языка
         if (burgerLangGroup) {
             burgerLangGroup.classList.remove('lang-show');
         }
 
+        // Анимация overlay (fade out)
+        burgerOverlay.style.opacity = '0';
+        burgerOverlay.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+
+        // Анимация самого меню (slide out вправо + fade out)
+        burgerMenu.classList.remove('open');
+        burgerMenu.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // Принудительный reflow для запуска анимации
+        burgerMenu.offsetHeight;
+        
+        // Анимация ухода вправо
+        burgerMenu.style.transform = 'translateX(100%)';
+        burgerMenu.style.opacity = '0';
+
+        // Разблокируем скролл после начала анимации
+        setTimeout(() => {
+            unlockBodyScroll();
+        }, 100);
+
+        // Показываем navbar после начала анимации
+        setTimeout(() => {
+            if (mainNavbar) {
+                mainNavbar.style.display = '';
+            }
+        }, 150);
+
+        // Полное скрытие после завершения анимации
         setTimeout(() => {
             burgerMenu.classList.add('hidden');
             burgerOverlay.classList.add('hidden');
             burgerMenu.classList.remove('closing');
+            
+            // Сбрасываем стили
             burgerMenu.style.transform = '';
             burgerMenu.style.opacity = '';
-        }, 300);
+            burgerMenu.style.transition = '';
+            burgerOverlay.style.transition = '';
+            
+            menuItems.forEach(item => {
+                item.style.opacity = '';
+                item.style.transform = '';
+                item.style.transition = '';
+                item.style.willChange = '';
+                item.classList.remove('animated');
+            });
+        }, 400);
 
         // Удаляем обработчик focus trap
         document.removeEventListener('keydown', trapFocus);
 
         // Возвращаем фокус на кнопку открытия
-        if (previousActiveElement && previousActiveElement !== document.body) {
-            previousActiveElement.focus();
-        } else {
-            burgerBtn?.focus();
-        }
-
-        // Объявление для screen readers
-        announceToScreenReader('Меню закрыто.');
+        setTimeout(() => {
+            if (previousActiveElement && previousActiveElement !== document.body) {
+                previousActiveElement.focus();
+            } else {
+                burgerBtn?.focus();
+            }
+        }, 450);
 
         // Тактильная обратная связь
         provideHapticFeedback('light');

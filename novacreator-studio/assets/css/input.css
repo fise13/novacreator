@@ -814,7 +814,8 @@
     }
     
     #burgerMenu.closing {
-      transform: translateX(100%);
+      transform: translateX(100%) !important;
+      opacity: 0 !important;
     }
     
     /* Индикатор прогресса */

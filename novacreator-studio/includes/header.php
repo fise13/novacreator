@@ -384,8 +384,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 
                 <!-- Кнопка бургер-меню -->
                 <div class="flex items-center flex-shrink-0">
-                    <button class="md:hidden text-gray-300 hover:text-neon-purple active:text-neon-purple focus:text-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg rounded-lg transition-all duration-200 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0 hover:bg-dark-surface/50 active:bg-dark-surface/70 active:scale-95" id="burgerBtn" aria-label="Открыть главное меню навигации" aria-expanded="false" aria-controls="burgerMenu" type="button">
-                        <span class="sr-only">Меню</span>
+                    <button class="md:hidden text-gray-300 hover:text-neon-purple active:text-neon-purple focus:text-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-dark-bg rounded-lg transition-all duration-200 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation flex-shrink-0 hover:bg-dark-surface/50 active:bg-dark-surface/70 active:scale-95" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="burgerMenu" type="button">
                         <svg id="burgerIcon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -417,16 +416,10 @@ require_once __DIR__ . '/theme_switcher.php';
                 background: var(--color-neon-blue);
             }
         </style>
-        <!-- Скрытые заголовки для screen readers -->
-        <h2 id="burgerMenuTitle" class="sr-only">Главное меню навигации</h2>
-        <p id="burgerMenuDescription" class="sr-only">
-            Используйте Tab для навигации, Escape для закрытия, стрелки для перемещения между пунктами
-        </p>
         <div class="min-h-screen flex flex-col px-4 sm:px-6 py-6 sm:py-8" style="padding-top: max(1rem, env(safe-area-inset-top, 1rem)); padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));">
             <!-- Верхняя панель только с кнопкой закрытия -->
             <div class="flex items-center justify-end mb-4 flex-shrink-0">
-                <button id="burgerCloseBtn" class="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 touch-manipulation group relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15)); border: 2px solid rgba(139, 92, 246, 0.4);" aria-label="Закрыть главное меню навигации">
-                    <span class="sr-only">Закрыть</span>
+                <button id="burgerCloseBtn" class="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 touch-manipulation group relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15)); border: 2px solid rgba(139, 92, 246, 0.4);" aria-label="Закрыть">
                     <svg class="w-7 h-7 relative z-10 transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--color-neon-purple); filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
