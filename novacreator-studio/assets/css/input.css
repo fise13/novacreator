@@ -633,6 +633,8 @@
       bottom: 0 !important;
       position: fixed !important;
       z-index: 9999 !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
     
     :root.light #burgerMenu {
@@ -646,7 +648,41 @@
     }
     
     #burgerOverlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
       z-index: 9998 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      pointer-events: auto !important;
+    }
+    
+    /* Скрываем navbar при открытом меню */
+    body:has(#burgerMenu:not(.hidden)) #mainNavbar {
+      display: none !important;
+    }
+    
+    /* Скрываем весь контент за overlay при открытом меню */
+    #burgerOverlay:not(.hidden) ~ *,
+    body:has(#burgerMenu:not(.hidden)) > *:not(#burgerOverlay):not(#burgerMenu) {
+      visibility: hidden;
+      pointer-events: none;
+    }
+    
+    /* Убеждаемся, что overlay и меню всегда поверх всего */
+    #burgerOverlay,
+    #burgerMenu {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
     }
     
     .mobile-menu-item {

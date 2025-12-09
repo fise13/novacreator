@@ -392,9 +392,9 @@ require_once __DIR__ . '/theme_switcher.php';
     </nav>
     
     <!-- Новое полноэкранное бургер-меню -->
-    <div id="burgerOverlay" class="fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-300" style="background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"></div>
+    <div id="burgerOverlay" class="fixed inset-0 hidden opacity-0 transition-opacity duration-300" style="background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 9998; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important;"></div>
     
-    <div id="burgerMenu" class="fixed inset-0 z-[110] hidden overflow-y-auto" style="background-color: var(--color-surface); width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
+    <div id="burgerMenu" class="fixed inset-0 hidden overflow-y-auto" style="background-color: var(--color-surface); width: 100vw !important; height: 100vh !important; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; z-index: 9999 !important;">
         <style>
             #burgerMenu::-webkit-scrollbar {
                 width: 6px;
@@ -633,12 +633,40 @@ require_once __DIR__ . '/theme_switcher.php';
                 if (!burgerMenu || !burgerOverlay) return;
                 
                 isBurgerOpen = true;
-                document.body.style.overflow = 'hidden';
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
                 
+                // Блокируем скролл body
+                const scrollY = window.scrollY;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollY}px`;
+                document.body.style.width = '100%';
+                document.body.style.overflow = 'hidden';
+                document.body.style.height = '100vh';
+                document.documentElement.style.overflow = 'hidden';
+                
+                // Скрываем navbar
+                const navbar = document.getElementById('mainNavbar');
+                if (navbar) {
+                    navbar.style.display = 'none';
+                }
+                
+                // Скрываем весь контент кроме меню
+                const mainContent = document.querySelector('main, .container, section, .content');
+                if (mainContent) {
+                    mainContent.style.visibility = 'hidden';
+                    mainContent.style.pointerEvents = 'none';
+                }
+                
+                // Показываем overlay и меню
                 burgerOverlay.classList.remove('hidden');
                 burgerMenu.classList.remove('hidden');
+                
+                // Принудительно устанавливаем стили
+                burgerOverlay.style.display = 'block';
+                burgerMenu.style.display = 'block';
+                burgerOverlay.style.zIndex = '9998';
+                burgerMenu.style.zIndex = '9999';
+                burgerOverlay.style.position = 'fixed';
+                burgerMenu.style.position = 'fixed';
                 
                 setTimeout(() => {
                     burgerOverlay.style.opacity = '1';
@@ -650,15 +678,41 @@ require_once __DIR__ . '/theme_switcher.php';
                 if (!burgerMenu || !burgerOverlay) return;
                 
                 isBurgerOpen = false;
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.width = '';
                 
+                // Восстанавливаем скролл
+                const scrollY = document.body.style.top;
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                document.body.style.overflow = '';
+                document.body.style.height = '';
+                document.documentElement.style.overflow = '';
+                
+                if (scrollY) {
+                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                }
+                
+                // Показываем navbar
+                const navbar = document.getElementById('mainNavbar');
+                if (navbar) {
+                    navbar.style.display = '';
+                }
+                
+                // Показываем контент обратно
+                const mainContent = document.querySelector('main, .container, section, .content');
+                if (mainContent) {
+                    mainContent.style.visibility = '';
+                    mainContent.style.pointerEvents = '';
+                }
+                
+                // Скрываем overlay и меню
                 burgerOverlay.style.opacity = '0';
                 
                 setTimeout(() => {
                     burgerMenu.classList.add('hidden');
                     burgerOverlay.classList.add('hidden');
+                    burgerOverlay.style.display = '';
+                    burgerMenu.style.display = '';
                 }, 300);
             }
             
