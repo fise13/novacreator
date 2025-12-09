@@ -66,18 +66,38 @@ if (!isset($pageTitle)) {
             position: fixed;
             top: 0;
             left: 0;
-            width: 280px;
+            width: 300px;
             height: 100vh;
             background-color: var(--dark-surface);
-            border-right: 1px solid var(--dark-border);
+            border-right: 2px solid var(--dark-border);
             z-index: 1000;
             transform: translateX(-100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
             overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
         }
         
         .sidebar.open {
             transform: translateX(0);
+        }
+        
+        .sidebar h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar nav a {
+            padding: 0.875rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar nav a:hover {
+            background-color: rgba(139, 92, 246, 0.1);
+            transform: translateX(4px);
         }
         
         #overlay {
@@ -113,11 +133,13 @@ if (!isset($pageTitle)) {
            ============================================ */
         nav {
             background-color: var(--dark-surface);
-            border-bottom: 1px solid var(--dark-border);
+            border-bottom: 2px solid var(--dark-border);
             position: sticky;
             top: 0;
             z-index: 100;
             width: 100%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         
         /* ============================================
@@ -171,13 +193,20 @@ if (!isset($pageTitle)) {
             max-width: 100%;
         }
         
-        h1 { font-size: 1.5rem; }
-        h2 { font-size: 1.25rem; }
-        h3 { font-size: 1.125rem; }
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.75rem; }
+        h3 { font-size: 1.5rem; }
         
         @media (min-width: 640px) {
-            h1 { font-size: 1.875rem; }
-            h2 { font-size: 1.5rem; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.75rem; }
+        }
+        
+        @media (min-width: 1024px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.5rem; }
+            h3 { font-size: 2rem; }
         }
         
         .text-gradient {
@@ -213,7 +242,12 @@ if (!isset($pageTitle)) {
         .form-select:focus {
             outline: none;
             border-color: var(--neon-purple);
-            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+            transform: translateZ(0);
+        }
+        
+        .focus\:border-neon-purple:focus {
+            border-color: var(--neon-purple) !important;
         }
         
         .form-input::placeholder,
@@ -245,10 +279,11 @@ if (!isset($pageTitle)) {
         .btn-neon {
             background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-blue) 100%);
             color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 0.75rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
             border: none;
             cursor: pointer;
             display: inline-flex;
@@ -256,11 +291,21 @@ if (!isset($pageTitle)) {
             justify-content: center;
             text-decoration: none;
             white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            transform: translateZ(0);
         }
         
         .btn-neon:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.5);
+        }
+        
+        .btn-neon:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        
+        .btn-admin {
+            min-height: 48px;
         }
         
         /* ============================================
@@ -300,12 +345,16 @@ if (!isset($pageTitle)) {
         .w-5 { width: 1.25rem; }
         .w-10 { width: 2.5rem; }
         .w-12 { width: 3rem; }
+        .w-16 { width: 4rem; }
         .w-64 { width: 16rem; }
         
         .h-5 { height: 1.25rem; }
         .h-10 { height: 2.5rem; }
         .h-12 { height: 3rem; }
         .h-16 { height: 4rem; }
+        
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
         .min-h-screen { min-height: 100vh; }
         
         .p-4 { padding: 1rem; }
@@ -324,6 +373,10 @@ if (!isset($pageTitle)) {
         .mb-4 { margin-bottom: 1rem; }
         .mb-6 { margin-bottom: 1.5rem; }
         .mb-8 { margin-bottom: 2rem; }
+        .mb-10 { margin-bottom: 2.5rem; }
+        
+        .leading-none { line-height: 1; }
+        .leading-tight { line-height: 1.25; }
         
         .mt-1 { margin-top: 0.25rem; }
         .mt-4 { margin-top: 1rem; }
@@ -341,10 +394,23 @@ if (!isset($pageTitle)) {
         .text-xl { font-size: 1.25rem; }
         .text-2xl { font-size: 1.5rem; }
         .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-5xl { font-size: 3rem; }
+        .text-6xl { font-size: 3.75rem; }
         
         .font-bold { font-weight: 700; }
+        .font-extrabold { font-weight: 800; }
         .font-semibold { font-weight: 600; }
         .font-medium { font-weight: 500; }
+        
+        @media (min-width: 768px) {
+            .md\:text-5xl { font-size: 3rem; }
+            .md\:text-6xl { font-size: 3.75rem; }
+        }
+        
+        @media (min-width: 1024px) {
+            .lg\:text-6xl { font-size: 3.75rem; }
+        }
         
         .text-center { text-align: center; }
         .text-left { text-align: left; }
@@ -475,16 +541,33 @@ if (!isset($pageTitle)) {
         }
         
         /* ============================================
-           КАРТОЧКИ
+           КАРТОЧКИ - улучшенный дизайн
            ============================================ */
         .admin-card {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transform: translateZ(0);
+            will-change: transform;
+            backdrop-filter: blur(10px);
         }
         
         .admin-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.6);
         }
+        
+        .rounded-2xl { border-radius: 1rem; }
+        .border-2 { border-width: 2px; }
+        .border-b-2 { border-bottom-width: 2px; }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .hover\:shadow-xl:hover { box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3); }
+        .hover\:scale-105:hover { transform: scale(1.05); }
+        .transition-transform { transition-property: transform; transition-duration: 0.3s; }
+        .transition-all { transition-property: all; transition-duration: 0.3s; }
+        .divide-y-2 > * + * { border-top-width: 2px; border-top-color: var(--dark-border); }
+        .last\:border-b-0:last-child { border-bottom-width: 0; }
+        .hover\:border-neon-purple:hover { border-color: var(--neon-purple) !important; }
         
         /* ============================================
            СКРОЛЛБАР
@@ -511,23 +594,23 @@ if (!isset($pageTitle)) {
 <body class="bg-dark-bg text-white">
     <!-- Боковое меню (для мобильных) -->
     <div class="sidebar" id="sidebar">
-        <div class="p-6">
-            <h2 class="text-xl font-bold text-gradient mb-6">Меню</h2>
-            <nav class="space-y-4">
-                <a href="index.php" class="flex items-center space-x-3 text-gray-400 hover:text-neon-purple transition-colors">
-                    <i class="fas fa-home" style="width: 1.25rem;"></i>
+        <div class="p-8">
+            <h2 class="text-2xl font-extrabold text-gradient mb-8">Меню</h2>
+            <nav class="space-y-3">
+                <a href="index.php" class="flex items-center space-x-4 text-gray-400 hover:text-neon-purple transition-all text-lg font-medium">
+                    <i class="fas fa-home text-xl" style="width: 1.5rem;"></i>
                     <span>Главная</span>
                 </a>
-                <a href="edit.php" class="flex items-center space-x-3 text-gray-400 hover:text-neon-purple transition-colors">
-                    <i class="fas fa-plus" style="width: 1.25rem;"></i>
+                <a href="edit.php" class="flex items-center space-x-4 text-gray-400 hover:text-neon-purple transition-all text-lg font-medium">
+                    <i class="fas fa-plus text-xl" style="width: 1.5rem;"></i>
                     <span>Новая статья</span>
                 </a>
-                <a href="../blog" target="_blank" class="flex items-center space-x-3 text-gray-400 hover:text-neon-purple transition-colors">
-                    <i class="fas fa-eye" style="width: 1.25rem;"></i>
+                <a href="../blog" target="_blank" class="flex items-center space-x-4 text-gray-400 hover:text-neon-purple transition-all text-lg font-medium">
+                    <i class="fas fa-eye text-xl" style="width: 1.5rem;"></i>
                     <span>Просмотр блога</span>
                 </a>
-                <a href="logout.php" class="flex items-center space-x-3 text-gray-400 hover:text-red-400 transition-colors">
-                    <i class="fas fa-sign-out-alt" style="width: 1.25rem;"></i>
+                <a href="logout.php" class="flex items-center space-x-4 text-gray-400 hover:text-red-400 transition-all text-lg font-medium">
+                    <i class="fas fa-sign-out-alt text-xl" style="width: 1.5rem;"></i>
                     <span>Выйти</span>
                 </a>
             </nav>
@@ -540,40 +623,40 @@ if (!isset($pageTitle)) {
     <!-- Основная навигация -->
     <nav>
         <div class="container" style="max-width: 1280px; margin: 0 auto; padding-left: 1rem; padding-right: 1rem;">
-            <div class="flex items-center justify-between" style="height: 4rem;">
-                <!-- Логотип и название -->
-                <div class="flex items-center space-x-4">
-                    <button class="lg:hidden text-gray-400 hover:text-neon-purple transition-colors" id="menuToggle" style="background: none; border: none; cursor: pointer; padding: 0.5rem;">
-                        <i class="fas fa-bars" style="font-size: 1.25rem;"></i>
+            <div class="flex items-center justify-between" style="height: 5rem; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <!-- Логотип и название - увеличенные -->
+                <div class="flex items-center space-x-5">
+                    <button class="lg:hidden text-gray-400 hover:text-neon-purple transition-all hover:scale-110" id="menuToggle" style="background: none; border: none; cursor: pointer; padding: 0.75rem;">
+                        <i class="fas fa-bars" style="font-size: 1.5rem;"></i>
                     </button>
-                    <a href="index.php" class="flex items-center space-x-3" style="text-decoration: none;">
-                        <div class="w-10 h-10 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg flex items-center justify-center">
-                            <i class="fas fa-cog" style="color: white;"></i>
+                    <a href="index.php" class="flex items-center space-x-4" style="text-decoration: none;">
+                        <div class="w-14 h-14 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fas fa-cog text-xl" style="color: white;"></i>
                         </div>
-                        <h1 class="text-xl font-bold text-gradient hidden sm:block">Админ-панель</h1>
+                        <h1 class="text-2xl md:text-3xl font-extrabold text-gradient hidden sm:block">Админ-панель</h1>
                     </a>
                 </div>
                 
-                <!-- Навигация (десктоп) -->
-                <div class="hidden lg:flex items-center space-x-6" style="border-left: 1px solid var(--dark-border); padding-left: 1.5rem;">
-                    <a href="index.php" class="text-gray-400 hover:text-neon-purple transition-colors text-sm font-medium flex items-center space-x-2" style="text-decoration: none;">
-                        <i class="fas fa-home"></i>
+                <!-- Навигация (десктоп) - улучшенная -->
+                <div class="hidden lg:flex items-center space-x-8" style="border-left: 2px solid var(--dark-border); padding-left: 2rem;">
+                    <a href="index.php" class="text-gray-400 hover:text-neon-purple transition-all text-base font-semibold flex items-center space-x-2 hover:scale-105" style="text-decoration: none;">
+                        <i class="fas fa-home text-lg"></i>
                         <span>Блог</span>
                     </a>
-                    <a href="edit.php" class="text-gray-400 hover:text-neon-purple transition-colors text-sm font-medium flex items-center space-x-2" style="text-decoration: none;">
-                        <i class="fas fa-plus"></i>
+                    <a href="edit.php" class="text-gray-400 hover:text-neon-purple transition-all text-base font-semibold flex items-center space-x-2 hover:scale-105" style="text-decoration: none;">
+                        <i class="fas fa-plus text-lg"></i>
                         <span>Новая статья</span>
                     </a>
                 </div>
                 
-                <!-- Действия -->
-                <div class="flex items-center space-x-4">
-                    <a href="../blog" target="_blank" class="hidden md:flex items-center space-x-2 text-gray-400 hover:text-neon-purple transition-colors text-sm" style="text-decoration: none;">
-                        <i class="fas fa-external-link-alt"></i>
+                <!-- Действия - улучшенные -->
+                <div class="flex items-center space-x-5">
+                    <a href="../blog" target="_blank" class="hidden md:flex items-center space-x-2 text-gray-400 hover:text-neon-purple transition-all text-base font-medium hover:scale-105" style="text-decoration: none;">
+                        <i class="fas fa-external-link-alt text-lg"></i>
                         <span>Просмотр блога</span>
                     </a>
-                    <a href="logout.php" class="flex items-center space-x-2 text-gray-400 hover:text-red-400 transition-colors text-sm" style="text-decoration: none;">
-                        <i class="fas fa-sign-out-alt"></i>
+                    <a href="logout.php" class="flex items-center space-x-2 text-gray-400 hover:text-red-400 transition-all text-base font-medium hover:scale-105" style="text-decoration: none;">
+                        <i class="fas fa-sign-out-alt text-lg"></i>
                         <span class="hidden sm:inline">Выйти</span>
                     </a>
                 </div>
