@@ -1377,11 +1377,20 @@
     width: 100%;
   }
   
-  /* Кнопка "Наверх" */
+  /* Кнопка "Наверх" - скрыта на мобильных */
   #backToTop {
     transition: all var(--transition-smooth);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+  }
+  
+  /* Скрываем кнопку на мобильных устройствах */
+  @media (max-width: 767px) {
+    #backToTop {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
   }
   
   #backToTop:hover {
@@ -1423,6 +1432,66 @@
   .touch-device .service-card:active {
     transform: scale(0.98);
     opacity: 0.9;
+  }
+  
+  /* Оптимизация для iPhone и Android */
+  @media (max-width: 768px) {
+    /* Улучшенные touch-события */
+    button, a, [role="button"] {
+      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.15);
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    
+    /* Оптимизация navbar для мобильных */
+    .navbar {
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+    }
+    
+    /* Улучшенная прокрутка для меню */
+    #burgerMenu {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+    }
+    
+    /* Фикс для iOS Safari - предотвращение баунса */
+    body {
+      overscroll-behavior-y: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Улучшенные размеры для touch-элементов */
+    .mobile-menu-item {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 0.875rem;
+      padding-bottom: 0.875rem;
+    }
+  }
+  
+  /* Специальные оптимизации для iPhone */
+  @supports (-webkit-touch-callout: none) {
+    /* Фикс для iOS Safari viewport */
+    html {
+      height: -webkit-fill-available;
+    }
+    
+    body {
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+    }
+    
+    #burgerMenu {
+      height: -webkit-fill-available;
+      max-height: -webkit-fill-available;
+    }
+    
+    #burgerOverlay {
+      height: -webkit-fill-available;
+      max-height: -webkit-fill-available;
+    }
   }
   
   /* Дополнительные стили для темной темы */
@@ -1634,6 +1703,22 @@
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+    /* Оптимизация для iPhone */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: pan-y;
+  }
+  
+  /* Кнопка закрытия меню - оптимизация для мобильных */
+  #burgerCloseBtn {
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  #burgerCloseBtn:active {
+    transform: scale(0.95);
+    background-color: var(--color-surface);
   }
   
   /* Overlay для бургер-меню */
@@ -1655,14 +1740,44 @@
       max-width: 360px !important;
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
                   opacity 0.2s ease-out;
+      /* Поддержка safe-area для iPhone */
+      padding-top: env(safe-area-inset-top) !important;
+      padding-bottom: env(safe-area-inset-bottom) !important;
+      padding-left: env(safe-area-inset-left) !important;
+      padding-right: env(safe-area-inset-right) !important;
     }
     
     .mobile-menu-item {
-      -webkit-tap-highlight-color: transparent;
+      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.15);
       touch-action: manipulation;
       min-height: 48px;
+      min-width: 44px;
       display: flex;
       align-items: center;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    
+    /* Улучшенная кнопка закрытия для мобильных */
+    #burgerCloseBtn {
+      min-width: 44px;
+      min-height: 44px;
+      border-width: 2px;
+    }
+  }
+  
+  /* Специальная оптимизация для iPhone */
+  @supports (-webkit-touch-callout: none) {
+    #burgerMenu {
+      /* Фикс для iOS Safari */
+      -webkit-overflow-scrolling: touch;
+      position: fixed;
+      height: -webkit-fill-available;
+    }
+    
+    #burgerOverlay {
+      position: fixed;
+      height: -webkit-fill-available;
     }
   }
   

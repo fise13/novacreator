@@ -386,13 +386,13 @@ require_once __DIR__ . '/theme_switcher.php';
                     </div>
                 </div>
                 
-                <!-- Кнопка бургер-меню -->
+                <!-- Кнопка бургер-меню - оптимизирована для мобильных -->
                 <div class="flex items-center flex-shrink-0 md:hidden">
-                    <button class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 min-w-[44px] min-h-[44px] touch-manipulation flex-shrink-0 active:scale-95 focus:outline-none relative" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="burgerMenu" type="button" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);">
-                        <svg id="burgerIcon" class="w-5 h-5 absolute transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                    <button class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 min-w-[44px] min-h-[44px] touch-manipulation flex-shrink-0 active:scale-95 focus:outline-none relative" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="burgerMenu" type="button" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text); -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);">
+                        <svg id="burgerIcon" class="w-6 h-6 absolute transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
-                        <svg id="burgerCloseIcon" class="w-5 h-5 absolute transition-all duration-300 opacity-0 rotate-90 scale-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                        <svg id="burgerCloseIcon" class="w-6 h-6 absolute transition-all duration-300 opacity-0 rotate-90 scale-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
@@ -410,8 +410,8 @@ require_once __DIR__ . '/theme_switcher.php';
             <!-- Верхняя панель -->
             <div class="flex items-center justify-between mb-8 flex-shrink-0">
                 <span class="text-xl font-bold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
-                <button id="burgerCloseBtn" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" aria-label="Закрыть меню">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                <button id="burgerCloseBtn" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px]" style="background-color: var(--color-surface); border: 2px solid var(--color-border); color: var(--color-text);" aria-label="Закрыть меню">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
