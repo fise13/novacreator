@@ -208,10 +208,34 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    line-height: 1.6;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
     background-color: var(--color-bg);
     color: var(--color-text);
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Улучшенная типографика для читаемости */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  
+  p {
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Улучшенная читаемость для больших текстов */
+  .text-xl, .text-2xl, .text-3xl, .text-4xl {
+    line-height: 1.5;
+    letter-spacing: -0.015em;
+  }
+  
+  /* Максимальная ширина для читаемости */
+  p, li {
+    max-width: 65ch;
   }
   
   /* Оптимизация touch для мобильных */
@@ -1190,13 +1214,49 @@
   /* Анимация появления элементов при скролле - стиль holymedia.kz */
   .animate-on-scroll {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, 
+                transform 0.8s ease-out;
   }
   
   .animate-on-scroll.visible {
     opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Улучшенная читаемость для темной темы */
+  :root.dark {
+    --color-text: #FFFFFF;
+    --color-text-secondary: #D1D5DB;
+    --color-text-muted: #9CA3AF;
+  }
+  
+  /* Контрастность для лучшей читаемости */
+  :root.light {
+    --color-text: #111827;
+    --color-text-secondary: #4B5563;
+    --color-text-muted: #6B7280;
+  }
+  
+  /* Улучшенные ссылки */
+  a {
+    transition: color 0.2s ease, opacity 0.2s ease;
+  }
+  
+  a:hover {
+    opacity: 0.8;
+  }
+  
+  /* Улучшенные кнопки */
+  button, .btn {
+    transition: all 0.2s ease;
+  }
+  
+  button:hover, .btn:hover {
+    transform: translateY(-1px);
+  }
+  
+  button:active, .btn:active {
     transform: translateY(0);
   }
   

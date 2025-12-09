@@ -230,8 +230,8 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Индикатор прогресса прокрутки -->
     <div class="scroll-progress-bar fixed top-0 left-0 h-1 bg-gradient-to-r from-neon-purple to-neon-blue z-50" style="width: 0%; transition: width 0.1s ease-out;"></div>
     
-    <!-- Навигация -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-200 transition-all duration-300 shadow-sm" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" style="padding-top: env(safe-area-inset-top);">
+    <!-- Навигация - упрощенная как на holymedia.kz -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-sm border-b border-gray-200/50 transition-all duration-300" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" style="padding-top: env(safe-area-inset-top); background-color: var(--color-bg); border-color: var(--color-border);">
         <div class="container mx-auto px-4 sm:px-5 md:px-6 lg:px-8">
             <div class="flex items-center justify-between h-14 sm:h-16 md:h-20 gap-2 sm:gap-3">
                 <!-- Логотип -->
