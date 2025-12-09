@@ -13,14 +13,20 @@ $pageMetaKeywords = t('seo.pages.contact.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция -->
-<section class="pt-24 md:pt-32 pb-16 md:pb-20" style="background-color: var(--color-bg);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-8 md:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
+<!-- Hero секция - мобильная адаптация -->
+<section class="pt-20 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20 relative overflow-hidden" style="background-color: var(--color-bg);">
+    <!-- Фоновые декоративные элементы -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 rounded-full blur-3xl opacity-10 md:opacity-20 animate-pulse" style="background: radial-gradient(circle, var(--color-neon-purple), transparent);"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 rounded-full blur-3xl opacity-10 md:opacity-20 animate-pulse" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+        <div class="max-w-6xl mx-auto text-center md:text-left">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 md:mb-8 lg:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.contact.title')); ?>
             </h1>
-            <p class="text-xl md:text-2xl lg:text-3xl mb-12 leading-relaxed animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary); max-width: 65ch;">
+            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 md:mb-12 leading-relaxed animate-on-scroll mx-auto md:mx-0" style="animation-delay: 0.1s; color: var(--color-text-secondary); max-width: 65ch;">
                 <?php echo htmlspecialchars(t('pages.contact.subtitle')); ?>
             </p>
         </div>
@@ -31,40 +37,40 @@ include 'includes/header.php';
 <section class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
                 <!-- Контактная информация -->
-                <div class="animate-on-scroll">
-                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12 leading-tight" style="color: var(--color-text);">
+                <div class="animate-on-scroll order-2 lg:order-1">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 lg:mb-12 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.contact.contactInfo')); ?>
                     </h2>
                     
-                    <div class="space-y-8 mb-12">
+                    <div class="space-y-6 md:space-y-8 mb-8 md:mb-12">
                         <!-- Email -->
                         <div>
-                            <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--color-text);">
+                            <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-2" style="color: var(--color-text);">
                                 <?php echo htmlspecialchars(t('pages.contact.email')); ?>
                             </h3>
-                            <a href="mailto:contact@novacreatorstudio.com" class="text-lg md:text-xl hover:underline" style="color: var(--color-text-secondary);">
+                            <a href="mailto:contact@novacreatorstudio.com" class="text-base sm:text-lg md:text-xl hover:underline break-all touch-manipulation min-h-[44px] flex items-center" style="color: var(--color-text-secondary);">
                                 contact@novacreatorstudio.com
                             </a>
                         </div>
                         
                         <!-- Телефон -->
                         <div>
-                            <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--color-text);">
+                            <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-2" style="color: var(--color-text);">
                                 <?php echo htmlspecialchars(t('pages.contact.phone')); ?>
                             </h3>
-                            <a href="tel:+77066063921" class="text-lg md:text-xl hover:underline" style="color: var(--color-text-secondary);">
+                            <a href="tel:+77066063921" class="text-base sm:text-lg md:text-xl hover:underline touch-manipulation min-h-[44px] flex items-center" style="color: var(--color-text-secondary);">
                                 +7 706 606 39 21
                             </a>
                         </div>
                         
                         <!-- Время работы -->
                         <div>
-                            <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--color-text);">
+                            <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-2" style="color: var(--color-text);">
                                 <?php echo htmlspecialchars(t('pages.contact.workingHours')); ?>
                             </h3>
-                            <p class="text-lg md:text-xl" style="color: var(--color-text-secondary);">
+                            <p class="text-base sm:text-lg md:text-xl" style="color: var(--color-text-secondary);">
                                 <?php echo htmlspecialchars(t('pages.contact.workingHoursText')); ?>
                             </p>
                         </div>
@@ -72,12 +78,12 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Форма обратной связи -->
-                <div class="animate-on-scroll" style="animation-delay: 0.2s;">
-                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12 leading-tight" style="color: var(--color-text);">
+                <div class="animate-on-scroll order-1 lg:order-2" style="animation-delay: 0.2s;">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 lg:mb-12 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.contact.form.title')); ?>
                     </h2>
                     
-                    <form class="contact-form space-y-6" method="POST" action="/backend/send.php">
+                    <form class="contact-form space-y-4 md:space-y-6" method="POST" action="/backend/send.php">
                         <!-- Скрытые поля -->
                         <input type="hidden" id="form_type" name="type" value="contact">
                         <input type="hidden" id="form_vacancy" name="vacancy" value="">
@@ -175,9 +181,10 @@ include 'includes/header.php';
                             ></textarea>
                         </div>
                         
-                        <!-- Кнопка отправки -->
-                        <button type="submit" class="w-full px-10 py-5 bg-black text-white text-lg font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200 min-h-[56px]" id="submit_btn">
-                            <?php echo htmlspecialchars(t('pages.contact.form.send')); ?>
+                        <!-- Кнопка отправки - touch-friendly -->
+                        <button type="submit" class="group relative w-full px-10 py-5 bg-black text-white text-lg font-semibold rounded-lg transition-all duration-300 min-h-[48px] md:min-h-[56px] shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden" id="submit_btn">
+                            <span class="relative z-10"><?php echo htmlspecialchars(t('pages.contact.form.send')); ?></span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </button>
                         
                         <p class="text-sm text-center" style="color: var(--color-text-secondary);">

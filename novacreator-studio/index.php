@@ -15,8 +15,8 @@ $pageMetaKeywords = t('seo.pages.index.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция - стиль holymedia.kz с большим фоновым изображением -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<!-- Hero секция - стиль holymedia.kz с большим фоновым изображением и мобильной адаптацией -->
+<section class="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <!-- Большой фоновый визуал - градиент с эффектом глубины -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <!-- Основной градиентный фон -->
@@ -34,8 +34,8 @@ include 'includes/header.php';
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
-            <!-- Главный заголовок - ОГРОМНЫЙ как на holymedia.kz -->
-            <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-extrabold mb-8 md:mb-12 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <!-- Главный заголовок - ОГРОМНЫЙ как на holymedia.kz, адаптированный для мобильных -->
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-extrabold mb-6 md:mb-8 lg:mb-12 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
                 <?php 
                 $headlinesData = json_decode(file_get_contents(__DIR__ . '/lang/' . $currentLang . '.json'), true);
                 $headlines = $headlinesData['home']['hero']['headlines'] ?? [];
@@ -44,8 +44,8 @@ include 'includes/header.php';
                 ?>
             </h1>
             
-            <!-- Подзаголовок - простой и читаемый -->
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-12 md:mb-16 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <!-- Подзаголовок - простой и читаемый, адаптированный для мобильных -->
+            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-8 md:mb-12 lg:mb-16 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
                 <?php 
                 $descriptions = $headlinesData['home']['hero']['descriptions'] ?? [];
                 $randomDescription = !empty($descriptions) ? $descriptions[array_rand($descriptions)] : 'Цифровое агентство';
@@ -53,13 +53,13 @@ include 'includes/header.php';
                 ?>
             </p>
             
-            <!-- CTA кнопки - большие и простые с улучшенными эффектами -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 animate-on-scroll" style="animation-delay: 0.2s;">
-                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative px-10 py-5 md:px-14 md:py-6 bg-black text-white text-lg md:text-xl lg:text-2xl font-semibold rounded-lg transition-all duration-300 min-h-[56px] md:min-h-[64px] flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
+            <!-- CTA кнопки - большие и простые с улучшенными эффектами, touch-friendly -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 animate-on-scroll px-4 sm:px-0" style="animation-delay: 0.2s;">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative w-full sm:w-auto px-8 sm:px-10 md:px-14 py-4 sm:py-5 md:py-6 bg-black text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold rounded-lg transition-all duration-300 min-h-[48px] sm:min-h-[56px] md:min-h-[64px] flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden touch-manipulation">
                     <span class="relative z-10"><?php echo htmlspecialchars(t('common.getStarted')); ?></span>
                     <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="group relative px-10 py-5 md:px-14 md:py-6 border-2 text-lg md:text-xl lg:text-2xl font-semibold rounded-lg transition-all duration-300 min-h-[56px] md:min-h-[64px] flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden" style="border-color: var(--color-text); color: var(--color-text);">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="group relative w-full sm:w-auto px-8 sm:px-10 md:px-14 py-4 sm:py-5 md:py-6 border-2 text-base sm:text-lg md:text-xl lg:text-2xl font-semibold rounded-lg transition-all duration-300 min-h-[48px] sm:min-h-[56px] md:min-h-[64px] flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden touch-manipulation" style="border-color: var(--color-text); color: var(--color-text);">
                     <span class="relative z-10"><?php echo htmlspecialchars(t('common.viewPortfolio')); ?></span>
                     <div class="absolute inset-0 bg-gradient-to-r from-purple-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));"></div>
                 </a>
@@ -98,40 +98,40 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Услуги - карточки в стиле holymedia.kz -->
-<section id="services" class="py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
+<!-- Услуги - карточки в стиле holymedia.kz с мобильной адаптацией -->
+<section id="services" class="py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <!-- Заголовок секции -->
-            <div class="mb-20 md:mb-24 animate-on-scroll">
-                <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+            <div class="mb-12 md:mb-16 lg:mb-24 animate-on-scroll">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('home.services.title')); ?>
                 </h2>
             </div>
             
-            <!-- Карточки услуг - крупные и визуальные с улучшенным дизайном -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+            <!-- Карточки услуг - крупные и визуальные с улучшенным дизайном, одна колонка на мобильных -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 xl:gap-12">
                 <!-- SEO -->
-                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer" style="background-color: var(--color-bg); border-color: var(--color-border);">
+                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer touch-manipulation" style="background-color: var(--color-bg); border-color: var(--color-border);">
                     <!-- Фоновый градиент при hover -->
                     <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));"></div>
                     
                     <!-- Декоративный элемент в углу -->
-                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); transform: translate(30%, -30%);"></div>
+                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500 hidden md:block" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); transform: translate(30%, -30%);"></div>
                     
-                    <div class="p-8 md:p-10 relative z-10">
-                        <div class="w-16 h-16 md:w-20 md:h-20 mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));">
-                            <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-6 sm:p-8 md:p-10 relative z-10">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 md:mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));">
+                            <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600" style="color: var(--color-text);">
+                        <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('home.services.seo.title')); ?>
                         </h3>
-                        <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
+                        <p class="text-base sm:text-lg md:text-xl mb-4 md:mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(t('home.services.seo.description')); ?>
                         </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all relative" style="color: var(--color-text);">
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-semibold group-hover:gap-4 transition-all relative min-h-[44px] touch-manipulation" style="color: var(--color-text);">
                             <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
                             <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -141,22 +141,22 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Разработка сайтов -->
-                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer" style="animation-delay: 0.1s; background-color: var(--color-bg); border-color: var(--color-border);">
+                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer touch-manipulation" style="animation-delay: 0.1s; background-color: var(--color-bg); border-color: var(--color-border);">
                     <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style="background: linear-gradient(135deg, var(--color-neon-blue), var(--color-neon-purple));"></div>
-                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); transform: translate(30%, -30%);"></div>
-                    <div class="p-8 md:p-10 relative z-10">
-                        <div class="w-16 h-16 md:w-20 md:h-20 mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-blue), var(--color-neon-purple));">
-                            <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500 hidden md:block" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); transform: translate(30%, -30%);"></div>
+                    <div class="p-6 sm:p-8 md:p-10 relative z-10">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 md:mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-blue), var(--color-neon-purple));">
+                            <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                             </svg>
                         </div>
-                        <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600" style="color: var(--color-text);">
+                        <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('home.services.development.title')); ?>
                         </h3>
-                        <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
+                        <p class="text-base sm:text-lg md:text-xl mb-4 md:mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(t('home.services.development.description')); ?>
                         </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all relative" style="color: var(--color-text);">
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-semibold group-hover:gap-4 transition-all relative min-h-[44px] touch-manipulation" style="color: var(--color-text);">
                             <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
                             <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -166,23 +166,23 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Google Ads -->
-                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer" style="animation-delay: 0.2s; background-color: var(--color-bg); border-color: var(--color-border);">
+                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer touch-manipulation" style="animation-delay: 0.2s; background-color: var(--color-bg); border-color: var(--color-border);">
                     <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));"></div>
-                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); transform: translate(30%, -30%);"></div>
-                    <div class="p-8 md:p-10 relative z-10">
-                        <div class="w-16 h-16 md:w-20 md:h-20 mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));">
-                            <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500 hidden md:block" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); transform: translate(30%, -30%);"></div>
+                    <div class="p-6 sm:p-8 md:p-10 relative z-10">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 md:mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));">
+                            <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600" style="color: var(--color-text);">
+                        <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('home.services.ads.title')); ?>
                         </h3>
-                        <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
+                        <p class="text-base sm:text-lg md:text-xl mb-4 md:mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(t('home.services.ads.description')); ?>
                         </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all relative" style="color: var(--color-text);">
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-semibold group-hover:gap-4 transition-all relative min-h-[44px] touch-manipulation" style="color: var(--color-text);">
                             <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
                             <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -192,22 +192,22 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Маркетинг -->
-                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer" style="animation-delay: 0.3s; background-color: var(--color-bg); border-color: var(--color-border);">
+                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer touch-manipulation" style="animation-delay: 0.3s; background-color: var(--color-bg); border-color: var(--color-border);">
                     <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style="background: linear-gradient(135deg, var(--color-neon-blue), var(--color-neon-purple));"></div>
-                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); transform: translate(30%, -30%);"></div>
-                    <div class="p-8 md:p-10 relative z-10">
-                        <div class="w-16 h-16 md:w-20 md:h-20 mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-blue), var(--color-neon-purple));">
-                            <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500 hidden md:block" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); transform: translate(30%, -30%);"></div>
+                    <div class="p-6 sm:p-8 md:p-10 relative z-10">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 md:mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-blue), var(--color-neon-purple));">
+                            <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600" style="color: var(--color-text);">
+                        <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('home.services.marketing.title')); ?>
                         </h3>
-                        <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
+                        <p class="text-base sm:text-lg md:text-xl mb-4 md:mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(t('home.services.marketing.description')); ?>
                         </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/services#marketing'); ?>" class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all relative" style="color: var(--color-text);">
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/services#marketing'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-semibold group-hover:gap-4 transition-all relative min-h-[44px] touch-manipulation" style="color: var(--color-text);">
                             <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
                             <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -217,22 +217,22 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Аналитика -->
-                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 md:col-span-2 lg:col-span-1 cursor-pointer" style="animation-delay: 0.4s; background-color: var(--color-bg); border-color: var(--color-border);">
+                <div class="group relative animate-on-scroll overflow-hidden rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 md:col-span-2 lg:col-span-1 cursor-pointer touch-manipulation" style="animation-delay: 0.4s; background-color: var(--color-bg); border-color: var(--color-border);">
                     <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));"></div>
-                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); transform: translate(30%, -30%);"></div>
-                    <div class="p-8 md:p-10 relative z-10">
-                        <div class="w-16 h-16 md:w-20 md:h-20 mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));">
-                            <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity duration-500 hidden md:block" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); transform: translate(30%, -30%);"></div>
+                    <div class="p-6 sm:p-8 md:p-10 relative z-10">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 md:mb-6 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));">
+                            <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600" style="color: var(--color-text);">
+                        <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('home.services.analytics.title')); ?>
                         </h3>
-                        <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
+                        <p class="text-base sm:text-lg md:text-xl mb-4 md:mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(t('home.services.analytics.description')); ?>
                         </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="inline-flex items-center gap-2 text-lg font-semibold group-hover:gap-4 transition-all relative" style="color: var(--color-text);">
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-semibold group-hover:gap-4 transition-all relative min-h-[44px] touch-manipulation" style="color: var(--color-text);">
                             <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
                             <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -245,17 +245,17 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Процесс работы - простые шаги -->
-<section class="py-20 md:py-32" style="background-color: var(--color-bg);">
+<!-- Процесс работы - простые шаги с мобильной адаптацией -->
+<section class="py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-20 md:mb-24 animate-on-scroll">
-                <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+            <div class="mb-12 md:mb-16 lg:mb-24 animate-on-scroll">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('home.process.title')); ?>
                 </h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20">
                 <div class="animate-on-scroll">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-6 leading-none" style="color: var(--color-text); opacity: 0.2;">01</div>
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
@@ -300,17 +300,17 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Гарантии - простой блок -->
-<section class="py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
+<!-- Гарантии - простой блок с мобильной адаптацией -->
+<section class="py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-20 md:mb-24 animate-on-scroll">
-                <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+            <div class="mb-12 md:mb-16 lg:mb-24 animate-on-scroll">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('home.guarantees.title')); ?>
                 </h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20">
                 <div class="animate-on-scroll p-8 md:p-10 rounded-2xl border-2 transition-all duration-500 hover:shadow-xl hover:-translate-y-1" style="background-color: var(--color-bg); border-color: var(--color-border);">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('home.guarantees.lifetime.title')); ?>
@@ -333,8 +333,8 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- CTA секция - простая и большая с улучшенным визуалом -->
-<section class="py-24 md:py-40 relative overflow-hidden" style="background-color: var(--color-bg);">
+<!-- CTA секция - простая и большая с улучшенным визуалом и мобильной адаптацией -->
+<section class="py-16 md:py-24 lg:py-40 relative overflow-hidden" style="background-color: var(--color-bg);">
     <!-- Фоновые элементы с градиентами -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="absolute top-0 left-0 w-full h-full opacity-10" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));"></div>
@@ -344,14 +344,14 @@ include 'includes/header.php';
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-5xl mx-auto text-center">
-            <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold mb-8 md:mb-12 leading-[0.9] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-6 md:mb-8 lg:mb-12 leading-[0.9] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('home.cta.title')); ?>
             </h2>
-            <p class="text-xl md:text-2xl lg:text-3xl mb-12 md:mb-16 leading-relaxed animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 md:mb-12 lg:mb-16 leading-relaxed animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('home.cta.description')); ?>
             </p>
-            <div class="animate-on-scroll" style="animation-delay: 0.2s;">
-                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative inline-block px-12 py-6 md:px-16 md:py-7 bg-black text-white text-lg md:text-xl lg:text-2xl font-semibold rounded-lg transition-all duration-300 min-h-[64px] md:min-h-[72px] shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
+            <div class="animate-on-scroll px-4 sm:px-0" style="animation-delay: 0.2s;">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative inline-block w-full sm:w-auto px-10 sm:px-12 md:px-16 py-5 sm:py-6 md:py-7 bg-black text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold rounded-lg transition-all duration-300 min-h-[48px] sm:min-h-[56px] md:min-h-[64px] lg:min-h-[72px] shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden touch-manipulation">
                     <span class="relative z-10"><?php echo htmlspecialchars(t('common.getConsultation')); ?></span>
                     <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </a>

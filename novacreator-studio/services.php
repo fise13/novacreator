@@ -13,14 +13,20 @@ $pageMetaKeywords = t('seo.pages.services.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция -->
-<section class="pt-24 md:pt-32 pb-16 md:pb-20" style="background-color: var(--color-bg);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-8 md:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
+<!-- Hero секция - мобильная адаптация -->
+<section class="pt-20 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20 relative overflow-hidden" style="background-color: var(--color-bg);">
+    <!-- Фоновые декоративные элементы -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 rounded-full blur-3xl opacity-10 md:opacity-20 animate-pulse" style="background: radial-gradient(circle, var(--color-neon-purple), transparent);"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 rounded-full blur-3xl opacity-10 md:opacity-20 animate-pulse" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+        <div class="max-w-6xl mx-auto text-center md:text-left">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 md:mb-8 lg:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.services.title')); ?>
             </h1>
-            <p class="text-xl md:text-2xl lg:text-3xl mb-12 leading-relaxed animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary); max-width: 65ch;">
+            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 md:mb-12 leading-relaxed animate-on-scroll mx-auto md:mx-0" style="animation-delay: 0.1s; color: var(--color-text-secondary); max-width: 65ch;">
                 <?php echo htmlspecialchars(t('pages.services.subtitle')); ?>
             </p>
         </div>
@@ -310,19 +316,25 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- CTA секция -->
-<section class="py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+<!-- CTA секция - мобильная адаптация -->
+<section class="py-16 md:py-24 lg:py-32 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
+    <!-- Фоновые элементы -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-96 md:h-96 rounded-full blur-3xl opacity-10 animate-pulse" style="background: radial-gradient(circle, var(--color-neon-purple), transparent);"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 md:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 lg:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.services.cta.title')); ?>
             </h2>
-            <p class="text-xl md:text-2xl mb-10 md:mb-12 leading-relaxed animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 lg:mb-12 leading-relaxed animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.services.cta.subtitle')); ?>
             </p>
             <div class="animate-on-scroll" style="animation-delay: 0.2s;">
-                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="inline-block px-10 py-5 md:px-12 md:py-6 bg-black text-white text-lg md:text-xl font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200 min-h-[56px]">
-                    <?php echo htmlspecialchars(t('pages.services.cta.button')); ?>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative inline-block w-full sm:w-auto px-10 py-5 md:px-12 md:py-6 bg-black text-white text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 min-h-[48px] md:min-h-[56px] shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
+                    <span class="relative z-10"><?php echo htmlspecialchars(t('pages.services.cta.button')); ?></span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </a>
             </div>
         </div>

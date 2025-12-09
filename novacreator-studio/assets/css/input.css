@@ -331,11 +331,15 @@
     }
   }
   
-  /* Оптимизация производительности для мобильных */
+  /* ============================================
+     МОБИЛЬНАЯ АДАПТАЦИЯ - стиль holymedia.kz
+     ============================================ */
+  
+  /* Tablet breakpoint (768px) */
   @media (max-width: 768px) {
     /* Оптимизация blur эффектов */
     .blur-3xl { 
-      filter: blur(30px); /* Уменьшаем для производительности */
+      filter: blur(30px);
       will-change: filter;
     }
     .blur-2xl { 
@@ -344,18 +348,17 @@
     }
     
     /* Отключаем parallax на мобильных для производительности */
-    @media (prefers-reduced-motion: no-preference) {
-      .parallax { 
-        transform: none !important;
-        will-change: auto;
-      }
+    .parallax { 
+      transform: none !important;
+      will-change: auto;
     }
     
-    /* Улучшенные touch targets для мобильных */
-    button, a, input, textarea, select {
+    /* Улучшенные touch targets для мобильных (42-48px) */
+    button, a[role="button"], .btn, .btn-neon, .btn-outline {
       min-height: 44px;
       min-width: 44px;
-      touch-action: manipulation; /* Убираем задержку 300ms на touch */
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.15);
     }
     
     /* Улучшенные отступы для мобильных */
@@ -364,26 +367,35 @@
       padding-right: 1rem;
     }
     
-    /* Оптимизация шрифтов для мобильных */
+    /* Hero секции - вертикальное расположение, большие заголовки */
+    section[class*="hero"], section[class*="Hero"] {
+      padding-top: 4rem;
+      padding-bottom: 3rem;
+    }
+    
+    /* Оптимизация шрифтов для мобильных - большие и читаемые */
     h1 { 
-      font-size: 2rem !important; 
-      line-height: 1.2 !important;
-      letter-spacing: -0.02em; /* Улучшенная читаемость */
+      font-size: 2.5rem !important; 
+      line-height: 1.15 !important;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem !important;
     }
     h2 { 
-      font-size: 1.75rem !important; 
-      line-height: 1.3 !important;
+      font-size: 2rem !important; 
+      line-height: 1.2 !important;
       letter-spacing: -0.01em;
+      margin-bottom: 1.25rem !important;
     }
     h3 { 
-      font-size: 1.5rem !important; 
-      line-height: 1.4 !important;
+      font-size: 1.75rem !important; 
+      line-height: 1.3 !important;
+      margin-bottom: 1rem !important;
     }
     
     /* Улучшенная читаемость на мобильных */
     p, li, span {
       line-height: 1.7 !important;
-      font-size: 1rem; /* Минимум 16px для читаемости */
+      font-size: 1rem;
     }
     
     /* Оптимизация spacing для мобильных */
@@ -392,16 +404,24 @@
       padding-bottom: 3rem;
     }
     
+    /* Service cards - одна колонка на мобильных */
+    .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3,
+    .grid[class*="grid-cols"] {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+    
     /* Улучшенные отступы для карточек */
     .service-card,
     .card {
-      padding: 1.25rem;
-      margin-bottom: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      width: 100%;
     }
     
     /* Оптимизация grid для мобильных */
     .grid {
-      gap: 1rem;
+      gap: 1.5rem;
     }
     
     /* Улучшенная производительность скролла */
@@ -409,29 +429,53 @@
       -webkit-overflow-scrolling: touch;
     }
     
-    /* Оптимизация анимаций */
+    /* Легкие анимации для мобильных */
     .animate-on-scroll {
       will-change: transform, opacity;
+      transform: translateY(20px); /* Меньше движения */
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
     }
     
     .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
       will-change: auto;
     }
     
     /* Улучшенные формы для мобильных */
     .form-input,
     .form-textarea {
-      font-size: 16px; /* Предотвращает zoom на iOS */
+      font-size: 16px;
       padding: 0.875rem 1rem;
       border-radius: 0.75rem;
+      min-height: 48px;
     }
     
-    /* Оптимизация кнопок */
+    /* Оптимизация кнопок - touch-friendly */
     .btn-neon,
-    .btn-outline {
+    .btn-outline,
+    a[class*="btn"],
+    button[class*="btn"] {
       padding: 0.875rem 1.5rem;
       font-size: 1rem;
-      min-height: 48px; /* Увеличенный touch target */
+      min-height: 48px;
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Кнопки в группах - полная ширина */
+    .flex.flex-col.sm\:flex-row a,
+    .flex.flex-col.sm\:flex-row button {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    
+    .flex.flex-col.sm\:flex-row a:last-child,
+    .flex.flex-col.sm\:flex-row button:last-child {
+      margin-bottom: 0;
     }
     
     /* Улучшенная навигация */
@@ -445,6 +489,15 @@
       max-width: 100%;
       height: auto;
       display: block;
+      object-fit: cover;
+    }
+    
+    /* Hero изображения - без обрезки важных частей */
+    section[class*="hero"] img,
+    .hero img {
+      object-fit: contain;
+      width: 100%;
+      height: auto;
     }
     
     /* Улучшенные отступы для текста */
@@ -453,9 +506,115 @@
       padding-left: 0.5rem;
       padding-right: 0.5rem;
     }
+    
+    /* Portfolio - вертикальное расположение */
+    .portfolio-grid,
+    [class*="portfolio"] .grid {
+      grid-template-columns: 1fr !important;
+    }
+    
+    /* Contact форма - одна колонка */
+    .contact-form,
+    form[class*="contact"] {
+      width: 100%;
+    }
+    
+    .grid.grid-cols-1.lg\:grid-cols-2 {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+    
+    /* Footer - одна колонка на мобильных */
+    footer .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+    
+    /* Убираем горизонтальный скролл */
+    body, html {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    
+    /* Центрирование контента */
+    .text-center {
+      text-align: center !important;
+    }
+    
+    /* Улучшенные отступы для секций */
+    section {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
   
-  /* Дополнительная оптимизация для очень маленьких экранов */
+  /* Mobile breakpoint (480px) */
+  @media (max-width: 480px) {
+    /* Еще большие заголовки для маленьких экранов */
+    h1 { 
+      font-size: 2rem !important; 
+      line-height: 1.15 !important;
+      margin-bottom: 1.25rem !important;
+    }
+    h2 { 
+      font-size: 1.75rem !important; 
+      line-height: 1.2 !important;
+      margin-bottom: 1rem !important;
+    }
+    h3 { 
+      font-size: 1.5rem !important; 
+      line-height: 1.3 !important;
+    }
+    
+    /* Уменьшенные отступы для очень маленьких экранов */
+    .container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    
+    section {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    
+    /* Карточки с меньшими отступами */
+    .service-card,
+    .card {
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    /* Кнопки - оптимальный размер для touch */
+    .btn-neon,
+    .btn-outline,
+    button,
+    a[class*="btn"] {
+      min-height: 44px;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9375rem;
+    }
+    
+    /* Уменьшенные отступы между элементами */
+    .grid {
+      gap: 1.25rem;
+    }
+    
+    .space-y-6 > * + * {
+      margin-top: 1.25rem;
+    }
+    
+    .space-y-8 > * + * {
+      margin-top: 1.5rem;
+    }
+    
+    .space-y-12 > * + * {
+      margin-top: 2rem;
+    }
+  }
+  
+  /* Очень маленькие экраны (360px) */
   @media (max-width: 374px) {
     h1 { font-size: 1.75rem !important; }
     h2 { font-size: 1.5rem !important; }
@@ -475,6 +634,48 @@
     .btn-outline {
       padding: 0.75rem 1.25rem;
       font-size: 0.9375rem;
+      min-height: 42px;
+    }
+    
+    .service-card,
+    .card {
+      padding: 1rem;
+    }
+  }
+  
+  /* Touch animations для мобильных */
+  @media (max-width: 768px) {
+    /* Легкие touch эффекты для карточек */
+    .service-card:active,
+    .card:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    
+    /* Улучшенные hover эффекты для touch устройств */
+    .service-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Кнопки с touch feedback */
+    button:active,
+    a[class*="btn"]:active {
+      transform: scale(0.97);
+      transition: transform 0.1s ease;
+    }
+    
+    /* Убираем тяжелые эффекты на мобильных */
+    .service-card:hover {
+      transform: none;
+    }
+    
+    /* Легкие тени для мобильных */
+    .shadow-lg,
+    .shadow-xl,
+    .shadow-2xl {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
     }
   }
   

@@ -10,16 +10,16 @@ if (!function_exists('t')) {
 
 $currentLang = getCurrentLanguage();
 ?>
-    <!-- Footer - минималистичный стиль holymedia.kz -->
-    <footer class="mt-32 py-16 md:py-20 border-t" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+    <!-- Footer - минималистичный стиль holymedia.kz с мобильной адаптацией -->
+    <footer class="mt-20 md:mt-32 py-12 md:py-16 lg:py-20 border-t" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
         <div class="container mx-auto px-4 md:px-6 lg:px-8">
             <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
                     <!-- О компании -->
                     <div>
                         <div class="flex items-center space-x-3 mb-6">
-                            <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" decoding="async" />
-                            <span class="text-xl font-bold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
+                            <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" decoding="async" width="48" height="48" />
+                            <span class="text-lg sm:text-xl font-bold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
                         </div>
                         <p class="mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(t('footer.description')); ?>
@@ -83,9 +83,9 @@ $currentLang = getCurrentLanguage();
                 </div>
                 
                 <!-- Копирайт -->
-                <div class="border-t mt-12 pt-8 text-center" style="border-color: var(--color-border);">
-                    <p class="text-lg" style="color: var(--color-text-secondary);">&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(t('site.name')); ?>. <?php echo htmlspecialchars(t('common.allRightsReserved')); ?>.</p>
-            </div>
+                <div class="border-t mt-8 md:mt-12 pt-6 md:pt-8 text-center" style="border-color: var(--color-border);">
+                    <p class="text-base sm:text-lg" style="color: var(--color-text-secondary);">&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(t('site.name')); ?>. <?php echo htmlspecialchars(t('common.allRightsReserved')); ?>.</p>
+                </div>
         </div>
     </footer>
     
@@ -141,22 +141,28 @@ $currentLang = getCurrentLanguage();
     ?>
     <script src="<?php echo $jsPath; ?>" defer></script>
     
-    <!-- Глобальный скрипт для анимаций в стиле holymedia.kz -->
+    <!-- Глобальный скрипт для анимаций в стиле holymedia.kz с мобильной оптимизацией -->
     <script>
     // Анимация появления элементов при скролле - стиль holymedia.kz
     document.addEventListener('DOMContentLoaded', function() {
+        // Определяем, мобильное ли устройство
+        const isMobile = window.innerWidth <= 768;
+        const isSmallMobile = window.innerWidth <= 480;
+        
+        // Настройки для мобильных устройств - более легкие анимации
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -80px 0px'
+            threshold: isMobile ? 0.05 : 0.1,
+            rootMargin: isMobile ? '0px 0px -40px 0px' : '0px 0px -80px 0px'
         };
         
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    // Добавляем задержку для плавного появления
+                    // На мобильных - меньше задержки
+                    const delay = isMobile ? index * 20 : index * 50;
                     setTimeout(() => {
                         entry.target.classList.add('visible');
-                    }, index * 50);
+                    }, delay);
                     observer.unobserve(entry.target);
                 }
             });
@@ -173,7 +179,7 @@ $currentLang = getCurrentLanguage();
             const target = parseInt(element.getAttribute('data-target'));
             const prefix = element.getAttribute('data-prefix') || '';
             const suffix = element.getAttribute('data-suffix') || '';
-            const duration = 2000;
+            const duration = isMobile ? 1500 : 2000; // Быстрее на мобильных
             const increment = target / (duration / 16);
             let current = 0;
             
@@ -198,53 +204,99 @@ $currentLang = getCurrentLanguage();
                     }
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: isMobile ? 0.3 : 0.5 });
         
         counters.forEach(counter => counterObserver.observe(counter));
+        
+        // Lazy loading для изображений
+        if ('loading' in HTMLImageElement.prototype) {
+            // Браузер поддерживает native lazy loading
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.src = img.dataset.src || img.src;
+            });
+        } else {
+            // Fallback для старых браузеров
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.add('loaded');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            });
+            
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
     });
     
-    // Плавная прокрутка для всех ссылок
+    // Плавная прокрутка для всех ссылок с учетом мобильных устройств
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            const href = this.getAttribute('href');
+            if (href !== '#' && href.length > 1) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const isMobile = window.innerWidth <= 768;
+                    const offsetTop = target.offsetTop - (isMobile ? 60 : 80);
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
     
-    // Индикатор прогресса прокрутки
+    // Индикатор прогресса прокрутки - оптимизирован для мобильных
+    let ticking = false;
     window.addEventListener('scroll', function() {
-        const scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-        const progressBar = document.querySelector('.scroll-progress-bar');
-        if (progressBar) {
-            progressBar.style.width = scrollProgress + '%';
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                const scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                const progressBar = document.querySelector('.scroll-progress-bar');
+                if (progressBar) {
+                    progressBar.style.width = scrollProgress + '%';
+                }
+                
+                const progressCircle = document.getElementById('scrollProgressCircle');
+                if (progressCircle) {
+                    const circumference = 2 * Math.PI * 45;
+                    const offset = circumference - (scrollProgress / 100) * circumference;
+                    progressCircle.style.strokeDashoffset = offset;
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
-        
-        const progressCircle = document.getElementById('scrollProgressCircle');
-        if (progressCircle) {
-            const circumference = 2 * Math.PI * 45;
-            const offset = circumference - (scrollProgress / 100) * circumference;
-            progressCircle.style.strokeDashoffset = offset;
-        }
-    });
+    }, { passive: true });
     
-    // Кнопка "Наверх"
+    // Кнопка "Наверх" - скрыта на мобильных
     const backToTopBtn = document.getElementById('backToTop');
-    if (backToTopBtn) {
+    if (backToTopBtn && window.innerWidth > 767) {
+        let scrollTicking = false;
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                backToTopBtn.style.opacity = '1';
-                backToTopBtn.style.pointerEvents = 'auto';
-            } else {
-                backToTopBtn.style.opacity = '0';
-                backToTopBtn.style.pointerEvents = 'none';
+            if (!scrollTicking) {
+                window.requestAnimationFrame(function() {
+                    if (window.scrollY > 300) {
+                        backToTopBtn.style.opacity = '1';
+                        backToTopBtn.style.pointerEvents = 'auto';
+                    } else {
+                        backToTopBtn.style.opacity = '0';
+                        backToTopBtn.style.pointerEvents = 'none';
+                    }
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
             }
-        });
+        }, { passive: true });
         
         backToTopBtn.addEventListener('click', function() {
             window.scrollTo({
