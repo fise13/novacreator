@@ -5,34 +5,17 @@
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    // Critical: загружаем сразу
+    initAnimations();
     initNavigation();
     initForms();
+    initScrollEffects();
+    initCounters();
+    initProgressBars();
     initScrollProgress();
     initBackToTop();
+    initPageLoadAnimation();
+    initTouchOptimizations();
     initLazyLoading();
-    
-    // Non-critical: откладываем до первого взаимодействия или idle
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(function() {
-            initAnimations();
-            initScrollEffects();
-            initCounters();
-            initProgressBars();
-            initPageLoadAnimation();
-            initTouchOptimizations();
-        }, { timeout: 2000 });
-    } else {
-        // Fallback для браузеров без requestIdleCallback
-        setTimeout(function() {
-            initAnimations();
-            initScrollEffects();
-            initCounters();
-            initProgressBars();
-            initPageLoadAnimation();
-            initTouchOptimizations();
-        }, 100);
-    }
 });
 
 /**

@@ -149,12 +149,9 @@ $currentLang = getCurrentLanguage();
     $baseDir = rtrim($baseDir, '/\\');
     
     // Формируем путь к JS
-    $burgerJsPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/burger.js';
-    $burgerJsPath = preg_replace('#/+#', '/', $burgerJsPath);
     $jsPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
     $jsPath = preg_replace('#/+#', '/', $jsPath);
     ?>
-    <script src="<?php echo $burgerJsPath; ?>" defer></script>
     <script src="<?php echo $jsPath; ?>" defer></script>
     
     <!-- Service Worker для Push-уведомлений -->

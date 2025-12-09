@@ -5,21 +5,11 @@
   "scripts": {
     "build-css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --watch",
     "build-css-prod": "tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --minify",
-    "build-js-prod": "terser ./assets/js/main.js -o ./assets/js/main.min.js --compress --mangle",
-    "lint": "echo 'Linting not configured yet'"
+    "build-js-prod": "terser ./assets/js/main.js -o ./assets/js/main.min.js --compress --mangle"
   },
-  "browserslist": [
-    "> 0.5%",
-    "last 2 versions",
-    "Firefox ESR",
-    "not dead",
-    "not op_mini all"
-  ],
   "devDependencies": {
     "tailwindcss": "^3.4.0",
-    "terser": "^5.36.0",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47"
+    "terser": "^5.36.0"
   }
 }
 
