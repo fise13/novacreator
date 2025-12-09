@@ -1620,48 +1620,68 @@
     animation: float 6s ease-in-out infinite;
   }
   
-  /* Бургер-меню в стиле holymedia.kz - полноэкранное */
+  /* Бургер-меню в стиле holymedia.kz - боковая панель справа */
   #burgerMenu {
     will-change: transform, opacity;
     position: fixed !important;
-    inset: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: auto !important;
     z-index: 9999 !important;
-    width: 100vw !important;
+    width: 85vw !important;
+    max-width: 400px !important;
     height: 100vh !important;
-    max-width: 100vw !important;
     max-height: 100vh !important;
     margin: 0 !important;
     padding: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    top: 0 !important;
-    bottom: 0 !important;
     background-color: var(--color-bg) !important;
+    border-left: 1px solid var(--color-border) !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    transform: translateY(-100%);
+    transform: translateX(100%);
     opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                opacity 0.3s ease-out;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.2s ease-out;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
   }
   
   #burgerMenu:not(.hidden) {
-    transform: translateY(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  /* Overlay для бургер-меню */
+  #burgerOverlay {
+    will-change: opacity;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 9998 !important;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  #burgerOverlay:not(.hidden) {
     opacity: 1;
   }
   
   /* Оптимизация для мобильных */
   @media (max-width: 768px) {
     #burgerMenu {
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                  opacity 0.25s ease-out;
+      width: 80vw !important;
+      max-width: 360px !important;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                  opacity 0.2s ease-out;
     }
     
     .mobile-menu-item {
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
-      min-height: 60px;
+      min-height: 48px;
       display: flex;
       align-items: center;
     }
@@ -1670,12 +1690,30 @@
   /* Плавная анимация элементов меню */
   .mobile-menu-item {
     will-change: opacity, transform;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .mobile-menu-item.animated {
     will-change: auto;
+  }
+  
+  /* Улучшенная прокрутка для меню */
+  #burgerMenu::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  #burgerMenu::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  #burgerMenu::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
+  }
+  
+  #burgerMenu::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-secondary);
   }
   
   /* Улучшенные карточки услуг в стиле holymedia.kz */
