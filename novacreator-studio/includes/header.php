@@ -47,7 +47,7 @@ $siteUrl = $scheme . '://' . $host;
 require_once __DIR__ . '/theme_switcher.php';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $htmlLang; ?>" itemscope itemtype="https://schema.org/WebSite" class="light">
+<html lang="<?php echo $htmlLang; ?>" itemscope itemtype="https://schema.org/WebSite" class="<?php echo $currentTheme; ?>">
 <head>
     <meta charset="UTF-8">
     <!-- Viewport оптимизирован для мобильных устройств с поддержкой safe area insets -->
@@ -223,7 +223,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-<body class="overflow-x-hidden bg-white text-gray-900">
+<body class="overflow-x-hidden" style="background-color: var(--color-bg); color: var(--color-text);">
     <!-- Skip to content link for accessibility -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-neon-purple focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2"><?php echo htmlspecialchars(t('nav.skipToContent') ?? 'Skip to content'); ?></a>
     

@@ -125,6 +125,68 @@
     --color-text: #FFFFFF;
     --color-text-secondary: #9CA3AF;
     --color-text-muted: #6B7280;
+    --color-neon-purple: #8B5CF6;
+    --color-neon-blue: #06B6D4;
+    --color-text-base: #FFFFFF;
+    --color-text-light: #E5E7EB;
+    --color-text-dark: #0A0A0F;
+    --color-text-gradient-start: #8B5CF6;
+    --color-text-gradient-end: #06B6D4;
+    --color-shadow-base: rgba(0, 0, 0, 0.6);
+    --color-shadow-light: rgba(0, 0, 0, 0.4);
+    --color-shadow-dark: rgba(0, 0, 0, 0.7);
+  }
+  
+  /* Темная тема - стили для body */
+  :root.dark body {
+    background-color: var(--color-dark-bg);
+    color: #FFFFFF;
+  }
+  
+  /* Темная тема - стили для секций */
+  :root.dark section {
+    background-color: var(--color-dark-bg);
+  }
+  
+  :root.dark .bg-white {
+    background-color: var(--color-dark-surface) !important;
+  }
+  
+  :root.dark .bg-gray-50 {
+    background-color: var(--color-dark-bg) !important;
+  }
+  
+  :root.dark .text-gray-900 {
+    color: #FFFFFF !important;
+  }
+  
+  :root.dark .text-gray-600 {
+    color: #9CA3AF !important;
+  }
+  
+  :root.dark .text-gray-700 {
+    color: #D1D5DB !important;
+  }
+  
+  :root.dark .border-gray-200 {
+    border-color: var(--color-dark-border) !important;
+  }
+  
+  :root.dark .bg-gray-50 {
+    background-color: var(--color-dark-surface) !important;
+  }
+  
+  :root.dark .bg-blue-50,
+  :root.dark .bg-purple-50 {
+    background-color: rgba(139, 92, 246, 0.1) !important;
+  }
+  
+  :root.dark .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4) !important;
+  }
+  
+  :root.dark .shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
   }
   
   /* Подключение шрифта Inter */
@@ -147,8 +209,8 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     line-height: 1.6;
-    background-color: #FFFFFF;
-    color: #111827;
+    background-color: var(--color-bg);
+    color: var(--color-text);
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
@@ -1125,17 +1187,48 @@
     box-shadow: var(--shadow-neon-blue);
   }
   
-  /* Анимация появления элементов при скролле */
+  /* Анимация появления элементов при скролле - стиль holymedia.kz */
   .animate-on-scroll {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity var(--transition-slow), 
-                transform var(--transition-slow);
+    transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .animate-on-scroll.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+  
+  /* Плавная анимация для всех элементов */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  /* Анимация для градиентов */
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
   }
   
   /* Плавающие частицы */
@@ -1277,5 +1370,160 @@
   .touch-device .service-card:active {
     transform: scale(0.98);
     opacity: 0.9;
+  }
+  
+  /* Дополнительные стили для темной темы */
+  :root.dark .bg-white {
+    background-color: var(--color-dark-surface) !important;
+  }
+  
+  :root.dark .bg-gray-50 {
+    background-color: var(--color-dark-bg) !important;
+  }
+  
+  :root.dark .bg-gray-100 {
+    background-color: var(--color-dark-surface) !important;
+  }
+  
+  :root.dark .text-gray-900 {
+    color: #FFFFFF !important;
+  }
+  
+  :root.dark .text-gray-600 {
+    color: #9CA3AF !important;
+  }
+  
+  :root.dark .text-gray-700 {
+    color: #D1D5DB !important;
+  }
+  
+  :root.dark .border-gray-200 {
+    border-color: var(--color-dark-border) !important;
+  }
+  
+  :root.dark .border-gray-300 {
+    border-color: var(--color-dark-border) !important;
+  }
+  
+  :root.dark .bg-blue-50,
+  :root.dark .bg-purple-50 {
+    background-color: rgba(139, 92, 246, 0.1) !important;
+  }
+  
+  :root.dark .bg-blue-100,
+  :root.dark .bg-purple-100 {
+    background-color: rgba(139, 92, 246, 0.15) !important;
+  }
+  
+  :root.dark .hover\:bg-gray-50:hover {
+    background-color: var(--color-dark-surface-lighter) !important;
+  }
+  
+  :root.dark .hover\:bg-gray-100:hover {
+    background-color: var(--color-dark-surface-lighter) !important;
+  }
+  
+  :root.dark .hover\:border-blue-300:hover {
+    border-color: rgba(139, 92, 246, 0.5) !important;
+  }
+  
+  :root.dark .hover\:border-purple-300:hover {
+    border-color: rgba(139, 92, 246, 0.5) !important;
+  }
+  
+  :root.dark .hover\:border-blue-400:hover {
+    border-color: rgba(139, 92, 246, 0.6) !important;
+  }
+  
+  :root.dark .hover\:border-purple-400:hover {
+    border-color: rgba(139, 92, 246, 0.6) !important;
+  }
+  
+  /* Дополнительные стили для темной темы - секции */
+  :root.dark section[style*="background-color: var(--color-bg)"] {
+    background-color: var(--color-dark-bg) !important;
+  }
+  
+  :root.dark section[style*="background-color: var(--color-bg-lighter)"] {
+    background-color: var(--color-dark-bg-lighter) !important;
+  }
+  
+  :root.dark [style*="background-color: var(--color-bg)"] {
+    background-color: var(--color-dark-bg) !important;
+  }
+  
+  :root.dark [style*="background-color: var(--color-bg-lighter)"] {
+    background-color: var(--color-dark-bg-lighter) !important;
+  }
+  
+  :root.dark [style*="background-color: var(--color-surface)"] {
+    background-color: var(--color-dark-surface) !important;
+  }
+  
+  :root.dark [style*="color: var(--color-text)"] {
+    color: #FFFFFF !important;
+  }
+  
+  :root.dark [style*="color: var(--color-text-secondary)"] {
+    color: #9CA3AF !important;
+  }
+  
+  :root.dark [style*="border-color: var(--color-border)"] {
+    border-color: var(--color-dark-border) !important;
+  }
+  
+  /* Анимации в стиле holymedia.kz */
+  @keyframes slideInFromBottom {
+    from {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .animate-slide-in {
+    animation: slideInFromBottom 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .animate-fade-scale {
+    animation: fadeInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  /* Плавные переходы для всех интерактивных элементов */
+  a, button, .service-card, .animate-on-scroll {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Улучшенные hover эффекты */
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-8px);
+  }
+  
+  /* Градиентные эффекты для текста */
+  .text-gradient-animated {
+    background: linear-gradient(90deg, #2563EB, #9333EA, #2563EB);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease infinite;
   }
 }

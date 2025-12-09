@@ -3,10 +3,10 @@
  * Переключатель темы (светлая/темная)
  */
 
-// Получаем текущую тему из cookie или используем темную по умолчанию
-$currentTheme = $_COOKIE['theme'] ?? 'dark';
+// Получаем текущую тему из cookie или используем светлую по умолчанию
+$currentTheme = $_COOKIE['theme'] ?? 'light';
 if (!in_array($currentTheme, ['light', 'dark'])) {
-    $currentTheme = 'dark';
+    $currentTheme = 'light';
 }
 ?>
 
@@ -24,10 +24,10 @@ if (!in_array($currentTheme, ['light', 'dark'])) {
     const savedTheme = localStorage.getItem('theme') || '<?php echo $currentTheme; ?>';
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // Определяем начальную тему
-    let initialTheme = savedTheme;
+    // Определяем начальную тему (по умолчанию light)
+    let initialTheme = savedTheme || 'light';
     if (initialTheme === 'auto' || !initialTheme) {
-        initialTheme = prefersDark ? 'dark' : 'light';
+        initialTheme = 'light'; // По умолчанию светлая тема
     }
     
     // Устанавливаем тему до загрузки страницы (предотвращает мигание)

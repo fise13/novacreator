@@ -16,7 +16,7 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - новый дизайн -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20 md:pt-24">
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <!-- Фоновые декоративные элементы -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <!-- Градиентные круги -->
@@ -48,12 +48,12 @@ include 'includes/header.php';
                 
                 <!-- Заголовок H1 -->
                 <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-8 md:mb-10 leading-tight animate-on-scroll" style="animation-delay: 0.2s;">
-                    <span class="block mb-4 text-gray-900"><?php echo htmlspecialchars($randomHeadline['title']); ?></span>
+                    <span class="block mb-4" style="color: var(--color-text);"><?php echo htmlspecialchars($randomHeadline['title']); ?></span>
                     <span class="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient"><?php echo htmlspecialchars($randomHeadline['subtitle']); ?></span>
                 </h1>
                 
                 <!-- Подзаголовок -->
-                <p class="text-xl sm:text-2xl md:text-3xl text-gray-600 mb-12 md:mb-16 max-w-4xl mx-auto leading-relaxed animate-on-scroll" style="animation-delay: 0.3s;">
+                <p class="text-xl sm:text-2xl md:text-3xl mb-12 md:mb-16 max-w-4xl mx-auto leading-relaxed animate-on-scroll" style="animation-delay: 0.3s; color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars($randomDescription); ?>
                 </p>
                 
@@ -77,7 +77,7 @@ include 'includes/header.php';
                         <div class="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
                             <span class="counter-number" data-target="10" data-suffix="+">0</span>
                         </div>
-                        <p class="text-sm md:text-base text-gray-600 font-medium"><?php echo htmlspecialchars(t('home.stats.yearsExperience')); ?></p>
+                        <p class="text-sm md:text-base font-medium" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('home.stats.yearsExperience')); ?></p>
                     </div>
                     <div class="text-center">
                         <div class="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
@@ -107,7 +107,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Услуги - новый дизайн -->
-<section id="services" class="py-24 md:py-32 bg-gray-50 relative">
+<section id="services" class="py-24 md:py-32 relative" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <!-- Заголовок секции -->
         <div class="text-center mb-16 md:mb-20 animate-on-scroll">
@@ -116,8 +116,8 @@ include 'includes/header.php';
                     <?php echo $currentLang === 'en' ? 'What We Do' : 'Наши услуги'; ?>
                 </span>
             </div>
-            <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900"><?php echo htmlspecialchars(t('home.services.title')); ?></h2>
-            <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+            <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.services.title')); ?></h2>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('home.services.subtitle')); ?>
             </p>
         </div>
@@ -131,8 +131,8 @@ include 'includes/header.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900 group-hover:text-blue-600 transition-colors"><?php echo htmlspecialchars(t('home.services.seo.title')); ?></h3>
-                <p class="text-gray-600 mb-6 leading-relaxed text-base md:text-lg">
+                <h3 class="text-2xl md:text-3xl font-bold mb-4 group-hover:text-blue-600 transition-colors" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.services.seo.title')); ?></h3>
+                <p class="mb-6 leading-relaxed text-base md:text-lg" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('home.services.seo.description')); ?>
                 </p>
                 <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 transition-colors font-semibold group/link">
@@ -243,7 +243,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Статистика - новый дизайн -->
-<section class="py-20 md:py-28 lg:py-32 bg-white relative overflow-hidden">
+<section class="py-20 md:py-28 lg:py-32 relative overflow-hidden" style="background-color: var(--color-bg);">
     <!-- Фоновые элементы -->
     <div class="absolute inset-0 opacity-30 pointer-events-none">
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-100 rounded-full blur-3xl"></div>
@@ -273,7 +273,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Процесс работы - новый дизайн -->
-<section class="py-20 md:py-28 lg:py-32 bg-gray-50 relative">
+<section class="py-20 md:py-28 lg:py-32 relative" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-16 md:mb-20 animate-on-scroll">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6">
@@ -281,8 +281,8 @@ include 'includes/header.php';
                     <?php echo $currentLang === 'en' ? 'How We Work' : 'Как мы работаем'; ?>
                 </span>
             </div>
-            <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900"><?php echo htmlspecialchars(t('home.process.title')); ?></h2>
-            <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+            <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.process.title')); ?></h2>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('home.process.subtitle')); ?>
             </p>
         </div>
@@ -296,8 +296,8 @@ include 'includes/header.php';
                     <!-- Соединительная линия (скрыта на мобильных) -->
                     <div class="hidden lg:block absolute top-1/2 left-full w-full h-1 bg-gradient-to-r from-blue-200 to-transparent -z-10"></div>
                 </div>
-                <h3 class="text-xl md:text-2xl font-bold mb-4 text-gray-900 group-hover:text-blue-600 transition-colors"><?php echo htmlspecialchars(t('home.process.step1.title')); ?></h3>
-                <p class="text-gray-600 leading-relaxed">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 group-hover:text-blue-600 transition-colors" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.process.step1.title')); ?></h3>
+                <p class="leading-relaxed" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('home.process.step1.description')); ?>
                 </p>
             </div>
@@ -344,7 +344,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Гарантии и преимущества - новый дизайн -->
-<section class="py-20 md:py-28 lg:py-32 bg-white relative overflow-hidden">
+<section class="py-20 md:py-28 lg:py-32 relative overflow-hidden" style="background-color: var(--color-bg);">
     <!-- Фоновые элементы -->
     <div class="absolute inset-0 opacity-20">
         <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-100 rounded-full blur-3xl"></div>
@@ -358,8 +358,8 @@ include 'includes/header.php';
                     <?php echo $currentLang === 'en' ? 'Our Guarantees' : 'Наши гарантии'; ?>
                 </span>
             </div>
-            <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900"><?php echo htmlspecialchars(t('home.guarantees.title')); ?></h2>
-            <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+            <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.guarantees.title')); ?></h2>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('home.guarantees.subtitle')); ?>
             </p>
         </div>
@@ -374,10 +374,10 @@ include 'includes/header.php';
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors"><?php echo htmlspecialchars(t('home.guarantees.lifetime.title')); ?></h3>
+                        <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 group-hover:text-blue-600 transition-colors" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.guarantees.lifetime.title')); ?></h3>
                     </div>
                 </div>
-                <p class="text-gray-700 leading-relaxed text-base md:text-lg">
+                <p class="leading-relaxed text-base md:text-lg" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('home.guarantees.lifetime.description')); ?>
                 </p>
             </div>
@@ -391,10 +391,10 @@ include 'includes/header.php';
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors"><?php echo htmlspecialchars(t('home.guarantees.support.title')); ?></h3>
+                        <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 group-hover:text-purple-600 transition-colors" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.guarantees.support.title')); ?></h3>
                     </div>
                 </div>
-                <p class="text-gray-700 leading-relaxed text-base md:text-lg mb-6">
+                <p class="leading-relaxed text-base md:text-lg mb-6" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('home.guarantees.support.description')); ?>
                 </p>
                 <div class="pt-6 border-t border-purple-200">
