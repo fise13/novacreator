@@ -1,7 +1,7 @@
 <?php
 /**
  * Страница блога
- * Полезные статьи о SEO, маркетинге и разработке
+ * Минималистичный дизайн в стиле holymedia.kz
  */
 require_once __DIR__ . '/includes/i18n.php';
 $currentLang = getCurrentLanguage();
@@ -32,24 +32,6 @@ $totalPages = ceil($totalArticles / $perPage);
 $offset = ($page - 1) * $perPage;
 $articles = array_slice($articles, $offset, $perPage);
 
-// Функция для получения цвета категории
-function getCategoryColor($category) {
-    $colors = [
-        'SEO' => 'text-neon-purple',
-        'Google Ads' => 'text-neon-blue',
-        'Разработка' => 'text-neon-purple',
-        'Development' => 'text-neon-purple',
-        'Маркетинг' => 'text-neon-blue',
-        'Marketing' => 'text-neon-blue',
-        'Кейсы' => 'text-neon-purple',
-        'Case Studies' => 'text-neon-purple',
-        'Аналитика' => 'text-neon-blue',
-        'Analytics' => 'text-neon-blue'
-    ];
-    return $colors[$category] ?? 'text-gray-400';
-}
-
-// Функция для получения локализованного контента статьи
 function getArticleField($article, $field, $lang) {
     if ($lang === 'en' && isset($article[$field . '_en']) && !empty($article[$field . '_en'])) {
         return $article[$field . '_en'];
@@ -57,7 +39,6 @@ function getArticleField($article, $field, $lang) {
     return $article[$field] ?? '';
 }
 
-// Функция для получения локализованного slug
 function getArticleSlug($article, $lang) {
     if ($lang === 'en' && isset($article['slug_en']) && !empty($article['slug_en'])) {
         return $article['slug_en'];
@@ -65,7 +46,6 @@ function getArticleSlug($article, $lang) {
     return $article['slug'] ?? '';
 }
 
-// Функция для форматирования даты
 function formatDate($date) {
     global $currentLang;
     $parts = explode('-', $date);
@@ -78,13 +58,13 @@ function formatDate($date) {
 ?>
 
 <!-- Hero секция -->
-<section class="pt-32 pb-20">
+<section class="pt-24 md:pt-32 pb-16 md:pb-20" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="text-gradient"><?php echo htmlspecialchars(t('pages.blog.title')); ?></span>
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-8 md:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
+                <?php echo htmlspecialchars(t('pages.blog.title')); ?>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-400 mb-12">
+            <p class="text-xl md:text-2xl lg:text-3xl mb-12 leading-relaxed animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary); max-width: 65ch;">
                 <?php echo htmlspecialchars(t('pages.blog.subtitle')); ?>
             </p>
         </div>
@@ -92,96 +72,96 @@ function formatDate($date) {
 </section>
 
 <!-- Статьи -->
-<section class="py-20">
+<section class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <?php if (empty($articles)): ?>
-            <div class="text-center py-20">
-                <p class="text-xl text-gray-400"><?php echo htmlspecialchars(t('pages.blog.noArticles')); ?></p>
-            </div>
-        <?php else: ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <?php foreach ($articles as $index => $article): ?>
-                    <article class="bg-dark-surface border border-dark-border rounded-xl p-6 md:p-8 hover:border-neon-purple transition-all duration-300 hover:-translate-y-2 animate-on-scroll" style="animation-delay: <?php echo $index * 0.1; ?>s;">
-                        <div class="mb-4">
-                            <?php 
-                            $category = getArticleField($article, 'category', $currentLang);
-                            $categoryDisplay = $currentLang === 'en' ? ($article['category_en'] ?? $article['category']) : $article['category'];
-                            ?>
-                            <span class="text-sm <?php echo getCategoryColor($categoryDisplay); ?> font-semibold"><?php echo htmlspecialchars($categoryDisplay); ?></span>
-                            <span class="text-gray-500 mx-2">•</span>
-                            <span class="text-sm text-gray-500"><?php echo formatDate($article['date']); ?></span>
-                        </div>
-                        <h2 class="text-2xl font-bold mb-4 text-gradient">
-                            <?php 
-                            $articleSlug = getArticleSlug($article, $currentLang);
-                            $articleTitle = getArticleField($article, 'title', $currentLang);
-                            ?>
-                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($articleSlug); ?>" class="hover:text-neon-blue transition-colors">
-                                <?php echo htmlspecialchars($articleTitle); ?>
+        <div class="max-w-6xl mx-auto">
+            <?php if (empty($articles)): ?>
+                <div class="text-center py-20 animate-on-scroll">
+                    <p class="text-xl md:text-2xl" style="color: var(--color-text-secondary);">
+                        <?php echo htmlspecialchars(t('pages.blog.noArticles')); ?>
+                    </p>
+                </div>
+            <?php else: ?>
+                <div class="space-y-12 md:space-y-16">
+                    <?php foreach ($articles as $index => $article): ?>
+                        <?php
+                        $title = getArticleField($article, 'title', $currentLang);
+                        $excerpt = getArticleField($article, 'excerpt', $currentLang);
+                        $slug = getArticleSlug($article, $currentLang);
+                        $category = getArticleField($article, 'category', $currentLang);
+                        $date = formatDate($article['date']);
+                        ?>
+                        <article class="animate-on-scroll" style="animation-delay: <?php echo $index * 0.1; ?>s;">
+                            <div class="mb-4">
+                                <span class="text-sm uppercase tracking-wider" style="color: var(--color-text-secondary);">
+                                    <?php echo htmlspecialchars($category); ?>
+                                </span>
+                                <span class="mx-2" style="color: var(--color-text-secondary);">•</span>
+                                <span class="text-sm" style="color: var(--color-text-secondary);">
+                                    <?php echo htmlspecialchars($date); ?>
+                                </span>
+                            </div>
+                            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
+                                <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post?slug=' . urlencode($slug)); ?>" class="hover:underline">
+                                    <?php echo htmlspecialchars($title); ?>
+                                </a>
+                            </h2>
+                            <p class="text-lg md:text-xl leading-relaxed mb-6" style="color: var(--color-text-secondary); max-width: 65ch;">
+                                <?php echo htmlspecialchars($excerpt); ?>
+                            </p>
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post?slug=' . urlencode($slug)); ?>" class="inline-flex items-center gap-2 text-lg font-semibold hover:underline" style="color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Read more' : 'Читать далее'; ?>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
                             </a>
-                        </h2>
-                        <p class="text-gray-300 mb-6 leading-relaxed text-base" style="line-height: 1.75; color: #D1D5DB;">
-                            <?php echo htmlspecialchars(getArticleField($article, 'excerpt', $currentLang)); ?>
-                        </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($articleSlug); ?>" class="text-neon-purple hover:text-neon-blue transition-colors font-semibold">
-                            <?php echo htmlspecialchars(t('pages.blog.readMore')); ?>
-                        </a>
-                    </article>
-                <?php endforeach; ?>
-            </div>
-
-            <!-- Пагинация -->
-            <?php if ($totalPages > 1): ?>
-                <div class="mt-12 text-center">
-                    <div class="inline-flex space-x-2">
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+                
+                <!-- Пагинация -->
+                <?php if ($totalPages > 1): ?>
+                    <div class="mt-16 flex justify-center gap-4 animate-on-scroll">
                         <?php if ($page > 1): ?>
-                            <a href="?page=<?php echo $page - 1; ?>" class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-400 hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
-                                <?php echo htmlspecialchars(t('pages.blog.pagination.prev')); ?>
+                            <a href="?page=<?php echo $page - 1; ?>" class="px-6 py-3 border-2 rounded-lg hover:bg-gray-50 transition-colors" style="border-color: var(--color-border); color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Previous' : 'Назад'; ?>
                             </a>
-                        <?php else: ?>
-                            <span class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-500 cursor-not-allowed"><?php echo htmlspecialchars(t('pages.blog.pagination.prev')); ?></span>
                         <?php endif; ?>
                         
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <?php if ($i == $page): ?>
-                                <span class="px-4 py-2 bg-neon-purple text-white rounded-lg font-semibold"><?php echo $i; ?></span>
-                            <?php else: ?>
-                                <a href="?page=<?php echo $i; ?>" class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-400 hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
-                                    <?php echo $i; ?>
-                                </a>
-                            <?php endif; ?>
+                            <a href="?page=<?php echo $i; ?>" class="px-6 py-3 border-2 rounded-lg transition-colors <?php echo $i === $page ? 'bg-black text-white' : 'hover:bg-gray-50'; ?>" style="<?php echo $i === $page ? '' : 'border-color: var(--color-border); color: var(--color-text);'; ?>">
+                                <?php echo $i; ?>
+                            </a>
                         <?php endfor; ?>
                         
                         <?php if ($page < $totalPages): ?>
-                            <a href="?page=<?php echo $page + 1; ?>" class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-400 hover:border-neon-purple hover:text-neon-purple transition-all duration-300">
-                                <?php echo htmlspecialchars(t('pages.blog.pagination.next')); ?>
+                            <a href="?page=<?php echo $page + 1; ?>" class="px-6 py-3 border-2 rounded-lg hover:bg-gray-50 transition-colors" style="border-color: var(--color-border); color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Next' : 'Вперед'; ?>
                             </a>
-                        <?php else: ?>
-                            <span class="px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-gray-500 cursor-not-allowed"><?php echo htmlspecialchars(t('pages.blog.pagination.next')); ?></span>
                         <?php endif; ?>
                     </div>
-                </div>
+                <?php endif; ?>
             <?php endif; ?>
-        <?php endif; ?>
-    </div>
-</section>
-
-<!-- CTA секция -->
-<section class="py-32 bg-gradient-to-r from-neon-purple/20 to-neon-blue/20">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
-        <div class="max-w-3xl mx-auto animate-on-scroll">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                <?php echo htmlspecialchars(t('pages.blog.cta.title')); ?>
-            </h2>
-            <p class="text-xl text-gray-300 mb-12">
-                <?php echo htmlspecialchars(t('pages.blog.cta.subtitle')); ?>
-            </p>
-            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
-                <?php echo htmlspecialchars(t('pages.blog.cta.button')); ?>
-            </a>
         </div>
     </div>
 </section>
 
-<?php include 'includes/footer.php'; ?>
+<!-- Скрипт для анимации -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                scrollObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+    
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        scrollObserver.observe(el);
+    });
+});
+</script>
 
+<?php include 'includes/footer.php'; ?>
