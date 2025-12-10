@@ -14,13 +14,13 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.faq.title')); ?>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.faq.subtitle')); ?>
             </p>
         </div>
@@ -28,12 +28,12 @@ include 'includes/header.php';
 </section>
 
 <!-- FAQ секция -->
-<section class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div itemscope itemtype="https://schema.org/FAQPage" class="space-y-8">
                 <!-- SEO вопросы -->
-                <div class="mb-16 animate-on-scroll">
+                <div class="mb-16 reveal">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-8" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.faq.sections.seo.title')); ?>
                     </h2>
@@ -44,7 +44,7 @@ include 'includes/header.php';
                             $questionKey = 'pages.faq.sections.seo.q' . $i . '.question';
                             $answerKey = 'pages.faq.sections.seo.q' . $i . '.answer';
                             if (t($questionKey) !== $questionKey) {
-                                echo '<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="border-b pb-6 animate-on-scroll" style="animation-delay: ' . ($i * 0.1) . 's; border-color: var(--color-border);">';
+                                echo '<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="reveal border-b pb-6" style="border-color: var(--color-border);">';
                                 echo '<h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 cursor-pointer" style="color: var(--color-text);" onclick="toggleFAQ(this)">';
                                 echo htmlspecialchars(t($questionKey));
                                 echo '<svg class="w-5 h-5 inline-block ml-2 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>';
@@ -60,7 +60,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Разработка сайтов -->
-                <div class="mb-16 animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="mb-16 reveal">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-8" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.faq.sections.development.title')); ?>
                     </h2>
@@ -70,7 +70,7 @@ include 'includes/header.php';
                             $questionKey = 'pages.faq.sections.development.q' . $i . '.question';
                             $answerKey = 'pages.faq.sections.development.q' . $i . '.answer';
                             if (t($questionKey) !== $questionKey) {
-                                echo '<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="border-b pb-6 animate-on-scroll" style="animation-delay: ' . ($i * 0.1) . 's; border-color: var(--color-border);">';
+                                echo '<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="reveal border-b pb-6" style="border-color: var(--color-border);">';
                                 echo '<h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 cursor-pointer" style="color: var(--color-text);" onclick="toggleFAQ(this)">';
                                 echo htmlspecialchars(t($questionKey));
                                 echo '<svg class="w-5 h-5 inline-block ml-2 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>';
@@ -86,7 +86,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Общие вопросы -->
-                <div class="mb-16 animate-on-scroll" style="animation-delay: 0.3s;">
+                <div class="mb-16 reveal">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-8" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.faq.sections.general.title')); ?>
                     </h2>
@@ -96,7 +96,7 @@ include 'includes/header.php';
                             $questionKey = 'pages.faq.sections.general.q' . $i . '.question';
                             $answerKey = 'pages.faq.sections.general.q' . $i . '.answer';
                             if (t($questionKey) !== $questionKey) {
-                                echo '<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="border-b pb-6 animate-on-scroll" style="animation-delay: ' . ($i * 0.1) . 's; border-color: var(--color-border);">';
+                                echo '<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="reveal border-b pb-6" style="border-color: var(--color-border);">';
                                 echo '<h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4 cursor-pointer" style="color: var(--color-text);" onclick="toggleFAQ(this)">';
                                 echo htmlspecialchars(t($questionKey));
                                 echo '<svg class="w-5 h-5 inline-block ml-2 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>';

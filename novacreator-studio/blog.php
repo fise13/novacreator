@@ -58,13 +58,13 @@ function formatDate($date) {
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.blog.title')); ?>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.blog.subtitle')); ?>
             </p>
         </div>
@@ -72,11 +72,11 @@ function formatDate($date) {
 </section>
 
 <!-- Статьи -->
-<section class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <?php if (empty($articles)): ?>
-                <div class="text-center py-20 animate-on-scroll">
+                <div class="text-center py-20 reveal">
                     <p class="text-xl md:text-2xl" style="color: var(--color-text-secondary);">
                         <?php echo htmlspecialchars(t('pages.blog.noArticles')); ?>
                     </p>
@@ -91,7 +91,7 @@ function formatDate($date) {
                         $category = getArticleField($article, 'category', $currentLang);
                         $date = formatDate($article['date']);
                         ?>
-                        <article class="animate-on-scroll" style="animation-delay: <?php echo $index * 0.1; ?>s;">
+                        <article class="reveal">
                             <div class="mb-4">
                                 <span class="text-sm uppercase tracking-wider" style="color: var(--color-text-secondary);">
                                     <?php echo htmlspecialchars($category); ?>
@@ -121,7 +121,7 @@ function formatDate($date) {
                 
                 <!-- Пагинация -->
                 <?php if ($totalPages > 1): ?>
-                    <div class="mt-16 flex justify-center gap-4 animate-on-scroll">
+                    <div class="mt-16 flex justify-center gap-4 reveal">
                         <?php if ($page > 1): ?>
                             <a href="?page=<?php echo $page - 1; ?>" class="px-6 py-3 border-2 rounded-lg hover:bg-gray-50 transition-colors" style="border-color: var(--color-border); color: var(--color-text);">
                                 <?php echo $currentLang === 'en' ? 'Previous' : 'Назад'; ?>
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
     
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    document.querySelectorAll('.reveal').forEach(el => {
         scrollObserver.observe(el);
     });
 });

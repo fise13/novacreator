@@ -14,13 +14,13 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.contact.title')); ?>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.contact.subtitle')); ?>
             </p>
         </div>
@@ -28,12 +28,12 @@ include 'includes/header.php';
 </section>
 
 <!-- Контакты и форма -->
-<section class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
                 <!-- Контактная информация -->
-                <div class="animate-on-scroll order-2 lg:order-1">
+                <div class="reveal order-2 lg:order-1">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 lg:mb-12 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.contact.contactInfo')); ?>
                     </h2>
@@ -72,7 +72,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Форма обратной связи -->
-                <div class="animate-on-scroll order-1 lg:order-2" style="animation-delay: 0.2s;">
+                <div class="reveal order-1 lg:order-2">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 lg:mb-12 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.contact.form.title')); ?>
                     </h2>

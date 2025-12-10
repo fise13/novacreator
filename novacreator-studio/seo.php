@@ -14,13 +14,13 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.seo.title')); ?>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.seo.subtitle')); ?>
             </p>
         </div>
@@ -28,10 +28,10 @@ include 'includes/header.php';
 </section>
 
 <!-- Что включает SEO - стиль holymedia.kz -->
-<section class="py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 md:mb-20 animate-on-scroll">
+            <div class="text-center mb-16 md:mb-20 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('pages.seo.includes.title')); ?></h2>
                 <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('pages.seo.includes.subtitle')); ?>
@@ -40,7 +40,7 @@ include 'includes/header.php';
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                 <!-- Технический SEO -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll group" style="background-color: var(--color-surface);">
+                <div class="reveal rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
@@ -68,7 +68,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Контент-оптимизация -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll group" style="animation-delay: 0.1s; background-color: var(--color-surface);">
+                <div class="reveal rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -96,7 +96,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Ссылочное продвижение -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll group" style="animation-delay: 0.2s; background-color: var(--color-surface);">
+                <div class="reveal rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
@@ -124,7 +124,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Локальное SEO -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll group" style="animation-delay: 0.3s; background-color: var(--color-surface);">
+                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group" style=" 0.3s; background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -153,7 +153,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Аналитика и отчетность -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll group" style="animation-delay: 0.4s; background-color: var(--color-surface);">
+                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group" style=" 0.4s; background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -181,7 +181,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Продвижение в соцсетях -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll group" style="animation-delay: 0.5s; background-color: var(--color-surface);">
+                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group" style=" 0.5s; background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
@@ -216,7 +216,7 @@ include 'includes/header.php';
 <section class="py-20 md:py-32" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 md:mb-20 animate-on-scroll">
+            <div class="text-center mb-16 md:mb-20 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('pages.seo.results.title')); ?></h2>
                 <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('pages.seo.results.subtitle')); ?>
@@ -224,25 +224,25 @@ include 'includes/header.php';
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-                <div class="text-center animate-on-scroll group">
+                <div class="text-center reveal group">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
                         <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
                     </div>
                     <p class="text-lg md:text-xl font-medium transition-colors" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('pages.seo.results.traffic')); ?></p>
                 </div>
-                <div class="text-center animate-on-scroll group" style="animation-delay: 0.1s;">
+                <div class="text-center reveal group" style=" 0.1s;">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
                         <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
                     </div>
                     <p class="text-gray-600 text-lg md:text-xl font-medium group-hover:text-gray-900 transition-colors"><?php echo htmlspecialchars(t('pages.seo.results.positions')); ?></p>
                 </div>
-                <div class="text-center animate-on-scroll group" style="animation-delay: 0.2s;">
+                <div class="text-center reveal group" style=" 0.2s;">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
                         <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
                     </div>
                     <p class="text-gray-600 text-lg md:text-xl font-medium group-hover:text-gray-900 transition-colors"><?php echo htmlspecialchars(t('pages.seo.results.conversions')); ?></p>
                 </div>
-                <div class="text-center animate-on-scroll group" style="animation-delay: 0.3s;">
+                <div class="text-center reveal group" style=" 0.3s;">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
                         <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">0</span>
                     </div>
@@ -257,7 +257,7 @@ include 'includes/header.php';
 <section class="py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 md:mb-20 animate-on-scroll">
+            <div class="text-center mb-16 md:mb-20 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('pages.seo.process.title')); ?></h2>
                 <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('pages.seo.process.subtitle')); ?>
@@ -265,7 +265,7 @@ include 'includes/header.php';
             </div>
             
             <div class="max-w-4xl mx-auto space-y-12">
-                <div class="flex flex-col md:flex-row gap-8 items-start animate-on-scroll group">
+                <div class="flex flex-col md:flex-row gap-8 items-start reveal group">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl md:text-4xl font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         1
                     </div>
@@ -277,7 +277,7 @@ include 'includes/header.php';
                     </div>
                 </div>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-start animate-on-scroll group" style="animation-delay: 0.1s;">
+                <div class="flex flex-col md:flex-row gap-8 items-start reveal group" style=" 0.1s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl md:text-4xl font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         2
                     </div>
@@ -289,7 +289,7 @@ include 'includes/header.php';
                     </div>
                 </div>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-start animate-on-scroll group" style="animation-delay: 0.2s;">
+                <div class="flex flex-col md:flex-row gap-8 items-start reveal group" style=" 0.2s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl md:text-4xl font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         3
                     </div>
@@ -301,7 +301,7 @@ include 'includes/header.php';
                     </div>
                 </div>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-start animate-on-scroll group" style="animation-delay: 0.3s;">
+                <div class="flex flex-col md:flex-row gap-8 items-start reveal group" style=" 0.3s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl md:text-4xl font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         4
                     </div>
@@ -321,7 +321,7 @@ include 'includes/header.php';
 <section class="py-20 md:py-32" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16 animate-on-scroll">
+            <div class="text-center mb-16 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('pages.seo.faq.title')); ?></h2>
                 <p class="text-xl md:text-2xl" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('pages.seo.faq.subtitle')); ?>
@@ -330,7 +330,7 @@ include 'includes/header.php';
             
             <div itemscope itemtype="https://schema.org/FAQPage" class="space-y-6">
                 <!-- Вопрос 1 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="border rounded-2xl p-8 hover:shadow-lg transition-all duration-300 animate-on-scroll" style="background-color: var(--color-surface); border-color: var(--color-border);">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="border rounded-2xl p-8 hover:shadow-lg transition-all duration-300 reveal" style="background-color: var(--color-surface); border-color: var(--color-border);">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q1.question')); ?>
                     </h3>
@@ -342,7 +342,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вопрос 2 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.1s;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal" style=" 0.1s;">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q2.question')); ?>
                     </h3>
@@ -354,7 +354,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вопрос 3 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.2s;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal" style=" 0.2s;">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q3.question')); ?>
                     </h3>
@@ -366,7 +366,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вопрос 4 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.3s;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal" style=" 0.3s;">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q4.question')); ?>
                     </h3>
@@ -378,7 +378,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вопрос 5 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 animate-on-scroll" style="animation-delay: 0.4s;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal" style=" 0.4s;">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q5.question')); ?>
                     </h3>
@@ -397,7 +397,7 @@ include 'includes/header.php';
 <section class="py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 md:mb-20 animate-on-scroll">
+            <div class="text-center mb-16 md:mb-20 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('pages.seo.guarantees.title')); ?></h2>
                 <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('pages.seo.guarantees.subtitle')); ?>
@@ -406,7 +406,7 @@ include 'includes/header.php';
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
                 <!-- Пожизненная гарантия -->
-                <div class="border-2 rounded-3xl p-8 md:p-10 animate-on-scroll group hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" style="background: linear-gradient(to bottom right, rgba(37, 99, 235, 0.1), rgba(147, 51, 234, 0.1)); border-color: rgba(37, 99, 235, 0.3);">
+                <div class="border-2 rounded-3xl p-8 md:p-10 reveal group hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" style="background: linear-gradient(to bottom right, rgba(37, 99, 235, 0.1), rgba(147, 51, 234, 0.1)); border-color: rgba(37, 99, 235, 0.3);">
                     <div class="flex items-center mb-6">
                         <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                             <svg class="w-10 h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -421,7 +421,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Поддержка для первых клиентов -->
-                <div class="border-2 rounded-3xl p-8 md:p-10 animate-on-scroll group hover:border-purple-400 transition-all duration-300 shadow-xl hover:shadow-2xl" style="animation-delay: 0.1s; background: linear-gradient(to bottom right, rgba(147, 51, 234, 0.1), rgba(37, 99, 235, 0.1)); border-color: rgba(147, 51, 234, 0.3);">
+                <div class="border-2 rounded-3xl p-8 md:p-10 reveal group hover:border-purple-400 transition-all duration-300 shadow-xl hover:shadow-2xl" style=" 0.1s; background: linear-gradient(to bottom right, rgba(147, 51, 234, 0.1), rgba(37, 99, 235, 0.1)); border-color: rgba(147, 51, 234, 0.3);">
                     <div class="flex items-center mb-6">
                         <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                             <svg class="w-10 h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -448,10 +448,10 @@ include 'includes/header.php';
 <section class="py-20 md:py-32 relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-blue-600">
     <!-- Декоративные элементы -->
     <div class="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" style=" 1s;"></div>
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-10">
-        <div class="max-w-4xl mx-auto animate-on-scroll">
+        <div class="max-w-4xl mx-auto reveal">
             <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 text-white">
                 <?php echo htmlspecialchars(t('pages.seo.cta.title')); ?>
             </h2>
@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
     
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    document.querySelectorAll('.reveal').forEach(el => {
         observer.observe(el);
     });
 });

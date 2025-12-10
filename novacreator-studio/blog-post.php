@@ -179,9 +179,9 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="max-w-7xl mx-auto text-center animate-on-scroll">
+        <div class="max-w-7xl mx-auto text-center reveal">
             <div class="mb-8">
                 <a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="inline-flex items-center gap-2 text-base font-medium transition-opacity duration-200 hover:opacity-70" style="color: var(--color-text-secondary);">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
@@ -287,9 +287,9 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 <?php endif; ?>
 
 <!-- CTA секция -->
-<section class="py-32 bg-gradient-to-r from-neon-purple/20 to-neon-blue/20">
+<section class="reveal-group py-32 bg-gradient-to-r from-neon-purple/20 to-neon-blue/20">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
-        <div class="max-w-3xl mx-auto animate-on-scroll">
+        <div class="max-w-3xl mx-auto reveal">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                 <?php echo $currentLang === 'en' ? 'Need Help with Your Project?' : 'Нужна помощь с вашим проектом?'; ?>
             </h2>

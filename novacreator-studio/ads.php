@@ -14,13 +14,13 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.ads.title')); ?>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.ads.subtitle')); ?>
             </p>
         </div>
@@ -28,10 +28,10 @@ include 'includes/header.php';
 </section>
 
 <!-- Что мы делаем -->
-<section class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12 md:mb-16 animate-on-scroll">
+            <div class="mb-12 md:mb-16 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.ads.includes.title')); ?>
                 </h2>
@@ -41,7 +41,7 @@ include 'includes/header.php';
             </div>
             
             <div class="space-y-12 md:space-y-16">
-                <div class="animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="reveal">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.ads.services.setup.title')); ?>
                     </h3>
@@ -56,7 +56,7 @@ include 'includes/header.php';
                     </div>
                 </div>
                 
-                <div class="animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="reveal">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.ads.services.keywords.title')); ?>
                     </h3>
@@ -71,7 +71,7 @@ include 'includes/header.php';
                     </div>
                 </div>
                 
-                <div class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <div class="reveal">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.ads.services.ads.title')); ?>
                     </h3>
@@ -90,17 +90,17 @@ include 'includes/header.php';
 </section>
 
 <!-- Результаты -->
-<section class="py-16 md:py-24" style="background-color: var(--color-bg);">
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12 md:mb-16 animate-on-scroll">
+            <div class="mb-12 md:mb-16 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.ads.results.title')); ?>
                 </h2>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-                <div class="text-center animate-on-scroll">
+                <div class="text-center reveal">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4" style="color: var(--color-text);">
                         <span class="counter-number" data-target="45" data-prefix="+" data-suffix="%">0</span>
                     </div>
@@ -108,7 +108,7 @@ include 'includes/header.php';
                         <?php echo htmlspecialchars(t('pages.ads.results.ctr')); ?>
                     </p>
                 </div>
-                <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="text-center reveal" style=" 0.1s;">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4" style="color: var(--color-text);">
                         <span class="counter-number" data-target="120" data-prefix="+" data-suffix="%">0</span>
                     </div>
@@ -116,7 +116,7 @@ include 'includes/header.php';
                         <?php echo htmlspecialchars(t('pages.ads.results.conversions')); ?>
                     </p>
                 </div>
-                <div class="text-center animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="text-center reveal" style=" 0.2s;">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4" style="color: var(--color-text);">
                         <span class="counter-number" data-target="35" data-prefix="-" data-suffix="%">0</span>
                     </div>
@@ -124,7 +124,7 @@ include 'includes/header.php';
                         <?php echo htmlspecialchars(t('pages.ads.results.cost')); ?>
                     </p>
                 </div>
-                <div class="text-center animate-on-scroll" style="animation-delay: 0.3s;">
+                <div class="text-center reveal" style=" 0.3s;">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4" style="color: var(--color-text);">
                         <span class="counter-number" data-target="200" data-prefix="+" data-suffix="%">0</span>
                     </div>
@@ -141,14 +141,14 @@ include 'includes/header.php';
 <section class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12 md:mb-16 animate-on-scroll">
+            <div class="mb-12 md:mb-16 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.ads.process.title')); ?>
                 </h2>
             </div>
             
             <div class="space-y-12 md:space-y-16">
-                <div class="animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="reveal" style=" 0.1s;">
                     <div class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4" style="color: var(--color-text);">1</div>
                     <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.ads.process.step1.title')); ?>
@@ -158,7 +158,7 @@ include 'includes/header.php';
                     </p>
                 </div>
                 
-                <div class="animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="reveal" style=" 0.2s;">
                     <div class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4" style="color: var(--color-text);">2</div>
                     <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.ads.process.step2.title')); ?>
@@ -168,7 +168,7 @@ include 'includes/header.php';
                     </p>
                 </div>
                 
-                <div class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <div class="reveal" style=" 0.3s;">
                     <div class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4" style="color: var(--color-text);">3</div>
                     <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.ads.process.step3.title')); ?>
@@ -178,7 +178,7 @@ include 'includes/header.php';
                     </p>
                 </div>
                 
-                <div class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <div class="reveal" style=" 0.4s;">
                     <div class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4" style="color: var(--color-text);">4</div>
                     <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.ads.process.step4.title')); ?>
@@ -196,13 +196,13 @@ include 'includes/header.php';
 <section class="py-20 md:py-32" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 md:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
+            <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 md:mb-12 leading-tight reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.ads.cta.title')); ?>
             </h2>
-            <p class="text-xl md:text-2xl mb-10 md:mb-12 leading-relaxed animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl md:text-2xl mb-10 md:mb-12 leading-relaxed reveal" style=" 0.1s; color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.ads.cta.subtitle')); ?>
             </p>
-            <div class="animate-on-scroll" style="animation-delay: 0.2s;">
+            <div class="reveal" style=" 0.2s;">
                 <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="inline-block px-10 py-5 md:px-12 md:py-6 bg-black text-white text-lg md:text-xl font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200 min-h-[56px]">
                     <?php echo htmlspecialchars(t('pages.ads.cta.button')); ?>
                 </a>
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
     
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    document.querySelectorAll('.reveal').forEach(el => {
         scrollObserver.observe(el);
     });
 });

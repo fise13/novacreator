@@ -14,13 +14,13 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.vacancies.title')); ?>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.vacancies.subtitle')); ?>
             </p>
         </div>
@@ -28,10 +28,10 @@ include 'includes/header.php';
 </section>
 
 <!-- О работе в компании -->
-<section class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12 md:mb-16 animate-on-scroll">
+            <div class="mb-12 md:mb-16 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.vacancies.whyUs.title')); ?>
                 </h2>
@@ -40,32 +40,32 @@ include 'includes/header.php';
                 </p>
             </div>
             
-            <div class="space-y-6 mb-12 animate-on-scroll" style="animation-delay: 0.1s;">
-                <div class="flex items-start gap-4">
+            <div class="space-y-6 mb-12">
+                <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
                     <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
                         <?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.remote')); ?>
                     </p>
                 </div>
-                <div class="flex items-start gap-4">
+                <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
                     <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
                         <?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.flexible')); ?>
                     </p>
                 </div>
-                <div class="flex items-start gap-4">
+                <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
                     <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
                         <?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.interesting')); ?>
                     </p>
                 </div>
-                <div class="flex items-start gap-4">
+                <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
                     <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
                         <?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.development')); ?>
                     </p>
                 </div>
-                <div class="flex items-start gap-4">
+                <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
                     <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
                         <?php echo htmlspecialchars(t('pages.vacancies.whyUs.benefits.team')); ?>
@@ -77,10 +77,10 @@ include 'includes/header.php';
 </section>
 
 <!-- Открытые вакансии -->
-<section class="py-16 md:py-24" style="background-color: var(--color-bg);">
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-12 md:mb-16 animate-on-scroll">
+            <div class="mb-12 md:mb-16 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.vacancies.openVacancies.title')); ?>
                 </h2>
@@ -88,7 +88,7 @@ include 'includes/header.php';
             
             <div class="space-y-12 md:space-y-16">
                 <!-- Вакансия 1 -->
-                <div class="animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="reveal">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.vacancies.vacancies.seo.title')); ?>
                     </h3>
@@ -112,7 +112,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вакансия 2 -->
-                <div class="animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="reveal" style=" 0.2s;">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.vacancies.vacancies.developer.title')); ?>
                     </h3>
@@ -136,7 +136,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вакансия 3 -->
-                <div class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <div class="reveal" style=" 0.3s;">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.vacancies.vacancies.ads.title')); ?>
                     </h3>
@@ -160,7 +160,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вакансия 4 -->
-                <div class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <div class="reveal" style=" 0.4s;">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.vacancies.vacancies.content.title')); ?>
                     </h3>
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
     
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    document.querySelectorAll('.reveal').forEach(el => {
         scrollObserver.observe(el);
     });
 });

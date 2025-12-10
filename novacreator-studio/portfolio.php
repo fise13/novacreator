@@ -14,13 +14,13 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.portfolio.title')); ?>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.portfolio.subtitle')); ?>
             </p>
         </div>
@@ -229,9 +229,9 @@ if ($currentLang === 'en') {
 ?>
 
 <!-- Портфолио проектов -->
-<section class="py-20">
+<section class="reveal-group py-20">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center mb-12 animate-on-scroll">
+        <div class="max-w-4xl mx-auto text-center mb-12 reveal">
             <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gradient">
                 <?php echo $currentLang === 'en' ? 'Our recent projects' : 'Наши реализованные проекты'; ?>
             </h2>
@@ -254,7 +254,7 @@ if ($currentLang === 'en') {
         </div>
 
         <!-- Статистика портфолио - мобильная адаптация -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-12 md:mb-16 animate-on-scroll">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-12 md:mb-16 reveal">
             <div class="bg-gradient-to-br from-dark-surface to-dark-bg border border-dark-border/50 rounded-2xl p-6 text-center group hover:border-neon-purple/50 transition-all duration-300">
                 <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
                     <span class="counter-number" data-target="50" data-suffix="+">50+</span>
@@ -294,7 +294,7 @@ if ($currentLang === 'en') {
                 <?php
                     $demoLink = '/demo/' . rawurlencode($project['id']) . '/?lang=' . urlencode($currentLang);
                 ?>
-                <div class="animate-on-scroll" style="animation-delay: <?php echo $index * 0.1; ?>s;">
+                <div class="reveal">
                     <div class="mb-6">
                         <span class="text-xs sm:text-sm uppercase tracking-wider mb-3 md:mb-4 block" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars($project['tagBadge']); ?>
@@ -323,7 +323,7 @@ if ($currentLang === 'en') {
         </div>
 
         <!-- Дополнительная секция: Технологии и подход с мобильной адаптацией -->
-        <div class="mt-12 md:mt-16 lg:mt-20 animate-on-scroll">
+        <div class="mt-12 md:mt-16 lg:mt-20 reveal">
             <div class="max-w-4xl mx-auto text-center mb-8 md:mb-12">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 text-gradient">
                     <?php echo $currentLang === 'en' ? 'Our approach' : 'Наш подход'; ?>
@@ -387,65 +387,9 @@ if ($currentLang === 'en') {
 
 <script>
     // Анимация появления элементов при скролле
-    document.addEventListener('DOMContentLoaded', function() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Анимация счетчиков
-        function animateCounter(element) {
-            const target = parseInt(element.getAttribute('data-target'));
-            const suffix = element.getAttribute('data-suffix') || '';
-            const duration = 2000;
-            const step = target / (duration / 16);
-            let current = 0;
-            
-            const timer = setInterval(() => {
-                current += step;
-                if (current >= target) {
-                    element.textContent = target + suffix;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current) + suffix;
-                }
-            }, 16);
-        }
-
-        const counterObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target.querySelector('.counter-number');
-                    if (counter && !counter.classList.contains('counted')) {
-                        counter.classList.add('counted');
-                        animateCounter(counter);
-                    }
-                    counterObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.counter-number').forEach(counter => {
-            counterObserver.observe(counter.closest('div'));
-        });
-    });
-</script>
 
 <!-- CTA секция - улучшенный дизайн с мобильной адаптацией -->
-<section class="py-16 md:py-24 lg:py-32 relative overflow-hidden">
+<section class="reveal-group py-16 md:py-24 lg:py-32 relative overflow-hidden">
     <!-- Фоновые градиенты -->
     <div class="absolute inset-0 bg-gradient-to-br from-neon-purple/30 via-neon-purple/20 to-neon-blue/30"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(139,92,246,0.3),transparent_50%)]"></div>
@@ -453,10 +397,10 @@ if ($currentLang === 'en') {
     
     <!-- Декоративные элементы -->
     <div class="absolute top-0 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-neon-purple/20 rounded-full blur-3xl animate-pulse"></div>
-    <div class="absolute bottom-0 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-neon-blue/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-0 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-neon-blue/20 rounded-full blur-3xl animate-pulse"></div>
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-10">
-        <div class="max-w-4xl mx-auto animate-on-scroll">
+        <div class="max-w-4xl mx-auto reveal">
             <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6 md:mb-8">
                 <span class="text-xs uppercase tracking-wider text-gray-200">
                     <?php echo $currentLang === 'en' ? 'Ready to Start Your Project?' : 'Готовы начать проект?'; ?>
