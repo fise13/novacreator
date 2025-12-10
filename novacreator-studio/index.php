@@ -21,9 +21,18 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
             <!-- Главный заголовок - увеличенный размер -->
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php 
-                $headlinesData = json_decode(file_get_contents(__DIR__ . '/lang/' . $currentLang . '.json'), true);
+                // Оптимизированное чтение JSON с кэшированием
+                static $headlinesData = null;
+                if ($headlinesData === null) {
+                    $langFile = __DIR__ . '/lang/' . $currentLang . '.json';
+                    if (file_exists($langFile)) {
+                        $headlinesData = json_decode(file_get_contents($langFile), true);
+                    } else {
+                        $headlinesData = [];
+                    }
+                }
                 $headlines = $headlinesData['home']['hero']['headlines'] ?? [];
                 $randomHeadline = !empty($headlines) ? $headlines[array_rand($headlines)] : ['title' => 'NovaCreator Studio', 'subtitle' => ''];
                 echo htmlspecialchars($randomHeadline['title']); 
@@ -31,7 +40,7 @@ include 'includes/header.php';
             </h1>
             
             <!-- Подзаголовок - увеличенный размер -->
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php 
                 $descriptions = $headlinesData['home']['hero']['descriptions'] ?? [];
                 $randomDescription = !empty($descriptions) ? $descriptions[array_rand($descriptions)] : 'Цифровое агентство';
@@ -62,7 +71,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Статистика - Apple минимализм -->
-<section class="py-20 md:py-32 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-20 md:py-32 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
     <!-- Плавный переход фона от hero секции -->
     <div class="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none" style="background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-lighter));"></div>
     
@@ -70,7 +79,7 @@ include 'includes/header.php';
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 lg:gap-24">
                 <!-- 100% онлайн проектов -->
-                <div class="text-center animate-on-scroll">
+                <div class="text-center reveal">
                     <div class="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-semibold mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
                         <span class="counter-number inline-block" data-target="100" data-suffix="%">0</span>
                     </div>
@@ -80,7 +89,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- 10+ лет в digital -->
-                <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="text-center reveal">
                     <div class="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-semibold mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
                         <span class="counter-number inline-block" data-target="10" data-suffix="+">0</span>
                     </div>
@@ -94,11 +103,11 @@ include 'includes/header.php';
 </section>
 
 <!-- Услуги - карточки в стиле holymedia.kz с мобильной адаптацией -->
-<section id="services" class="py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
+<section id="services" class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <!-- Заголовок секции - уменьшенный -->
-            <div class="mb-12 md:mb-16 lg:mb-20 animate-on-scroll">
+            <div class="mb-12 md:mb-16 lg:mb-20 reveal">
                 <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('home.services.title')); ?>
                 </h2>
@@ -107,7 +116,7 @@ include 'includes/header.php';
             <!-- Карточки услуг - минимализм без контейнеров -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 md:gap-20 lg:gap-24">
                 <!-- SEO -->
-                <div class="group relative animate-on-scroll cursor-pointer touch-manipulation" style="animation-delay: 0s;">
+                <div class="group relative reveal cursor-pointer touch-manipulation">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 mb-8 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
                         <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -128,7 +137,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Разработка сайтов -->
-                <div class="group relative animate-on-scroll cursor-pointer touch-manipulation" style="animation-delay: 0.1s;">
+                <div class="group relative reveal cursor-pointer touch-manipulation">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 mb-8 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
                         <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
@@ -149,7 +158,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Google Ads -->
-                <div class="group relative animate-on-scroll cursor-pointer touch-manipulation" style="animation-delay: 0.2s;">
+                <div class="group relative reveal cursor-pointer touch-manipulation">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 mb-8 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
                         <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -171,7 +180,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Маркетинг -->
-                <div class="group relative animate-on-scroll cursor-pointer touch-manipulation" style="animation-delay: 0.3s;">
+                <div class="group relative reveal cursor-pointer touch-manipulation">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 mb-8 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
                         <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
@@ -192,7 +201,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Аналитика -->
-                <div class="group relative animate-on-scroll cursor-pointer touch-manipulation md:col-span-2 lg:col-span-1" style="animation-delay: 0.4s;">
+                <div class="group relative reveal cursor-pointer touch-manipulation md:col-span-2 lg:col-span-1">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 mb-8 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
                         <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -217,17 +226,17 @@ include 'includes/header.php';
 </section>
 
 <!-- Процесс работы - простые шаги с мобильной адаптацией -->
-<section class="py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg);">
+<section class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-12 md:mb-16 lg:mb-20 animate-on-scroll">
+            <div class="mb-12 md:mb-16 lg:mb-20 reveal">
                 <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('home.process.title')); ?>
                 </h2>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20">
-                <div class="animate-on-scroll">
+                <div class="reveal">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-6 leading-none" style="color: var(--color-text); opacity: 0.2;">01</div>
                     <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('home.process.step1.title')); ?>
@@ -237,7 +246,7 @@ include 'includes/header.php';
                     </p>
                 </div>
                 
-                <div class="animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="reveal">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-6 leading-none" style="color: var(--color-text); opacity: 0.2;">02</div>
                     <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('home.process.step2.title')); ?>
@@ -247,7 +256,7 @@ include 'includes/header.php';
                     </p>
                 </div>
                 
-                <div class="animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="reveal">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-6 leading-none" style="color: var(--color-text); opacity: 0.2;">03</div>
                     <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('home.process.step3.title')); ?>
@@ -257,7 +266,7 @@ include 'includes/header.php';
                     </p>
                 </div>
                 
-                <div class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <div class="reveal">
                     <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-6 leading-none" style="color: var(--color-text); opacity: 0.2;">04</div>
                     <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('home.process.step4.title')); ?>
@@ -272,17 +281,17 @@ include 'includes/header.php';
 </section>
 
 <!-- Гарантии - простой блок с мобильной адаптацией -->
-<section class="py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-12 md:mb-16 lg:mb-20 animate-on-scroll">
+            <div class="mb-12 md:mb-16 lg:mb-20 reveal">
                 <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('home.guarantees.title')); ?>
                 </h2>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20">
-                <div class="animate-on-scroll p-8 md:p-10 lg:p-12 rounded-2xl border-2 transition-all duration-500 hover:shadow-xl hover:-translate-y-1" style="background-color: var(--color-bg); border-color: var(--color-border);">
+                <div class="reveal p-8 md:p-10 lg:p-12 rounded-2xl border-2 transition-all duration-500 hover:shadow-xl hover:-translate-y-1" style="background-color: var(--color-bg); border-color: var(--color-border);">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('home.guarantees.lifetime.title')); ?>
                     </h3>
@@ -291,7 +300,7 @@ include 'includes/header.php';
                     </p>
                 </div>
                 
-                <div class="animate-on-scroll p-8 md:p-10 lg:p-12 rounded-2xl border-2 transition-all duration-500 hover:shadow-xl hover:-translate-y-1" style="animation-delay: 0.1s; background-color: var(--color-bg); border-color: var(--color-border);">
+                <div class="reveal p-8 md:p-10 lg:p-12 rounded-2xl border-2 transition-all duration-500 hover:shadow-xl hover:-translate-y-1" style="background-color: var(--color-bg); border-color: var(--color-border);">
                     <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('home.guarantees.support.title')); ?>
                     </h3>
@@ -305,7 +314,7 @@ include 'includes/header.php';
 </section>
 
 <!-- CTA секция - простая и большая с улучшенным визуалом и мобильной адаптацией -->
-<section class="py-16 md:py-24 lg:py-40 relative overflow-hidden" style="background-color: var(--color-bg);">
+<section class="reveal-group py-16 md:py-24 lg:py-40 relative overflow-hidden" style="background-color: var(--color-bg);">
     <!-- Фоновые элементы с градиентами -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="absolute top-0 left-0 w-full h-full opacity-10" style="background: linear-gradient(135deg, var(--color-neon-purple), var(--color-neon-blue));"></div>
@@ -315,13 +324,13 @@ include 'includes/header.php';
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-5xl mx-auto text-center">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.9] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.9] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('home.cta.title')); ?>
             </h2>
-            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-8 md:mb-10 lg:mb-12 leading-relaxed animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-8 md:mb-10 lg:mb-12 leading-relaxed reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('home.cta.description')); ?>
             </p>
-            <div class="animate-on-scroll px-4 sm:px-0" style="animation-delay: 0.2s;">
+            <div class="reveal px-4 sm:px-0">
                 <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative inline-block w-full sm:w-auto px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-black text-white text-sm sm:text-base md:text-lg lg:text-xl font-semibold rounded-lg transition-all duration-300 min-h-[44px] sm:min-h-[48px] md:min-h-[52px] lg:min-h-[56px] shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden touch-manipulation">
                     <span class="relative z-10"><?php echo htmlspecialchars(t('common.getConsultation')); ?></span>
                     <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
