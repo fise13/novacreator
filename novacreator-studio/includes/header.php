@@ -240,8 +240,8 @@ require_once __DIR__ . '/theme_switcher.php';
         
         <div class="container mx-auto px-4 sm:px-5 md:px-6 lg:px-8 relative z-10">
             <div class="flex items-center justify-between h-16 sm:h-18 md:h-20 gap-2 sm:gap-3">
-                <!-- Название сайта без логотипа -->
-                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="text-lg sm:text-xl md:text-2xl font-bold group touch-manipulation flex-shrink-0 active:scale-95 transition-transform duration-200" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                <!-- Название сайта без логотипа с постоянной анимацией градиента -->
+                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="text-lg sm:text-xl md:text-2xl font-bold group touch-manipulation flex-shrink-0 active:scale-95 transition-transform duration-200 site-name-animated" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>">
                     <?php echo htmlspecialchars(t('site.name')); ?>
                 </a>
                 
@@ -251,11 +251,11 @@ require_once __DIR__ . '/theme_switcher.php';
                     $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                     $currentPath = getCurrentPath();
                     ?>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 hover:underline <?php echo $currentPage == 'index' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.home')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 hover:underline <?php echo $currentPage == 'services' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.services')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 hover:underline <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 hover:underline <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 hover:underline <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text);"><?php echo htmlspecialchars(t('nav.about')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'index' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.home')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'services' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.services')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.about')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="relative inline-flex items-center justify-center px-6 py-2.5 text-base font-semibold rounded-lg transition-all duration-300 hover:scale-105 active:scale-95" role="menuitem" style="background-color: var(--color-text); color: var(--color-bg);">
                         <span class="relative z-10"><?php echo htmlspecialchars(t('nav.contact')); ?></span>
                     </a>
@@ -344,7 +344,7 @@ require_once __DIR__ . '/theme_switcher.php';
                                         <p class="text-xs truncate mt-0.5" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars($currentUser['email']); ?></p>
                                     </div>
                                     <?php if (!$isRootAdmin): ?>
-                                        <a href="/dashboard.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:underline" style="color: var(--color-text);">
+                                        <a href="/dashboard.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                             </svg>
@@ -352,7 +352,7 @@ require_once __DIR__ . '/theme_switcher.php';
                                         </a>
                                     <?php endif; ?>
                                     <?php if ($isRootAdmin): ?>
-                                        <a href="/adm/" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:underline" style="color: var(--color-text);">
+                                        <a href="/adm/" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -361,20 +361,20 @@ require_once __DIR__ . '/theme_switcher.php';
                                         </a>
                                     <?php endif; ?>
                                     <div class="border-t my-1" style="border-color: var(--color-border);"></div>
-                                    <a href="/logout.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:underline" style="color: var(--color-text);">
+                                    <a href="/logout.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                         </svg>
                                         <span>Выйти</span>
                                     </a>
                                 <?php else: ?>
-                                    <a href="/login.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:underline" style="color: var(--color-text);">
+                                    <a href="/login.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                                         </svg>
                                         <span>Вход</span>
                                     </a>
-                                    <a href="/register.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:underline" style="color: var(--color-text);">
+                                    <a href="/register.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                                         </svg>
@@ -409,7 +409,7 @@ require_once __DIR__ . '/theme_switcher.php';
         <!-- Перетекание из header - верхняя часть -->
         <div class="h-16 sm:h-18 md:h-20 border-b" style="background-color: var(--color-bg); border-color: var(--color-border); padding-top: env(safe-area-inset-top);">
             <div class="flex items-center justify-between h-full px-6">
-                <span class="text-lg font-medium" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
+                <span class="text-lg font-medium site-name-animated"><?php echo htmlspecialchars(t('site.name')); ?></span>
                 <button id="burgerCloseBtn" class="w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px]" style="color: #ef4444;" aria-label="Закрыть меню">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>

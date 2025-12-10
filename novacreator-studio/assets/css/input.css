@@ -240,6 +240,17 @@
     max-width: 65ch;
   }
   
+  /* Убираем подчеркивание со всех ссылок */
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover,
+  a:focus,
+  a:active {
+    text-decoration: none;
+  }
+  
   /* Оптимизация touch для мобильных */
   * {
     -webkit-tap-highlight-color: transparent;
@@ -2145,6 +2156,48 @@
     animation: float 6s ease-in-out infinite;
     will-change: transform;
     transform: translateZ(0);
+  }
+  
+  /* Постоянная анимация градиента для названия сайта в header */
+  @keyframes site-name-gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .site-name-animated {
+    background: linear-gradient(90deg, 
+      var(--color-neon-purple) 0%, 
+      var(--color-neon-blue) 50%, 
+      var(--color-neon-purple) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: site-name-gradient 4s ease infinite;
+    will-change: background-position;
+    display: inline-block;
+  }
+  
+  /* Fallback для браузеров без поддержки background-clip: text */
+  @supports not (-webkit-background-clip: text) {
+    .site-name-animated {
+      color: var(--color-neon-purple);
+      animation: site-name-pulse 2s ease-in-out infinite;
+    }
+  }
+  
+  @keyframes site-name-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
   }
   
   /* Бургер-меню в стиле holymedia.kz - минималистичный дизайн с перетеканием из header */
