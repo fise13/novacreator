@@ -229,19 +229,13 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Индикатор прогресса прокрутки -->
     <div class="scroll-progress-bar fixed top-0 left-0 h-1 bg-gradient-to-r from-neon-purple to-neon-blue z-50" style="width: 0%; transition: width 0.1s ease-out;"></div>
     
-    <!-- Навигация - стиль holymedia.kz с постоянной анимацией -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" style="padding-top: env(safe-area-inset-top); background-color: var(--color-bg); border-bottom: 1px solid var(--color-border);">
-        <!-- Постоянная анимация фона -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-0 left-0 w-full h-full opacity-30 animate-gradient-bg" style="background: linear-gradient(90deg, var(--color-neon-purple), var(--color-neon-blue), var(--color-neon-purple)); background-size: 200% 100%; animation: gradient-shift 8s ease infinite;"></div>
-            <div class="absolute top-0 left-1/4 w-64 h-64 rounded-full blur-3xl opacity-20 animate-float" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); animation: float 6s ease-in-out infinite;"></div>
-            <div class="absolute top-0 right-1/4 w-64 h-64 rounded-full blur-3xl opacity-20 animate-float" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); animation: float 8s ease-in-out infinite reverse;"></div>
-        </div>
+    <!-- Навигация - Apple минималистичный дизайн -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" style="padding-top: env(safe-area-inset-top); background-color: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--color-border);">
         
         <div class="container mx-auto px-4 sm:px-5 md:px-6 lg:px-8 relative z-10">
             <div class="flex items-center justify-between h-16 sm:h-18 md:h-20 gap-2 sm:gap-3">
-                <!-- Название сайта без логотипа с постоянной анимацией градиента -->
-                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="text-lg sm:text-xl md:text-2xl font-bold group touch-manipulation flex-shrink-0 active:scale-95 transition-transform duration-200 site-name-animated" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>">
+                <!-- Название сайта - Apple минимализм -->
+                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="text-lg sm:text-xl md:text-2xl font-semibold group touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('site.name')); ?>
                 </a>
                 
@@ -256,12 +250,12 @@ require_once __DIR__ . '/theme_switcher.php';
                     <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.about')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="relative inline-flex items-center justify-center px-6 py-2.5 text-base font-semibold rounded-lg transition-all duration-300 hover:scale-105 active:scale-95" role="menuitem" style="background-color: var(--color-text); color: var(--color-bg);">
-                        <span class="relative z-10"><?php echo htmlspecialchars(t('nav.contact')); ?></span>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="relative inline-flex items-center justify-center px-6 py-2 text-base font-medium rounded-full transition-all duration-200 hover:opacity-80" role="menuitem" style="background-color: var(--color-text); color: var(--color-bg);">
+                        <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </a>
                     
                     <!-- Переключатель темы -->
-                    <button id="themeToggle" class="relative w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none" aria-label="Переключить тему" title="Переключить тему" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);">
+                    <button id="themeToggle" class="relative w-9 h-9 rounded-full flex items-center justify-center transition-opacity duration-200 hover:opacity-70 focus:outline-none" aria-label="Переключить тему" title="Переключить тему" style="background-color: transparent; color: var(--color-text);">
                         <svg id="themeIconLight" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                         </svg>
@@ -271,7 +265,7 @@ require_once __DIR__ . '/theme_switcher.php';
                     </button>
 
                     <!-- Переключатель языка -->
-                    <div class="flex items-center space-x-1 rounded-lg p-1" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" style="background-color: var(--color-surface); border: 1px solid var(--color-border);">
+                    <div class="flex items-center space-x-1 rounded-full p-1" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" style="background-color: transparent;">
                         <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 min-w-[40px] text-center focus:outline-none <?php echo $currentLang === 'ru' ? 'font-semibold' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
                             <span class="relative z-10">RU</span>
                         </a>
@@ -324,7 +318,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         }
                         $userInitials = $userName ? getInitials($userName) : '';
                         ?>
-                        <button id="accountMenuBtn" class="relative w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none overflow-hidden group" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $userName ? htmlspecialchars($userName) : 'Аккаунт'; ?>" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);">
+                        <button id="accountMenuBtn" class="relative w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-opacity duration-200 hover:opacity-70 focus:outline-none overflow-hidden group" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $userName ? htmlspecialchars($userName) : 'Аккаунт'; ?>" style="background-color: transparent; color: var(--color-text);">
                             <?php if ($userAvatar): ?>
                                 <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($userName); ?>" class="w-full h-full object-cover rounded-full" id="userAvatarImg" loading="lazy" onerror="this.style.display='none'; const fallback = document.getElementById('userAvatarFallback'); if(fallback) fallback.style.display='flex';">
                                 <span id="userAvatarFallback" class="absolute inset-0 flex items-center justify-center text-xs font-bold leading-none hidden z-10"><?php echo $userInitials ? htmlspecialchars($userInitials) : ''; ?></span>
@@ -409,7 +403,7 @@ require_once __DIR__ . '/theme_switcher.php';
         <!-- Перетекание из header - верхняя часть -->
         <div class="h-16 sm:h-18 md:h-20 border-b" style="background-color: var(--color-bg); border-color: var(--color-border); padding-top: env(safe-area-inset-top);">
             <div class="flex items-center justify-between h-full px-6">
-                <span class="text-lg font-medium site-name-animated"><?php echo htmlspecialchars(t('site.name')); ?></span>
+                <span class="text-lg font-semibold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
                 <button id="burgerCloseBtn" class="w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px]" style="color: #ef4444;" aria-label="Закрыть меню">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
