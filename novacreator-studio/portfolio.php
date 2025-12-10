@@ -13,24 +13,16 @@ $pageMetaKeywords = t('seo.pages.portfolio.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция - минималистичный стиль holymedia.kz с мобильной адаптацией -->
-<section class="relative overflow-hidden pt-20 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20" style="background-color: var(--color-bg);">
-    <!-- Фоновые акценты -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 lg:w-[32rem] lg:h-[32rem] rounded-full blur-3xl opacity-10 md:opacity-20 animate-pulse parallax" data-speed="0.3" style="background: radial-gradient(circle, var(--color-neon-purple), transparent); animation-duration: 4s;"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 lg:w-[32rem] lg:h-[32rem] rounded-full blur-3xl opacity-10 md:opacity-20 animate-pulse parallax" data-speed="0.5" style="background: radial-gradient(circle, var(--color-neon-blue), transparent); animation-delay: 1.5s; animation-duration: 5s;"></div>
-    </div>
-
+<!-- Hero секция - Apple минималистичный дизайн на весь экран -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="max-w-7xl mx-auto text-center md:text-left">
-            <div class="animate-on-scroll">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold mb-6 md:mb-8 lg:mb-12 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
-                    <?php echo htmlspecialchars(t('pages.portfolio.title')); ?>
-                </h1>
-                <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 md:mb-12 leading-relaxed mx-auto md:mx-0" style="color: var(--color-text-secondary); max-width: 65ch;">
-                    <?php echo htmlspecialchars(t('pages.portfolio.subtitle')); ?>
-                </p>
-            </div>
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+                <?php echo htmlspecialchars(t('pages.portfolio.title')); ?>
+            </h1>
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
+                <?php echo htmlspecialchars(t('pages.portfolio.subtitle')); ?>
+            </p>
         </div>
     </div>
 </section>

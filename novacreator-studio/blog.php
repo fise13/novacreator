@@ -57,14 +57,14 @@ function formatDate($date) {
 }
 ?>
 
-<!-- Hero секция -->
-<section class="pt-24 md:pt-32 pb-16 md:pb-20" style="background-color: var(--color-bg);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-8 md:mb-12 leading-tight animate-on-scroll" style="color: var(--color-text);">
+<!-- Hero секция - Apple минималистичный дизайн на весь экран -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.blog.title')); ?>
             </h1>
-            <p class="text-xl md:text-2xl lg:text-3xl mb-12 leading-relaxed animate-on-scroll" style="animation-delay: 0.1s; color: var(--color-text-secondary); max-width: 65ch;">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.blog.subtitle')); ?>
             </p>
         </div>

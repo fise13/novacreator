@@ -13,20 +13,14 @@ $pageMetaKeywords = t('seo.pages.seo.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция - стиль holymedia.kz -->
-<section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
-    <!-- Фоновые элементы -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-50"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-50 rounded-full blur-3xl opacity-50"></div>
-    </div>
-    
+<!-- Hero секция - Apple минималистичный дизайн на весь экран -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto text-center animate-on-scroll">
-            <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-8 md:mb-12 leading-tight">
-                <span style="color: var(--color-text);"><?php echo htmlspecialchars(t('pages.seo.title')); ?></span>
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter animate-on-scroll" style="color: var(--color-text);">
+                <?php echo htmlspecialchars(t('pages.seo.title')); ?>
             </h1>
-            <p class="text-2xl md:text-3xl lg:text-4xl mb-12 md:mb-16 max-w-4xl mx-auto leading-relaxed" style="color: var(--color-text-secondary);">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll px-2" style="animation-delay: 0.1s; color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.seo.subtitle')); ?>
             </p>
         </div>

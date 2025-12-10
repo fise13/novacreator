@@ -178,43 +178,43 @@ $relatedArticles = array_filter($articles, function($item) use ($article, $curre
 $relatedArticles = array_slice($relatedArticles, 0, 3);
 ?>
 
-<!-- Hero секция -->
-<section class="pt-32 pb-20">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto animate-on-scroll">
-            <div class="mb-6">
-                <a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="text-neon-purple hover:text-neon-blue transition-colors inline-flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+<!-- Hero секция - Apple минималистичный дизайн на весь экран -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+        <div class="max-w-7xl mx-auto text-center animate-on-scroll">
+            <div class="mb-8">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="inline-flex items-center gap-2 text-base font-medium transition-opacity duration-200 hover:opacity-70" style="color: var(--color-text-secondary);">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
                     </svg>
                     <?php echo $currentLang === 'en' ? 'Back to Blog' : 'Вернуться к блогу'; ?>
                 </a>
             </div>
             
-            <div class="mb-6">
-                <span class="text-sm text-neon-purple font-semibold"><?php echo htmlspecialchars($articleCategory); ?></span>
-                <span class="text-gray-500 mx-2">•</span>
-                <span class="text-sm text-gray-500"><?php echo formatDate($article['date'], $currentLang); ?></span>
+            <div class="mb-8">
+                <span class="text-sm font-medium" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars($articleCategory); ?></span>
+                <span style="color: var(--color-text-secondary); opacity: 0.5;" class="mx-2">•</span>
+                <span class="text-sm" style="color: var(--color-text-secondary); opacity: 0.7;"><?php echo formatDate($article['date'], $currentLang); ?></span>
                 <?php if (isset($article['views']) && $article['views'] > 0): ?>
-                    <span class="text-gray-500 mx-2">•</span>
-                    <span class="text-sm text-gray-500"><?php echo $article['views']; ?> <?php echo $currentLang === 'en' ? 'views' : 'просмотров'; ?></span>
+                    <span style="color: var(--color-text-secondary); opacity: 0.5;" class="mx-2">•</span>
+                    <span class="text-sm" style="color: var(--color-text-secondary); opacity: 0.7;"><?php echo $article['views']; ?> <?php echo $currentLang === 'en' ? 'views' : 'просмотров'; ?></span>
                 <?php endif; ?>
             </div>
             
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                <span class="text-gradient"><?php echo htmlspecialchars($articleTitle); ?></span>
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 leading-[0.85] tracking-tighter" style="color: var(--color-text);">
+                <?php echo htmlspecialchars($articleTitle); ?>
             </h1>
             
-            <p class="text-xl text-gray-400 mb-8">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-8 max-w-5xl mx-auto leading-relaxed font-light" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars($articleExcerpt); ?>
             </p>
             
-            <div class="flex items-center space-x-4 text-gray-400">
-                <div class="flex items-center space-x-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            <div class="flex items-center justify-center gap-4" style="color: var(--color-text-secondary); opacity: 0.7;">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
-                    <span><?php echo htmlspecialchars($article['author']); ?></span>
+                    <span class="text-base"><?php echo htmlspecialchars($article['author']); ?></span>
                 </div>
             </div>
         </div>
