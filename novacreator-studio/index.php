@@ -79,6 +79,9 @@ include 'includes/header.php';
 
 <!-- Статистика - простой блок как на holymedia.kz с улучшенным визуалом -->
 <section class="py-20 md:py-32 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
+    <!-- Плавный переход фона от hero секции -->
+    <div class="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none" style="background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-lighter));"></div>
+    
     <!-- Декоративные элементы -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 md:w-[32rem] md:h-[32rem] rounded-full blur-3xl opacity-10 animate-pulse" style="background: radial-gradient(circle, var(--color-neon-purple), transparent);"></div>
