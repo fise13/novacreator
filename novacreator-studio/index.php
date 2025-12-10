@@ -61,25 +61,33 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Статистика - простой блок как на holymedia.kz с улучшенным визуалом -->
+<!-- Статистика - Apple минимализм -->
 <section class="py-20 md:py-32 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
     <!-- Плавный переход фона от hero секции -->
     <div class="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none" style="background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-lighter));"></div>
     
-    <!-- Декоративные элементы -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 md:w-[32rem] md:h-[32rem] rounded-full blur-3xl opacity-10 animate-pulse" style="background: radial-gradient(circle, var(--color-neon-purple), transparent);"></div>
-    </div>
-    
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center animate-on-scroll">
-                <div class="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] font-extrabold mb-8 leading-none tracking-tighter transition-all duration-300 hover:scale-105" style="color: var(--color-text);">
-                    <span class="counter-number inline-block" data-target="120" data-suffix="+">0</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 lg:gap-24">
+                <!-- 100% онлайн проектов -->
+                <div class="text-center animate-on-scroll">
+                    <div class="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-semibold mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
+                        <span class="counter-number inline-block" data-target="100" data-suffix="%">0</span>
+                    </div>
+                    <p class="text-xl md:text-2xl lg:text-3xl font-light" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'online projects' : 'онлайн проектов'; ?>
+                    </p>
                 </div>
-                <p class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light" style="color: var(--color-text-secondary);">
-                    <?php echo $currentLang === 'en' ? 'projects' : 'проектов'; ?>
-                </p>
+                
+                <!-- 10+ лет в digital -->
+                <div class="text-center animate-on-scroll" style="animation-delay: 0.1s;">
+                    <div class="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-semibold mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
+                        <span class="counter-number inline-block" data-target="10" data-suffix="+">0</span>
+                    </div>
+                    <p class="text-xl md:text-2xl lg:text-3xl font-light" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'years in digital' : 'лет в digital сфере'; ?>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
