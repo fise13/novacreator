@@ -202,6 +202,9 @@ module.exports = {
         'glow': 'glow 2s ease-in-out infinite alternate',
         'glow-pulse': 'glowPulse 2s ease-in-out infinite',
         'float': 'float 6s ease-in-out infinite',
+        'fade-left': 'fadeInLeft 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards',
+        'fade-right': 'fadeInRight 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards',
+        'fade-up': 'fadeInUp 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards',
       },
       keyframes: {
         fadeIn: {
@@ -243,6 +246,36 @@ module.exports = {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },
+        },
+        fadeInLeft: {
+          '0%': { 
+            transform: 'translateX(-40px)',
+            opacity: '0',
+          },
+          '100%': { 
+            transform: 'translateX(0)',
+            opacity: '1',
+          },
+        },
+        fadeInRight: {
+          '0%': { 
+            transform: 'translateX(40px)',
+            opacity: '0',
+          },
+          '100%': { 
+            transform: 'translateX(0)',
+            opacity: '1',
+          },
+        },
+        fadeInUp: {
+          '0%': { 
+            transform: 'translateY(40px)',
+            opacity: '0',
+          },
+          '100%': { 
+            transform: 'translateY(0)',
+            opacity: '1',
+          },
         },
       },
       

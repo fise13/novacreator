@@ -2477,4 +2477,85 @@
   .counter-number:hover {
     transform: scale(1.05);
   }
+  
+  /* ============================================
+     STAGGERED REVEAL ANIMATIONS
+     GPU-optimized alternating left-right reveals
+     ============================================ */
+  
+  /* Initial hidden state for reveal elements */
+  .reveal {
+    opacity: 0;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Reveal groups - containers for staggered animations */
+  .reveal-group {
+    /* Container doesn't need special styling */
+  }
+  
+  /* Animation classes applied by JS */
+  .animate-fade-left {
+    animation: fadeInLeft 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  .animate-fade-right {
+    animation: fadeInRight 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  .animate-fade-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  /* Keyframes defined in Tailwind config, but ensure GPU acceleration */
+  @keyframes fadeInLeft {
+    0% {
+      transform: translate3d(-40px, 0, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInRight {
+    0% {
+      transform: translate3d(40px, 0, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      transform: translate3d(0, 40px, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    
+    .animate-fade-left,
+    .animate-fade-right,
+    .animate-fade-up {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
 }

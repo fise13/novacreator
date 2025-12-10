@@ -144,6 +144,9 @@ $currentLang = getCurrentLanguage();
     <!-- GPU-оптимизированные анимации -->
     <script src="/assets/js/animations.js"></script>
     
+    <!-- Premium Staggered Reveal Animations -->
+    <script src="/assets/js/reveal.js"></script>
+    
     <!-- Service Worker для Push-уведомлений -->
     <script>
     if ('serviceWorker' in navigator) {
