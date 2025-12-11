@@ -14,11 +14,12 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 // Определяем релевантные страницы для перелинковки
 $internalLinks = [
     'index' => [
+        ['url' => '/seo', 'text' => $currentLang === 'en' ? 'SEO Optimization' : 'SEO-оптимизация', 'description' => $currentLang === 'en' ? 'Professional SEO services - Top 10 ranking' : 'Профессиональные SEO услуги - Продвижение в топ-10'],
         ['url' => '/services', 'text' => $currentLang === 'en' ? 'Our Services' : 'Наши услуги', 'description' => $currentLang === 'en' ? 'View all our services' : 'Посмотреть все наши услуги'],
-        ['url' => '/seo', 'text' => $currentLang === 'en' ? 'SEO Optimization' : 'SEO-оптимизация', 'description' => $currentLang === 'en' ? 'Professional SEO services' : 'Профессиональные SEO услуги'],
         ['url' => '/ads', 'text' => $currentLang === 'en' ? 'Google Ads' : 'Google Ads', 'description' => $currentLang === 'en' ? 'Advertising management' : 'Управление рекламой'],
         ['url' => '/portfolio', 'text' => $currentLang === 'en' ? 'Portfolio' : 'Портфолио', 'description' => $currentLang === 'en' ? 'Our work examples' : 'Примеры наших работ'],
         ['url' => '/blog', 'text' => $currentLang === 'en' ? 'Blog' : 'Блог', 'description' => $currentLang === 'en' ? 'Useful articles' : 'Полезные статьи'],
+        ['url' => '/faq', 'text' => $currentLang === 'en' ? 'FAQ' : 'FAQ', 'description' => $currentLang === 'en' ? 'Frequently asked questions' : 'Часто задаваемые вопросы'],
     ],
     'services' => [
         ['url' => '/seo', 'text' => $currentLang === 'en' ? 'SEO Optimization' : 'SEO-оптимизация', 'description' => $currentLang === 'en' ? 'Learn more about SEO' : 'Узнать больше о SEO'],
@@ -31,6 +32,8 @@ $internalLinks = [
         ['url' => '/ads', 'text' => $currentLang === 'en' ? 'Google Ads' : 'Google Ads', 'description' => $currentLang === 'en' ? 'Complement your SEO with ads' : 'Дополните SEO рекламой'],
         ['url' => '/blog', 'text' => $currentLang === 'en' ? 'SEO Articles' : 'Статьи о SEO', 'description' => $currentLang === 'en' ? 'Read SEO guides' : 'Читать руководства по SEO'],
         ['url' => '/calculator', 'text' => $currentLang === 'en' ? 'Calculate SEO Cost' : 'Рассчитать стоимость SEO', 'description' => $currentLang === 'en' ? 'Get a quote' : 'Получить расчет'],
+        ['url' => '/faq', 'text' => $currentLang === 'en' ? 'SEO FAQ' : 'FAQ по SEO', 'description' => $currentLang === 'en' ? 'Frequently asked questions' : 'Часто задаваемые вопросы'],
+        ['url' => '/portfolio', 'text' => $currentLang === 'en' ? 'SEO Case Studies' : 'Кейсы SEO', 'description' => $currentLang === 'en' ? 'See our results' : 'Посмотреть результаты'],
     ],
     'ads' => [
         ['url' => '/seo', 'text' => $currentLang === 'en' ? 'SEO Services' : 'SEO услуги', 'description' => $currentLang === 'en' ? 'Combine with SEO' : 'Комбинировать с SEO'],

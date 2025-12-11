@@ -18,19 +18,19 @@ $baseUrl = $scheme . '://' . $host;
 // Текущая дата для lastmod
 $currentDate = date('Y-m-d');
 
-// Статические страницы сайта с приоритетами
+// Статические страницы сайта с приоритетами (оптимизировано для топ-10)
 $staticPages = [
     ['url' => '/', 'priority' => '1.0', 'changefreq' => 'daily'],
+    ['url' => '/seo', 'priority' => '0.95', 'changefreq' => 'daily'], // Высокий приоритет для SEO страницы
     ['url' => '/services', 'priority' => '0.9', 'changefreq' => 'weekly'],
-    ['url' => '/seo', 'priority' => '0.9', 'changefreq' => 'weekly'],
     ['url' => '/ads', 'priority' => '0.9', 'changefreq' => 'weekly'],
-    ['url' => '/portfolio', 'priority' => '0.8', 'changefreq' => 'weekly'],
-    ['url' => '/about', 'priority' => '0.7', 'changefreq' => 'monthly'],
+    ['url' => '/portfolio', 'priority' => '0.85', 'changefreq' => 'weekly'],
+    ['url' => '/blog', 'priority' => '0.85', 'changefreq' => 'daily'],
+    ['url' => '/faq', 'priority' => '0.8', 'changefreq' => 'weekly'], // FAQ важен для SEO
     ['url' => '/contact', 'priority' => '0.8', 'changefreq' => 'monthly'],
+    ['url' => '/about', 'priority' => '0.7', 'changefreq' => 'monthly'],
+    ['url' => '/calculator', 'priority' => '0.7', 'changefreq' => 'monthly'],
     ['url' => '/vacancies', 'priority' => '0.6', 'changefreq' => 'weekly'],
-    ['url' => '/calculator', 'priority' => '0.6', 'changefreq' => 'monthly'],
-    ['url' => '/blog', 'priority' => '0.7', 'changefreq' => 'daily'],
-    ['url' => '/faq', 'priority' => '0.6', 'changefreq' => 'monthly'],
 ];
 
 // Загружаем статьи блога

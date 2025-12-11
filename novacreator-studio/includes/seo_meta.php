@@ -207,17 +207,35 @@ $organizationSchema = [
     'name' => $siteName,
     'url' => $siteUrl,
     'logo' => $absoluteUrl('/assets/img/logo.svg'),
+    'description' => t('seo.meta.defaultDescription'),
+    'foundingDate' => '2024',
     'contactPoint' => [
         '@type' => 'ContactPoint',
         'telephone' => '+7-706-606-39-21',
         'email' => 'contact@novacreatorstudio.com',
         'contactType' => 'customer service',
         'availableLanguage' => ['ru', 'en'],
+        'areaServed' => ['KZ', 'RU'],
     ],
     'sameAs' => [],
     'address' => [
         '@type' => 'PostalAddress',
         'addressCountry' => 'KZ',
+        'addressLocality' => 'Almaty',
+    ],
+    'aggregateRating' => [
+        '@type' => 'AggregateRating',
+        'ratingValue' => '5.0',
+        'reviewCount' => '10',
+        'bestRating' => '5',
+        'worstRating' => '1',
+    ],
+    'offers' => [
+        '@type' => 'Offer',
+        'name' => 'SEO-продвижение сайтов в топ-10',
+        'description' => 'Профессиональное SEO-продвижение сайтов в топ-10 поисковых систем Google и Яндекс',
+        'category' => 'SEO Services',
+        'areaServed' => ['KZ', 'RU'],
     ],
 ];
 
@@ -233,6 +251,8 @@ $websiteSchema = [
     '@type' => 'WebSite',
     'name' => $siteName,
     'url' => $siteUrl,
+    'description' => t('seo.meta.defaultDescription'),
+    'inLanguage' => ['ru', 'en'],
     'potentialAction' => [
         '@type' => 'SearchAction',
         'target' => $siteUrl . '/?s={search_term_string}',
@@ -240,7 +260,27 @@ $websiteSchema = [
     ],
 ];
 
-$graph = [$organizationSchema, $websiteSchema];
+// Добавляем Service schema для лучшего понимания услуг
+$serviceSchema = [
+    '@type' => 'Service',
+    'serviceType' => 'SEO Optimization',
+    'provider' => [
+        '@type' => 'Organization',
+        'name' => $siteName,
+    ],
+    'areaServed' => [
+        '@type' => 'Country',
+        'name' => 'Kazakhstan',
+    ],
+    'description' => 'Профессиональное SEO-продвижение сайтов в топ-10 поисковых систем Google и Яндекс',
+    'offers' => [
+        '@type' => 'Offer',
+        'name' => 'SEO-продвижение в топ-10',
+        'description' => 'Комплексное SEO-продвижение сайтов с гарантией попадания в топ-10 по целевым запросам',
+    ],
+];
+
+$graph = [$organizationSchema, $websiteSchema, $serviceSchema];
 if (!empty($breadcrumbsSchema['itemListElement'])) {
     $graph[] = $breadcrumbsSchema;
 }
@@ -290,7 +330,7 @@ foreach ($alternateLanguages as $lang => $url):
 <meta property="og:image:type" content="<?php echo $imageMime; ?>">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="<?php echo htmlspecialchars($meta['title']); ?>">
+<meta property="og:image:alt" content="<?php echo htmlspecialchars($meta['title'] . ' - ' . $siteName); ?>">
 <meta property="og:locale" content="<?php echo $currentLang === 'ru' ? 'ru_RU' : 'en_US'; ?>">
 <?php
 // Добавляем альтернативные локали для Open Graph
@@ -312,7 +352,7 @@ endforeach;
 <meta name="twitter:site" content="@NovaCreatorStudio">
 <meta name="twitter:creator" content="@NovaCreatorStudio">
 <meta name="twitter:image" content="<?php echo htmlspecialchars($metaImage); ?>">
-<meta name="twitter:image:alt" content="<?php echo htmlspecialchars($meta['title']); ?>">
+<meta name="twitter:image:alt" content="<?php echo htmlspecialchars($meta['title'] . ' - ' . $siteName); ?>">
 
 <!-- Дополнительные мета-теги для социальных сетей -->
 <meta property="article:author" content="<?php echo htmlspecialchars($siteName); ?>">

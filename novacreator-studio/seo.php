@@ -20,6 +20,14 @@ include 'includes/header.php';
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.seo.title')); ?>
             </h1>
+            <!-- SEO-оптимизированный подзаголовок с ключевыми словами -->
+            <div class="reveal mt-4">
+                <p class="text-lg md:text-xl text-center max-w-4xl mx-auto" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' 
+                        ? 'Professional SEO services to rank your website in top-10 Google and Yandex search results. Technical SEO, content optimization, link building. Results in 3-6 months.' 
+                        : 'Профессиональное SEO-продвижение сайтов в топ-10 Google и Яндекс. Технический SEO, оптимизация контента, построение ссылочной массы. Результаты через 3-6 месяцев.'; ?>
+                </p>
+            </div>
             <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.seo.subtitle')); ?>
             </p>
@@ -33,8 +41,14 @@ include 'includes/header.php';
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-20 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('pages.seo.includes.title')); ?></h2>
-                <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-4" style="color: var(--color-text-secondary);">
                     <?php echo htmlspecialchars(t('pages.seo.includes.subtitle')); ?>
+                </p>
+                <!-- Дополнительный SEO-контент -->
+                <p class="text-base md:text-lg max-w-2xl mx-auto mt-4" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' 
+                        ? 'Our comprehensive SEO approach ensures your website reaches top-10 positions in search engines through technical optimization, quality content, and strategic link building.' 
+                        : 'Наш комплексный подход к SEO гарантирует попадание вашего сайта в топ-10 поисковых систем через техническую оптимизацию, качественный контент и стратегическое построение ссылочной массы.'; ?>
                 </p>
             </div>
             
