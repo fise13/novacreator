@@ -97,10 +97,13 @@ include 'includes/header.php';
         gap: clamp(1.5rem, 3vw, 3rem);
     }
     .kpi-minimal-card {
-        padding: clamp(1.25rem, 3vw, 2rem);
-        border-radius: 22px;
-        border: 1px solid var(--color-border);
+        padding: 0;
+        border: none;
         background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
     }
     .kpi-minimal-number {
         font-size: clamp(3.5rem, 8vw, 9rem);
