@@ -14,7 +14,7 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group seo-hero relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
@@ -36,7 +36,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Что включает SEO - стиль holymedia.kz -->
-<section class="reveal-group py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group section-compact py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-20 reveal">
@@ -54,7 +54,7 @@ include 'includes/header.php';
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                 <!-- Технический SEO -->
-                <div class="reveal rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
+                <div class="reveal seo-card rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
@@ -82,7 +82,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Контент-оптимизация -->
-                <div class="reveal rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
+                <div class="reveal seo-card rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -110,7 +110,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Ссылочное продвижение -->
-                <div class="reveal rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
+                <div class="reveal seo-card rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" style="background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
@@ -138,7 +138,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Локальное SEO -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group" style=" 0.3s; background-color: var(--color-surface);">
+                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group seo-card" style=" 0.3s; background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -167,7 +167,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Аналитика и отчетность -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group" style=" 0.4s; background-color: var(--color-surface);">
+                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group seo-card" style=" 0.4s; background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -195,7 +195,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Продвижение в соцсетях -->
-                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group" style=" 0.5s; background-color: var(--color-surface);">
+                <div class="rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 reveal group seo-card" style=" 0.5s; background-color: var(--color-surface);">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
@@ -255,9 +255,89 @@ include 'includes/header.php';
         color: var(--color-text-secondary);
         font-weight: 500;
     }
+    .process-step {
+        border: 1px solid transparent;
+        border-radius: 1.25rem;
+    }
+    .seo-card {
+        border: 1px solid rgba(255,255,255,0.04);
+    }
+    @media (max-width: 900px) {
+        .section-compact {
+            padding: 3.5rem 0 !important;
+        }
+    }
+    @media (max-width: 768px) {
+        .seo-hero {
+            min-height: auto;
+            padding-top: 4.5rem !important;
+            padding-bottom: 3.25rem !important;
+        }
+        .seo-hero h1 {
+            font-size: clamp(2.35rem, 8vw, 3.25rem);
+            letter-spacing: -0.035em;
+        }
+        .seo-hero p {
+            font-size: 1.05rem;
+        }
+        .section-compact {
+            padding: 3.25rem 0 !important;
+        }
+        .seo-card {
+            box-shadow: none !important;
+            border: 1px solid var(--color-border) !important;
+            background: var(--color-surface) !important;
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+        .seo-card .w-16,
+        .seo-card .h-16 {
+            width: 3rem;
+            height: 3rem;
+        }
+        .seo-card svg {
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+        .kpi-minimal-number {
+            font-size: clamp(2.4rem, 11vw, 3.5rem);
+        }
+        .kpi-minimal-label {
+            font-size: 1rem;
+        }
+        .kpi-minimal-grid {
+            gap: 1.75rem;
+        }
+        .process-step {
+            border-color: var(--color-border);
+            background: var(--color-surface);
+            padding: 1.5rem;
+            box-shadow: none;
+        }
+        .faq-card {
+            border-color: var(--color-border) !important;
+            background: var(--color-surface) !important;
+            box-shadow: none !important;
+        }
+        .guarantee-card {
+            background: var(--color-surface) !important;
+            border-color: var(--color-border) !important;
+            box-shadow: none !important;
+        }
+        .seo-cta {
+            background: var(--color-bg) !important;
+        }
+        .seo-cta .animate-pulse {
+            display: none;
+        }
+        .seo-cta a {
+            box-shadow: none !important;
+            border: 1px solid var(--color-border);
+        }
+    }
 </style>
 
-<section class="py-20 md:py-32" style="background-color: var(--color-bg);">
+<section class="py-20 md:py-32 section-compact" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-20 reveal">
@@ -292,7 +372,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Процесс работы - стиль holymedia.kz -->
-<section class="py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
+<section class="py-20 md:py-32 section-compact" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-20 reveal">
@@ -303,7 +383,7 @@ include 'includes/header.php';
             </div>
             
             <div class="max-w-4xl mx-auto space-y-12">
-                <div class="flex flex-col md:flex-row gap-8 items-start reveal group">
+                <div class="flex flex-col md:flex-row gap-8 items-start reveal group process-step">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl md:text-4xl font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         1
                     </div>
@@ -315,7 +395,7 @@ include 'includes/header.php';
                     </div>
                 </div>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-start reveal group" style=" 0.1s;">
+                <div class="flex flex-col md:flex-row gap-8 items-start reveal group process-step" style=" 0.1s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl md:text-4xl font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         2
                     </div>
@@ -327,7 +407,7 @@ include 'includes/header.php';
                     </div>
                 </div>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-start reveal group" style=" 0.2s;">
+                <div class="flex flex-col md:flex-row gap-8 items-start reveal group process-step" style=" 0.2s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl md:text-4xl font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         3
                     </div>
@@ -339,7 +419,7 @@ include 'includes/header.php';
                     </div>
                 </div>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-start reveal group" style=" 0.3s;">
+                <div class="flex flex-col md:flex-row gap-8 items-start reveal group process-step" style=" 0.3s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl md:text-4xl font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                         4
                     </div>
@@ -356,7 +436,7 @@ include 'includes/header.php';
 </section>
 
 <!-- FAQ секция - стиль holymedia.kz -->
-<section class="py-20 md:py-32" style="background-color: var(--color-bg);">
+<section class="py-20 md:py-32 section-compact" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16 reveal">
@@ -368,7 +448,7 @@ include 'includes/header.php';
             
             <div itemscope itemtype="https://schema.org/FAQPage" class="space-y-6">
                 <!-- Вопрос 1 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="border rounded-2xl p-8 hover:shadow-lg transition-all duration-300 reveal" style="background-color: var(--color-surface); border-color: var(--color-border);">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="border rounded-2xl p-8 hover:shadow-lg transition-all duration-300 reveal faq-card" style="background-color: var(--color-surface); border-color: var(--color-border);">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q1.question')); ?>
                     </h3>
@@ -380,7 +460,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вопрос 2 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal" style=" 0.1s;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal faq-card" style=" 0.1s;">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q2.question')); ?>
                     </h3>
@@ -392,7 +472,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вопрос 3 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal" style=" 0.2s;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal faq-card" style=" 0.2s;">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q3.question')); ?>
                     </h3>
@@ -404,7 +484,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вопрос 4 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal" style=" 0.3s;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal faq-card" style=" 0.3s;">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q4.question')); ?>
                     </h3>
@@ -416,7 +496,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Вопрос 5 -->
-                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal" style=" 0.4s;">
+                <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 reveal faq-card" style=" 0.4s;">
                     <h3 itemprop="name" class="text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.seo.faq.q5.question')); ?>
                     </h3>
@@ -432,7 +512,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Гарантии - стиль holymedia.kz -->
-<section class="py-20 md:py-32" style="background-color: var(--color-bg-lighter);">
+<section class="py-20 md:py-32 section-compact" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-20 reveal">
@@ -444,7 +524,7 @@ include 'includes/header.php';
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
                 <!-- Пожизненная гарантия -->
-                <div class="border-2 rounded-3xl p-8 md:p-10 reveal group hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" style="background: linear-gradient(to bottom right, rgba(37, 99, 235, 0.1), rgba(147, 51, 234, 0.1)); border-color: rgba(37, 99, 235, 0.3);">
+                <div class="border-2 rounded-3xl p-8 md:p-10 reveal group hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl seo-card guarantee-card" style="background: linear-gradient(to bottom right, rgba(37, 99, 235, 0.1), rgba(147, 51, 234, 0.1)); border-color: rgba(37, 99, 235, 0.3);">
                     <div class="flex items-center mb-6">
                         <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                             <svg class="w-10 h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -459,7 +539,7 @@ include 'includes/header.php';
                 </div>
                 
                 <!-- Поддержка для первых клиентов -->
-                <div class="border-2 rounded-3xl p-8 md:p-10 reveal group hover:border-purple-400 transition-all duration-300 shadow-xl hover:shadow-2xl" style=" 0.1s; background: linear-gradient(to bottom right, rgba(147, 51, 234, 0.1), rgba(37, 99, 235, 0.1)); border-color: rgba(147, 51, 234, 0.3);">
+                <div class="border-2 rounded-3xl p-8 md:p-10 reveal group hover:border-purple-400 transition-all duration-300 shadow-xl hover:shadow-2xl seo-card guarantee-card" style=" 0.1s; background: linear-gradient(to bottom right, rgba(147, 51, 234, 0.1), rgba(37, 99, 235, 0.1)); border-color: rgba(147, 51, 234, 0.3);">
                     <div class="flex items-center mb-6">
                         <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                             <svg class="w-10 h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -483,7 +563,7 @@ include 'includes/header.php';
 </section>
 
 <!-- CTA секция - стиль holymedia.kz -->
-<section class="py-20 md:py-32 relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-blue-600">
+<section class="py-20 md:py-32 relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-blue-600 seo-cta">
     <!-- Декоративные элементы -->
     <div class="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
     <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" style=" 1s;"></div>
@@ -508,41 +588,57 @@ include 'includes/header.php';
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const counters = document.querySelectorAll('[data-target]');
-    
+    const locale = '<?php echo $currentLang === 'ru' ? 'ru-RU' : 'en-US'; ?>';
+
     const animateCounter = (element) => {
-        const target = parseInt(element.getAttribute('data-target'));
-        const prefix = element.getAttribute('data-prefix') || '';
-        const suffix = element.getAttribute('data-suffix') || '';
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                element.textContent = prefix + target + suffix;
-                clearInterval(timer);
-            } else {
-                element.textContent = prefix + Math.floor(current) + suffix;
+        const target = Number(element.dataset.target);
+        if (Number.isNaN(target)) return;
+
+        const prefix = element.dataset.prefix || '';
+        const suffix = element.dataset.suffix || '';
+        const duration = 1400;
+        const start = performance.now();
+
+        const formatNumber = (value) => `${prefix}${Math.round(value).toLocaleString(locale)}${suffix}`;
+
+        const step = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const value = target * progress;
+            element.textContent = formatNumber(value);
+            if (progress < 1) {
+                requestAnimationFrame(step);
             }
-        }, 16);
+        };
+
+        requestAnimationFrame(step);
     };
-    
-    // Создаем observer для запуска анимации при появлении
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const currentText = entry.target.textContent.trim();
-                // Проверяем, что счетчик еще не анимирован (начинается с 0 или пустой)
-                if (currentText === '0' || currentText === '' || /^[+\-]?0[%]?$/.test(currentText)) {
-                    animateCounter(entry.target);
-                    observer.unobserve(entry.target);
-                }
+            if (!entry.isIntersecting) return;
+            if (entry.target.dataset.animated === '1') {
+                observer.unobserve(entry.target);
+                return;
             }
+            entry.target.dataset.animated = '1';
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
         });
-    }, { threshold: 0.5 });
-    
-    counters.forEach(counter => observer.observe(counter));
+    }, { threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+
+    counters.forEach(counter => {
+        observer.observe(counter);
+
+        // На мобильных анимируем сразу, если блок уже в зоне видимости
+        if (window.matchMedia('(max-width: 540px)').matches) {
+            const rect = counter.getBoundingClientRect();
+            if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+                counter.dataset.animated = '1';
+                animateCounter(counter);
+                observer.unobserve(counter);
+            }
+        }
+    });
 });
 
 // Скрипт для анимации появления элементов при скролле
