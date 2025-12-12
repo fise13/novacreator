@@ -119,6 +119,8 @@
     AddType application/json json
     AddType image/webp webp
     AddType image/svg+xml svg
+    AddType image/x-icon ico
+    AddType image/png png
     AddDefaultCharset utf-8
 </IfModule>
 

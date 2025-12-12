@@ -194,9 +194,14 @@ require_once __DIR__ . '/theme_switcher.php';
     <link rel="preload" as="script" href="<?php echo $jsPreloadPath; ?>">
     <meta name="color-scheme" content="dark light">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/favicon.ico">
+    <!-- Favicon - оптимизировано для Google Search -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="/assets/img/icon-32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/img/icon-48.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="/assets/img/icon-192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/img/icon-512.png" sizes="512x512">
+    <link rel="apple-touch-icon" href="/assets/img/icon-180.png" sizes="180x180">
+    <link rel="manifest" href="/manifest.json">
     
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="<?php echo htmlspecialchars(t('site.name')); ?> - RSS Feed (RU)" href="<?php echo htmlspecialchars($siteUrl); ?>/rss.php?lang=ru">
