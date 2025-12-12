@@ -70,7 +70,7 @@ Disallow: /admin/
 Disallow: /client/
 Disallow: /*.php$
 Allow: /sitemap.php$
-Crawl-delay: 0
+# Примечание: Google не поддерживает директиву Crawl-delay
 
 # ===================================
 # GOOGLE IMAGE BOT
@@ -78,7 +78,7 @@ Crawl-delay: 0
 User-agent: Googlebot-Image
 Allow: /assets/img/
 Allow: /assets/
-Crawl-delay: 1
+# Примечание: Google не поддерживает директиву Crawl-delay
 
 # ===================================
 # GOOGLE MOBILE BOT
@@ -87,7 +87,7 @@ User-agent: Googlebot-Mobile
 Allow: /
 Disallow: /backend/
 Disallow: /admin/
-Crawl-delay: 0
+# Примечание: Google не поддерживает директиву Crawl-delay
 
 # ===================================
 # YANDEX BOT
