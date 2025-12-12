@@ -236,49 +236,6 @@ require_once __DIR__ . '/theme_switcher.php';
     
     <!-- Навигация - Apple минималистичный дизайн -->
     <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" style="padding-top: env(safe-area-inset-top); background-color: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--color-border);">
-        <style>
-            /* Минималистичное меню: компактные отступы, чистые контуры */
-            .navbar {
-                box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
-            }
-            #burgerMenu {
-                width: min(92vw, 420px);
-            }
-            #burgerMenu .mobile-menu-item {
-                padding: 0.5rem 0;
-                font-size: 1.1rem;
-                letter-spacing: -0.01em;
-            }
-            #burgerMenu .mobile-menu-item.is-current {
-                font-weight: 600;
-            }
-            #burgerBtn {
-                background-color: transparent !important;
-                border-color: var(--color-border);
-                box-shadow: none;
-            }
-            @media (max-width: 900px) {
-                .navbar .container {
-                    padding-left: 1.1rem;
-                    padding-right: 1.1rem;
-                }
-            }
-            @media (max-width: 768px) {
-                .navbar {
-                    background-color: rgba(255, 255, 255, 0.9);
-                    backdrop-filter: blur(12px) saturate(160%);
-                    -webkit-backdrop-filter: blur(12px) saturate(160%);
-                    border-bottom: 1px solid var(--color-border);
-                }
-                .navbar .container .h-16 {
-                    height: 3.25rem;
-                }
-                .navbar a,
-                .navbar button {
-                    touch-action: manipulation;
-                }
-            }
-        </style>
         
         <div class="container mx-auto px-4 sm:px-5 md:px-6 lg:px-8 relative z-10">
             <div class="flex items-center justify-between h-16 sm:h-18 md:h-20 gap-2 sm:gap-3">
@@ -466,32 +423,30 @@ require_once __DIR__ . '/theme_switcher.php';
             <?php 
             $currentPage = basename($_SERVER['PHP_SELF'], '.php');
             ?>
-                <h2 id="burgerMenuTitle" class="sr-only"><?php echo htmlspecialchars(t('nav.main')); ?></h2>
-                <p id="burgerMenuDescription" class="sr-only"><?php echo htmlspecialchars(t('nav.description') ?? 'Основные разделы сайта'); ?></p>
                 
                 <!-- Навигационные ссылки - чистый минимализм как на holymedia.kz -->
                 <nav role="navigation" aria-label="Основная навигация" class="space-y-2 mb-8">
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="mobile-menu-item block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'index' ? 'is-current font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'index' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.home')); ?>
                     </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="mobile-menu-item block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'services' ? 'is-current font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'services' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.services')); ?>
                     </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="mobile-menu-item block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'seo' ? 'is-current font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'seo' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.seo')); ?>
                     </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="mobile-menu-item block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'ads' ? 'is-current font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'ads' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.ads')); ?>
                     </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="mobile-menu-item block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'about' ? 'is-current font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'about' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.about')); ?>
                     </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="mobile-menu-item block py-2 mt-6 text-xl font-medium transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'contact' ? 'is-current' : ''; ?>" aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="block py-2 mt-6 text-xl font-medium transition-opacity duration-200 hover:opacity-60 active:opacity-40" aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </a>
                 </nav>
