@@ -103,22 +103,48 @@ $flashError = getFlash('error');
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<main class="min-h-screen bg-gradient-to-b from-dark-bg via-dark-bg/90 to-dark-bg pt-28 pb-16 px-4">
+<style>
+    :root {
+        --panel-radius: 22px;
+        --panel-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+        --panel-border: rgba(15, 23, 42, 0.06);
+        --pill-border: rgba(15, 23, 42, 0.08);
+    }
+    .admin-surface {
+        background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 60%, #f8fafc 100%);
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid var(--panel-border);
+        box-shadow: var(--panel-shadow);
+        backdrop-filter: blur(12px);
+        border-radius: var(--panel-radius);
+    }
+    .text-muted { color: #6b7280; }
+    .pill {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid var(--pill-border);
+        color: #4b5563;
+    }
+    .progress-track { background: #e5e7eb; }
+</style>
+
+<main class="min-h-screen admin-surface pt-28 pb-16 px-4">
     <div class="container mx-auto max-w-7xl space-y-8">
         <!-- Заголовок -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 glass-card p-6">
             <div>
-                <a href="/adm/" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-neon-purple transition-colors mb-3">
+                <a href="/adm/" class="inline-flex items-center gap-2 text-sm text-muted hover:text-neon-purple transition-colors mb-3">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
                     Назад к списку клиентов
                 </a>
-                <h1 class="text-3xl md:text-4xl font-bold text-gradient">Редактирование клиента</h1>
-                <p class="text-gray-400 text-sm mt-1"><?php echo htmlspecialchars($client['name']); ?> (<?php echo htmlspecialchars($client['email']); ?>)</p>
+                <h1 class="text-3xl md:text-4xl font-bold" style="color:#0f172a;">Редактирование клиента</h1>
+                <p class="text-muted text-sm mt-1"><?php echo htmlspecialchars($client['name']); ?> (<?php echo htmlspecialchars($client['email']); ?>)</p>
             </div>
             <div class="flex items-center gap-3">
-                <a href="/adm/" class="px-4 py-2 rounded-lg border border-dark-border text-gray-300 hover:text-neon-purple hover:border-neon-purple transition-colors">
+                <a href="/adm/" class="px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:text-neon-purple hover:border-neon-purple transition-colors glass-card">
                     Список клиентов
                 </a>
             </div>
@@ -142,140 +168,140 @@ include __DIR__ . '/../includes/header.php';
             <input type="hidden" name="redirect" value="/adm/client.php?id=<?php echo $clientId; ?>">
             
             <!-- Основная информация -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl">
-                <h2 class="text-xl font-semibold text-white mb-6">Основная информация</h2>
+            <div class="glass-card rounded-2xl p-6 shadow-xl">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Основная информация</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Имя клиента</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Имя клиента</label>
                         <input type="text" value="<?php echo htmlspecialchars($client['name']); ?>" disabled
-                               class="w-full bg-dark-bg/50 border border-dark-border rounded-lg px-4 py-3 text-white cursor-not-allowed">
-                        <p class="text-xs text-gray-500 mt-1">Имя нельзя изменить</p>
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 cursor-not-allowed">
+                        <p class="text-xs text-muted mt-1">Имя нельзя изменить</p>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Email</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
                         <input type="email" value="<?php echo htmlspecialchars($client['email']); ?>" disabled
-                               class="w-full bg-dark-bg/50 border border-dark-border rounded-lg px-4 py-3 text-white cursor-not-allowed">
-                        <p class="text-xs text-gray-500 mt-1">Email нельзя изменить</p>
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 cursor-not-allowed">
+                        <p class="text-xs text-muted mt-1">Email нельзя изменить</p>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Статус проекта</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Статус проекта</label>
                         <input type="text" name="status" value="<?php echo htmlspecialchars($statusText); ?>" 
                                placeholder="Например: В разработке"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Текущий этап</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Текущий этап</label>
                         <input type="text" name="stage" value="<?php echo htmlspecialchars($stageText); ?>" 
                                placeholder="Например: Дизайн макетов"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
                     </div>
                 </div>
             </div>
 
             <!-- Прогресс и метрики -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl">
-                <h2 class="text-xl font-semibold text-white mb-6">Прогресс и метрики</h2>
+            <div class="glass-card rounded-2xl p-6 shadow-xl">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Прогресс и метрики</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Прогресс (%)</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Прогресс (%)</label>
                         <div class="flex items-center gap-2">
                             <input type="number" name="progress_percent" min="0" max="100" value="<?php echo $progress; ?>" 
-                                   class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                                   class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
                             <div class="flex flex-col gap-1">
-                                <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-progress" data-delta="10">+10</button>
-                                <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-progress" data-delta="-10">-10</button>
+                                <button type="button" class="px-2 py-1 text-xs rounded bg-white border border-gray-200 text-gray-600 hover:text-neon-purple adjust-progress" data-delta="10">+10</button>
+                                <button type="button" class="px-2 py-1 text-xs rounded bg-white border border-gray-200 text-gray-600 hover:text-neon-purple adjust-progress" data-delta="-10">-10</button>
                             </div>
                         </div>
-                        <div class="mt-2 w-full bg-dark-bg border border-dark-border rounded-full h-2 overflow-hidden">
+                        <div class="mt-2 w-full progress-track rounded-full h-2 overflow-hidden">
                             <div class="h-2 bg-gradient-to-r from-neon-purple to-neon-blue rounded-full progress-bar" style="width: <?php echo max(0, min(100, $progress)); ?>%;"></div>
                         </div>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Время работы (минуты)</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Время работы (минуты)</label>
                         <div class="flex items-center gap-2">
                             <input type="number" name="time_spent_minutes" min="0" value="<?php echo $timeSpent; ?>" 
-                                   class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                                   class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
                             <div class="flex flex-col gap-1">
-                                <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-time" data-delta="60">+60</button>
-                                <button type="button" class="px-2 py-1 text-xs rounded bg-dark-bg border border-dark-border text-gray-300 hover:text-neon-purple adjust-time" data-delta="-60">-60</button>
+                                <button type="button" class="px-2 py-1 text-xs rounded bg-white border border-gray-200 text-gray-600 hover:text-neon-purple adjust-time" data-delta="60">+60</button>
+                                <button type="button" class="px-2 py-1 text-xs rounded bg-white border border-gray-200 text-gray-600 hover:text-neon-purple adjust-time" data-delta="-60">-60</button>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-1"><?php echo minutesToHuman($timeSpent); ?></p>
+                        <p class="text-xs text-muted mt-1"><?php echo minutesToHuman($timeSpent); ?></p>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Дата начала</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Дата начала</label>
                         <input type="date" name="started_at" 
                                value="<?php echo $startedAt ? htmlspecialchars(substr($startedAt, 0, 10)) : ''; ?>" 
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Роль</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Роль</label>
                         <input type="text" value="<?php echo htmlspecialchars($client['role']); ?>" disabled
-                               class="w-full bg-dark-bg/50 border border-dark-border rounded-lg px-4 py-3 text-white cursor-not-allowed">
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 cursor-not-allowed">
                     </div>
                 </div>
             </div>
 
             <!-- Дополнительные метрики (редактируемые) -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl">
-                <h2 class="text-xl font-semibold text-white mb-6">Дополнительные метрики</h2>
+            <div class="glass-card rounded-2xl p-6 shadow-xl">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Дополнительные метрики</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Средний прогресс в день (%)</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Средний прогресс в день (%)</label>
                         <input type="number" name="avg_progress_per_day" step="0.1" min="0" 
                                value="<?php echo $avgProgressPerDay !== null ? htmlspecialchars($avgProgressPerDay) : ''; ?>" 
                                placeholder="Авто"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
-                        <p class="text-xs text-gray-500 mt-1">Оставьте пустым для автоматического расчета</p>
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                        <p class="text-xs text-muted mt-1">Оставьте пустым для автоматического расчета</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Среднее время в день (часы)</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Среднее время в день (часы)</label>
                         <input type="number" name="avg_hours_per_day" step="0.1" min="0" 
                                value="<?php echo $avgHoursPerDay !== null ? htmlspecialchars($avgHoursPerDay) : ''; ?>" 
                                placeholder="Авто"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
-                        <p class="text-xs text-gray-500 mt-1">Оставьте пустым для автоматического расчета</p>
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                        <p class="text-xs text-muted mt-1">Оставьте пустым для автоматического расчета</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Оценка завершения (дней)</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Оценка завершения (дней)</label>
                         <input type="number" name="estimated_completion_days" min="0" 
                                value="<?php echo $estimatedCompletion !== null ? htmlspecialchars($estimatedCompletion) : ''; ?>" 
                                placeholder="Авто"
-                               class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
-                        <p class="text-xs text-gray-500 mt-1">Оставьте пустым для автоматического расчета</p>
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple">
+                        <p class="text-xs text-muted mt-1">Оставьте пустым для автоматического расчета</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Дней активно</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Дней активно</label>
                         <input type="text" value="<?php echo $daysActive; ?>" disabled
-                               class="w-full bg-dark-bg/50 border border-dark-border rounded-lg px-4 py-3 text-white cursor-not-allowed">
-                        <p class="text-xs text-gray-500 mt-1">Вычисляется автоматически</p>
+                               class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 cursor-not-allowed">
+                        <p class="text-xs text-muted mt-1">Вычисляется автоматически</p>
                     </div>
                 </div>
             </div>
 
             <!-- Заметки -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl">
-                <h2 class="text-xl font-semibold text-white mb-4">Заметки и комментарии</h2>
+            <div class="glass-card rounded-2xl p-6 shadow-xl">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Заметки и комментарии</h2>
                 <textarea name="notes" rows="6" 
                           placeholder="Добавьте заметки о проекте..."
-                          class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"><?php echo htmlspecialchars($client['notes'] ?? ''); ?></textarea>
+                          class="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple"><?php echo htmlspecialchars($client['notes'] ?? ''); ?></textarea>
             </div>
 
             <!-- Информация о клиенте -->
-            <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 shadow-xl">
-                <h2 class="text-xl font-semibold text-white mb-4">Информация о клиенте</h2>
+            <div class="glass-card rounded-2xl p-6 shadow-xl">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Информация о клиенте</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
-                        <p class="text-gray-400">Дата регистрации</p>
-                        <p class="text-white font-medium mt-1">
+                        <p class="text-muted">Дата регистрации</p>
+                        <p class="text-gray-900 font-medium mt-1">
                             <?php 
                             $createdAtTimestamp = isset($client['created_at']) ? strtotime($client['created_at']) : false;
                             echo $createdAtTimestamp ? htmlspecialchars(date('d.m.Y H:i', $createdAtTimestamp)) : 'Не указано';
@@ -283,8 +309,8 @@ include __DIR__ . '/../includes/header.php';
                         </p>
                     </div>
                     <div>
-                        <p class="text-gray-400">Последнее обновление</p>
-                        <p class="text-white font-medium mt-1">
+                        <p class="text-muted">Последнее обновление</p>
+                        <p class="text-gray-900 font-medium mt-1">
                             <?php 
                             $updatedAtTimestamp = $updatedAt ? strtotime($updatedAt) : false;
                             echo $updatedAtTimestamp ? htmlspecialchars(date('d.m.Y H:i', $updatedAtTimestamp)) : 'Никогда';
@@ -296,7 +322,7 @@ include __DIR__ . '/../includes/header.php';
 
             <!-- Кнопки действий -->
             <div class="flex items-center justify-between gap-4">
-                <a href="/adm/" class="px-6 py-3 rounded-lg border border-dark-border text-gray-300 hover:text-neon-purple hover:border-neon-purple transition-colors">
+                <a href="/adm/" class="px-6 py-3 rounded-lg border border-gray-200 text-gray-700 hover:text-neon-purple hover:border-neon-purple transition-colors glass-card">
                     Отмена
                 </a>
                 <button type="submit" class="px-6 py-3 rounded-lg bg-gradient-to-r from-neon-purple to-neon-blue text-white font-semibold hover:from-neon-purple/90 hover:to-neon-blue/90 transition-all duration-300 shadow-lg shadow-neon-purple/30 hover:shadow-xl">
