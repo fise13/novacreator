@@ -226,37 +226,35 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Результаты - общий стиль чисел как на главной -->
+<!-- Результаты - минималистичные KPI как на главной -->
+<style>
+    .kpi-minimal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: clamp(1.5rem, 3vw, 3rem);
+    }
+    .kpi-minimal-card {
+        padding: clamp(1.25rem, 3vw, 2rem);
+        border-radius: 22px;
+        border: 1px solid var(--color-border);
+        background: transparent;
+    }
+    .kpi-minimal-number {
+        font-size: clamp(3.5rem, 8vw, 9rem);
+        line-height: 0.9;
+        font-weight: 700;
+        color: var(--color-text);
+        letter-spacing: -0.04em;
+    }
+    .kpi-minimal-label {
+        margin-top: 0.75rem;
+        font-size: clamp(1.05rem, 2vw, 1.35rem);
+        color: var(--color-text-secondary);
+        font-weight: 500;
+    }
+</style>
+
 <section class="py-20 md:py-32" style="background-color: var(--color-bg);">
-    <style>
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
-        .results-card {
-            border-radius: 22px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.92));
-            border: 1px solid rgba(15, 23, 42, 0.06);
-            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-            backdrop-filter: blur(12px);
-            padding: 28px 24px;
-            text-align: center;
-        }
-        .results-number {
-            font-size: clamp(3rem, 7vw, 6rem);
-            font-weight: 800;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            color: var(--color-text);
-        }
-        .results-label {
-            margin-top: 12px;
-            font-size: clamp(1.05rem, 2.5vw, 1.4rem);
-            color: var(--color-text-secondary);
-            font-weight: 500;
-        }
-    </style>
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-20 reveal">
@@ -266,54 +264,30 @@ include 'includes/header.php';
                 </p>
             </div>
             
-            <div class="results-grid">
-                <div class="results-card reveal">
-                    <div class="results-number">
+            <div class="kpi-minimal-grid">
+                <div class="text-center reveal kpi-minimal-card">
+                    <div class="kpi-minimal-number">
                         <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="results-label"><?php echo htmlspecialchars(t('pages.seo.results.traffic')); ?></p>
+                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.seo.results.traffic')); ?></p>
                 </div>
-                <div class="results-card reveal">
-                    <div class="results-number">
+                <div class="text-center reveal kpi-minimal-card">
+                    <div class="kpi-minimal-number">
                         <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="results-label"><?php echo htmlspecialchars(t('pages.seo.results.positions')); ?></p>
+                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.seo.results.positions')); ?></p>
                 </div>
-                <div class="results-card reveal">
-                    <div class="results-number">
+                <div class="text-center reveal kpi-minimal-card">
+                    <div class="kpi-minimal-number">
                         <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="results-label"><?php echo htmlspecialchars(t('pages.seo.results.conversions')); ?></p>
+                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.seo.results.conversions')); ?></p>
                 </div>
-                <div class="results-card reveal">
-                    <div class="results-number">
+                <div class="text-center reveal kpi-minimal-card">
+                    <div class="kpi-minimal-number">
                         <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">0</span>
                     </div>
-                    <p class="results-label"><?php echo htmlspecialchars(t('pages.seo.results.cost')); ?></p>
-                </div>
-                <div class="results-card reveal">
-                    <div class="results-number">
-                        <span class="counter-number" data-target="45" data-prefix="+" data-suffix="%">0</span>
-                    </div>
-                    <p class="results-label"><?php echo $currentLang === 'en' ? 'CTR growth' : 'Рост CTR'; ?></p>
-                </div>
-                <div class="results-card reveal">
-                    <div class="results-number">
-                        <span class="counter-number" data-target="120" data-prefix="+" data-suffix="%">0</span>
-                    </div>
-                    <p class="results-label"><?php echo $currentLang === 'en' ? 'Conversion growth' : 'Рост конверсий'; ?></p>
-                </div>
-                <div class="results-card reveal">
-                    <div class="results-number">
-                        <span class="counter-number" data-target="35" data-prefix="-" data-suffix="%">0</span>
-                    </div>
-                    <p class="results-label"><?php echo $currentLang === 'en' ? 'CPC decrease' : 'Снижение стоимости клика'; ?></p>
-                </div>
-                <div class="results-card reveal">
-                    <div class="results-number">
-                        <span class="counter-number" data-target="200" data-prefix="+" data-suffix="%">0</span>
-                    </div>
-                    <p class="results-label"><?php echo $currentLang === 'en' ? 'ROI growth' : 'Рост ROI'; ?></p>
+                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.seo.results.cost')); ?></p>
                 </div>
             </div>
         </div>

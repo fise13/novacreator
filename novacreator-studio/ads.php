@@ -89,7 +89,34 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Результаты -->
+<!-- Результаты - минималистичные KPI -->
+<style>
+    .kpi-minimal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: clamp(1.5rem, 3vw, 3rem);
+    }
+    .kpi-minimal-card {
+        padding: clamp(1.25rem, 3vw, 2rem);
+        border-radius: 22px;
+        border: 1px solid var(--color-border);
+        background: transparent;
+    }
+    .kpi-minimal-number {
+        font-size: clamp(3.5rem, 8vw, 9rem);
+        line-height: 0.9;
+        font-weight: 700;
+        color: var(--color-text);
+        letter-spacing: -0.04em;
+    }
+    .kpi-minimal-label {
+        margin-top: 0.75rem;
+        font-size: clamp(1.05rem, 2vw, 1.35rem);
+        color: var(--color-text-secondary);
+        font-weight: 500;
+    }
+</style>
+
 <section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
@@ -99,38 +126,30 @@ include 'includes/header.php';
                 </h2>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-                <div class="text-center reveal">
-                    <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4" style="color: var(--color-text);">
+            <div class="kpi-minimal-grid">
+                <div class="text-center reveal kpi-minimal-card">
+                    <div class="kpi-minimal-number">
                         <span class="counter-number" data-target="45" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="text-lg md:text-xl" style="color: var(--color-text-secondary);">
-                        <?php echo htmlspecialchars(t('pages.ads.results.ctr')); ?>
-                    </p>
+                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.ads.results.ctr')); ?></p>
                 </div>
-                <div class="text-center reveal" style=" 0.1s;">
-                    <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4" style="color: var(--color-text);">
+                <div class="text-center reveal kpi-minimal-card">
+                    <div class="kpi-minimal-number">
                         <span class="counter-number" data-target="120" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="text-lg md:text-xl" style="color: var(--color-text-secondary);">
-                        <?php echo htmlspecialchars(t('pages.ads.results.conversions')); ?>
-                    </p>
+                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.ads.results.conversions')); ?></p>
                 </div>
-                <div class="text-center reveal" style=" 0.2s;">
-                    <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4" style="color: var(--color-text);">
+                <div class="text-center reveal kpi-minimal-card">
+                    <div class="kpi-minimal-number">
                         <span class="counter-number" data-target="35" data-prefix="-" data-suffix="%">0</span>
                     </div>
-                    <p class="text-lg md:text-xl" style="color: var(--color-text-secondary);">
-                        <?php echo htmlspecialchars(t('pages.ads.results.cost')); ?>
-                    </p>
+                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.ads.results.cost')); ?></p>
                 </div>
-                <div class="text-center reveal" style=" 0.3s;">
-                    <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4" style="color: var(--color-text);">
+                <div class="text-center reveal kpi-minimal-card">
+                    <div class="kpi-minimal-number">
                         <span class="counter-number" data-target="200" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="text-lg md:text-xl" style="color: var(--color-text-secondary);">
-                        <?php echo htmlspecialchars(t('pages.ads.results.roi')); ?>
-                    </p>
+                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.ads.results.roi')); ?></p>
                 </div>
             </div>
         </div>
