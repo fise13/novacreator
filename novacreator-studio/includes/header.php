@@ -194,7 +194,9 @@ require_once __DIR__ . '/theme_switcher.php';
     <link rel="preload" as="script" href="<?php echo $jsPreloadPath; ?>">
     <meta name="color-scheme" content="dark light">
     
-    <!-- Favicon - оптимизировано для Google Search -->
+    <!-- Favicon - оптимизировано для Google Search и Яндекс -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" href="/assets/img/icon-32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/assets/img/icon-48.png" sizes="48x48">
