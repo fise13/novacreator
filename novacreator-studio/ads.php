@@ -94,7 +94,7 @@ include 'includes/header.php';
     .kpi-minimal-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: clamp(2.75rem, 6vw, 6rem);
+        gap: clamp(3.75rem, 7vw, 7rem);
     }
     .kpi-minimal-card {
         padding: 0;
