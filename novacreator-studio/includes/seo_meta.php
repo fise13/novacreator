@@ -260,27 +260,29 @@ $websiteSchema = [
     ],
 ];
 
-// Добавляем Service schema для лучшего понимания услуг
-$serviceSchema = [
-    '@type' => 'Service',
-    'serviceType' => 'SEO Optimization',
-    'provider' => [
-        '@type' => 'Organization',
-        'name' => $siteName,
-    ],
-    'areaServed' => [
-        '@type' => 'Country',
-        'name' => 'Kazakhstan',
-    ],
-    'description' => 'Профессиональное SEO-продвижение сайтов в топ-10 поисковых систем Google и Яндекс',
-    'offers' => [
-        '@type' => 'Offer',
-        'name' => 'SEO-продвижение в топ-10',
-        'description' => 'Комплексное SEO-продвижение сайтов с гарантией попадания в топ-10 по целевым запросам',
-    ],
-];
-
-$graph = [$organizationSchema, $websiteSchema, $serviceSchema];
+// Добавляем Service schema для лучшего понимания услуг (только для главной страницы)
+$graph = [$organizationSchema, $websiteSchema];
+if ($currentPage === 'index' || $currentPage === 'seo') {
+    $serviceSchema = [
+        '@type' => 'Service',
+        'serviceType' => 'SEO Optimization',
+        'provider' => [
+            '@type' => 'Organization',
+            'name' => $siteName,
+        ],
+        'areaServed' => [
+            '@type' => 'Country',
+            'name' => 'Kazakhstan',
+        ],
+        'description' => 'Профессиональное SEO-продвижение сайтов в топ-10 поисковых систем Google и Яндекс',
+        'offers' => [
+            '@type' => 'Offer',
+            'name' => 'SEO-продвижение в топ-10',
+            'description' => 'Комплексное SEO-продвижение сайтов с гарантией попадания в топ-10 по целевым запросам',
+        ],
+    ];
+    $graph[] = $serviceSchema;
+}
 if (!empty($breadcrumbsSchema['itemListElement'])) {
     $graph[] = $breadcrumbsSchema;
 }

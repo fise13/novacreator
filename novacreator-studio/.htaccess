@@ -108,9 +108,14 @@
 </IfModule>
 
 # ЗАЩИТА ФАЙЛОВ
-<FilesMatch "\.(env|json|config\.php|gitignore|htaccess|db|sqlite)$">
+<FilesMatch "\.(env|config\.php|gitignore|htaccess|db|sqlite)$">
     Order allow,deny
     Deny from all
+</FilesMatch>
+# Разрешаем manifest.json и другие публичные JSON файлы
+<FilesMatch "^(manifest|package|composer)\.json$">
+    Order allow,deny
+    Allow from all
 </FilesMatch>
 
 # MIME ТИПЫ
@@ -120,7 +125,6 @@
     AddType image/webp webp
     AddType image/svg+xml svg
     AddType image/x-icon ico
-    AddType image/png png
     AddDefaultCharset utf-8
 </IfModule>
 
