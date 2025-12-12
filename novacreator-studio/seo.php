@@ -226,8 +226,37 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Результаты - стиль holymedia.kz -->
+<!-- Результаты - общий стиль чисел как на главной -->
 <section class="py-20 md:py-32" style="background-color: var(--color-bg);">
+    <style>
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .results-card {
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.92));
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+            backdrop-filter: blur(12px);
+            padding: 28px 24px;
+            text-align: center;
+        }
+        .results-number {
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--color-text);
+        }
+        .results-label {
+            margin-top: 12px;
+            font-size: clamp(1.05rem, 2.5vw, 1.4rem);
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+    </style>
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-20 reveal">
@@ -237,30 +266,54 @@ include 'includes/header.php';
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-                <div class="text-center reveal group">
-                    <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            <div class="results-grid">
+                <div class="results-card reveal">
+                    <div class="results-number">
                         <span class="counter-number" data-target="250" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="text-lg md:text-xl font-medium transition-colors" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('pages.seo.results.traffic')); ?></p>
+                    <p class="results-label"><?php echo htmlspecialchars(t('pages.seo.results.traffic')); ?></p>
                 </div>
-                <div class="text-center reveal group" style=" 0.1s;">
-                    <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                <div class="results-card reveal">
+                    <div class="results-number">
                         <span class="counter-number" data-target="180" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="text-gray-600 text-lg md:text-xl font-medium group-hover:text-gray-900 transition-colors"><?php echo htmlspecialchars(t('pages.seo.results.positions')); ?></p>
+                    <p class="results-label"><?php echo htmlspecialchars(t('pages.seo.results.positions')); ?></p>
                 </div>
-                <div class="text-center reveal group" style=" 0.2s;">
-                    <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                <div class="results-card reveal">
+                    <div class="results-number">
                         <span class="counter-number" data-target="95" data-prefix="+" data-suffix="%">0</span>
                     </div>
-                    <p class="text-gray-600 text-lg md:text-xl font-medium group-hover:text-gray-900 transition-colors"><?php echo htmlspecialchars(t('pages.seo.results.conversions')); ?></p>
+                    <p class="results-label"><?php echo htmlspecialchars(t('pages.seo.results.conversions')); ?></p>
                 </div>
-                <div class="text-center reveal group" style=" 0.3s;">
-                    <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                <div class="results-card reveal">
+                    <div class="results-number">
                         <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">0</span>
                     </div>
-                    <p class="text-gray-600 text-lg md:text-xl font-medium group-hover:text-gray-900 transition-colors"><?php echo htmlspecialchars(t('pages.seo.results.cost')); ?></p>
+                    <p class="results-label"><?php echo htmlspecialchars(t('pages.seo.results.cost')); ?></p>
+                </div>
+                <div class="results-card reveal">
+                    <div class="results-number">
+                        <span class="counter-number" data-target="45" data-prefix="+" data-suffix="%">0</span>
+                    </div>
+                    <p class="results-label"><?php echo $currentLang === 'en' ? 'CTR growth' : 'Рост CTR'; ?></p>
+                </div>
+                <div class="results-card reveal">
+                    <div class="results-number">
+                        <span class="counter-number" data-target="120" data-prefix="+" data-suffix="%">0</span>
+                    </div>
+                    <p class="results-label"><?php echo $currentLang === 'en' ? 'Conversion growth' : 'Рост конверсий'; ?></p>
+                </div>
+                <div class="results-card reveal">
+                    <div class="results-number">
+                        <span class="counter-number" data-target="35" data-prefix="-" data-suffix="%">0</span>
+                    </div>
+                    <p class="results-label"><?php echo $currentLang === 'en' ? 'CPC decrease' : 'Снижение стоимости клика'; ?></p>
+                </div>
+                <div class="results-card reveal">
+                    <div class="results-number">
+                        <span class="counter-number" data-target="200" data-prefix="+" data-suffix="%">0</span>
+                    </div>
+                    <p class="results-label"><?php echo $currentLang === 'en' ? 'ROI growth' : 'Рост ROI'; ?></p>
                 </div>
             </div>
         </div>
