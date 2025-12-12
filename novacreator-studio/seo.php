@@ -286,12 +286,6 @@ include 'includes/header.php';
                     </div>
                     <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.seo.results.conversions')); ?></p>
                 </div>
-                <div class="text-center reveal kpi-minimal-card">
-                    <div class="kpi-minimal-number">
-                        <span class="counter-number" data-target="40" data-prefix="-" data-suffix="%">0</span>
-                    </div>
-                    <p class="kpi-minimal-label"><?php echo htmlspecialchars(t('pages.seo.results.cost')); ?></p>
-                </div>
             </div>
         </div>
     </div>
