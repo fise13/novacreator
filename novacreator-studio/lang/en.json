@@ -80,6 +80,49 @@
         "Digital marketing that works. SEO optimization, website development, Google Ads and analytics. We work with companies throughout Kazakhstan and help achieve results."
       ]
     },
+    "pillars": {
+      "title": "What drives growth",
+      "subtitle": "Four pillars we always ship: strategy, speed, analytics and support. No fluff — only actions that move metrics.",
+      "badge": "Transparent delivery",
+      "strategy": {
+        "title": "Strategy with numbers",
+        "description": "We estimate traffic and revenue potential up front to know where we go and why.",
+        "accent": "Business metrics first"
+      },
+      "speed": {
+        "title": "Fast sprints",
+        "description": "First fixes in 10 days: performance boost, core SEO and analytics setup.",
+        "accent": "Actions in 10 days"
+      },
+      "analytics": {
+        "title": "Analytics by default",
+        "description": "Tracking, dashboards, ROI and CAC per channel — decisions based on data, not guesses.",
+        "accent": "Data over opinions"
+      },
+      "support": {
+        "title": "Support 6/7",
+        "description": "Quick responses, status updates, monthly recommendations on how to grow further.",
+        "accent": "Regular updates"
+      }
+    },
+    "industries": {
+      "title": "Industries and formats we know",
+      "subtitle": "We build clear digital tools for teams that need growth: b2b, b2c, online and offline.",
+      "items": [
+        "IT & SaaS",
+        "Education",
+        "Healthcare & clinics",
+        "E-commerce",
+        "Real estate",
+        "Hotels & restaurants",
+        "Manufacturing",
+        "Auto & services",
+        "B2B services",
+        "Local services",
+        "Marketplaces",
+        "Finance & insurance"
+      ]
+    },
     "services": {
       "title": "Our Services",
       "subtitle": "Comprehensive solutions for digital promotion of your business",
@@ -145,6 +188,94 @@
       "support": {
         "title": "6 Months Support",
         "description": "In honor of the opening of our company, we provide first clients with free support for 6 months. Consultations, improvements and assistance — everything is included!"
+      }
+    },
+    "cases": {
+      "title": "Results on real projects",
+      "subtitle": "Mini-cases that show the way we work: fast launch, measurable metrics, clear logic.",
+      "ctaPortfolio": "View portfolio",
+      "ctaCall": "Discuss your task",
+      "items": {
+        "bodycraft": {
+          "title": "Bodycraft: +148% organic in 4 months",
+          "industry": "Fitness & sports",
+          "result": "Organic traffic and membership signups grew without extra ad spend.",
+          "points": [
+            "Tech audit + page speed under 2.5s",
+            "Semantic and content optimization by priority",
+            "End-to-end analytics: leads, passes, retention"
+          ]
+        },
+        "lakeview": {
+          "title": "Lakeview: booking-focused website",
+          "industry": "Hotel & hospitality",
+          "result": "Launched in 3 weeks, enabled bookings and trigger emails.",
+          "points": [
+            "Mobile-first UX for quick booking",
+            "Booking forms integrated with CRM",
+            "SEO foundations and local visibility prepared"
+          ]
+        },
+        "urbanframe": {
+          "title": "Urbanframe: b2b development leads",
+          "industry": "Development & b2b",
+          "result": "Focused on conversion: higher CR on landing, lower CPL in ads.",
+          "points": [
+            "A/B tests of hero and forms",
+            "Micro-landings for different segments",
+            "End-to-end analytics and lead validation"
+          ]
+        }
+      }
+    },
+    "stack": {
+      "title": "Tech and quality control",
+      "subtitle": "We rely on tools that speed up delivery and keep quality stable without manual hacks.",
+      "items": [
+        {
+          "title": "Performance",
+          "description": "Tailwind/TW, clean JS, image optimization, lazy-load, Lighthouse 90+."
+        },
+        {
+          "title": "SEO-ready",
+          "description": "Clean URLs, schema.org, internal linking, meta hygiene and correct hreflang."
+        },
+        {
+          "title": "Analytics",
+          "description": "GA4, Y.Metrica, pixels, events, server-side checklist and e-commerce goals."
+        },
+        {
+          "title": "Integrations",
+          "description": "CRM, webhooks, Telegram/Slack alerts, validated forms with antibot protection."
+        }
+      ],
+      "qaBadge": "Quality gate",
+      "qaTitle": "Every change passes the checklist",
+      "qaChecklist": [
+        "Page speed on mobile and desktop",
+        "Forms and analytics events work correctly",
+        "Valid markup, meta tags and hreflang",
+        "Adaptive layout checked on key breakpoints"
+      ],
+      "cta": "Request an audit"
+    },
+    "faq": {
+      "title": "FAQ at a glance",
+      "subtitle": "Quick answers so you can decide faster.",
+      "cta": "See all questions",
+      "items": {
+        "speed": {
+          "question": "When will we see the first changes?",
+          "answer": "Technical fixes and core SEO go live in 1–2 weeks. First metrics show in about a month after rollout."
+        },
+        "price": {
+          "question": "How do you estimate cost?",
+          "answer": "We map workload and impact on metrics, then propose 2–3 formats: fixed scope, sprints, or ongoing support."
+        },
+        "process": {
+          "question": "What does the process look like?",
+          "answer": "Diagnostics → sprint plan → delivery and QA → metric report. We sync in your preferred channel, weekly statuses included."
+        }
       }
     },
     "cta": {

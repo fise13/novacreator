@@ -15,6 +15,20 @@ $pageMetaKeywords = t('seo.pages.index.keywords');
 include 'includes/header.php';
 ?>
 
+<?php
+// Общие данные локализации для главной
+static $headlinesData = null;
+if ($headlinesData === null) {
+    $langFile = __DIR__ . '/lang/' . $currentLang . '.json';
+    if (file_exists($langFile)) {
+        $headlinesData = json_decode(file_get_contents($langFile), true);
+    } else {
+        $headlinesData = [];
+    }
+}
+$homeData = $headlinesData['home'] ?? [];
+?>
+
 <!-- Hero секция - Apple минималистичный дизайн -->
 <section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
     
@@ -23,16 +37,6 @@ include 'includes/header.php';
             <!-- Главный заголовок - увеличенный размер -->
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php 
-                // Оптимизированное чтение JSON с кэшированием
-                static $headlinesData = null;
-                if ($headlinesData === null) {
-                    $langFile = __DIR__ . '/lang/' . $currentLang . '.json';
-                    if (file_exists($langFile)) {
-                        $headlinesData = json_decode(file_get_contents($langFile), true);
-                    } else {
-                        $headlinesData = [];
-                    }
-                }
                 $headlines = $headlinesData['home']['hero']['headlines'] ?? [];
                 $randomHeadline = !empty($headlines) ? $headlines[array_rand($headlines)] : ['title' => 'NovaCreator Studio', 'subtitle' => ''];
                 echo htmlspecialchars($randomHeadline['title']); 
@@ -97,6 +101,105 @@ include 'includes/header.php';
                         <?php echo $currentLang === 'en' ? 'years in digital' : 'лет в digital сфере'; ?>
                     </p>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Коротко о подходе -->
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 md:mb-16 reveal">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('home.pillars.title')); ?>
+                    </h2>
+                    <p class="text-lg sm:text-xl md:text-2xl max-w-3xl" style="color: var(--color-text-secondary);">
+                        <?php echo htmlspecialchars(t('home.pillars.subtitle')); ?>
+                    </p>
+                </div>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border" style="border-color: var(--color-border); color: var(--color-text-secondary);">
+                    <span class="w-2.5 h-2.5 rounded-full" style="background: var(--color-neon-purple);"></span>
+                    <?php echo htmlspecialchars(t('home.pillars.badge')); ?>
+                </div>
+            </div>
+            <?php
+            $pillars = [
+                [
+                    'title' => t('home.pillars.strategy.title'),
+                    'description' => t('home.pillars.strategy.description'),
+                    'accent' => t('home.pillars.strategy.accent')
+                ],
+                [
+                    'title' => t('home.pillars.speed.title'),
+                    'description' => t('home.pillars.speed.description'),
+                    'accent' => t('home.pillars.speed.accent')
+                ],
+                [
+                    'title' => t('home.pillars.analytics.title'),
+                    'description' => t('home.pillars.analytics.description'),
+                    'accent' => t('home.pillars.analytics.accent')
+                ],
+                [
+                    'title' => t('home.pillars.support.title'),
+                    'description' => t('home.pillars.support.description'),
+                    'accent' => t('home.pillars.support.accent')
+                ],
+            ];
+            ?>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <?php foreach ($pillars as $item): ?>
+                    <div class="reveal p-6 md:p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style="background-color: var(--color-bg); border-color: var(--color-border);">
+                        <div class="text-sm font-semibold mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full" style="background-color: var(--color-bg-lighter); color: var(--color-text-secondary);">
+                            <span class="w-2.5 h-2.5 rounded-full" style="background: var(--color-neon-blue);"></span>
+                            <?php echo htmlspecialchars($item['accent']); ?>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--color-text);">
+                            <?php echo htmlspecialchars($item['title']); ?>
+                        </h3>
+                        <p class="text-base md:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                            <?php echo htmlspecialchars($item['description']); ?>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Отрасли -->
+<section class="reveal-group py-12 md:py-20" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10 md:mb-14 reveal">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('home.industries.title')); ?>
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-3xl" style="color: var(--color-text-secondary);">
+                        <?php echo htmlspecialchars(t('home.industries.subtitle')); ?>
+                    </p>
+                </div>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5" style="background-color: var(--color-text); color: var(--color-bg);">
+                    <?php echo htmlspecialchars(t('common.viewPortfolio')); ?>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+            <?php
+            $industries = $homeData['industries']['items'] ?? [];
+            if (!is_array($industries)) {
+                $industries = [];
+            }
+            ?>
+            <div class="flex flex-wrap gap-3 md:gap-4 reveal">
+                <?php foreach ($industries as $industry): ?>
+                    <span class="px-4 py-2 rounded-full text-sm md:text-base border transition-all duration-200 hover:-translate-y-0.5" style="border-color: var(--color-border); color: var(--color-text); background-color: var(--color-bg-lighter);">
+                        <?php echo htmlspecialchars($industry); ?>
+                    </span>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -225,6 +328,70 @@ include 'includes/header.php';
     </div>
 </section>
 
+<!-- Кейсы -->
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 md:mb-16 reveal">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('home.cases.title')); ?>
+                    </h2>
+                    <p class="text-lg sm:text-xl md:text-2xl max-w-3xl" style="color: var(--color-text-secondary);">
+                        <?php echo htmlspecialchars(t('home.cases.subtitle')); ?>
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="px-5 py-3 rounded-full text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5" style="background-color: var(--color-text); color: var(--color-bg);">
+                        <?php echo htmlspecialchars(t('home.cases.ctaPortfolio')); ?>
+                    </a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="px-5 py-3 rounded-full text-sm font-semibold border transition-all duration-200 hover:-translate-y-0.5" style="border-color: var(--color-border); color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('home.cases.ctaCall')); ?>
+                    </a>
+                </div>
+            </div>
+            <?php
+            $casesRaw = $homeData['cases']['items'] ?? [];
+            $cases = is_array($casesRaw) ? array_values($casesRaw) : [];
+            ?>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <?php foreach ($cases as $case): ?>
+                    <article class="reveal h-full p-6 md:p-8 rounded-2xl border flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+                        <div class="text-sm font-semibold inline-flex items-center gap-2 px-3 py-1 rounded-full self-start" style="background-color: var(--color-bg); color: var(--color-text-secondary);">
+                            <span class="w-2.5 h-2.5 rounded-full" style="background: var(--color-neon-purple);"></span>
+                            <?php echo htmlspecialchars($case['industry']); ?>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold leading-tight" style="color: var(--color-text);">
+                            <?php echo htmlspecialchars($case['title']); ?>
+                        </h3>
+                        <p class="text-base md:text-lg" style="color: var(--color-text-secondary);">
+                            <?php echo htmlspecialchars($case['result']); ?>
+                        </p>
+                        <?php if (is_array($case['points'])): ?>
+                            <ul class="space-y-3 text-sm md:text-base" style="color: var(--color-text-secondary);">
+                                <?php foreach ($case['points'] as $point): ?>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0" style="background: var(--color-neon-blue);"></span>
+                                        <span><?php echo htmlspecialchars($point); ?></span>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                        <div class="mt-auto pt-4">
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3" style="color: var(--color-text);">
+                                <?php echo htmlspecialchars(t('common.viewPortfolio')); ?>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Процесс работы - простые шаги с мобильной адаптацией -->
 <section class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
@@ -275,6 +442,116 @@ include 'includes/header.php';
                         <?php echo htmlspecialchars(t('home.process.step4.description')); ?>
                     </p>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Стек и контроль качества -->
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
+            <div class="reveal space-y-6">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('home.stack.title')); ?>
+                    </h2>
+                    <p class="text-lg md:text-xl" style="color: var(--color-text-secondary);">
+                        <?php echo htmlspecialchars(t('home.stack.subtitle')); ?>
+                    </p>
+                </div>
+                <?php
+                $stackItems = $homeData['stack']['items'] ?? [];
+                if (!is_array($stackItems)) {
+                    $stackItems = [];
+                }
+                ?>
+                <div class="grid grid-cols-2 gap-4 md:gap-6">
+                    <?php foreach ($stackItems as $item): ?>
+                        <div class="p-4 md:p-5 rounded-xl border h-full transition-all duration-200 hover:-translate-y-0.5" style="background-color: var(--color-bg); border-color: var(--color-border);">
+                            <p class="text-base md:text-lg font-semibold mb-2" style="color: var(--color-text);">
+                                <?php echo htmlspecialchars($item['title']); ?>
+                            </p>
+                            <p class="text-sm md:text-base leading-relaxed" style="color: var(--color-text-secondary);">
+                                <?php echo htmlspecialchars($item['description']); ?>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="reveal space-y-6 p-6 md:p-8 rounded-2xl border" style="background-color: var(--color-bg); border-color: var(--color-border);">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold" style="background-color: var(--color-bg-lighter); color: var(--color-text-secondary);">
+                    <?php echo htmlspecialchars(t('home.stack.qaBadge')); ?>
+                </div>
+                <h3 class="text-2xl md:text-3xl font-bold leading-tight" style="color: var(--color-text);">
+                    <?php echo htmlspecialchars(t('home.stack.qaTitle')); ?>
+                </h3>
+                <?php
+                $qaChecklist = $homeData['stack']['qaChecklist'] ?? [];
+                if (!is_array($qaChecklist)) {
+                    $qaChecklist = [];
+                }
+                ?>
+                <ul class="space-y-3 text-base md:text-lg" style="color: var(--color-text-secondary);">
+                    <?php foreach ($qaChecklist as $item): ?>
+                        <li class="flex items-start gap-3">
+                            <span class="mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0" style="background: var(--color-neon-purple);"></span>
+                            <span><?php echo htmlspecialchars($item); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <div class="pt-4">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5" style="background-color: var(--color-text); color: var(--color-bg);">
+                        <?php echo htmlspecialchars(t('home.stack.cta')); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ превью -->
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10 md:mb-14 reveal">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('home.faq.title')); ?>
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-3xl" style="color: var(--color-text-secondary);">
+                        <?php echo htmlspecialchars(t('home.faq.subtitle')); ?>
+                    </p>
+                </div>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/faq'); ?>" class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold border transition-all duration-200 hover:-translate-y-0.5" style="border-color: var(--color-border); color: var(--color-text);">
+                    <?php echo htmlspecialchars(t('home.faq.cta')); ?>
+                </a>
+            </div>
+            <?php
+            $faqRaw = $homeData['faq']['items'] ?? [];
+            $faqItems = [];
+            if (is_array($faqRaw)) {
+                foreach ($faqRaw as $faq) {
+                    if (isset($faq['question'], $faq['answer'])) {
+                        $faqItems[] = [
+                            'q' => $faq['question'],
+                            'a' => $faq['answer']
+                        ];
+                    }
+                }
+            }
+            ?>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <?php foreach ($faqItems as $item): ?>
+                    <div class="reveal p-6 md:p-7 rounded-2xl border h-full transition-all duration-200 hover:-translate-y-0.5" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+                        <h3 class="text-xl md:text-2xl font-semibold mb-3" style="color: var(--color-text);">
+                            <?php echo htmlspecialchars($item['q']); ?>
+                        </h3>
+                        <p class="text-base md:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                            <?php echo htmlspecialchars($item['a']); ?>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
