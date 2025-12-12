@@ -83,7 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         .login-container {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 113, 227, 0.08), transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(139, 92, 246, 0.08), transparent 38%),
+                var(--color-bg);
         }
         
         .form-input:focus {

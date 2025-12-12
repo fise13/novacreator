@@ -27,9 +27,9 @@ if (!isset($pageTitle)) {
         html, body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #0A0A0F;
-            color: #ffffff;
+            font-family: var(--font-family-base, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
             overflow-x: hidden;
             width: 100%;
             max-width: 100vw;
@@ -39,23 +39,24 @@ if (!isset($pageTitle)) {
            ЦВЕТОВАЯ ПАЛИТРА
            ============================================ */
         :root {
-            --dark-bg: #0A0A0F;
-            --dark-surface: #1a1a24;
-            --dark-border: #2a2a3a;
-            --neon-purple: #8B5CF6;
-            --neon-blue: #06B6D4;
-            --gray-300: #D1D5DB;
-            --gray-400: #9CA3AF;
-            --gray-500: #6B7280;
+            /* Используем те же токены, что и на основном сайте */
+            --dark-bg: var(--color-bg);
+            --dark-surface: var(--color-surface);
+            --dark-border: var(--color-border);
+            --neon-purple: var(--color-neon-purple);
+            --neon-blue: var(--color-neon-blue);
+            --text-primary: var(--color-text);
+            --text-secondary: var(--color-text-secondary);
+            --text-muted: var(--color-text-muted, var(--color-text-secondary));
         }
         
         .bg-dark-bg { background-color: var(--dark-bg) !important; }
         .bg-dark-surface { background-color: var(--dark-surface) !important; }
         .bg-dark-border { background-color: var(--dark-border) !important; }
         .border-dark-border { border-color: var(--dark-border) !important; }
-        .text-gray-300 { color: var(--gray-300) !important; }
-        .text-gray-400 { color: var(--gray-400) !important; }
-        .text-gray-500 { color: var(--gray-500) !important; }
+        .text-gray-300 { color: var(--text-secondary) !important; }
+        .text-gray-400 { color: var(--text-secondary) !important; }
+        .text-gray-500 { color: var(--text-muted) !important; }
         .text-neon-purple { color: var(--neon-purple) !important; }
         .text-neon-blue { color: var(--neon-blue) !important; }
         
@@ -133,13 +134,13 @@ if (!isset($pageTitle)) {
            ============================================ */
         nav {
             background-color: var(--dark-surface);
-            border-bottom: 2px solid var(--dark-border);
+            border-bottom: 1px solid var(--dark-border);
             position: sticky;
             top: 0;
             z-index: 100;
             width: 100%;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
         
         /* ============================================
@@ -439,7 +440,7 @@ if (!isset($pageTitle)) {
         /* Дополнительные утилиты */
         .mx-auto { margin-left: auto; margin-right: auto; }
         .cursor-pointer { cursor: pointer; }
-        .text-white { color: #ffffff !important; }
+        .text-white { color: var(--text-primary) !important; }
         .text-red-400 { color: #f87171 !important; }
         .bg-red-600\/20 { background-color: rgba(220, 38, 38, 0.2); }
         .border-red-600 { border-color: #dc2626; }
@@ -456,6 +457,7 @@ if (!isset($pageTitle)) {
         .hover\:text-white:hover { color: #ffffff !important; }
         .bg-dark-bg { background-color: var(--dark-bg) !important; }
         .bg-dark-border { background-color: var(--dark-border) !important; }
+        .bg-dark-surface { background-color: var(--dark-surface) !important; }
         .hover\:bg-dark-border:hover { background-color: var(--dark-border) !important; }
         .hover\:bg-red-600\/30:hover { background-color: rgba(220, 38, 38, 0.3); }
         .text-gray-300 { color: var(--gray-300) !important; }
@@ -544,16 +546,19 @@ if (!isset($pageTitle)) {
            КАРТОЧКИ - улучшенный дизайн
            ============================================ */
         .admin-card {
-            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
             transform: translateZ(0);
             will-change: transform;
             backdrop-filter: blur(10px);
+            background-color: var(--dark-surface);
+            border-color: var(--dark-border);
+            color: var(--text-primary);
         }
         
         .admin-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
-            border-color: rgba(139, 92, 246, 0.6);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+            border-color: var(--neon-purple);
         }
         
         .rounded-2xl { border-radius: 1rem; }
