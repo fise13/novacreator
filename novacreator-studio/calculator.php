@@ -209,16 +209,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const competition = document.querySelector('[name="competition"]').value;
             
             let basePrice = 0;
-            if (siteType === 'small') basePrice = 150000;
-            else if (siteType === 'medium') basePrice = 250000;
-            else if (siteType === 'large') basePrice = 400000;
-            else if (siteType === 'shop') basePrice = 350000;
+            if (siteType === 'small') basePrice = 90000;
+            else if (siteType === 'medium') basePrice = 150000;
+            else if (siteType === 'large') basePrice = 250000;
+            else if (siteType === 'shop') basePrice = 220000;
 
             if (region === 'local') basePrice *= 0.8;
-            else if (region === 'international') basePrice *= 1.5;
+            else if (region === 'international') basePrice *= 1.3;
 
             if (competition === 'low') basePrice *= 0.9;
-            else if (competition === 'high') basePrice *= 1.3;
+            else if (competition === 'high') basePrice *= 1.2;
 
             price = Math.round(basePrice);
         } else if (service === 'development') {
@@ -226,18 +226,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const pages = parseInt(document.querySelector('[name="pages"]').value) || 10;
             
             let basePrice = 0;
-            if (devType === 'landing') basePrice = 300000;
-            else if (devType === 'corporate') basePrice = 500000;
-            else if (devType === 'shop') basePrice = 800000;
-            else if (devType === 'webapp') basePrice = 1200000;
+            if (devType === 'landing') basePrice = 180000;
+            else if (devType === 'corporate') basePrice = 300000;
+            else if (devType === 'shop') basePrice = 500000;
+            else if (devType === 'webapp') basePrice = 750000;
 
-            price = Math.round(basePrice + (pages - 5) * 50000);
+            price = Math.round(basePrice + (pages - 5) * 30000);
         } else if (service === 'ads') {
             const budget = parseInt(document.querySelector('[name="budget"]').value) || 100000;
             const platform = document.querySelector('[name="platform"]').value;
             
-            let percentage = 0.15;
-            if (platform === 'both') percentage = 0.2;
+            let percentage = 0.12;
+            if (platform === 'both') percentage = 0.15;
             
             price = Math.round(budget * percentage);
         }
