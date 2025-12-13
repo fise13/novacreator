@@ -363,14 +363,14 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <!-- Заголовок с изогнутой стрелкой -->
-            <div class="mb-12 md:mb-16 relative">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-tight tracking-tighter" style="color: var(--color-text); position: relative; display: inline-block;">
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-tight tracking-tighter mb-4" style="color: var(--color-text);">
                     <?php echo $currentLang === 'en' ? 'So, shall we work?' : 'Ну что, работаем?'; ?>
-                    <svg class="absolute -top-4 -right-12 md:-right-20 w-16 h-16 md:w-24 md:h-24" style="color: var(--color-text);" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 50 Q 40 20, 70 30 T 90 50" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        <path d="M85 45 L 90 50 L 85 55" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
                 </h2>
+                <svg class="w-32 h-16 md:w-40 md:h-20" style="color: var(--color-text);" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 50 Q 60 20, 120 30 T 180 50" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M170 45 L 180 50 L 170 55" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
@@ -465,7 +465,7 @@ include 'includes/header.php';
                                 <input 
                                     type="tel" 
                                     name="phone" 
-                                    placeholder="+7 (000) 000-00-00"
+                                    placeholder="+7"
                                     class="w-full px-4 py-3 pl-14 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors text-base md:text-lg" 
                                     style="background-color: white; border-color: var(--color-text); color: var(--color-text);"
                                     pattern="^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$"
@@ -486,7 +486,7 @@ include 'includes/header.php';
                                         class="w-5 h-5"
                                         style="accent-color: #f97316;"
                                     >
-                                    <span class="text-base md:text-lg" style="color: var(--color-text);">
+                                    <span class="text-base md:text-lg font-medium" style="color: var(--color-text);">
                                         <?php echo $currentLang === 'en' ? 'Write in messenger' : 'Написать в мессенджер'; ?>
                                     </span>
                                 </label>
@@ -496,9 +496,9 @@ include 'includes/header.php';
                                         name="contact_method" 
                                         value="call"
                                         class="w-5 h-5"
-                                        style="accent-color: #f97316;"
+                                        style="accent-color: #000;"
                                     >
-                                    <span class="text-base md:text-lg" style="color: var(--color-text);">
+                                    <span class="text-base md:text-lg font-medium" style="color: var(--color-text);">
                                         <?php echo $currentLang === 'en' ? 'Call' : 'Позвонить'; ?>
                                     </span>
                                 </label>
