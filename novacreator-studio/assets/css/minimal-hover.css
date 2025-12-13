@@ -1,6 +1,7 @@
 /**
  * Минималистичные hover эффекты
  * Убираем все видимые боксы, tooltip и сложные анимации
+ * НО сохраняем хорошие эффекты в header и навигации
  */
 
 /* Отключаем все tooltip от браузера */
@@ -8,53 +9,90 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Убираем все ::before и ::after элементы при hover для минимализма */
+/* ИСКЛЮЧАЕМ header и навигацию из всех правил - там все должно работать как было */
+#mainNavbar,
+#mainNavbar *,
+.navbar,
+.navbar *,
+nav,
+nav *,
+.nav-link,
+.nav-link::after,
+.nav-link::before,
+#themeToggle,
+#accountMenuBtn,
+#burgerBtn,
+#burgerCloseBtn,
+#burgerMenu,
+#burgerMenu *,
+button[id*="burger"],
+button[id*="theme"],
+button[id*="account"] {
+    /* Сохраняем все оригинальные эффекты - не применяем минималистичные правила */
+    all: revert;
+}
+
+/* Убираем все ::before и ::after элементы при hover для минимализма (кроме header и навигации) */
 .service-card::before,
-[class*="card"]::before,
+[class*="card"]:not([class*="nav"]):not(.nav-link)::before,
 .service-card .icon-wrapper::after,
-a.text-neon-purple::after,
-.nav-link::after {
+a.text-neon-purple::after {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
 }
 
-/* Минималистичные hover эффекты - только opacity */
-a, button, .btn, [class*="card"], .service-card {
+/* Минималистичные hover эффекты - только opacity (кроме header и навигации) */
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]),
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop),
+.btn:not([class*="nav"]),
+[class*="card"]:not([class*="nav"]):not(.nav-link),
+.service-card:not([class*="nav"]) {
     transition: opacity 0.2s ease !important;
 }
 
-a:hover, button:hover, .btn:hover, 
-[class*="card"]:hover, .service-card:hover {
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover,
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover,
+.btn:not([class*="nav"]):hover,
+[class*="card"]:not([class*="nav"]):not(.nav-link):hover,
+.service-card:not([class*="nav"]):hover {
     opacity: 0.7 !important;
     transform: none !important;
     box-shadow: none !important;
 }
 
-/* Убираем transform эффекты при hover */
-a:hover, button:hover {
+/* Убираем transform эффекты при hover (кроме header и навигации) */
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover,
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover {
     transform: none !important;
 }
 
-/* Убираем подчеркивания и линии при hover */
-a:hover::after, a:hover::before,
-button:hover::after, button:hover::before {
+/* Убираем подчеркивания и линии при hover (кроме header и навигации) */
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover::after,
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover::before,
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover::after,
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover::before {
     display: none !important;
     opacity: 0 !important;
 }
 
-/* Минималистичные иконки - только opacity */
-svg {
+/* Минималистичные иконки - только opacity (кроме header и навигации) */
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]) svg,
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop) svg {
     transition: opacity 0.2s ease !important;
 }
 
-a:hover svg, button:hover svg {
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover svg,
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover svg {
     transform: none !important;
     opacity: 0.7 !important;
 }
 
-/* Убираем все box-shadow при hover */
-*:hover {
+/* Убираем все box-shadow при hover (кроме header и навигации) */
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover,
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover,
+[class*="card"]:not([class*="nav"]):not(.nav-link):hover,
+.service-card:not([class*="nav"]):hover {
     box-shadow: none !important;
 }
 
@@ -69,30 +107,31 @@ a:hover svg, button:hover svg {
     box-shadow: none !important;
 }
 
-/* Убираем все псевдоэлементы, которые могут создавать видимые боксы */
-*::before, *::after {
+/* Убираем все псевдоэлементы, которые могут создавать видимые боксы (кроме header и навигации) */
+.service-card::before,
+[class*="card"]:not([class*="nav"]):not(.nav-link)::before,
+.service-card .icon-wrapper::after,
+a.text-neon-purple::after {
     pointer-events: none !important;
 }
 
 /* Специально для карточек - убираем все видимые эффекты */
-.service-card:hover,
-[class*="card"]:hover,
-.reveal:hover {
+.service-card:not([class*="nav"]):hover,
+[class*="card"]:not([class*="nav"]):not(.nav-link):hover,
+.reveal:not([class*="nav"]):hover {
     transform: none !important;
     box-shadow: none !important;
 }
 
-.service-card:hover::before,
-[class*="card"]:hover::before,
-.reveal:hover::before {
+.service-card:not([class*="nav"]):hover::before,
+[class*="card"]:not([class*="nav"]):not(.nav-link):hover::before,
+.reveal:not([class*="nav"]):hover::before {
     display: none !important;
     opacity: 0 !important;
 }
 
-/* Убираем glow эффекты */
-.service-card .icon-wrapper::after,
-[class*="glow"]::after,
-[class*="glow"]::before {
+/* Убираем glow эффекты (кроме header и навигации) */
+.service-card:not([class*="nav"]) .icon-wrapper::after {
     display: none !important;
     opacity: 0 !important;
 }
@@ -113,8 +152,9 @@ footer a:hover::before {
     display: none !important;
 }
 
-/* Убираем все анимации scale при hover */
-*:hover {
+/* Убираем все анимации scale при hover (кроме header и навигации) */
+a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover,
+button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover {
     transform: none !important;
     scale: 1 !important;
 }
