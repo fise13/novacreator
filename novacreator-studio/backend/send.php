@@ -146,7 +146,8 @@ if (empty($name)) {
     $errors[] = 'Имя обязательно для заполнения';
 }
 
-if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+// Email необязателен, но если указан - должен быть корректным
+if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors[] = 'Введите корректный email адрес';
 }
 
@@ -161,9 +162,10 @@ if (empty($phone)) {
     }
 }
 
-if (empty($message)) {
-    $errors[] = 'Сообщение обязательно для заполнения';
-}
+// Сообщение необязательно для простых форм обратной связи
+// if (empty($message)) {
+//     $errors[] = 'Сообщение обязательно для заполнения';
+// }
 
 // Если есть ошибки валидации, возвращаем их
 if (!empty($errors)) {
@@ -196,7 +198,9 @@ if (empty($formName)) {
 $telegramMessage = "🔔 <b>Новая заявка с сайта</b>\n\n";
 $telegramMessage .= "📋 <b>Форма:</b> " . escapeHtml($formName) . "\n\n";
 $telegramMessage .= "👤 <b>Имя:</b> " . escapeHtml($name) . "\n";
-$telegramMessage .= "📧 <b>Email:</b> " . escapeHtml($email) . "\n";
+if (!empty($email)) {
+    $telegramMessage .= "📧 <b>Email:</b> " . escapeHtml($email) . "\n";
+}
 $telegramMessage .= "📱 <b>Телефон:</b> " . escapeHtml($phone) . "\n";
 
 if ($type === 'vacancy' && !empty($vacancy)) {
@@ -205,7 +209,11 @@ if ($type === 'vacancy' && !empty($vacancy)) {
     $telegramMessage .= "🎯 <b>Услуга:</b> " . escapeHtml($service) . "\n";
 }
 
-$telegramMessage .= "\n💬 <b>Сообщение:</b>\n" . escapeHtml($message) . "\n\n";
+if (!empty($message)) {
+    $telegramMessage .= "\n💬 <b>Сообщение:</b>\n" . escapeHtml($message) . "\n\n";
+} else {
+    $telegramMessage .= "\n";
+}
 $telegramMessage .= "━━━━━━━━━━━━━━━━━━━━\n";
 $telegramMessage .= "🌐 <b>IP адрес:</b> <code>" . escapeHtml($ip) . "</code>\n";
 $telegramMessage .= "🕐 <b>Время:</b> " . escapeHtml($timestamp) . "\n";
