@@ -198,18 +198,17 @@ require_once __DIR__ . '/theme_switcher.php';
     <link rel="preload" as="script" href="<?php echo $jsPreloadPath; ?>">
     <meta name="color-scheme" content="dark light">
     
-    <!-- Favicon - оптимизировано для Google Search и Яндекс -->
-    <!-- Основной favicon.ico для Google Search (должен быть в корне, доступен по /favicon.ico) -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <!-- Дополнительные размеры для лучшей поддержки браузеров -->
-    <link rel="icon" type="image/png" href="/assets/img/icon-32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/assets/img/icon-48.png" sizes="48x48">
-    <link rel="icon" type="image/png" href="/assets/img/icon-192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="/assets/img/icon-512.png" sizes="512x512">
+    <!-- Favicon - оптимизировано для Google Search и Яндекс (RealFaviconGenerator) -->
+    <!-- Основной favicon.ico для Google Search (в корне, доступен по /favicon.ico) -->
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
+    <!-- SVG favicon для современных браузеров -->
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
+    <!-- Fallback для старых браузеров -->
+    <link rel="shortcut icon" href="/favicon.ico">
     <!-- Apple Touch Icon для iOS -->
-    <link rel="apple-touch-icon" href="/assets/img/icon-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <!-- Web App Manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/favicon/site.webmanifest">
     
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="<?php echo htmlspecialchars(t('site.name')); ?> - RSS Feed (RU)" href="<?php echo htmlspecialchars($siteUrl); ?>/rss.php?lang=ru">
