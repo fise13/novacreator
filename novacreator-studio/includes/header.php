@@ -410,21 +410,21 @@ require_once __DIR__ . '/theme_switcher.php';
     <div id="burgerOverlay" class="fixed inset-0 opacity-0 transition-opacity duration-300 z-[9998]" style="display: none; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);"></div>
     
     <!-- Боковое меню справа - минималистичный стиль holymedia.kz с перетеканием из header -->
-    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 overflow-y-auto z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;">
-        <!-- Перетекание из header - верхняя часть -->
-        <div class="h-16 sm:h-18 md:h-20 border-b" style="background-color: var(--color-bg); border-color: var(--color-border); padding-top: env(safe-area-inset-top);">
+    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;">
+        <!-- Перетекание из header - верхняя часть - закреплена -->
+        <div class="h-16 sm:h-18 md:h-20 border-b sticky top-0 z-10" style="background-color: var(--color-bg); border-color: var(--color-border); padding-top: env(safe-area-inset-top);">
             <div class="flex items-center justify-between h-full px-6">
                 <span class="text-lg font-semibold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
-                <button id="burgerCloseBtn" class="w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px]" style="color: #ef4444;" aria-label="Закрыть меню">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+                <button id="burgerCloseBtn" class="w-10 h-10 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px] relative z-20" style="color: #ef4444; background-color: transparent;" aria-label="Закрыть меню">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
         </div>
         
-        <!-- Контент меню -->
-        <div class="flex flex-col px-6 py-6" style="padding-bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem));">
+        <!-- Контент меню - с прокруткой -->
+        <div class="flex flex-col h-[calc(100vh-env(safe-area-inset-top)-4rem)] overflow-y-auto px-6 py-6" style="padding-bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem));">
             
             <?php 
             $currentPage = basename($_SERVER['PHP_SELF'], '.php');
@@ -485,28 +485,31 @@ require_once __DIR__ . '/theme_switcher.php';
                     </div>
                 <?php endif; ?>
                 
-                <!-- Переключатель темы и языка внизу - минималистичный -->
-                <div class="mt-auto pt-6 border-t flex items-center justify-between flex-shrink-0" role="group" aria-label="Настройки" style="border-color: var(--color-border);">
-                    <!-- Переключатель темы -->
-                    <button id="burgerThemeToggle" class="relative w-9 h-9 flex items-center justify-center transition-opacity duration-200 hover:opacity-60 active:opacity-40 touch-manipulation" style="color: var(--color-text);" aria-label="Переключить тему оформления">
-                        <svg id="burgerThemeIconLight" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                        <svg id="burgerThemeIconDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                        </svg>
-                    </button>
-                    
-                    <!-- Переключатель языка -->
-                    <div id="burgerLangGroup" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" class="flex items-center gap-2">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-3 py-1.5 text-sm font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 focus:outline-none <?php echo $currentLang === 'ru' ? 'font-medium' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
-                            RU
-                        </a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-3 py-1.5 text-sm font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 focus:outline-none <?php echo $currentLang === 'en' ? 'font-medium' : ''; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
-                            EN
-                        </a>
-                    </div>
-                </div>
+        </div>
+        
+        <!-- Переключатель темы и языка внизу - закреплен -->
+        <div class="sticky bottom-0 pt-4 pb-4 px-6 border-t flex items-center justify-between flex-shrink-0 bg-inherit" role="group" aria-label="Настройки" style="border-color: var(--color-border); background-color: var(--color-bg); padding-bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));">
+            <!-- Переключатель темы -->
+            <button id="burgerThemeToggle" class="relative w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-60 active:opacity-40 touch-manipulation min-w-[44px] min-h-[44px]" style="color: var(--color-text);" aria-label="Переключить тему оформления">
+                <svg id="burgerThemeIconLight" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+                <svg id="burgerThemeIconDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+            </button>
+            
+            <!-- Переключатель языка -->
+            <div id="burgerLangGroup" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" class="flex items-center gap-2">
+                <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-4 py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation <?php echo $currentLang === 'ru' ? 'font-medium' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;">
+                    RU
+                </a>
+                <span style="color: var(--color-text-secondary); opacity: 0.5;">|</span>
+                <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-4 py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation <?php echo $currentLang === 'en' ? 'font-medium' : ''; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;">
+                    EN
+                </a>
+            </div>
+        </div>
             </div>
         </div>
     </div>
