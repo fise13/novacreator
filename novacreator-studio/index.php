@@ -359,23 +359,25 @@ include 'includes/header.php';
 </section>
 
 <!-- Форма в стиле holymedia.kz -->
-<section id="contact-form" class="py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+<section id="contact-form" class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <!-- Заголовок с изогнутой стрелкой -->
-            <div class="mb-12 md:mb-16">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-tight tracking-tighter mb-4" style="color: var(--color-text);">
+            <div class="mb-12 md:mb-16 reveal">
+                <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.85] tracking-tighter mb-6 md:mb-8" style="color: var(--color-text);">
                     <?php echo $currentLang === 'en' ? 'So, shall we work?' : 'Ну что, работаем?'; ?>
                 </h2>
-                <svg class="w-32 h-16 md:w-40 md:h-20" style="color: var(--color-text);" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 50 Q 60 20, 120 30 T 180 50" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M170 45 L 180 50 L 170 55" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <div class="relative inline-block">
+                    <svg class="w-48 h-24 md:w-64 md:h-32 lg:w-80 lg:h-40" style="color: var(--color-text);" viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 75 Q 100 30, 180 50 Q 240 65, 260 75" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"/>
+                        <path d="M250 70 L 260 75 L 250 80" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
                 <!-- Контактная информация слева -->
-                <div>
+                <div class="reveal">
                     <!-- Телефон -->
                     <div class="mb-8 md:mb-10">
                         <h3 class="text-lg sm:text-xl md:text-2xl font-semibold mb-3" style="color: var(--color-text);">
@@ -419,13 +421,13 @@ include 'includes/header.php';
                 </div>
 
                 <!-- Форма справа -->
-                <div>
-                    <div class="p-6 md:p-8 rounded-2xl transition-all duration-300" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+                <div class="reveal">
+                    <div class="p-6 md:p-8 rounded-2xl transition-all duration-300 hover:shadow-xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
                         <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Leave a request' : 'Оставить заявку'; ?>
                         </h3>
 
-                        <form class="contact-form space-y-4 md:space-y-6" method="POST" action="/backend/send.php">
+                        <form class="contact-form space-y-4 md:space-y-6" method="POST" action="/backend/send.php" id="contactFormMain">
                             <input type="hidden" name="type" value="contact">
                             <input type="hidden" name="form_name" value="<?php echo $currentLang === 'en' ? 'Contact Form' : 'Форма обратной связи'; ?>">
                             <input type="text" name="website" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px;" aria-hidden="true">
@@ -435,21 +437,25 @@ include 'includes/header.php';
                                 <input 
                                     type="text" 
                                     name="name" 
+                                    id="contact-name"
                                     placeholder="<?php echo $currentLang === 'en' ? 'Ali' : 'Али'; ?>"
                                     class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors text-base md:text-lg" 
                                     style="background-color: white; border-color: var(--color-text); color: var(--color-text);"
                                     required
+                                    autocomplete="name"
                                 >
+                                <p class="text-sm mt-1 hidden text-red-500" id="name-error"></p>
                             </div>
 
                             <!-- Телефон с флагом -->
                             <div class="relative">
-                                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
+                                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none z-10">
                                     <span class="text-2xl">🇰🇿</span>
                                 </div>
                                 <input 
                                     type="tel" 
                                     name="phone" 
+                                    id="contact-phone"
                                     placeholder="+7"
                                     class="w-full px-4 py-3 pl-14 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors text-base md:text-lg" 
                                     style="background-color: white; border-color: var(--color-text); color: var(--color-text);"
@@ -458,32 +464,41 @@ include 'includes/header.php';
                                     autocomplete="tel"
                                     maxlength="18"
                                 >
+                                <p class="text-sm mt-1 hidden text-red-500" id="phone-error-main"></p>
                             </div>
 
                             <!-- Радио-кнопки -->
-                            <div class="flex flex-col gap-3">
-                                <label class="flex items-center gap-3 cursor-pointer">
+                            <div class="flex flex-col gap-4 py-2">
+                                <label class="flex items-center gap-3 cursor-pointer p-3 rounded-lg transition-all hover:opacity-80" style="background-color: var(--color-bg-lighter);">
                                     <input 
                                         type="radio" 
                                         name="contact_method" 
                                         value="messenger" 
+                                        id="contact-messenger"
                                         checked
-                                        class="w-5 h-5"
+                                        class="w-5 h-5 cursor-pointer"
                                         style="accent-color: #6366f1;"
                                     >
-                                    <span class="text-base md:text-lg font-medium" style="color: var(--color-text);">
+                                    <span class="text-base md:text-lg font-semibold flex items-center gap-2" style="color: var(--color-text);">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.12l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                                        </svg>
                                         <?php echo $currentLang === 'en' ? 'Write in messenger' : 'Написать в мессенджер'; ?>
                                     </span>
                                 </label>
-                                <label class="flex items-center gap-3 cursor-pointer">
+                                <label class="flex items-center gap-3 cursor-pointer p-3 rounded-lg transition-all hover:opacity-80" style="background-color: var(--color-bg-lighter);">
                                     <input 
                                         type="radio" 
                                         name="contact_method" 
                                         value="call"
-                                        class="w-5 h-5"
+                                        id="contact-call"
+                                        class="w-5 h-5 cursor-pointer"
                                         style="accent-color: var(--color-text);"
                                     >
-                                    <span class="text-base md:text-lg font-medium" style="color: var(--color-text);">
+                                    <span class="text-base md:text-lg font-semibold flex items-center gap-2" style="color: var(--color-text);">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                        </svg>
                                         <?php echo $currentLang === 'en' ? 'Call' : 'Позвонить'; ?>
                                     </span>
                                 </label>
@@ -507,45 +522,134 @@ include 'includes/header.php';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Форматирование телефона
-    const phoneInput = document.querySelector('#contact-form input[name="phone"]');
+    const nameInput = document.getElementById('contact-name');
+    const phoneInput = document.getElementById('contact-phone');
+    const nameError = document.getElementById('name-error');
+    const phoneError = document.getElementById('phone-error-main');
+    const form = document.getElementById('contactFormMain');
+    
+    function validatePhone(phone) {
+        const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+        const phoneRegex = /^(\+?7|8)?[0-9]{10}$/;
+        return phoneRegex.test(cleanPhone) && cleanPhone.length >= 10;
+    }
+    
+    function formatPhone(value) {
+        let cleaned = value.replace(/[^\d+]/g, '');
+        if (cleaned.startsWith('8')) {
+            cleaned = '+7' + cleaned.substring(1);
+        } else if (cleaned.startsWith('7') && !cleaned.startsWith('+7')) {
+            cleaned = '+7' + cleaned.substring(1);
+        } else if (!cleaned.startsWith('+7')) {
+            cleaned = '+7' + cleaned;
+        }
+        cleaned = cleaned.substring(0, 12);
+        if (cleaned.length > 2) {
+            let formatted = cleaned.substring(0, 2) + ' ';
+            if (cleaned.length > 2) {
+                formatted += '(' + cleaned.substring(2, 5);
+            }
+            if (cleaned.length > 5) {
+                formatted += ') ' + cleaned.substring(5, 8);
+            }
+            if (cleaned.length > 8) {
+                formatted += '-' + cleaned.substring(8, 10);
+            }
+            if (cleaned.length > 10) {
+                formatted += '-' + cleaned.substring(10, 12);
+            }
+            return formatted;
+        }
+        return cleaned;
+    }
+    
+    // Валидация имени
+    if (nameInput) {
+        nameInput.addEventListener('blur', function() {
+            const name = nameInput.value.trim();
+            if (!name || name.length < 2) {
+                nameInput.style.borderColor = '#ef4444';
+                if (nameError) {
+                    nameError.textContent = '<?php echo $currentLang === 'en' ? 'Enter your name' : 'Введите имя'; ?>';
+                    nameError.classList.remove('hidden');
+                }
+            } else {
+                nameInput.style.borderColor = '';
+                if (nameError) {
+                    nameError.classList.add('hidden');
+                }
+            }
+        });
+    }
+    
+    // Форматирование и валидация телефона
     if (phoneInput) {
         phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^\d+]/g, '');
-            if (value.startsWith('8')) {
-                value = '+7' + value.substring(1);
-            } else if (value.startsWith('7') && !value.startsWith('+7')) {
-                value = '+7' + value.substring(1);
-            } else if (!value.startsWith('+7')) {
-                value = '+7' + value;
-            }
-            value = value.substring(0, 12);
-            if (value.length > 2) {
-                let formatted = value.substring(0, 2) + ' ';
-                if (value.length > 2) {
-                    formatted += '(' + value.substring(2, 5);
+            e.target.value = formatPhone(e.target.value);
+            const phone = e.target.value.trim();
+            if (phone && !validatePhone(phone)) {
+                phoneInput.style.borderColor = '#ef4444';
+                if (phoneError) {
+                    phoneError.textContent = '<?php echo $currentLang === 'en' ? 'Enter a valid phone number' : 'Введите корректный номер телефона'; ?>';
+                    phoneError.classList.remove('hidden');
                 }
-                if (value.length > 5) {
-                    formatted += ') ' + value.substring(5, 8);
-                }
-                if (value.length > 8) {
-                    formatted += '-' + value.substring(8, 10);
-                }
-                if (value.length > 10) {
-                    formatted += '-' + value.substring(10, 12);
-                }
-                e.target.value = formatted;
             } else {
-                e.target.value = value;
+                phoneInput.style.borderColor = '';
+                if (phoneError) {
+                    phoneError.classList.add('hidden');
+                }
             }
+        });
+        
+        phoneInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            phoneInput.value = formatPhone(pastedText);
+            phoneInput.dispatchEvent(new Event('input'));
         });
     }
 
     // Обработка отправки формы
-    const form = document.querySelector('#contact-form .contact-form');
     if (form) {
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            const name = nameInput ? nameInput.value.trim() : '';
+            const phone = phoneInput ? phoneInput.value.trim() : '';
+            let isValid = true;
+            
+            // Валидация имени
+            if (!name || name.length < 2) {
+                isValid = false;
+                if (nameInput) {
+                    nameInput.style.borderColor = '#ef4444';
+                    nameInput.focus();
+                }
+                if (nameError) {
+                    nameError.textContent = '<?php echo $currentLang === 'en' ? 'Enter your name' : 'Введите имя'; ?>';
+                    nameError.classList.remove('hidden');
+                }
+            }
+            
+            // Валидация телефона
+            if (!phone || !validatePhone(phone)) {
+                isValid = false;
+                if (phoneInput) {
+                    phoneInput.style.borderColor = '#ef4444';
+                    if (!name || name.length >= 2) {
+                        phoneInput.focus();
+                    }
+                }
+                if (phoneError) {
+                    phoneError.textContent = '<?php echo $currentLang === 'en' ? 'Enter a valid phone number' : 'Введите корректный номер телефона'; ?>';
+                    phoneError.classList.remove('hidden');
+                }
+            }
+            
+            if (!isValid) {
+                return false;
+            }
+
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
@@ -553,14 +657,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const formData = new FormData(form);
             
-            // Добавляем метод связи в сообщение
+            // Добавляем метод связи в сообщение - показываем явно выбранный способ
             const contactMethod = form.querySelector('input[name="contact_method"]:checked')?.value;
-            if (contactMethod) {
-                const methodText = contactMethod === 'messenger' 
-                    ? '<?php echo $currentLang === 'en' ? 'Preferred contact: messenger' : 'Предпочтительный способ связи: мессенджер'; ?>'
-                    : '<?php echo $currentLang === 'en' ? 'Preferred contact: call' : 'Предпочтительный способ связи: звонок'; ?>';
-                formData.append('message', methodText);
+            let methodText = '';
+            if (contactMethod === 'messenger') {
+                methodText = '<?php echo $currentLang === 'en' ? 'Preferred contact method: Write in messenger' : 'Предпочтительный способ связи: Написать в мессенджер'; ?>';
+            } else if (contactMethod === 'call') {
+                methodText = '<?php echo $currentLang === 'en' ? 'Preferred contact method: Call' : 'Предпочтительный способ связи: Позвонить'; ?>';
             }
+            formData.append('message', methodText);
 
             try {
                 const response = await fetch('/backend/send.php', {
@@ -571,16 +676,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
 
                 if (data.success) {
-                    alert(data.message || '<?php echo $currentLang === 'en' ? 'Request sent successfully!' : 'Заявка отправлена успешно!'; ?>');
+                    // Улучшенное сообщение об успехе
+                    const successMsg = data.message || '<?php echo $currentLang === 'en' ? 'Request sent successfully! We will contact you soon.' : 'Заявка отправлена успешно! Мы свяжемся с вами в ближайшее время.'; ?>';
+                    alert(successMsg);
                     form.reset();
                     // Сбрасываем радио-кнопку на значение по умолчанию
                     const defaultRadio = form.querySelector('input[name="contact_method"][value="messenger"]');
                     if (defaultRadio) defaultRadio.checked = true;
+                    // Очищаем ошибки
+                    if (nameError) nameError.classList.add('hidden');
+                    if (phoneError) phoneError.classList.add('hidden');
+                    nameInput.style.borderColor = '';
+                    phoneInput.style.borderColor = '';
                 } else {
-                    alert(data.message || '<?php echo $currentLang === 'en' ? 'Error sending request' : 'Ошибка отправки заявки'; ?>');
+                    alert(data.message || '<?php echo $currentLang === 'en' ? 'Error sending request. Please try again.' : 'Ошибка отправки заявки. Попробуйте еще раз.'; ?>');
                 }
             } catch (error) {
-                alert('<?php echo $currentLang === 'en' ? 'Error sending request' : 'Ошибка отправки заявки'; ?>');
+                console.error('Form submission error:', error);
+                alert('<?php echo $currentLang === 'en' ? 'Error sending request. Please try again later.' : 'Ошибка отправки заявки. Попробуйте позже.'; ?>');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
