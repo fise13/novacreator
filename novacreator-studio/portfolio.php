@@ -356,6 +356,57 @@ if ($currentLang === 'en') {
                 <div class="portfolio-item portfolio-item-3d reveal <?php echo $filterClass; ?>" data-category="<?php echo $category ?: 'all'; ?>">
                     <!-- Карточка проекта - минималистичный стиль -->
                     <div class="group relative cursor-pointer touch-manipulation">
+                        <!-- Превью-скриншот проекта с hover-эффектом -->
+                        <div class="portfolio-preview-wrapper mb-8 md:mb-10 relative overflow-hidden rounded-lg" style="background-color: var(--color-bg-lighter);">
+                            <!-- Статичное превью -->
+                            <div class="portfolio-preview-static aspect-video relative overflow-hidden rounded-lg border" style="border-color: var(--color-text); opacity: 0.1;">
+                                <!-- Placeholder пока загружается -->
+                                <div class="absolute inset-0 flex items-center justify-center portfolio-preview-placeholder" style="background: linear-gradient(135deg, var(--color-bg-lighter) 0%, var(--color-bg) 100%);">
+                                    <div class="text-center p-8">
+                                        <div class="w-16 h-16 mx-auto mb-4 rounded-lg opacity-20" style="background-color: var(--color-text);"></div>
+                                        <p class="text-sm font-medium" style="color: var(--color-text-secondary);">
+                                            <?php echo $currentLang === 'en' ? 'Project preview' : 'Превью проекта'; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Iframe для превью (загружается по требованию) -->
+                                <iframe 
+                                    data-src="<?php echo htmlspecialchars($demoLink); ?>" 
+                                    class="portfolio-preview-iframe w-full h-full pointer-events-none opacity-0 transition-opacity duration-500"
+                                    loading="lazy"
+                                    title="<?php echo htmlspecialchars($project['title']); ?> preview"
+                                    style="transform: scale(0.5); transform-origin: top left; width: 200%; height: 200%;"
+                                ></iframe>
+                            </div>
+                            
+                            <!-- Интерактивное превью при hover (только на десктопе) -->
+                            <div class="portfolio-preview-hover absolute inset-0 opacity-0 pointer-events-none transition-all duration-500 ease-out group-hover:opacity-100 group-hover:pointer-events-auto hidden lg:block z-10 rounded-lg overflow-hidden" style="background-color: var(--color-bg-lighter); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
+                                <iframe 
+                                    data-src="<?php echo htmlspecialchars($demoLink); ?>" 
+                                    class="portfolio-preview-iframe-hover w-full h-full"
+                                    loading="lazy"
+                                    title="<?php echo htmlspecialchars($project['title']); ?> interactive preview"
+                                    style="transform: scale(0.8); transform-origin: top center; width: 125%; height: 125%;"
+                                ></iframe>
+                                <div class="absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm" style="background-color: var(--color-bg); opacity: 0.9; color: var(--color-text);">
+                                    <?php echo $currentLang === 'en' ? 'Interactive preview' : 'Интерактивное превью'; ?>
+                                </div>
+                            </div>
+                            
+                            <!-- Кнопка для мобильных -->
+                            <a href="<?php echo htmlspecialchars($demoLink); ?>" class="lg:hidden absolute inset-0 flex items-center justify-center transition-colors rounded-lg" style="background-color: var(--color-text); opacity: 0.05;" rel="noopener">
+                                <div class="text-center p-6">
+                                    <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text);">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    <p class="text-sm font-medium" style="color: var(--color-text);">
+                                        <?php echo $currentLang === 'en' ? 'Tap to view' : 'Нажмите для просмотра'; ?>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        
                         <!-- Заголовок и категория -->
                         <div class="mb-6 md:mb-8">
                             <div class="mb-3 md:mb-4">
@@ -592,6 +643,138 @@ if ($currentLang === 'en') {
         </div>
     </div>
 </section>
+
+<script>
+    // Lazy loading для превью проектов
+    (function() {
+        const previewWrappers = document.querySelectorAll('.portfolio-preview-wrapper');
+        
+        // Intersection Observer для загрузки превью при появлении в viewport
+        const observerOptions = {
+            root: null,
+            rootMargin: '50px',
+            threshold: 0.1
+        };
+        
+        const previewObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const wrapper = entry.target;
+                    const staticIframe = wrapper.querySelector('.portfolio-preview-iframe');
+                    const hoverIframe = wrapper.querySelector('.portfolio-preview-iframe-hover');
+                    
+                    // Загружаем статичное превью
+                    if (staticIframe && !staticIframe.src) {
+                        staticIframe.src = staticIframe.getAttribute('data-src');
+                        staticIframe.addEventListener('load', () => {
+                            setTimeout(() => {
+                                staticIframe.style.opacity = '1';
+                                const placeholder = wrapper.querySelector('.portfolio-preview-placeholder');
+                                if (placeholder) {
+                                    placeholder.style.opacity = '0';
+                                    setTimeout(() => {
+                                        placeholder.style.display = 'none';
+                                    }, 300);
+                                }
+                            }, 100);
+                        });
+                    }
+                    
+                    // Предзагружаем hover-превью (но не показываем)
+                    if (hoverIframe && !hoverIframe.src) {
+                        hoverIframe.src = hoverIframe.getAttribute('data-src');
+                    }
+                    
+                    previewObserver.unobserve(wrapper);
+                }
+            });
+        }, observerOptions);
+        
+        previewWrappers.forEach(wrapper => {
+            previewObserver.observe(wrapper);
+        });
+        
+        // Обработка hover для интерактивного превью
+        previewWrappers.forEach(wrapper => {
+            const group = wrapper.closest('.group');
+            if (!group) return;
+            
+            group.addEventListener('mouseenter', () => {
+                const hoverIframe = wrapper.querySelector('.portfolio-preview-iframe-hover');
+                if (hoverIframe && hoverIframe.src) {
+                    hoverIframe.style.pointerEvents = 'auto';
+                }
+            });
+            
+            group.addEventListener('mouseleave', () => {
+                const hoverIframe = wrapper.querySelector('.portfolio-preview-iframe-hover');
+                if (hoverIframe) {
+                    hoverIframe.style.pointerEvents = 'none';
+                }
+            });
+        });
+    })();
+</script>
+
+<style>
+    /* Стили для превью проектов */
+    .portfolio-preview-wrapper {
+        position: relative;
+        min-height: 200px;
+    }
+    
+    .portfolio-preview-static {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    }
+    
+    .portfolio-preview-static iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+    }
+    
+    .portfolio-preview-hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .portfolio-preview-hover iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+    }
+    
+    .portfolio-preview-placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 1024px) {
+        .portfolio-preview-hover {
+            display: none !important;
+        }
+    }
+    
+    /* Плавные переходы */
+    .portfolio-preview-wrapper * {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+</style>
 
 <?php include 'includes/footer.php'; ?>
 
