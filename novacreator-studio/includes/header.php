@@ -610,24 +610,32 @@ require_once __DIR__ . '/theme_switcher.php';
                 burgerMenu.style.opacity = '0';
                 
                 // Небольшая задержка перед анимацией, чтобы браузер успел применить display
-                setTimeout(() => {
-                    // Простая анимация появления меню справа
-                    requestAnimationFrame(() => {
-                        burgerOverlay.style.opacity = '1';
-                        burgerMenu.style.transform = 'translateX(0)';
-                        burgerMenu.style.opacity = '1';
-                    });
-                    
-                    // Минималистичная анимация элементов меню - просто fade in
-                    const menuLinks = burgerMenu.querySelectorAll('a, button');
-                    menuLinks.forEach((item, index) => {
-                        item.style.opacity = '0';
-                        setTimeout(() => {
-                            item.style.transition = 'opacity 0.2s ease-out';
-                            item.style.opacity = '1';
-                        }, 30 + (index * 20));
-                    });
-                }, 20);
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        // Плавная анимация появления меню справа с cubic-bezier
+                        burgerOverlay.style.transition = 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                        burgerMenu.style.transition = 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out';
+                        
+                        requestAnimationFrame(() => {
+                            burgerOverlay.style.opacity = '1';
+                            burgerMenu.style.transform = 'translateX(0)';
+                            burgerMenu.style.opacity = '1';
+                        });
+                        
+                        // Улучшенная анимация элементов меню с задержкой и трансформацией
+                        const menuLinks = burgerMenu.querySelectorAll('a, button, .menu-item');
+                        menuLinks.forEach((item, index) => {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateX(20px)';
+                            item.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                            
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateX(0)';
+                            }, 100 + (index * 30));
+                        });
+                    }, 10);
+                });
                 
                 // Обновляем aria-expanded
                 burgerBtn?.setAttribute('aria-expanded', 'true');
@@ -642,10 +650,29 @@ require_once __DIR__ . '/theme_switcher.php';
                 // Переключаем иконку
                 toggleBurgerIcon(false);
                 
-                // Анимация закрытия
-                burgerOverlay.style.opacity = '0';
-                burgerMenu.style.transform = 'translateX(100%)';
-                burgerMenu.style.opacity = '0';
+                // Haptic feedback для touch устройств
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(5);
+                }
+                
+                // Плавная анимация закрытия элементов меню
+                const menuLinks = burgerMenu.querySelectorAll('a, button, .menu-item');
+                menuLinks.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateX(10px)';
+                    }, index * 15);
+                });
+                
+                // Анимация закрытия с улучшенным timing
+                burgerOverlay.style.transition = 'opacity 0.25s ease-out';
+                burgerMenu.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out';
+                
+                requestAnimationFrame(() => {
+                    burgerOverlay.style.opacity = '0';
+                    burgerMenu.style.transform = 'translateX(100%)';
+                    burgerMenu.style.opacity = '0';
+                });
                 
                 // Восстанавливаем скролл
                 setTimeout(() => {
@@ -718,6 +745,56 @@ require_once __DIR__ . '/theme_switcher.php';
                         setTimeout(() => closeBurgerMenu(), 100);
                     });
                 });
+            }
+            
+            // Swipe-жест для закрытия меню (swipe вправо)
+            if (burgerMenu) {
+                let swipeStartX = 0;
+                let swipeStartY = 0;
+                let isSwiping = false;
+                
+                burgerMenu.addEventListener('touchstart', function(e) {
+                    swipeStartX = e.touches[0].clientX;
+                    swipeStartY = e.touches[0].clientY;
+                    isSwiping = true;
+                }, { passive: true });
+                
+                burgerMenu.addEventListener('touchmove', function(e) {
+                    if (!isSwiping) return;
+                    
+                    const currentX = e.touches[0].clientX;
+                    const currentY = e.touches[0].clientY;
+                    const deltaX = currentX - swipeStartX;
+                    const deltaY = currentY - swipeStartY;
+                    
+                    // Если swipe вправо (закрытие) и горизонтальное движение больше вертикального
+                    if (deltaX > 0 && Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+                        // Плавно двигаем меню вправо при swipe
+                        const progress = Math.min(deltaX / burgerMenu.offsetWidth, 1);
+                        burgerMenu.style.transform = `translateX(${progress * 100}%)`;
+                        burgerOverlay.style.opacity = String(1 - progress);
+                    }
+                }, { passive: true });
+                
+                burgerMenu.addEventListener('touchend', function(e) {
+                    if (!isSwiping) return;
+                    
+                    const endX = e.changedTouches[0].clientX;
+                    const deltaX = endX - swipeStartX;
+                    const threshold = 100; // Минимальное расстояние для закрытия
+                    
+                    if (deltaX > threshold) {
+                        closeBurgerMenu();
+                    } else {
+                        // Возвращаем меню в исходное положение
+                        burgerMenu.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                        burgerOverlay.style.transition = 'opacity 0.3s ease-out';
+                        burgerMenu.style.transform = 'translateX(0)';
+                        burgerOverlay.style.opacity = '1';
+                    }
+                    
+                    isSwiping = false;
+                }, { passive: true });
             }
             
             // Переключение темы в бургер-меню

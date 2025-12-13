@@ -162,6 +162,9 @@ $currentLang = getCurrentLanguage();
     <!-- Улучшенные touch-жесты и swipe-функции -->
     <script src="/assets/js/touch-gestures.js"></script>
     
+    <!-- Оптимизация форм для мобильных устройств -->
+    <script src="/assets/js/mobile-forms.js"></script>
+    
     <!-- Service Worker для Push-уведомлений -->
     <script>
     if ('serviceWorker' in navigator) {
