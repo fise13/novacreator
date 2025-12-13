@@ -392,6 +392,37 @@ html.dark .hero-cta-btn:hover {
     color: #ffffff !important;
 }
 
+/* Увеличенные размеры цифр статистики для мобильных устройств */
+.counter-number {
+    font-size: 4.5rem !important; /* 72px для мобильных */
+    line-height: 1 !important;
+    font-weight: 600 !important;
+}
+
+@media (min-width: 640px) {
+    .counter-number {
+        font-size: 5rem !important; /* 80px для sm */
+    }
+}
+
+@media (min-width: 768px) {
+    .counter-number {
+        font-size: 8rem !important; /* 128px для md */
+    }
+}
+
+@media (min-width: 1024px) {
+    .counter-number {
+        font-size: 10rem !important; /* 160px для lg */
+    }
+}
+
+@media (min-width: 1280px) {
+    .counter-number {
+        font-size: 12rem !important; /* 192px для xl */
+    }
+}
+
 /* Кнопка "Портфолио" в hero секции - outline стиль */
 .hero-portfolio-btn {
     border: 1px solid rgba(99, 102, 241, 0.3) !important;
