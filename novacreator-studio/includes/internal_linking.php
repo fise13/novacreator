@@ -57,10 +57,13 @@ $pageLinks = $internalLinks[$currentPage] ?? $internalLinks['index'];
 
 // Ограничиваем количество ссылок
 $pageLinks = array_slice($pageLinks, 0, 4);
+
+// Скрываем перелинковку на странице demo.php
+$hideOnDemo = (basename($_SERVER['PHP_SELF']) === 'demo.php');
 ?>
 
 <!-- Внутренняя перелинковка -->
-<?php if (!empty($pageLinks)): ?>
+<?php if (!empty($pageLinks) && !$hideOnDemo): ?>
 <section class="py-12 md:py-16 bg-dark-surface/50 border-t border-b border-dark-border">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">

@@ -262,7 +262,11 @@ require_once __DIR__ . '/theme_switcher.php';
                     <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.about')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="header-contact-btn relative inline-flex items-center justify-center px-6 py-2 text-base font-medium rounded-full transition-all duration-300" role="menuitem" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none;">
+                    <?php 
+                    $currentPageName = basename($_SERVER['PHP_SELF'], '.php');
+                    $hasContactForm = ($currentPageName === 'index' || $currentPageName === 'demo');
+                    ?>
+                    <a href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>" <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?> class="header-contact-btn relative inline-flex items-center justify-center px-6 py-2 text-base font-medium rounded-full transition-all duration-300" role="menuitem" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none;">
                         <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </a>
                     
@@ -453,7 +457,11 @@ require_once __DIR__ . '/theme_switcher.php';
                         <?php echo htmlspecialchars(t('nav.about')); ?>
                     </a>
                     
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="block py-2 mt-6 text-xl font-medium transition-opacity duration-200 hover:opacity-60 active:opacity-40" aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <?php 
+                    $currentPageNameMobile = basename($_SERVER['PHP_SELF'], '.php');
+                    $hasContactFormMobile = ($currentPageNameMobile === 'index' || $currentPageNameMobile === 'demo');
+                    ?>
+                    <a href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>" <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?> class="block py-2 mt-6 text-xl font-medium transition-opacity duration-200 hover:opacity-60 active:opacity-40" aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </a>
                 </nav>
