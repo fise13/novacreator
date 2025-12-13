@@ -569,9 +569,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Удаляем все нецифровые символы
         let cleaned = value.replace(/[^\d]/g, '');
         
-        // Убираем код страны если он уже есть
+        // Убираем код страны если он уже есть, но только если после него есть еще цифры
+        // Это предотвращает удаление первой цифры "7" при вводе номера для +7
         const codeDigits = countryCode.replace('+', '');
-        if (cleaned.startsWith(codeDigits)) {
+        if (cleaned.startsWith(codeDigits) && cleaned.length > codeDigits.length) {
             cleaned = cleaned.substring(codeDigits.length);
         }
         
