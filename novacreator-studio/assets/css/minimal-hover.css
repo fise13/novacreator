@@ -10,89 +10,73 @@
 }
 
 /* ИСКЛЮЧАЕМ header и навигацию из всех правил - там все должно работать как было */
-#mainNavbar,
-#mainNavbar *,
-.navbar,
-.navbar *,
-nav,
-nav *,
-.nav-link,
-.nav-link::after,
-.nav-link::before,
-#themeToggle,
-#accountMenuBtn,
-#burgerBtn,
-#burgerCloseBtn,
-#burgerMenu,
-#burgerMenu *,
-button[id*="burger"],
-button[id*="theme"],
-button[id*="account"] {
-    /* Сохраняем все оригинальные эффекты - не применяем минималистичные правила */
-    all: revert;
-}
+/* Просто не применяем правила ниже к элементам внутри header */
 
 /* Убираем все ::before и ::after элементы при hover для минимализма (кроме header и навигации) */
-.service-card::before,
-[class*="card"]:not([class*="nav"]):not(.nav-link)::before,
-.service-card .icon-wrapper::after,
-a.text-neon-purple::after {
+body:not(:has(#mainNavbar *)) .service-card::before,
+.service-card:not(#mainNavbar *)::before,
+[class*="card"]:not(#mainNavbar *):not([class*="nav"]):not(.nav-link)::before,
+.service-card:not(#mainNavbar *) .icon-wrapper::after,
+a.text-neon-purple:not(#mainNavbar *)::after,
+.nav-link:not(#mainNavbar *)::after {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
 }
 
 /* Минималистичные hover эффекты - только opacity (кроме header и навигации) */
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]),
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop),
-.btn:not([class*="nav"]),
-[class*="card"]:not([class*="nav"]):not(.nav-link),
-.service-card:not([class*="nav"]) {
+/* Исключаем все элементы внутри #mainNavbar */
+body:not(:has(#mainNavbar)) a:not(.nav-link),
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]),
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop),
+.btn:not(#mainNavbar *):not([class*="nav"]),
+[class*="card"]:not(#mainNavbar *):not([class*="nav"]):not(.nav-link),
+.service-card:not(#mainNavbar *):not([class*="nav"]) {
     transition: opacity 0.2s ease !important;
 }
 
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover,
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover,
-.btn:not([class*="nav"]):hover,
-[class*="card"]:not([class*="nav"]):not(.nav-link):hover,
-.service-card:not([class*="nav"]):hover {
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):hover,
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop):hover,
+.btn:not(#mainNavbar *):not([class*="nav"]):hover,
+[class*="card"]:not(#mainNavbar *):not([class*="nav"]):not(.nav-link):hover,
+.service-card:not(#mainNavbar *):not([class*="nav"]):hover {
     opacity: 0.7 !important;
     transform: none !important;
     box-shadow: none !important;
 }
 
 /* Убираем transform эффекты при hover (кроме header и навигации) */
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover,
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover {
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):hover,
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop):hover {
     transform: none !important;
 }
 
 /* Убираем подчеркивания и линии при hover (кроме header и навигации) */
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover::after,
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover::before,
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover::after,
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover::before {
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):hover::after,
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):hover::before,
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop):hover::after,
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop):hover::before {
     display: none !important;
     opacity: 0 !important;
 }
 
 /* Минималистичные иконки - только opacity (кроме header и навигации) */
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]) svg,
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop) svg {
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]) svg,
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop) svg {
     transition: opacity 0.2s ease !important;
 }
 
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover svg,
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover svg {
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):hover svg,
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop):hover svg {
     transform: none !important;
     opacity: 0.7 !important;
 }
 
 /* Убираем все box-shadow при hover (кроме header и навигации) */
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover,
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover,
-[class*="card"]:not([class*="nav"]):not(.nav-link):hover,
-.service-card:not([class*="nav"]):hover {
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):hover,
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop):hover,
+[class*="card"]:not(#mainNavbar *):not([class*="nav"]):not(.nav-link):hover,
+.service-card:not(#mainNavbar *):not([class*="nav"]):hover {
     box-shadow: none !important;
 }
 
@@ -108,30 +92,30 @@ button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"])
 }
 
 /* Убираем все псевдоэлементы, которые могут создавать видимые боксы (кроме header и навигации) */
-.service-card::before,
-[class*="card"]:not([class*="nav"]):not(.nav-link)::before,
-.service-card .icon-wrapper::after,
-a.text-neon-purple::after {
+.service-card:not(#mainNavbar *)::before,
+[class*="card"]:not(#mainNavbar *):not([class*="nav"]):not(.nav-link)::before,
+.service-card:not(#mainNavbar *) .icon-wrapper::after,
+a.text-neon-purple:not(#mainNavbar *)::after {
     pointer-events: none !important;
 }
 
 /* Специально для карточек - убираем все видимые эффекты */
-.service-card:not([class*="nav"]):hover,
-[class*="card"]:not([class*="nav"]):not(.nav-link):hover,
-.reveal:not([class*="nav"]):hover {
+.service-card:not(#mainNavbar *):not([class*="nav"]):hover,
+[class*="card"]:not(#mainNavbar *):not([class*="nav"]):not(.nav-link):hover,
+.reveal:not(#mainNavbar *):not([class*="nav"]):hover {
     transform: none !important;
     box-shadow: none !important;
 }
 
-.service-card:not([class*="nav"]):hover::before,
-[class*="card"]:not([class*="nav"]):not(.nav-link):hover::before,
-.reveal:not([class*="nav"]):hover::before {
+.service-card:not(#mainNavbar *):not([class*="nav"]):hover::before,
+[class*="card"]:not(#mainNavbar *):not([class*="nav"]):not(.nav-link):hover::before,
+.reveal:not(#mainNavbar *):not([class*="nav"]):hover::before {
     display: none !important;
     opacity: 0 !important;
 }
 
 /* Убираем glow эффекты (кроме header и навигации) */
-.service-card:not([class*="nav"]) .icon-wrapper::after {
+.service-card:not(#mainNavbar *):not([class*="nav"]) .icon-wrapper::after {
     display: none !important;
     opacity: 0 !important;
 }
@@ -153,8 +137,8 @@ footer a:hover::before {
 }
 
 /* Убираем все анимации scale при hover (кроме header и навигации) */
-a:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):hover,
-button:not(.nav-link):not([class*="nav"]):not([id*="burger"]):not([id*="theme"]):not([id*="account"]):not(#backToTop):hover {
+a:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):hover,
+button:not(#mainNavbar *):not(.nav-link):not([class*="nav"]):not(#backToTop):hover {
     transform: none !important;
     scale: 1 !important;
 }
