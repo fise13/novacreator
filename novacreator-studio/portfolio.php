@@ -289,33 +289,174 @@ if ($currentLang === 'en') {
             </div>
         </div>
 
-        <div class="space-y-12 md:space-y-16 lg:space-y-20">
-            <?php foreach ($projects as $index => $project): ?>
-                <?php
-                    $demoLink = '/demo/' . rawurlencode($project['id']) . '/?lang=' . urlencode($currentLang);
-                ?>
-                <div class="reveal">
-                    <div class="mb-6">
-                        <span class="text-xs sm:text-sm uppercase tracking-wider mb-3 md:mb-4 block" style="color: var(--color-text-secondary);">
-                            <?php echo htmlspecialchars($project['tagBadge']); ?>
-                        </span>
-                        <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 leading-tight" style="color: var(--color-text);">
-                            <a href="<?php echo htmlspecialchars($demoLink); ?>" class="hover:underline transition-all" rel="noopener">
-                                <?php echo htmlspecialchars($project['title']); ?>
+        <!-- Фильтры по категориям -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-12 md:mb-16 reveal">
+            <button class="portfolio-filter active px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 min-h-[44px] touch-manipulation" data-filter="all" style="background-color: var(--color-surface); color: var(--color-text); border: 1px solid var(--color-border);">
+                <?php echo $currentLang === 'en' ? 'All projects' : 'Все проекты'; ?>
+            </button>
+            <button class="portfolio-filter px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 min-h-[44px] touch-manipulation" data-filter="website" style="background-color: transparent; color: var(--color-text-secondary); border: 1px solid var(--color-border);">
+                Website
+            </button>
+            <button class="portfolio-filter px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 min-h-[44px] touch-manipulation" data-filter="landing" style="background-color: transparent; color: var(--color-text-secondary); border: 1px solid var(--color-border);">
+                Landing
+            </button>
+            <button class="portfolio-filter px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 min-h-[44px] touch-manipulation" data-filter="ecommerce" style="background-color: transparent; color: var(--color-text-secondary); border: 1px solid var(--color-border);">
+                E‑commerce
+            </button>
+            <button class="portfolio-filter px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 min-h-[44px] touch-manipulation" data-filter="booking" style="background-color: transparent; color: var(--color-text-secondary); border: 1px solid var(--color-border);">
+                Booking
+            </button>
+            <button class="portfolio-filter px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 min-h-[44px] touch-manipulation" data-filter="personal" style="background-color: transparent; color: var(--color-text-secondary); border: 1px solid var(--color-border);">
+                <?php echo $currentLang === 'en' ? 'Personal brand' : 'Личный бренд'; ?>
+            </button>
+        </div>
+
+        <div class="space-y-12 md:space-y-16 lg:space-y-20" id="portfolioProjects">
+            <?php 
+            foreach ($projects as $index => $project): 
+                $demoLink = '/demo/' . rawurlencode($project['id']) . '/?lang=' . urlencode($currentLang);
+                
+                // Определяем категорию для фильтрации
+                $filterClass = 'all';
+                $category = '';
+                
+                if (stripos($project['tagBadge'], 'Website') !== false || stripos($project['tag'], 'Сайт') !== false) {
+                    $filterClass .= ' website';
+                    $category = 'website';
+                }
+                if (stripos($project['tagBadge'], 'Landing') !== false || stripos($project['tag'], 'Лендинг') !== false) {
+                    $filterClass .= ' landing';
+                    $category = 'landing';
+                }
+                if (stripos($project['tagBadge'], 'E‑commerce') !== false || stripos($project['tag'], 'магазин') !== false) {
+                    $filterClass .= ' ecommerce';
+                    $category = 'ecommerce';
+                }
+                if (stripos($project['tagBadge'], 'Booking') !== false || stripos($project['tag'], 'бронирования') !== false) {
+                    $filterClass .= ' booking';
+                    $category = 'booking';
+                }
+                if (stripos($project['tagBadge'], 'Personal brand') !== false || stripos($project['tag'], 'тренер') !== false) {
+                    $filterClass .= ' personal';
+                    $category = 'personal';
+                }
+                
+                // Градиенты для визуальных превью проектов
+                $gradients = [
+                    'northern-beans' => 'from-amber-600/20 via-orange-500/20 to-amber-700/20',
+                    'bodycraft' => 'from-red-600/20 via-pink-500/20 to-rose-600/20',
+                    'urbanframe' => 'from-blue-600/20 via-cyan-500/20 to-teal-600/20',
+                    'technest' => 'from-purple-600/20 via-indigo-500/20 to-blue-600/20',
+                    'lakeview-hotel' => 'from-emerald-600/20 via-teal-500/20 to-cyan-600/20'
+                ];
+                $gradient = $gradients[$project['id']] ?? 'from-gray-600/20 via-gray-500/20 to-gray-700/20';
+            ?>
+                <div class="portfolio-item reveal <?php echo $filterClass; ?>" data-category="<?php echo $category ?: 'all'; ?>">
+                    <!-- Карточка проекта с визуальным превью -->
+                    <div class="group relative overflow-hidden rounded-3xl border transition-all duration-500 hover:border-neon-purple/50" style="background-color: var(--color-surface); border-color: var(--color-border);">
+                        <!-- Визуальное превью -->
+                        <div class="relative h-64 md:h-80 lg:h-96 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br <?php echo $gradient; ?>"></div>
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent_70%)]"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center px-6">
+                                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm mb-4" style="background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
+                                        <span class="text-xs sm:text-sm uppercase tracking-wider font-medium text-white">
+                                            <?php echo htmlspecialchars($project['tagBadge']); ?>
+                                        </span>
+                                    </div>
+                                    <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
+                                        <?php echo htmlspecialchars($project['title']); ?>
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Overlay при hover -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 md:p-8">
+                                <a href="<?php echo htmlspecialchars($demoLink); ?>" class="inline-flex items-center gap-3 text-white font-semibold text-lg hover:gap-4 transition-all" rel="noopener">
+                                    <?php echo $currentLang === 'en' ? 'View project' : 'Посмотреть проект'; ?>
+                                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Контент карточки -->
+                        <div class="p-6 md:p-8 lg:p-10">
+                            <p class="text-base sm:text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
+                                <?php echo htmlspecialchars($project['summary']); ?>
+                            </p>
+                            
+                            <!-- Секция "До/После" -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <!-- До -->
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <div class="w-2 h-2 rounded-full" style="background-color: #ef4444;"></div>
+                                        <h4 class="text-sm font-semibold uppercase tracking-wider" style="color: var(--color-text);">
+                                            <?php echo $currentLang === 'en' ? 'Before' : 'До'; ?>
+                                        </h4>
+                                    </div>
+                                    <ul class="space-y-2">
+                                        <?php foreach ($project['before'] as $beforeItem): ?>
+                                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                                <svg class="w-4 h-4 mt-0.5 flex-shrink-0" style="color: #ef4444;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                                <span><?php echo htmlspecialchars($beforeItem); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                
+                                <!-- После -->
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <div class="w-2 h-2 rounded-full" style="background-color: #10b981;"></div>
+                                        <h4 class="text-sm font-semibold uppercase tracking-wider" style="color: var(--color-text);">
+                                            <?php echo $currentLang === 'en' ? 'After' : 'После'; ?>
+                                        </h4>
+                                    </div>
+                                    <ul class="space-y-2">
+                                        <?php foreach ($project['after'] as $afterItem): ?>
+                                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                                <svg class="w-4 h-4 mt-0.5 flex-shrink-0" style="color: #10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                                <span><?php echo htmlspecialchars($afterItem); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Результат -->
+                            <div class="p-4 rounded-2xl mb-6" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+                                <p class="text-base sm:text-lg font-medium leading-relaxed" style="color: var(--color-text);">
+                                    <?php echo htmlspecialchars($project['result']); ?>
+                                </p>
+                            </div>
+                            
+                            <!-- Технологии и мета -->
+                            <div class="flex flex-wrap items-center gap-3 mb-6">
+                                <?php 
+                                $metaItems = explode(' · ', $project['meta']);
+                                foreach ($metaItems as $metaItem): 
+                                ?>
+                                    <span class="px-3 py-1.5 rounded-full text-xs font-medium" style="background-color: var(--color-bg); color: var(--color-text-secondary); border: 1px solid var(--color-border);">
+                                        <?php echo htmlspecialchars(trim($metaItem)); ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            </div>
+                            
+                            <!-- Кнопка просмотра -->
+                            <a href="<?php echo htmlspecialchars($demoLink); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-semibold hover:gap-4 transition-all min-h-[44px] touch-manipulation group" style="color: var(--color-text);" rel="noopener">
+                                <?php echo $currentLang === 'en' ? 'View project' : 'Посмотреть проект'; ?>
+                                <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
                             </a>
-                        </h3>
-                        <p class="text-base sm:text-lg md:text-xl mb-4 md:mb-6 leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                            <?php echo htmlspecialchars($project['summary']); ?>
-                        </p>
-                        <p class="text-base sm:text-lg md:text-xl mb-6 md:mb-8 leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                            <?php echo htmlspecialchars($project['result']); ?>
-                        </p>
-                        <a href="<?php echo htmlspecialchars($demoLink); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-semibold hover:gap-4 transition-all min-h-[44px] touch-manipulation" style="color: var(--color-text);" rel="noopener">
-                            <?php echo $currentLang === 'en' ? 'View project' : 'Посмотреть проект'; ?>
-                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </a>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -386,7 +527,57 @@ if ($currentLang === 'en') {
 </section>
 
 <script>
-    // Анимация появления элементов при скролле
+    // Фильтрация проектов портфолио
+    (function() {
+        'use strict';
+        
+        const filterButtons = document.querySelectorAll('.portfolio-filter');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        if (filterButtons.length === 0 || portfolioItems.length === 0) return;
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Обновляем активную кнопку
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.style.backgroundColor = 'transparent';
+                    btn.style.color = 'var(--color-text-secondary)';
+                });
+                
+                this.classList.add('active');
+                this.style.backgroundColor = 'var(--color-surface)';
+                this.style.color = 'var(--color-text)';
+                
+                // Фильтруем проекты
+                portfolioItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if (filter === 'all' || itemCategory === filter) {
+                        item.style.display = '';
+                        item.style.opacity = '1';
+                        setTimeout(() => {
+                            item.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Инициализация стилей для плавной анимации
+        portfolioItems.forEach(item => {
+            item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        });
+    })();
+</script>
 
 <!-- CTA секция - улучшенный дизайн с мобильной адаптацией -->
 <section class="reveal-group py-16 md:py-24 lg:py-32 relative overflow-hidden">

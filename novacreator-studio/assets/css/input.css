@@ -2559,3 +2559,100 @@
     }
   }
 }
+
+/* ============================================
+   PORTFOLIO ENHANCEMENTS
+   Улучшенные стили для портфолио
+   ============================================ */
+
+/* Фильтры портфолио */
+.portfolio-filter {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.portfolio-filter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+.portfolio-filter.active {
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+/* Карточки проектов */
+.portfolio-item {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-item.hidden {
+  display: none;
+}
+
+/* Улучшенные hover эффекты для карточек проектов */
+.portfolio-item .group:hover {
+  transform: translateY(-4px);
+}
+
+.portfolio-item .group:hover .absolute.inset-0 {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5), transparent);
+}
+
+/* Плавные переходы для визуальных превью */
+.portfolio-item .relative.h-64,
+.portfolio-item .relative.h-80,
+.portfolio-item .relative.h-96 {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Анимация для секции "до/после" */
+.portfolio-item ul li {
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.portfolio-item:hover ul li {
+  opacity: 1;
+}
+
+/* Улучшенные метки технологий */
+.portfolio-item span[class*="rounded-full"] {
+  transition: all 0.2s ease;
+}
+
+.portfolio-item:hover span[class*="rounded-full"] {
+  transform: scale(1.05);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .portfolio-filter {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .portfolio-item .group {
+    border-radius: 1.5rem;
+  }
+  
+  .portfolio-item .relative.h-64 {
+    height: 12rem;
+  }
+}
+
+/* Плавная анимация появления проектов при фильтрации */
+@keyframes portfolioFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.portfolio-item {
+  animation: portfolioFadeIn 0.3s ease forwards;
+}
