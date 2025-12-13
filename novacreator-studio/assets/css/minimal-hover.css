@@ -269,43 +269,70 @@ button:not(#themeToggle):not(#accountMenuBtn):not(#burgerBtn):not(#burgerCloseBt
 
 /* Кнопка "Связаться" в header - улучшенный стиль для темной темы */
 .header-contact-btn {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
     color: #ffffff !important;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
-    border: none;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3) !important;
+    border: none !important;
+    text-decoration: none !important;
 }
 
 .header-contact-btn:hover {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4) !important;
+    transform: translateY(-1px) !important;
     opacity: 1 !important;
+    color: #ffffff !important;
 }
 
 .header-contact-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3) !important;
 }
 
 /* Для светлой темы - более яркий градиент */
-:root.light .header-contact-btn {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+:root.light .header-contact-btn,
+body.light .header-contact-btn {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25) !important;
+    color: #ffffff !important;
 }
 
-:root.light .header-contact-btn:hover {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+:root.light .header-contact-btn:hover,
+body.light .header-contact-btn:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35) !important;
+    color: #ffffff !important;
 }
 
 /* Для темной темы - более контрастный градиент */
-:root.dark .header-contact-btn {
-    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-    box-shadow: 0 2px 10px rgba(129, 140, 248, 0.4);
+:root.dark .header-contact-btn,
+body.dark .header-contact-btn,
+html.dark .header-contact-btn {
+    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%) !important;
+    box-shadow: 0 2px 10px rgba(129, 140, 248, 0.4) !important;
+    color: #ffffff !important;
 }
 
-:root.dark .header-contact-btn:hover {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    box-shadow: 0 4px 16px rgba(129, 140, 248, 0.5);
-    transform: translateY(-1px);
+:root.dark .header-contact-btn:hover,
+body.dark .header-contact-btn:hover,
+html.dark .header-contact-btn:hover {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    box-shadow: 0 4px 16px rgba(129, 140, 248, 0.5) !important;
+    transform: translateY(-1px) !important;
+    color: #ffffff !important;
+}
+
+/* Дополнительная защита от переопределения */
+#mainNavbar .header-contact-btn,
+.navbar .header-contact-btn,
+nav .header-contact-btn {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: #ffffff !important;
+}
+
+#mainNavbar .header-contact-btn:hover,
+.navbar .header-contact-btn:hover,
+nav .header-contact-btn:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    color: #ffffff !important;
 }
