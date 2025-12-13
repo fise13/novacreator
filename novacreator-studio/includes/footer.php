@@ -159,6 +159,9 @@ $currentLang = getCurrentLanguage();
     <!-- 3D эффекты для портфолио -->
     <script src="/assets/js/portfolio-3d.js"></script>
     
+    <!-- Улучшенные touch-жесты и swipe-функции -->
+    <script src="/assets/js/touch-gestures.js"></script>
+    
     <!-- Service Worker для Push-уведомлений -->
     <script>
     if ('serviceWorker' in navigator) {
