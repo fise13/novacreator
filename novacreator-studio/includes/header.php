@@ -190,6 +190,10 @@ require_once __DIR__ . '/theme_switcher.php';
     ?>
     <link rel="preload" as="style" href="<?php echo $cssPath; ?>">
     <link href="<?php echo $cssPath; ?>" rel="stylesheet">
+    
+    <!-- Минималистичные hover эффекты - убираем все боксы и tooltip -->
+    <link rel="stylesheet" href="/assets/css/minimal-hover.css">
+    
     <link rel="preload" as="image" type="image/webp" href="/assets/img/og-default.webp">
     <link rel="preload" as="script" href="<?php echo $jsPreloadPath; ?>">
     <meta name="color-scheme" content="dark light">
