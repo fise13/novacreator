@@ -362,17 +362,11 @@ include 'includes/header.php';
 <section id="contact-form" class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <!-- Заголовок с изогнутой стрелкой -->
+            <!-- Заголовок -->
             <div class="mb-12 md:mb-16 reveal">
-                <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.85] tracking-tighter mb-4 md:mb-6" style="color: var(--color-text);">
+                <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.85] tracking-tighter" style="color: var(--color-text);">
                     <?php echo $currentLang === 'en' ? 'So, shall we work?' : 'Ну что, работаем?'; ?>
                 </h2>
-                <div class="relative w-full max-w-md md:max-w-lg">
-                    <svg class="w-full h-auto" style="color: var(--color-text);" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
-                        <path d="M10 40 Q 80 10, 150 20 Q 220 30, 270 40" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M260 35 L 270 40 L 260 45" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
@@ -422,7 +416,7 @@ include 'includes/header.php';
 
                 <!-- Форма справа -->
                 <div class="reveal">
-                    <div class="p-6 md:p-8 rounded-2xl transition-all duration-300 hover:shadow-xl hover:border-opacity-80" style="background-color: var(--color-bg); border: 2px solid var(--color-border); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                    <div class="p-6 md:p-8 lg:p-10 rounded-2xl transition-all duration-300 hover:shadow-xl" style="background-color: var(--color-bg); border: 2px solid var(--color-border); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);">
                         <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Leave a request' : 'Оставить заявку'; ?>
                         </h3>
@@ -438,32 +432,54 @@ include 'includes/header.php';
                                     type="text" 
                                     name="name" 
                                     id="contact-name"
-                                    placeholder="<?php echo $currentLang === 'en' ? 'Ali' : 'Али'; ?>"
-                                    class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors text-base md:text-lg" 
-                                    style="background-color: white; border-color: var(--color-text); color: var(--color-text);"
+                                    placeholder="<?php echo $currentLang === 'en' ? 'Your name' : 'Ваше имя'; ?>"
+                                    class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 text-base md:text-lg" 
+                                    style="background-color: white; border-color: var(--color-border); color: var(--color-text);"
                                     required
                                     autocomplete="name"
                                 >
                                 <p class="text-sm mt-1 hidden text-red-500" id="name-error"></p>
                             </div>
 
-                            <!-- Телефон с флагом -->
-                            <div class="relative">
-                                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none z-10">
-                                    <span class="text-2xl">🇰🇿</span>
+                            <!-- Телефон с выбором страны -->
+                            <div>
+                                <div class="flex gap-2">
+                                    <select 
+                                        id="phone-country-code"
+                                        name="country_code"
+                                        class="px-3 py-3 pr-10 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 text-base md:text-lg cursor-pointer appearance-none" 
+                                        style="background-color: white; border-color: var(--color-border); color: var(--color-text); min-width: 140px; background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22%3E%3Cpath fill=%22%23444%22 d=%22M6 9L1 4h10z%22/%3E%3C/svg%3E'); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 12px 12px;"
+                                    >
+                                        <option value="+7" data-flag="🇰🇿">🇰🇿 +7 KZ</option>
+                                        <option value="+7" data-flag="🇷🇺">🇷🇺 +7 RU</option>
+                                        <option value="+1" data-flag="🇺🇸">🇺🇸 +1 US</option>
+                                        <option value="+380" data-flag="🇺🇦">🇺🇦 +380 UA</option>
+                                        <option value="+375" data-flag="🇧🇾">🇧🇾 +375 BY</option>
+                                        <option value="+998" data-flag="🇺🇿">🇺🇿 +998 UZ</option>
+                                        <option value="+996" data-flag="🇰🇬">🇰🇬 +996 KG</option>
+                                        <option value="+44" data-flag="🇬🇧">🇬🇧 +44 GB</option>
+                                        <option value="+49" data-flag="🇩🇪">🇩🇪 +49 DE</option>
+                                        <option value="+33" data-flag="🇫🇷">🇫🇷 +33 FR</option>
+                                        <option value="+86" data-flag="🇨🇳">🇨🇳 +86 CN</option>
+                                        <option value="+90" data-flag="🇹🇷">🇹🇷 +90 TR</option>
+                                        <option value="+971" data-flag="🇦🇪">🇦🇪 +971 AE</option>
+                                        <option value="+81" data-flag="🇯🇵">🇯🇵 +81 JP</option>
+                                        <option value="+82" data-flag="🇰🇷">🇰🇷 +82 KR</option>
+                                        <option value="+91" data-flag="🇮🇳">🇮🇳 +91 IN</option>
+                                    </select>
+                                    <input 
+                                        type="tel" 
+                                        name="phone" 
+                                        id="contact-phone"
+                                        placeholder="<?php echo $currentLang === 'en' ? 'Phone number' : 'Номер телефона'; ?>"
+                                    class="flex-1 px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 text-base md:text-lg" 
+                                    style="background-color: white; border-color: var(--color-border); color: var(--color-text);"
+                                        required
+                                        autocomplete="tel"
+                                        inputmode="tel"
+                                    >
                                 </div>
-                                <input 
-                                    type="tel" 
-                                    name="phone" 
-                                    id="contact-phone"
-                                    placeholder="+7"
-                                    class="w-full px-4 py-3 pl-14 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors text-base md:text-lg" 
-                                    style="background-color: white; border-color: var(--color-text); color: var(--color-text);"
-                                    pattern="^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$"
-                                    required
-                                    autocomplete="tel"
-                                    maxlength="18"
-                                >
+                                <input type="hidden" name="phone_full" id="phone-full-value">
                                 <p class="text-sm mt-1 hidden text-red-500" id="phone-error-main"></p>
                             </div>
 
@@ -539,6 +555,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameError = document.getElementById('name-error');
     const phoneError = document.getElementById('phone-error-main');
     const form = document.getElementById('contactFormMain');
+    const countryCodeSelect = document.getElementById('phone-country-code');
+    const phoneFullValue = document.getElementById('phone-full-value');
     
     // Обновление визуального отображения выбранного способа связи
     function updateContactMethodDisplay() {
@@ -579,39 +597,61 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация при загрузке
     updateContactMethodDisplay();
     
-    function validatePhone(phone) {
+    function validatePhone(phone, countryCode) {
+        // Удаляем все нецифровые символы кроме плюса
         const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
-        const phoneRegex = /^(\+?7|8)?[0-9]{10}$/;
-        return phoneRegex.test(cleanPhone) && cleanPhone.length >= 10;
+        // Убираем код страны для проверки только номера
+        const codeWithoutPlus = countryCode.replace('+', '');
+        const numberOnly = cleanPhone.startsWith(codeWithoutPlus) 
+            ? cleanPhone.substring(codeWithoutPlus.length) 
+            : cleanPhone;
+        
+        // Минимум 7 цифр для международного номера, максимум 15
+        return /^\d{7,15}$/.test(numberOnly);
     }
     
-    function formatPhone(value) {
-        let cleaned = value.replace(/[^\d+]/g, '');
-        if (cleaned.startsWith('8')) {
-            cleaned = '+7' + cleaned.substring(1);
-        } else if (cleaned.startsWith('7') && !cleaned.startsWith('+7')) {
-            cleaned = '+7' + cleaned.substring(1);
-        } else if (!cleaned.startsWith('+7')) {
-            cleaned = '+7' + cleaned;
+    function formatPhoneByCountry(value, countryCode) {
+        // Удаляем все нецифровые символы
+        let cleaned = value.replace(/[^\d]/g, '');
+        
+        // Убираем код страны если он уже есть
+        const codeDigits = countryCode.replace('+', '');
+        if (cleaned.startsWith(codeDigits)) {
+            cleaned = cleaned.substring(codeDigits.length);
         }
-        cleaned = cleaned.substring(0, 12);
-        if (cleaned.length > 2) {
-            let formatted = cleaned.substring(0, 2) + ' ';
-            if (cleaned.length > 2) {
-                formatted += '(' + cleaned.substring(2, 5);
+        
+        // Форматирование зависит от кода страны
+        if (countryCode === '+7' || countryCode === '+1') {
+            // Для +7 и +1: форматируем как (XXX) XXX-XXXX
+            if (cleaned.length > 0) {
+                let formatted = '(' + cleaned.substring(0, 3);
+                if (cleaned.length > 3) {
+                    formatted += ') ' + cleaned.substring(3, 6);
+                }
+                if (cleaned.length > 6) {
+                    formatted += '-' + cleaned.substring(6, 10);
+                }
+                return formatted;
             }
-            if (cleaned.length > 5) {
-                formatted += ') ' + cleaned.substring(5, 8);
+        } else if (countryCode === '+380' || countryCode === '+375') {
+            // Для Украины и Беларуси: XXX XX XX
+            if (cleaned.length > 0) {
+                let formatted = cleaned.substring(0, 3);
+                if (cleaned.length > 3) {
+                    formatted += ' ' + cleaned.substring(3, 5);
+                }
+                if (cleaned.length > 5) {
+                    formatted += ' ' + cleaned.substring(5, 7);
+                }
+                if (cleaned.length > 7) {
+                    formatted += ' ' + cleaned.substring(7, 9);
+                }
+                return formatted;
             }
-            if (cleaned.length > 8) {
-                formatted += '-' + cleaned.substring(8, 10);
-            }
-            if (cleaned.length > 10) {
-                formatted += '-' + cleaned.substring(10, 12);
-            }
-            return formatted;
         }
-        return cleaned;
+        
+        // Для остальных стран: просто цифры с пробелами каждые 3
+        return cleaned.replace(/(\d{3})(?=\d)/g, '$1 ');
     }
     
     // Валидация имени
@@ -633,12 +673,42 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Функция обновления полного значения телефона
+    function updatePhoneValue() {
+        if (countryCodeSelect && phoneInput && phoneFullValue) {
+            const countryCode = countryCodeSelect.value;
+            const phoneNumber = phoneInput.value.trim().replace(/[\s\-\(\)]/g, '');
+            if (phoneNumber) {
+                phoneFullValue.value = countryCode + phoneNumber;
+            } else {
+                phoneFullValue.value = '';
+            }
+        }
+    }
+    
+    if (countryCodeSelect) {
+        countryCodeSelect.addEventListener('change', function() {
+            const countryCode = this.value;
+            const currentValue = phoneInput.value.replace(/[\s\-\(\)]/g, '');
+            phoneInput.value = formatPhoneByCountry(currentValue, countryCode);
+            updatePhoneValue();
+            // Валидация при смене страны
+            if (phoneInput.value) {
+                phoneInput.dispatchEvent(new Event('input'));
+            }
+        });
+    }
+    
     // Форматирование и валидация телефона
-    if (phoneInput) {
+    if (phoneInput && countryCodeSelect) {
         phoneInput.addEventListener('input', function(e) {
-            e.target.value = formatPhone(e.target.value);
+            const countryCode = countryCodeSelect.value;
+            const currentValue = e.target.value.replace(/[\s\-\(\)]/g, '');
+            e.target.value = formatPhoneByCountry(currentValue, countryCode);
+            updatePhoneValue();
+            
             const phone = e.target.value.trim();
-            if (phone && !validatePhone(phone)) {
+            if (phone && !validatePhone(phone, countryCode)) {
                 phoneInput.style.borderColor = '#ef4444';
                 if (phoneError) {
                     phoneError.textContent = '<?php echo $currentLang === 'en' ? 'Enter a valid phone number' : 'Введите корректный номер телефона'; ?>';
@@ -655,7 +725,22 @@ document.addEventListener('DOMContentLoaded', function() {
         phoneInput.addEventListener('paste', function(e) {
             e.preventDefault();
             const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-            phoneInput.value = formatPhone(pastedText);
+            const countryCode = countryCodeSelect.value;
+            const cleaned = pastedText.replace(/[^\d+]/g, '');
+            // Если вставляется номер с кодом страны, пытаемся его определить
+            if (cleaned.startsWith('+')) {
+                // Убираем + и код страны
+                const codeDigits = countryCode.replace('+', '');
+                if (cleaned.startsWith('+' + codeDigits)) {
+                    const numberOnly = cleaned.substring(1 + codeDigits.length);
+                    phoneInput.value = formatPhoneByCountry(numberOnly, countryCode);
+                } else {
+                    phoneInput.value = formatPhoneByCountry(cleaned.substring(1), countryCode);
+                }
+            } else {
+                phoneInput.value = formatPhoneByCountry(cleaned, countryCode);
+            }
+            updatePhoneValue();
             phoneInput.dispatchEvent(new Event('input'));
         });
     }
@@ -683,7 +768,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Валидация телефона
-            if (!phone || !validatePhone(phone)) {
+            const countryCode = countryCodeSelect ? countryCodeSelect.value : '+7';
+            updatePhoneValue();
+            const phoneFull = phoneFullValue ? phoneFullValue.value : '';
+            
+            if (!phone || !validatePhone(phone, countryCode)) {
                 isValid = false;
                 if (phoneInput) {
                     phoneInput.style.borderColor = '#ef4444';
@@ -706,7 +795,13 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
             submitBtn.textContent = '<?php echo $currentLang === 'en' ? 'Sending...' : 'Отправляем...'; ?>';
 
-            const formData = new FormData(form);
+            // Формируем данные формы с полным номером телефона
+            const formData = new FormData();
+            formData.append('type', form.querySelector('input[name="type"]').value);
+            formData.append('form_name', form.querySelector('input[name="form_name"]').value);
+            formData.append('name', nameInput.value.trim());
+            formData.append('phone', phoneFull || (countryCode + phone.replace(/[\s\-\(\)]/g, '')));
+            formData.append('website', form.querySelector('input[name="website"]').value);
             
             // Добавляем метод связи в сообщение - показываем явно выбранный способ
             const contactMethod = form.querySelector('input[name="contact_method"]:checked')?.value;
