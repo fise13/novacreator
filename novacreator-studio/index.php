@@ -364,13 +364,13 @@ include 'includes/header.php';
         <div class="max-w-6xl mx-auto">
             <!-- Заголовок с изогнутой стрелкой -->
             <div class="mb-12 md:mb-16 reveal">
-                <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.85] tracking-tighter mb-6 md:mb-8" style="color: var(--color-text);">
+                <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.85] tracking-tighter mb-4 md:mb-6" style="color: var(--color-text);">
                     <?php echo $currentLang === 'en' ? 'So, shall we work?' : 'Ну что, работаем?'; ?>
                 </h2>
-                <div class="relative inline-block">
-                    <svg class="w-48 h-24 md:w-64 md:h-32 lg:w-80 lg:h-40" style="color: var(--color-text);" viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 75 Q 100 30, 180 50 Q 240 65, 260 75" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"/>
-                        <path d="M250 70 L 260 75 L 250 80" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <div class="relative w-full max-w-md md:max-w-lg">
+                    <svg class="w-full h-auto" style="color: var(--color-text);" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
+                        <path d="M10 40 Q 80 10, 150 20 Q 220 30, 270 40" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M260 35 L 270 40 L 260 45" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
             </div>
@@ -422,7 +422,7 @@ include 'includes/header.php';
 
                 <!-- Форма справа -->
                 <div class="reveal">
-                    <div class="p-6 md:p-8 rounded-2xl transition-all duration-300 hover:shadow-xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+                    <div class="p-6 md:p-8 rounded-2xl transition-all duration-300 hover:shadow-xl hover:border-opacity-80" style="background-color: var(--color-bg); border: 2px solid var(--color-border); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
                         <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Leave a request' : 'Оставить заявку'; ?>
                         </h3>
@@ -468,8 +468,11 @@ include 'includes/header.php';
                             </div>
 
                             <!-- Радио-кнопки -->
-                            <div class="flex flex-col gap-4 py-2">
-                                <label class="flex items-center gap-3 cursor-pointer p-3 rounded-lg transition-all hover:opacity-80" style="background-color: var(--color-bg-lighter);">
+                            <div class="flex flex-col gap-3 py-2">
+                                <label class="contact-method-option flex items-center gap-3 cursor-pointer p-4 rounded-lg transition-all duration-200 border-2" 
+                                       data-value="messenger" 
+                                       style="border-color: var(--color-border); background-color: var(--color-bg-lighter);"
+                                       id="label-messenger">
                                     <input 
                                         type="radio" 
                                         name="contact_method" 
@@ -479,14 +482,20 @@ include 'includes/header.php';
                                         class="w-5 h-5 cursor-pointer"
                                         style="accent-color: #6366f1;"
                                     >
-                                    <span class="text-base md:text-lg font-semibold flex items-center gap-2" style="color: var(--color-text);">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <span class="text-base md:text-lg font-semibold flex items-center gap-2 flex-1" style="color: var(--color-text);">
+                                        <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.12l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
                                         </svg>
                                         <?php echo $currentLang === 'en' ? 'Write in messenger' : 'Написать в мессенджер'; ?>
                                     </span>
+                                    <span class="selected-indicator hidden text-sm font-medium px-2 py-1 rounded" style="background-color: #6366f1; color: white;">
+                                        <?php echo $currentLang === 'en' ? 'Selected' : 'Выбрано'; ?>
+                                    </span>
                                 </label>
-                                <label class="flex items-center gap-3 cursor-pointer p-3 rounded-lg transition-all hover:opacity-80" style="background-color: var(--color-bg-lighter);">
+                                <label class="contact-method-option flex items-center gap-3 cursor-pointer p-4 rounded-lg transition-all duration-200 border-2" 
+                                       data-value="call"
+                                       style="border-color: var(--color-border); background-color: var(--color-bg-lighter);"
+                                       id="label-call">
                                     <input 
                                         type="radio" 
                                         name="contact_method" 
@@ -495,11 +504,14 @@ include 'includes/header.php';
                                         class="w-5 h-5 cursor-pointer"
                                         style="accent-color: var(--color-text);"
                                     >
-                                    <span class="text-base md:text-lg font-semibold flex items-center gap-2" style="color: var(--color-text);">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <span class="text-base md:text-lg font-semibold flex items-center gap-2 flex-1" style="color: var(--color-text);">
+                                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                                         </svg>
                                         <?php echo $currentLang === 'en' ? 'Call' : 'Позвонить'; ?>
+                                    </span>
+                                    <span class="selected-indicator hidden text-sm font-medium px-2 py-1 rounded" style="background-color: var(--color-text); color: white;">
+                                        <?php echo $currentLang === 'en' ? 'Selected' : 'Выбрано'; ?>
                                     </span>
                                 </label>
                             </div>
@@ -527,6 +539,45 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameError = document.getElementById('name-error');
     const phoneError = document.getElementById('phone-error-main');
     const form = document.getElementById('contactFormMain');
+    
+    // Обновление визуального отображения выбранного способа связи
+    function updateContactMethodDisplay() {
+        const selectedMethod = form.querySelector('input[name="contact_method"]:checked')?.value;
+        const messengerLabel = document.getElementById('label-messenger');
+        const callLabel = document.getElementById('label-call');
+        
+        // Сбрасываем все стили
+        [messengerLabel, callLabel].forEach(label => {
+            if (label) {
+                label.style.borderColor = 'var(--color-border)';
+                label.style.backgroundColor = 'var(--color-bg-lighter)';
+                const indicator = label.querySelector('.selected-indicator');
+                if (indicator) indicator.classList.add('hidden');
+            }
+        });
+        
+        // Применяем стили к выбранному
+        if (selectedMethod === 'messenger' && messengerLabel) {
+            messengerLabel.style.borderColor = '#6366f1';
+            messengerLabel.style.backgroundColor = 'rgba(99, 102, 241, 0.1)';
+            const indicator = messengerLabel.querySelector('.selected-indicator');
+            if (indicator) indicator.classList.remove('hidden');
+        } else if (selectedMethod === 'call' && callLabel) {
+            callLabel.style.borderColor = 'var(--color-text)';
+            callLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+            const indicator = callLabel.querySelector('.selected-indicator');
+            if (indicator) indicator.classList.remove('hidden');
+        }
+    }
+    
+    // Обработчики изменения способа связи
+    const methodInputs = form.querySelectorAll('input[name="contact_method"]');
+    methodInputs.forEach(input => {
+        input.addEventListener('change', updateContactMethodDisplay);
+    });
+    
+    // Инициализация при загрузке
+    updateContactMethodDisplay();
     
     function validatePhone(phone) {
         const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
@@ -683,6 +734,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Сбрасываем радио-кнопку на значение по умолчанию
                     const defaultRadio = form.querySelector('input[name="contact_method"][value="messenger"]');
                     if (defaultRadio) defaultRadio.checked = true;
+                    // Обновляем отображение выбранного способа
+                    updateContactMethodDisplay();
                     // Очищаем ошибки
                     if (nameError) nameError.classList.add('hidden');
                     if (phoneError) phoneError.classList.add('hidden');
