@@ -58,7 +58,7 @@ include 'includes/header.php';
                 <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="hero-cta-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);">
                     <?php echo htmlspecialchars(t('common.getStarted')); ?>
                 </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-opacity duration-200 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation btn-apple" style="border: 0.5px solid var(--color-border); color: var(--color-text); background-color: transparent;">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="hero-portfolio-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation" style="border: 1px solid rgba(99, 102, 241, 0.3); color: var(--color-text); background-color: transparent; text-decoration: none;">
                     <?php echo htmlspecialchars(t('common.viewPortfolio')); ?>
                 </a>
             </div>

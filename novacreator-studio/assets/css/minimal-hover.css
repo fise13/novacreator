@@ -391,3 +391,41 @@ html.dark .hero-cta-btn:hover {
     transform: translateY(-1px) !important;
     color: #ffffff !important;
 }
+
+/* Кнопка "Портфолио" в hero секции - outline стиль */
+.hero-portfolio-btn {
+    border: 1px solid rgba(99, 102, 241, 0.3) !important;
+    color: var(--color-text) !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.hero-portfolio-btn:hover {
+    border-color: rgba(99, 102, 241, 0.6) !important;
+    background-color: rgba(99, 102, 241, 0.05) !important;
+    transform: translateY(-1px) !important;
+    opacity: 1 !important;
+    color: var(--color-text) !important;
+}
+
+.hero-portfolio-btn:active {
+    transform: translateY(0) !important;
+    background-color: rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Для темной темы - более светлая граница */
+:root.dark .hero-portfolio-btn,
+body.dark .hero-portfolio-btn,
+html.dark .hero-portfolio-btn {
+    border-color: rgba(129, 140, 248, 0.4) !important;
+    color: var(--color-text) !important;
+}
+
+:root.dark .hero-portfolio-btn:hover,
+body.dark .hero-portfolio-btn:hover,
+html.dark .hero-portfolio-btn:hover {
+    border-color: rgba(129, 140, 248, 0.7) !important;
+    background-color: rgba(129, 140, 248, 0.08) !important;
+    color: var(--color-text) !important;
+}
