@@ -235,25 +235,25 @@ if ($currentLang === 'en') {
             <!-- Заголовок секции - в стиле остального сайта -->
             <div class="mb-12 md:mb-16 lg:mb-20 reveal">
                 <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
-                    <?php echo $currentLang === 'en' ? 'Our recent projects' : 'Наши реализованные проекты'; ?>
-                </h2>
+                <?php echo $currentLang === 'en' ? 'Our recent projects' : 'Наши реализованные проекты'; ?>
+            </h2>
                 <p class="text-lg sm:text-xl md:text-2xl leading-relaxed mb-4" style="color: var(--color-text-secondary); max-width: 65ch;">
-                    <?php if ($currentLang === 'en'): ?>
+                <?php if ($currentLang === 'en'): ?>
                         Clients don't care whether a brand is world‑famous — they care about how clearly the website explains
                         the offer and what changes "before / after" it brings to their business.
-                    <?php else: ?>
-                        Клиентам важнее не громкое имя, а то, насколько аккуратно сайт объясняет оффер и какие изменения
+                <?php else: ?>
+                    Клиентам важнее не громкое имя, а то, насколько аккуратно сайт объясняет оффер и какие изменения
                         "до / после" он приносит в бизнес.
-                    <?php endif; ?>
-                </p>
+                <?php endif; ?>
+            </p>
                 <p class="text-base md:text-lg leading-relaxed" style="color: var(--color-text-secondary); opacity: 0.7;">
-                    <?php if ($currentLang === 'en'): ?>
-                        All projects on this page are demonstration concepts created to showcase our approach to structure, UX and design. They are not based on real client data.
-                    <?php else: ?>
-                        Все проекты на этой странице — демонстрационные концепты, созданные, чтобы показать наш подход к структуре, UX и дизайну. Они не основаны на данных реальных клиентов.
-                    <?php endif; ?>
-                </p>
-            </div>
+                <?php if ($currentLang === 'en'): ?>
+                    All projects on this page are demonstration concepts created to showcase our approach to structure, UX and design. They are not based on real client data.
+                <?php else: ?>
+                    Все проекты на этой странице — демонстрационные концепты, созданные, чтобы показать наш подход к структуре, UX и дизайну. Они не основаны на данных реальных клиентов.
+                <?php endif; ?>
+            </p>
+        </div>
 
         <!-- Статистика портфолио - минималистичный стиль -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 lg:gap-16 mb-16 md:mb-20 lg:mb-24 reveal">
@@ -374,7 +374,7 @@ if ($currentLang === 'en') {
                                     data-src="<?php echo htmlspecialchars($demoLink); ?>" 
                                     class="portfolio-preview-iframe w-full h-full pointer-events-none opacity-0 transition-opacity duration-500"
                                     loading="lazy"
-                                    title="<?php echo htmlspecialchars($project['title']); ?> preview"
+                                    aria-label="<?php echo htmlspecialchars($project['title']); ?> preview"
                                     style="transform: scale(0.5); transform-origin: top left; width: 200%; height: 200%;"
                                 ></iframe>
                             </div>
@@ -385,7 +385,7 @@ if ($currentLang === 'en') {
                                     data-src="<?php echo htmlspecialchars($demoLink); ?>" 
                                     class="portfolio-preview-iframe-hover w-full h-full"
                                     loading="lazy"
-                                    title="<?php echo htmlspecialchars($project['title']); ?> interactive preview"
+                                    aria-label="<?php echo htmlspecialchars($project['title']); ?> interactive preview"
                                     style="transform: scale(0.8); transform-origin: top center; width: 125%; height: 125%;"
                                 ></iframe>
                                 <div class="absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm" style="background-color: var(--color-bg); opacity: 0.9; color: var(--color-text);">
@@ -411,17 +411,17 @@ if ($currentLang === 'en') {
                         <div class="mb-6 md:mb-8">
                             <div class="mb-3 md:mb-4">
                                 <span class="text-xs sm:text-sm uppercase tracking-wider font-medium transition-opacity duration-200 group-hover:opacity-70" style="color: var(--color-text-secondary);">
-                                    <?php echo htmlspecialchars($project['tagBadge']); ?>
-                                </span>
+                            <?php echo htmlspecialchars($project['tagBadge']); ?>
+                        </span>
                             </div>
                             <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold mb-4 md:mb-6 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
                                 <a href="<?php echo htmlspecialchars($demoLink); ?>" class="hover:underline" rel="noopener">
-                                    <?php echo htmlspecialchars($project['title']); ?>
-                                </a>
-                            </h3>
+                                <?php echo htmlspecialchars($project['title']); ?>
+                            </a>
+                        </h3>
                             <p class="text-lg sm:text-xl md:text-2xl mb-6 md:mb-8 leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                                <?php echo htmlspecialchars($project['summary']); ?>
-                            </p>
+                            <?php echo htmlspecialchars($project['summary']); ?>
+                        </p>
                         </div>
                         
                         <!-- Секция "До/После" - упрощенная -->
@@ -462,8 +462,8 @@ if ($currentLang === 'en') {
                         <!-- Результат -->
                         <div class="mb-6 md:mb-8">
                             <p class="text-base sm:text-lg md:text-xl font-medium leading-relaxed" style="color: var(--color-text);">
-                                <?php echo htmlspecialchars($project['result']); ?>
-                            </p>
+                            <?php echo htmlspecialchars($project['result']); ?>
+                        </p>
                         </div>
                         
                         <!-- Технологии и мета - упрощенные -->
@@ -498,60 +498,60 @@ if ($currentLang === 'en') {
             <div class="max-w-7xl mx-auto">
                 <div class="mb-12 md:mb-16 lg:mb-20 reveal">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
-                        <?php echo $currentLang === 'en' ? 'Our approach' : 'Наш подход'; ?>
-                    </h2>
+                    <?php echo $currentLang === 'en' ? 'Our approach' : 'Наш подход'; ?>
+                </h2>
                     <p class="text-lg sm:text-xl md:text-2xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                        <?php echo $currentLang === 'en' 
-                            ? 'We combine modern design, proven UX patterns and technical excellence to create websites that convert visitors into customers.'
-                            : 'Мы сочетаем современный дизайн, проверенные UX-паттерны и техническое совершенство, чтобы создавать сайты, которые превращают посетителей в клиентов.'; ?>
-                    </p>
-                </div>
+                    <?php echo $currentLang === 'en' 
+                        ? 'We combine modern design, proven UX patterns and technical excellence to create websites that convert visitors into customers.'
+                        : 'Мы сочетаем современный дизайн, проверенные UX-паттерны и техническое совершенство, чтобы создавать сайты, которые превращают посетителей в клиентов.'; ?>
+                </p>
+            </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-20 lg:gap-24">
                     <div class="group relative reveal cursor-pointer touch-manipulation">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 mb-8 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
                             <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Design first' : 'Дизайн прежде всего'; ?>
-                        </h3>
-                        <p class="text-lg sm:text-xl md:text-2xl leading-relaxed" style="color: var(--color-text-secondary);">
-                            <?php echo $currentLang === 'en'
-                                ? 'Every pixel matters. We create interfaces that are not only beautiful but also intuitive and conversion-focused.'
-                                : 'Каждый пиксель важен. Мы создаём интерфейсы, которые не только красивы, но и интуитивны и ориентированы на конверсию.'; ?>
-                        </p>
+                        </svg>
                     </div>
+                        <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Design first' : 'Дизайн прежде всего'; ?>
+                    </h3>
+                        <p class="text-lg sm:text-xl md:text-2xl leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en'
+                            ? 'Every pixel matters. We create interfaces that are not only beautiful but also intuitive and conversion-focused.'
+                            : 'Каждый пиксель важен. Мы создаём интерфейсы, которые не только красивы, но и интуитивны и ориентированы на конверсию.'; ?>
+                    </p>
+                </div>
                     <div class="group relative reveal cursor-pointer touch-manipulation">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 mb-8 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
                             <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Performance' : 'Производительность'; ?>
-                        </h3>
-                        <p class="text-lg sm:text-xl md:text-2xl leading-relaxed" style="color: var(--color-text-secondary);">
-                            <?php echo $currentLang === 'en'
-                                ? 'Fast loading, optimized images, clean code. Your site will rank better and convert more visitors.'
-                                : 'Быстрая загрузка, оптимизированные изображения, чистый код. Ваш сайт будет лучше ранжироваться и конвертировать больше посетителей.'; ?>
-                        </p>
+                        </svg>
                     </div>
+                        <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Performance' : 'Производительность'; ?>
+                    </h3>
+                        <p class="text-lg sm:text-xl md:text-2xl leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en'
+                            ? 'Fast loading, optimized images, clean code. Your site will rank better and convert more visitors.'
+                            : 'Быстрая загрузка, оптимизированные изображения, чистый код. Ваш сайт будет лучше ранжироваться и конвертировать больше посетителей.'; ?>
+                    </p>
+                </div>
                     <div class="group relative reveal cursor-pointer touch-manipulation">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 mb-8 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
                             <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
-                        </div>
+                        </svg>
+                    </div>
                         <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Data-driven' : 'На основе данных'; ?>
-                        </h3>
+                        <?php echo $currentLang === 'en' ? 'Data-driven' : 'На основе данных'; ?>
+                    </h3>
                         <p class="text-lg sm:text-xl md:text-2xl leading-relaxed" style="color: var(--color-text-secondary);">
-                            <?php echo $currentLang === 'en'
-                                ? 'We analyze user behavior, test hypotheses and continuously improve conversion rates based on real metrics.'
-                                : 'Мы анализируем поведение пользователей, тестируем гипотезы и постоянно улучшаем конверсию на основе реальных метрик.'; ?>
-                        </p>
+                        <?php echo $currentLang === 'en'
+                            ? 'We analyze user behavior, test hypotheses and continuously improve conversion rates based on real metrics.'
+                            : 'Мы анализируем поведение пользователей, тестируем гипотезы и постоянно улучшаем конверсию на основе реальных метрик.'; ?>
+                    </p>
                     </div>
                 </div>
             </div>

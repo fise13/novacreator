@@ -1,0 +1,127 @@
+/**
+ * Минималистичные hover эффекты
+ * Убираем все видимые боксы, tooltip и сложные анимации
+ */
+
+/* Отключаем все tooltip от браузера */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Убираем все ::before и ::after элементы при hover для минимализма */
+.service-card::before,
+[class*="card"]::before,
+.service-card .icon-wrapper::after,
+a.text-neon-purple::after,
+.nav-link::after {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Минималистичные hover эффекты - только opacity */
+a, button, .btn, [class*="card"], .service-card {
+    transition: opacity 0.2s ease !important;
+}
+
+a:hover, button:hover, .btn:hover, 
+[class*="card"]:hover, .service-card:hover {
+    opacity: 0.7 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Убираем transform эффекты при hover */
+a:hover, button:hover {
+    transform: none !important;
+}
+
+/* Убираем подчеркивания и линии при hover */
+a:hover::after, a:hover::before,
+button:hover::after, button:hover::before {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+/* Минималистичные иконки - только opacity */
+svg {
+    transition: opacity 0.2s ease !important;
+}
+
+a:hover svg, button:hover svg {
+    transform: none !important;
+    opacity: 0.7 !important;
+}
+
+/* Убираем все box-shadow при hover */
+*:hover {
+    box-shadow: none !important;
+}
+
+/* Исключения для важных элементов (можно добавить класс) */
+.minimal-hover {
+    transition: opacity 0.2s ease !important;
+}
+
+.minimal-hover:hover {
+    opacity: 0.7 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Убираем все псевдоэлементы, которые могут создавать видимые боксы */
+*::before, *::after {
+    pointer-events: none !important;
+}
+
+/* Специально для карточек - убираем все видимые эффекты */
+.service-card:hover,
+[class*="card"]:hover,
+.reveal:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.service-card:hover::before,
+[class*="card"]:hover::before,
+.reveal:hover::before {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+/* Убираем glow эффекты */
+.service-card .icon-wrapper::after,
+[class*="glow"]::after,
+[class*="glow"]::before {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+/* Минималистичные ссылки в footer */
+footer a {
+    transition: opacity 0.2s ease !important;
+}
+
+footer a:hover {
+    opacity: 0.6 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+footer a:hover::after,
+footer a:hover::before {
+    display: none !important;
+}
+
+/* Убираем все анимации scale при hover */
+*:hover {
+    transform: none !important;
+    scale: 1 !important;
+}
+
+/* Исключение только для кнопки "Наверх" - оставляем минимальный эффект */
+#backToTop:hover {
+    opacity: 0.8 !important;
+    transform: none !important;
+}
+
