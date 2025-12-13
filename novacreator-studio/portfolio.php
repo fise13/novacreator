@@ -312,9 +312,9 @@ if ($currentLang === 'en') {
         </div>
 
         <div class="space-y-12 md:space-y-16 lg:space-y-20" id="portfolioProjects">
-            <?php 
+                <?php
             foreach ($projects as $index => $project): 
-                $demoLink = '/demo/' . rawurlencode($project['id']) . '/?lang=' . urlencode($currentLang);
+                    $demoLink = '/demo/' . rawurlencode($project['id']) . '/?lang=' . urlencode($currentLang);
                 
                 // Определяем категорию для фильтрации
                 $filterClass = 'all';
@@ -362,11 +362,11 @@ if ($currentLang === 'en') {
                                 <div class="text-center px-6">
                                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm mb-4" style="background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
                                         <span class="text-xs sm:text-sm uppercase tracking-wider font-medium text-white">
-                                            <?php echo htmlspecialchars($project['tagBadge']); ?>
-                                        </span>
+                            <?php echo htmlspecialchars($project['tagBadge']); ?>
+                        </span>
                                     </div>
                                     <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
-                                        <?php echo htmlspecialchars($project['title']); ?>
+                                <?php echo htmlspecialchars($project['title']); ?>
                                     </h3>
                                 </div>
                             </div>
@@ -384,8 +384,8 @@ if ($currentLang === 'en') {
                         <!-- Контент карточки -->
                         <div class="p-6 md:p-8 lg:p-10">
                             <p class="text-base sm:text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
-                                <?php echo htmlspecialchars($project['summary']); ?>
-                            </p>
+                            <?php echo htmlspecialchars($project['summary']); ?>
+                        </p>
                             
                             <!-- Секция "До/После" -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -433,8 +433,8 @@ if ($currentLang === 'en') {
                             <!-- Результат -->
                             <div class="p-4 rounded-2xl mb-6" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
                                 <p class="text-base sm:text-lg font-medium leading-relaxed" style="color: var(--color-text);">
-                                    <?php echo htmlspecialchars($project['result']); ?>
-                                </p>
+                            <?php echo htmlspecialchars($project['result']); ?>
+                        </p>
                             </div>
                             
                             <!-- Технологии и мета -->
@@ -451,11 +451,11 @@ if ($currentLang === 'en') {
                             
                             <!-- Кнопка просмотра -->
                             <a href="<?php echo htmlspecialchars($demoLink); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-semibold hover:gap-4 transition-all min-h-[44px] touch-manipulation group" style="color: var(--color-text);" rel="noopener">
-                                <?php echo $currentLang === 'en' ? 'View project' : 'Посмотреть проект'; ?>
-                                <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </a>
+                            <?php echo $currentLang === 'en' ? 'View project' : 'Посмотреть проект'; ?>
+                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
                         </div>
                     </div>
                 </div>

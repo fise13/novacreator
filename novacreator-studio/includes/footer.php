@@ -153,9 +153,6 @@ $currentLang = getCurrentLanguage();
     <!-- Анимированные SVG иконки для услуг -->
     <script src="/assets/js/animated-icons.js"></script>
     
-    <!-- Кастомные курсоры для интерактивных элементов -->
-    <script src="/assets/js/custom-cursor.js"></script>
-    
     <!-- Service Worker для Push-уведомлений -->
     <script>
     if ('serviceWorker' in navigator) {
