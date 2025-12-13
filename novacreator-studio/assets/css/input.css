@@ -2565,20 +2565,27 @@
    Улучшенные стили для портфолио
    ============================================ */
 
-/* Фильтры портфолио */
+/* Фильтры портфолио - минималистичный стиль */
 .portfolio-filter {
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-.portfolio-filter:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+  position: relative;
 }
 
 .portfolio-filter.active {
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  font-weight: 600;
+}
+
+.portfolio-filter.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.5;
 }
 
 /* Карточки проектов */
