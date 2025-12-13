@@ -2,8 +2,15 @@
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/user_service.php';
 
+// Подключаем систему переводов
+if (!function_exists('t')) {
+    require_once __DIR__ . '/includes/i18n.php';
+}
+
 startSecureSession();
 requireLogin('/login.php');
+
+$currentLang = getCurrentLanguage();
 
 $user = getAuthenticatedUser();
 if (!$user || !isset($user['id'])) {
@@ -21,8 +28,8 @@ if (!$userData) {
         'created_at' => $user['created_at'],
         'avatar_url' => $user['avatar_url'] ?? null,
         'progress_percent' => 0,
-        'status' => 'Ожидает обновления',
-        'stage' => 'Скоро будет обновлено',
+        'status' => t('dashboard.status.waiting'),
+        'stage' => t('dashboard.status.soon'),
         'time_spent_minutes' => 0,
         'updated_at' => null,
         'started_at' => null,
@@ -32,10 +39,10 @@ if (!$userData) {
     $userData['avatar_url'] = $userData['avatar_url'] ?? $user['avatar_url'] ?? null;
 }
 
-$pageTitle = 'Личный кабинет';
+$pageTitle = t('dashboard.title');
 $progress = (int)($userData['progress_percent'] ?? 0);
-$statusText = $userData['status'] ?? 'Ожидает обновления';
-$stageText = $userData['stage'] ?? 'Скоро будет обновлено';
+$statusText = $userData['status'] ?? t('dashboard.status.waiting');
+$stageText = $userData['stage'] ?? t('dashboard.status.soon');
 $timeSpent = (int)($userData['time_spent_minutes'] ?? 0);
 $updatedAt = $userData['updated_at'] ?? null;
 $startedAt = $userData['started_at'] ?? null;
@@ -95,9 +102,9 @@ function minutesToHuman(int $minutes): string
     $hours = intdiv($minutes, 60);
     $mins = $minutes % 60;
     if ($hours > 0) {
-        return $hours . ' ч ' . $mins . ' мин';
+        return $hours . ' ' . t('dashboard.time.hours') . ' ' . $mins . ' ' . t('dashboard.time.minutes');
     }
-    return $mins . ' мин';
+    return $mins . ' ' . t('dashboard.time.minutes');
 }
 
 if (!function_exists('getInitials')) {
@@ -120,23 +127,23 @@ include __DIR__ . '/includes/header.php';
         <!-- Заголовок - большой и простой -->
         <div class="mb-16 md:mb-20 animate-on-scroll">
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4" style="color: var(--color-text);">
-                Личный кабинет
+                <?php echo htmlspecialchars(t('dashboard.title')); ?>
             </h1>
             <p class="text-xl md:text-2xl font-light" style="color: var(--color-text-secondary);">
-                Здравствуйте, <?php echo htmlspecialchars($user['name']); ?>
+                <?php echo str_replace(':name', htmlspecialchars($user['name']), t('dashboard.greeting')); ?>
             </p>
         </div>
 
         <!-- Краткие метрики - минималистичные карточки -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Статус</p>
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.status.label')); ?></p>
                 <p class="text-2xl font-semibold mb-1" style="color: var(--color-text);"><?php echo htmlspecialchars($statusText); ?></p>
                 <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars($stageText); ?></p>
             </div>
             
             <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Прогресс</p>
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.progress.label')); ?></p>
                 <div class="flex items-center justify-between mb-2">
                     <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $progress; ?>%</p>
                 </div>
@@ -146,36 +153,39 @@ include __DIR__ . '/includes/header.php';
             </div>
             
             <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Время работы</p>
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.time.label')); ?></p>
                 <p class="text-3xl font-bold mb-1" style="color: var(--color-text);"><?php echo minutesToHuman($timeSpent); ?></p>
                 <?php if ($updatedAt): ?>
                     <p class="text-sm" style="color: var(--color-text-secondary);">
                         <?php 
                         $updatedAtTimestamp = $updatedAt ? strtotime($updatedAt) : false;
-                        echo $updatedAtTimestamp ? 'Обновлено: ' . htmlspecialchars(date('d.m.Y', $updatedAtTimestamp)) : '';
+                        if ($updatedAtTimestamp) {
+                            $dateStr = date('d.m.Y', $updatedAtTimestamp);
+                            echo str_replace(':date', htmlspecialchars($dateStr), t('dashboard.time.updated'));
+                        }
                         ?>
                     </p>
                 <?php endif; ?>
             </div>
             
             <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Дней активно</p>
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.days.active')); ?></p>
                 <p class="text-3xl font-bold mb-1" style="color: var(--color-text);"><?php echo $daysActive; ?></p>
-                <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $avgProgressPerDay > 0 ? $avgProgressPerDay . '%/день' : 'Нет данных'; ?></p>
+                <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $avgProgressPerDay > 0 ? $avgProgressPerDay . t('dashboard.days.perDay') : t('dashboard.days.noData'); ?></p>
             </div>
         </div>
 
         <!-- Графики - простые и чистые -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);">Прогресс проекта</h3>
-                <p class="text-base mb-6" style="color: var(--color-text-secondary);">Динамика выполнения за последние дни</p>
+                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);"><?php echo htmlspecialchars(t('dashboard.charts.progress.title')); ?></h3>
+                <p class="text-base mb-6" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.charts.progress.description')); ?></p>
                 <canvas id="progressChart" class="w-full" style="max-height: 300px;"></canvas>
             </div>
 
             <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);">Распределение времени</h3>
-                <p class="text-base mb-6" style="color: var(--color-text-secondary);">Анализ работы над проектом</p>
+                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);"><?php echo htmlspecialchars(t('dashboard.charts.time.title')); ?></h3>
+                <p class="text-base mb-6" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.charts.time.description')); ?></p>
                 <canvas id="timeChart" class="w-full" style="max-height: 300px;"></canvas>
             </div>
         </div>
@@ -183,54 +193,54 @@ include __DIR__ . '/includes/header.php';
         <!-- Дополнительная статистика -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Средний прогресс</p>
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.stats.avgProgress.label')); ?></p>
                 <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $avgProgressPerDay; ?>%</p>
-                <p class="text-sm mt-1" style="color: var(--color-text-secondary);">Прогресс в день</p>
+                <p class="text-sm mt-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.stats.avgProgress.perDay')); ?></p>
             </div>
 
             <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Среднее время</p>
-                <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $avgHoursPerDay; ?>ч</p>
-                <p class="text-sm mt-1" style="color: var(--color-text-secondary);">Часов в день</p>
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.stats.avgTime.label')); ?></p>
+                <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $avgHoursPerDay; ?><?php echo t('dashboard.time.hours'); ?></p>
+                <p class="text-sm mt-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.stats.avgTime.perDay')); ?></p>
             </div>
 
             <div class="animate-on-scroll p-6 border rounded-lg transition-all duration-300 hover:opacity-70" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Оценка завершения</p>
+                <p class="text-sm mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.stats.estimatedCompletion.label')); ?></p>
                 <p class="text-3xl font-bold" style="color: var(--color-text);"><?php echo $estimatedCompletion; ?></p>
-                <p class="text-sm mt-1" style="color: var(--color-text-secondary);">Дней до завершения</p>
+                <p class="text-sm mt-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.stats.estimatedCompletion.days')); ?></p>
             </div>
         </div>
 
         <!-- Форма отправки сообщения -->
         <div class="mb-16 animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
-            <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);">Отправить сообщение</h3>
-            <p class="text-base mb-6" style="color: var(--color-text-secondary);">Свяжитесь с создателем проекта или администратором</p>
+            <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);"><?php echo htmlspecialchars(t('dashboard.message.title')); ?></h3>
+            <p class="text-base mb-6" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.message.description')); ?></p>
             
             <form id="messageForm" class="space-y-6">
                 <?php echo csrfInput(); ?>
                 
                 <div>
-                    <label class="block text-sm font-medium mb-2" style="color: var(--color-text);">Тема сообщения</label>
+                    <label class="block text-sm font-medium mb-2" style="color: var(--color-text);"><?php echo htmlspecialchars(t('dashboard.message.subject.label')); ?></label>
                     <input type="text" name="subject" id="messageSubject" 
                            class="w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:opacity-70"
                            style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);"
-                           placeholder="Например: Вопрос по проекту"
-                           value="Сообщение из личного кабинета">
+                           placeholder="<?php echo htmlspecialchars(t('dashboard.message.subject.placeholder')); ?>"
+                           value="<?php echo htmlspecialchars(t('dashboard.message.subject.default')); ?>">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium mb-2" style="color: var(--color-text);">Ваше сообщение</label>
+                    <label class="block text-sm font-medium mb-2" style="color: var(--color-text);"><?php echo htmlspecialchars(t('dashboard.message.text.label')); ?></label>
                     <textarea name="message" id="messageText" rows="5" required
                               class="w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:opacity-70 resize-none"
                               style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);"
-                              placeholder="Напишите ваше сообщение здесь..."></textarea>
-                    <p class="text-sm mt-1" style="color: var(--color-text-secondary);">Сообщение будет отправлено в Telegram</p>
+                              placeholder="<?php echo htmlspecialchars(t('dashboard.message.text.placeholder')); ?>"></textarea>
+                    <p class="text-sm mt-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.message.text.note')); ?></p>
                 </div>
                 
                 <button type="submit" id="sendMessageBtn" 
                         class="w-full px-6 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:opacity-70 active:opacity-50"
                         style="background-color: var(--color-text); color: var(--color-bg);">
-                    Отправить сообщение
+                    <?php echo htmlspecialchars(t('dashboard.message.submit')); ?>
                 </button>
                 
                 <div id="messageResult" class="hidden"></div>
@@ -240,7 +250,7 @@ include __DIR__ . '/includes/header.php';
         <!-- Информация о пользователе и проекте -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <h3 class="text-2xl font-bold mb-6" style="color: var(--color-text);">Ваша учётная запись</h3>
+                <h3 class="text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('dashboard.account.title')); ?></h3>
                 <div class="flex items-center gap-4 mb-6">
                     <div class="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold" style="background-color: var(--color-surface); color: var(--color-text);">
                         <?php 
@@ -259,11 +269,11 @@ include __DIR__ . '/includes/header.php';
                 </div>
                 <div class="space-y-3 text-sm border-t pt-4" style="border-color: var(--color-border);">
                     <div class="flex items-center justify-between">
-                        <span style="color: var(--color-text-secondary);">Роль</span>
+                        <span style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.account.role')); ?></span>
                         <span class="font-medium" style="color: var(--color-text);"><?php echo htmlspecialchars($user['role']); ?></span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span style="color: var(--color-text-secondary);">Создан</span>
+                        <span style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.account.created')); ?></span>
                         <span class="font-medium" style="color: var(--color-text);">
                             <?php 
                             $createdAtTimestamp = isset($user['created_at']) ? strtotime($user['created_at']) : false;
@@ -272,24 +282,24 @@ include __DIR__ . '/includes/header.php';
                         </span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span style="color: var(--color-text-secondary);">Всего часов</span>
-                        <span class="font-medium" style="color: var(--color-text);"><?php echo $hoursSpent; ?>ч</span>
+                        <span style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.account.totalHours')); ?></span>
+                        <span class="font-medium" style="color: var(--color-text);"><?php echo $hoursSpent; ?><?php echo t('dashboard.time.hours'); ?></span>
                     </div>
                 </div>
             </div>
 
             <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
-                <h3 class="text-2xl font-bold mb-6" style="color: var(--color-text);">Статус проекта</h3>
+                <h3 class="text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('dashboard.project.title')); ?></h3>
                 <div class="space-y-6">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-sm" style="color: var(--color-text-secondary);">Текущий этап</span>
+                            <span class="text-sm" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.project.stage.label')); ?></span>
                         </div>
                         <p class="text-xl font-semibold mb-4" style="color: var(--color-text);"><?php echo htmlspecialchars($stageText); ?></p>
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-sm" style="color: var(--color-text-secondary);">Прогресс</span>
+                            <span class="text-sm" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.progress.label')); ?></span>
                             <span class="text-sm font-semibold" style="color: var(--color-text);"><?php echo $progress; ?>%</span>
                         </div>
                         <div class="w-full h-2 rounded-full overflow-hidden" style="background-color: var(--color-border);">
@@ -298,18 +308,18 @@ include __DIR__ . '/includes/header.php';
                     </div>
                     <div class="grid grid-cols-2 gap-4 pt-4 border-t" style="border-color: var(--color-border);">
                         <div class="p-4 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-surface);">
-                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Время работы</p>
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.time.label')); ?></p>
                             <p class="text-xl font-bold" style="color: var(--color-text);"><?php echo minutesToHuman($timeSpent); ?></p>
                         </div>
                         <div class="p-4 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-surface);">
-                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Дней активно</p>
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.days.active')); ?></p>
                             <p class="text-xl font-bold" style="color: var(--color-text);"><?php echo $daysActive; ?></p>
                         </div>
                     </div>
                     <div>
-                        <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Комментарий</p>
+                        <p class="text-sm mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.project.comment.label')); ?></p>
                         <p class="text-base leading-relaxed p-4 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-surface); color: var(--color-text);">
-                            <?php echo htmlspecialchars($userData['notes'] ?: 'Пока нет дополнительных комментариев.'); ?>
+                            <?php echo htmlspecialchars($userData['notes'] ?: t('dashboard.project.comment.empty')); ?>
                         </p>
                     </div>
                 </div>
@@ -318,8 +328,8 @@ include __DIR__ . '/includes/header.php';
 
         <!-- Хронология проекта -->
         <div class="animate-on-scroll p-8 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg);">
-            <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);">Хронология проекта</h3>
-            <p class="text-base mb-6" style="color: var(--color-text-secondary);">История работы над вашим проектом</p>
+            <h3 class="text-2xl font-bold mb-2" style="color: var(--color-text);"><?php echo htmlspecialchars(t('dashboard.timeline.title')); ?></h3>
+            <p class="text-base mb-6" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.timeline.description')); ?></p>
 
             <?php if (!empty($startedAt)): ?>
                 <div class="relative pl-6 space-y-6">
@@ -328,7 +338,7 @@ include __DIR__ . '/includes/header.php';
                     <div class="flex items-start gap-4">
                         <div class="relative z-10 w-3 h-3 rounded-full -ml-1.5 mt-1.5" style="background-color: var(--color-text);"></div>
                         <div class="flex-1 pb-6">
-                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Старт работ</p>
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.timeline.start')); ?></p>
                             <p class="text-lg font-semibold" style="color: var(--color-text);"><?php echo $startedAtTimestamp ? htmlspecialchars(date('d.m.Y', $startedAtTimestamp)) : htmlspecialchars($startedAt); ?></p>
                         </div>
                     </div>
@@ -336,7 +346,7 @@ include __DIR__ . '/includes/header.php';
                     <div class="flex items-start gap-4">
                         <div class="relative z-10 w-3 h-3 rounded-full -ml-1.5 mt-1.5" style="background-color: var(--color-text);"></div>
                         <div class="flex-1 pb-6">
-                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Текущий этап</p>
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.project.stage.current')); ?></p>
                             <p class="text-lg font-semibold" style="color: var(--color-text);"><?php echo htmlspecialchars($stageText); ?></p>
                         </div>
                     </div>
@@ -344,8 +354,8 @@ include __DIR__ . '/includes/header.php';
                     <div class="flex items-start gap-4">
                         <div class="relative z-10 w-3 h-3 rounded-full -ml-1.5 mt-1.5" style="background-color: var(--color-text);"></div>
                         <div class="flex-1">
-                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);">Прогресс</p>
-                            <p class="text-lg font-semibold mb-2" style="color: var(--color-text);"><?php echo $progress; ?>% выполнено</p>
+                            <p class="text-sm mb-1" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.progress.label')); ?></p>
+                            <p class="text-lg font-semibold mb-2" style="color: var(--color-text);"><?php echo $progress; ?>% <?php echo htmlspecialchars(t('dashboard.progress.completed')); ?></p>
                             <div class="w-full h-1 rounded-full overflow-hidden" style="background-color: var(--color-border);">
                                 <div class="h-full transition-all duration-1000 ease-out" style="width: <?php echo $progress; ?>%; background-color: var(--color-text);"></div>
                             </div>
@@ -354,8 +364,8 @@ include __DIR__ . '/includes/header.php';
                 </div>
             <?php else: ?>
                 <div class="text-center py-12">
-                    <p class="text-lg mb-2" style="color: var(--color-text-secondary);">Мы ещё не добавили детали по вашему проекту.</p>
-                    <p class="text-sm" style="color: var(--color-text-secondary);">Как только начнём — здесь появится таймлайн.</p>
+                    <p class="text-lg mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.timeline.empty.title')); ?></p>
+                    <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.timeline.empty.subtitle')); ?></p>
                 </div>
             <?php endif; ?>
         </div>
@@ -371,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressData = {
         labels: <?php echo json_encode($chartLabels); ?>,
         datasets: [{
-            label: 'Прогресс (%)',
+            label: <?php echo json_encode(t('dashboard.charts.progress.label')); ?>,
             data: <?php echo json_encode($chartProgress); ?>,
             borderColor: 'var(--color-text)',
             backgroundColor: 'transparent',
@@ -387,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const timeData = {
-        labels: ['Работа', 'Ожидание', 'Планирование'],
+        labels: [<?php echo json_encode(t('dashboard.charts.time.work')); ?>, <?php echo json_encode(t('dashboard.charts.time.waiting')); ?>, <?php echo json_encode(t('dashboard.charts.time.planning')); ?>],
         datasets: [{
             data: [
                 <?php echo round($timeSpent * 0.7); ?>,
@@ -521,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalText = submitBtn.innerHTML;
             
             submitBtn.disabled = true;
-            submitBtn.innerHTML = 'Отправка...';
+            submitBtn.innerHTML = <?php echo json_encode(t('dashboard.message.sending')); ?>;
             submitBtn.style.opacity = '0.5';
             
             messageResult.classList.add('hidden');
@@ -539,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     messageResult.style.borderColor = 'var(--color-border)';
                     messageResult.style.backgroundColor = 'var(--color-surface)';
                     messageResult.style.color = 'var(--color-text)';
-                    messageResult.textContent = data.message || 'Сообщение успешно отправлено!';
+                    messageResult.textContent = data.message || <?php echo json_encode(t('dashboard.message.success')); ?>;
                     messageResult.classList.remove('hidden');
                     
                     messageText.value = '';
@@ -552,7 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     messageResult.style.borderColor = '#ef4444';
                     messageResult.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
                     messageResult.style.color = '#ef4444';
-                    messageResult.textContent = data.message || 'Ошибка при отправке сообщения. Попробуйте позже.';
+                    messageResult.textContent = data.message || <?php echo json_encode(t('dashboard.message.error')); ?>;
                     messageResult.classList.remove('hidden');
                 }
             } catch (error) {
@@ -560,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 messageResult.style.borderColor = '#ef4444';
                 messageResult.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
                 messageResult.style.color = '#ef4444';
-                messageResult.textContent = 'Ошибка соединения. Проверьте интернет и попробуйте снова.';
+                messageResult.textContent = <?php echo json_encode(t('dashboard.message.connectionError')); ?>;
                 messageResult.classList.remove('hidden');
             } finally {
                 submitBtn.disabled = false;

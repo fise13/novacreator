@@ -1028,6 +1028,103 @@
   "alt": {
     "logo": "NovaCreator Studio Logo - Digital Agency in Kazakhstan",
     "ogImage": "NovaCreator Studio - Digital Agency"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "greeting": "Hello, :name",
+    "status": {
+      "label": "Status",
+      "waiting": "Waiting for update",
+      "soon": "Will be updated soon"
+    },
+    "progress": {
+      "label": "Progress",
+      "completed": "completed"
+    },
+    "time": {
+      "label": "Time worked",
+      "updated": "Updated: :date",
+      "hours": "h",
+      "minutes": "min"
+    },
+    "days": {
+      "active": "Days active",
+      "perDay": "%/day",
+      "noData": "No data"
+    },
+    "charts": {
+      "progress": {
+        "title": "Project Progress",
+        "description": "Performance dynamics over recent days",
+        "label": "Progress (%)"
+      },
+      "time": {
+        "title": "Time Distribution",
+        "description": "Project work analysis",
+        "work": "Work",
+        "waiting": "Waiting",
+        "planning": "Planning"
+      }
+    },
+    "stats": {
+      "avgProgress": {
+        "label": "Average Progress",
+        "perDay": "Progress per day"
+      },
+      "avgTime": {
+        "label": "Average Time",
+        "perDay": "Hours per day"
+      },
+      "estimatedCompletion": {
+        "label": "Estimated Completion",
+        "days": "Days until completion"
+      }
+    },
+    "message": {
+      "title": "Send Message",
+      "description": "Contact the project creator or administrator",
+      "subject": {
+        "label": "Message Subject",
+        "placeholder": "For example: Question about the project",
+        "default": "Message from dashboard"
+      },
+      "text": {
+        "label": "Your Message",
+        "placeholder": "Write your message here...",
+        "note": "Message will be sent to Telegram"
+      },
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "error": "Error sending message. Please try again later.",
+      "connectionError": "Connection error. Check your internet and try again."
+    },
+    "account": {
+      "title": "Your Account",
+      "role": "Role",
+      "created": "Created",
+      "totalHours": "Total Hours"
+    },
+    "project": {
+      "title": "Project Status",
+      "stage": {
+        "label": "Current Stage",
+        "current": "Current Stage"
+      },
+      "comment": {
+        "label": "Comment",
+        "empty": "No additional comments yet."
+      }
+    },
+    "timeline": {
+      "title": "Project Timeline",
+      "description": "History of work on your project",
+      "start": "Work Started",
+      "empty": {
+        "title": "We haven't added project details yet.",
+        "subtitle": "Once we start, a timeline will appear here."
+      }
+    }
   }
 }
 
