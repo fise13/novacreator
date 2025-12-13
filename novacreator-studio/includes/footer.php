@@ -47,11 +47,11 @@ $currentLang = getCurrentLanguage();
                     <div>
                         <h3 class="text-xl md:text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.services')); ?></h3>
                         <ul class="space-y-4">
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.seoOptimization')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.websiteDevelopment')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.ads')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#marketing'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.marketing')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.analytics')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.seoOptimization')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.websiteDevelopment')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.ads')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#marketing'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.marketing')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.analytics')); ?></a></li>
                         </ul>
                     </div>
                     
@@ -59,12 +59,12 @@ $currentLang = getCurrentLanguage();
                     <div>
                         <h3 class="text-xl md:text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.company')); ?></h3>
                         <ul class="space-y-4">
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.about')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.contacts')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/faq'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.faq')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.calculator')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.blog')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/vacancies'); ?>" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.vacancies')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.about')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.contacts')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/faq'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.faq')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.calculator')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.blog')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/vacancies'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.vacancies')); ?></a></li>
                         </ul>
                     </div>
                     
@@ -73,10 +73,10 @@ $currentLang = getCurrentLanguage();
                         <h3 class="text-xl md:text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.contacts')); ?></h3>
                         <ul class="space-y-4">
                             <li>
-                                <a href="mailto:contact@novacreatorstudio.com" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);">contact@novacreatorstudio.com</a>
+                                <a href="mailto:contact@novacreatorstudio.com" class="text-lg transition-all" style="color: var(--color-text-secondary);">contact@novacreatorstudio.com</a>
                             </li>
                             <li>
-                                <a href="tel:+77066063921" class="text-lg hover:underline transition-all" style="color: var(--color-text-secondary);">+7 706 606 39 21</a>
+                                <a href="tel:+77066063921" class="text-lg transition-all" style="color: var(--color-text-secondary);">+7 706 606 39 21</a>
                             </li>
                         </ul>
                     </div>
