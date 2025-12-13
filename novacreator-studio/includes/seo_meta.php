@@ -372,6 +372,11 @@ endforeach;
 <?php endforeach; ?>
 <?php endif; ?>
 
+<!-- Верификация поисковых систем -->
+<meta name="yandex-verification" content="edd889cc7878b9f3">
+<!-- Для верификации Bing добавьте мета-тег: <meta name="msvalidate.01" content="ВАШ_КОД_ВЕРИФИКАЦИИ" /> -->
+<!-- Получить код можно в Bing Webmaster Tools: https://www.bing.com/webmasters -->
+
 <!-- Дополнительные мета-теги для улучшения SEO -->
 <meta name="geo.region" content="KZ">
 <meta name="geo.placename" content="Almaty">
