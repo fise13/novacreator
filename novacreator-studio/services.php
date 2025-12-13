@@ -249,7 +249,9 @@ include 'includes/header.php';
                 <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
                     <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                        <?php echo htmlspecialchars(t('pages.services.analytics.features.setup')); ?>
+                        <?php echo $currentLang === 'en' 
+                            ? t('pages.services.analytics.features.setup') 
+                            : 'Правильная настройка Google Analytics и Яндекс.Метрики, включая настройку Google Analytics 4 (GA4) для точного отслеживания конверсий и поведения пользователей'; ?>
                     </p>
                 </div>
                 <div class="reveal flex items-start gap-4">

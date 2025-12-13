@@ -36,7 +36,9 @@ include 'includes/header.php';
                     <?php echo htmlspecialchars(t('pages.calculator.formTitle')); ?>
                 </h2>
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                    <?php echo htmlspecialchars(t('pages.calculator.formSubtitle')); ?>
+                    <?php echo $currentLang === 'en' 
+                        ? t('pages.calculator.formSubtitle') 
+                        : htmlspecialchars(t('pages.calculator.formSubtitle')) . ' Наши специалисты помогут рассчитать стоимость раскрутки портала или продвижения сайта с учетом всех факторов.'; ?>
                 </p>
             </div>
             

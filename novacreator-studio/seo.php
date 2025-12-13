@@ -25,7 +25,7 @@ include 'includes/header.php';
                 <p class="text-lg md:text-xl text-center max-w-4xl mx-auto" style="color: var(--color-text-secondary);">
                     <?php echo $currentLang === 'en' 
                         ? 'Professional SEO services to rank your website in top-10 Google and Yandex search results. Technical SEO, content optimization, link building. Results in 3-6 months.' 
-                        : 'Профессиональное SEO-продвижение сайтов в топ-10 Google и Яндекс. Технический SEO, оптимизация контента, построение ссылочной массы. Результаты через 3-6 месяцев.'; ?>
+                        : 'Профессиональное SEO-продвижение сайтов в топ-10 Google и Яндекс с использованием новаторских методов. Технический SEO, оптимизация контента, построение ссылочной массы. Оптимизация сайта при разработке для максимальной эффективности. Результаты через 3-6 месяцев.'; ?>
                 </p>
             </div>
             <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
@@ -48,7 +48,7 @@ include 'includes/header.php';
                 <p class="text-base md:text-lg max-w-2xl mx-auto mt-4" style="color: var(--color-text-secondary);">
                     <?php echo $currentLang === 'en' 
                         ? 'Our comprehensive SEO approach ensures your website reaches top-10 positions in search engines through technical optimization, quality content, and strategic link building.' 
-                        : 'Наш комплексный подход к SEO гарантирует попадание вашего сайта в топ-10 поисковых систем через техническую оптимизацию, качественный контент и стратегическое построение ссылочной массы.'; ?>
+                        : 'Наш комплексный подход к SEO гарантирует попадание вашего сайта в топ-10 поисковых систем через техническую оптимизацию, качественный контент и стратегическое построение ссылочной массы. Используем новаторские методы продвижения и заботимся об оптимизации сайта при разработке для достижения лучших результатов.'; ?>
                 </p>
             </div>
             

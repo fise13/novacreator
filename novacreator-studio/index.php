@@ -131,7 +131,9 @@ include 'includes/header.php';
                         <?php echo htmlspecialchars(t('home.services.seo.title')); ?>
                     </h3>
                     <p class="text-lg sm:text-xl md:text-2xl mb-8 leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo htmlspecialchars(t('home.services.seo.description')); ?>
+                        <?php echo $currentLang === 'en' 
+                            ? htmlspecialchars(t('home.services.seo.description')) 
+                            : 'Выводим ваш сайт в топ поисковых систем с использованием новаторских методов продвижения. Комплексная оптимизация, технический аудит и постоянный мониторинг результатов. Оптимизация сайта при разработке для максимальной эффективности. Работаем с клиентами по всему Казахстану: Алматы, Астана, Шымкент и другие города.'; ?>
                     </p>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-opacity duration-200 hover:opacity-70 min-h-[44px] touch-manipulation" style="color: var(--color-text);">
                         <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
@@ -174,7 +176,9 @@ include 'includes/header.php';
                         <?php echo htmlspecialchars(t('home.services.ads.title')); ?>
                     </h3>
                     <p class="text-lg sm:text-xl md:text-2xl mb-8 leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo htmlspecialchars(t('home.services.ads.description')); ?>
+                        <?php echo $currentLang === 'en' 
+                            ? htmlspecialchars(t('home.services.ads.description')) 
+                            : 'Контекстная реклама и поисковая интернет реклама под ключ. Настройка, запуск и оптимизация кампаний для максимальной конверсии и ROI.'; ?>
                     </p>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-opacity duration-200 hover:opacity-70 min-h-[44px] touch-manipulation" style="color: var(--color-text);">
                         <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
@@ -216,7 +220,9 @@ include 'includes/header.php';
                         <?php echo htmlspecialchars(t('home.services.analytics.title')); ?>
                     </h3>
                     <p class="text-lg sm:text-xl md:text-2xl mb-8 leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo htmlspecialchars(t('home.services.analytics.description')); ?>
+                        <?php echo $currentLang === 'en' 
+                            ? htmlspecialchars(t('home.services.analytics.description')) 
+                            : 'Глубокий анализ данных и метрик. Правильная настройка Google Analytics и Яндекс.Метрики, включая настройку Google Analytics 4 (GA4). Отслеживание конверсий, оптимизация воронок продаж и рост эффективности.'; ?>
                     </p>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-opacity duration-200 hover:opacity-70 min-h-[44px] touch-manipulation" style="color: var(--color-text);">
                         <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>

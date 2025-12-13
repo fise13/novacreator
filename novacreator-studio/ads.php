@@ -36,7 +36,9 @@ include 'includes/header.php';
                     <?php echo htmlspecialchars(t('pages.ads.includes.title')); ?>
                 </h2>
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                    <?php echo htmlspecialchars(t('pages.ads.includes.subtitle')); ?>
+                    <?php echo $currentLang === 'en' 
+                        ? t('pages.ads.includes.subtitle') 
+                        : htmlspecialchars(t('pages.ads.includes.subtitle')) . ' Настраиваем поисковую интернет рекламу в Google и Яндекс для максимального охвата целевой аудитории и достижения ваших бизнес-целей.'; ?>
                 </p>
             </div>
             
