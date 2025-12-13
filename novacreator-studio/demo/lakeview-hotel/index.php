@@ -371,5 +371,8 @@ $note = $currentLang === 'en'
     })();
 </script>
 
+<!-- Подключение улучшений для демо-проектов -->
+<script src="/demo/demo-enhancements.js"></script>
+
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
 
