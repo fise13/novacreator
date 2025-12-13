@@ -410,9 +410,9 @@ require_once __DIR__ . '/theme_switcher.php';
     <div id="burgerOverlay" class="fixed inset-0 opacity-0 transition-opacity duration-300 z-[9998]" style="display: none; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);"></div>
     
     <!-- Боковое меню справа - минималистичный стиль holymedia.kz с перетеканием из header -->
-    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 z-[9999]" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;">
+    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 z-[9999] flex flex-col" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;">
         <!-- Перетекание из header - верхняя часть - закреплена -->
-        <div class="h-16 sm:h-18 md:h-20 border-b sticky top-0 z-10" style="background-color: var(--color-bg); border-color: var(--color-border); padding-top: env(safe-area-inset-top);">
+        <div class="h-16 sm:h-18 md:h-20 border-b flex-shrink-0" style="background-color: var(--color-bg); border-color: var(--color-border); padding-top: env(safe-area-inset-top);">
             <div class="flex items-center justify-between h-full px-6">
                 <span class="text-lg font-semibold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
                 <button id="burgerCloseBtn" class="w-10 h-10 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px] relative z-20" style="color: #ef4444; background-color: transparent;" aria-label="Закрыть меню">
@@ -424,7 +424,7 @@ require_once __DIR__ . '/theme_switcher.php';
         </div>
         
         <!-- Контент меню - с прокруткой -->
-        <div class="flex flex-col h-[calc(100vh-env(safe-area-inset-top)-4rem)] overflow-y-auto px-6 py-6" style="padding-bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem));">
+        <div class="flex-1 overflow-y-auto px-6 py-6">
             
             <?php 
             $currentPage = basename($_SERVER['PHP_SELF'], '.php');
@@ -487,8 +487,8 @@ require_once __DIR__ . '/theme_switcher.php';
                 
         </div>
         
-        <!-- Переключатель темы и языка внизу - закреплен -->
-        <div class="sticky bottom-0 pt-4 pb-4 px-6 border-t flex items-center justify-between flex-shrink-0 bg-inherit" role="group" aria-label="Настройки" style="border-color: var(--color-border); background-color: var(--color-bg); padding-bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));">
+        <!-- Переключатель темы и языка внизу - закреплен вне прокрутки -->
+        <div class="pt-4 pb-4 px-6 border-t flex items-center justify-between flex-shrink-0" role="group" aria-label="Настройки" style="border-color: var(--color-border); background-color: var(--color-bg); padding-bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));">
             <!-- Переключатель темы -->
             <button id="burgerThemeToggle" class="relative w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-60 active:opacity-40 touch-manipulation min-w-[44px] min-h-[44px]" style="color: var(--color-text);" aria-label="Переключить тему оформления">
                 <svg id="burgerThemeIconLight" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
