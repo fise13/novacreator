@@ -432,9 +432,9 @@ include 'includes/header.php';
                                     type="text" 
                                     name="name" 
                                     id="contact-name"
-                                    placeholder="<?php echo $currentLang === 'en' ? 'Your name' : 'Ваше имя'; ?>"
-                                    class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 text-base md:text-lg" 
-                                    style="background-color: white; border-color: var(--color-border); color: var(--color-text);"
+                                    placeholder="<?php echo $currentLang === 'en' ? 'Ali' : 'Али'; ?>"
+                                    class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-black text-base md:text-lg" 
+                                    style="background-color: white; border-color: #000000; border-width: 1px; color: #000000;"
                                     required
                                     autocomplete="name"
                                 >
@@ -447,33 +447,33 @@ include 'includes/header.php';
                                     <select 
                                         id="phone-country-code"
                                         name="country_code"
-                                        class="px-3 py-3 pr-10 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 text-base md:text-lg cursor-pointer appearance-none" 
-                                        style="background-color: white; border-color: var(--color-border); color: var(--color-text); min-width: 140px; background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22%3E%3Cpath fill=%22%23444%22 d=%22M6 9L1 4h10z%22/%3E%3C/svg%3E'); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 12px 12px;"
+                                        class="px-3 py-3 pr-10 border rounded-lg focus:outline-none focus:ring-1 focus:ring-black text-base md:text-lg cursor-pointer appearance-none" 
+                                        style="background-color: white; border-color: #000000; border-width: 1px; color: #000000; min-width: 100px; background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22%3E%3Cpath fill=%22%23000%22 d=%22M6 9L1 4h10z%22/%3E%3C/svg%3E'); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 12px 12px;"
                                     >
-                                        <option value="+7" data-flag="🇰🇿">🇰🇿 +7 KZ</option>
-                                        <option value="+7" data-flag="🇷🇺">🇷🇺 +7 RU</option>
-                                        <option value="+1" data-flag="🇺🇸">🇺🇸 +1 US</option>
-                                        <option value="+380" data-flag="🇺🇦">🇺🇦 +380 UA</option>
-                                        <option value="+375" data-flag="🇧🇾">🇧🇾 +375 BY</option>
-                                        <option value="+998" data-flag="🇺🇿">🇺🇿 +998 UZ</option>
-                                        <option value="+996" data-flag="🇰🇬">🇰🇬 +996 KG</option>
-                                        <option value="+44" data-flag="🇬🇧">🇬🇧 +44 GB</option>
-                                        <option value="+49" data-flag="🇩🇪">🇩🇪 +49 DE</option>
-                                        <option value="+33" data-flag="🇫🇷">🇫🇷 +33 FR</option>
-                                        <option value="+86" data-flag="🇨🇳">🇨🇳 +86 CN</option>
-                                        <option value="+90" data-flag="🇹🇷">🇹🇷 +90 TR</option>
-                                        <option value="+971" data-flag="🇦🇪">🇦🇪 +971 AE</option>
-                                        <option value="+81" data-flag="🇯🇵">🇯🇵 +81 JP</option>
-                                        <option value="+82" data-flag="🇰🇷">🇰🇷 +82 KR</option>
-                                        <option value="+91" data-flag="🇮🇳">🇮🇳 +91 IN</option>
+                                        <option value="+7" data-flag="🇰🇿">🇰🇿 +7</option>
+                                        <option value="+7" data-flag="🇷🇺">🇷🇺 +7</option>
+                                        <option value="+1" data-flag="🇺🇸">🇺🇸 +1</option>
+                                        <option value="+380" data-flag="🇺🇦">🇺🇦 +380</option>
+                                        <option value="+375" data-flag="🇧🇾">🇧🇾 +375</option>
+                                        <option value="+998" data-flag="🇺🇿">🇺🇿 +998</option>
+                                        <option value="+996" data-flag="🇰🇬">🇰🇬 +996</option>
+                                        <option value="+44" data-flag="🇬🇧">🇬🇧 +44</option>
+                                        <option value="+49" data-flag="🇩🇪">🇩🇪 +49</option>
+                                        <option value="+33" data-flag="🇫🇷">🇫🇷 +33</option>
+                                        <option value="+86" data-flag="🇨🇳">🇨🇳 +86</option>
+                                        <option value="+90" data-flag="🇹🇷">🇹🇷 +90</option>
+                                        <option value="+971" data-flag="🇦🇪">🇦🇪 +971</option>
+                                        <option value="+81" data-flag="🇯🇵">🇯🇵 +81</option>
+                                        <option value="+82" data-flag="🇰🇷">🇰🇷 +82</option>
+                                        <option value="+91" data-flag="🇮🇳">🇮🇳 +91</option>
                                     </select>
                                     <input 
                                         type="tel" 
                                         name="phone" 
                                         id="contact-phone"
-                                        placeholder="<?php echo $currentLang === 'en' ? 'Phone number' : 'Номер телефона'; ?>"
-                                    class="flex-1 px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 text-base md:text-lg" 
-                                    style="background-color: white; border-color: var(--color-border); color: var(--color-text);"
+                                        placeholder="(000) 000-00-00"
+                                    class="flex-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-black text-base md:text-lg" 
+                                    style="background-color: white; border-color: #000000; border-width: 1px; color: #000000;"
                                         required
                                         autocomplete="tel"
                                         inputmode="tel"
@@ -485,9 +485,8 @@ include 'includes/header.php';
 
                             <!-- Радио-кнопки -->
                             <div class="flex flex-col gap-3 py-2">
-                                <label class="contact-method-option flex items-center gap-3 cursor-pointer p-4 rounded-lg transition-all duration-200 border-2" 
+                                <label class="contact-method-option flex items-center gap-3 cursor-pointer" 
                                        data-value="messenger" 
-                                       style="border-color: var(--color-border); background-color: var(--color-bg-lighter);"
                                        id="label-messenger">
                                     <input 
                                         type="radio" 
@@ -496,21 +495,14 @@ include 'includes/header.php';
                                         id="contact-messenger"
                                         checked
                                         class="w-5 h-5 cursor-pointer"
-                                        style="accent-color: #6366f1;"
+                                        style="accent-color: #000000;"
                                     >
-                                    <span class="text-base md:text-lg font-semibold flex items-center gap-2 flex-1" style="color: var(--color-text);">
-                                        <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.12l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-                                        </svg>
+                                    <span class="text-base md:text-lg font-medium" style="color: #000000;">
                                         <?php echo $currentLang === 'en' ? 'Write in messenger' : 'Написать в мессенджер'; ?>
                                     </span>
-                                    <span class="selected-indicator hidden text-sm font-medium px-2 py-1 rounded" style="background-color: #6366f1; color: white;">
-                                        <?php echo $currentLang === 'en' ? 'Selected' : 'Выбрано'; ?>
-                                    </span>
                                 </label>
-                                <label class="contact-method-option flex items-center gap-3 cursor-pointer p-4 rounded-lg transition-all duration-200 border-2" 
+                                <label class="contact-method-option flex items-center gap-3 cursor-pointer" 
                                        data-value="call"
-                                       style="border-color: var(--color-border); background-color: var(--color-bg-lighter);"
                                        id="label-call">
                                     <input 
                                         type="radio" 
@@ -518,16 +510,10 @@ include 'includes/header.php';
                                         value="call"
                                         id="contact-call"
                                         class="w-5 h-5 cursor-pointer"
-                                        style="accent-color: var(--color-text);"
+                                        style="accent-color: #000000;"
                                     >
-                                    <span class="text-base md:text-lg font-semibold flex items-center gap-2 flex-1" style="color: var(--color-text);">
-                                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                        </svg>
+                                    <span class="text-base md:text-lg font-medium" style="color: #000000;">
                                         <?php echo $currentLang === 'en' ? 'Call' : 'Позвонить'; ?>
-                                    </span>
-                                    <span class="selected-indicator hidden text-sm font-medium px-2 py-1 rounded" style="background-color: var(--color-text); color: white;">
-                                        <?php echo $currentLang === 'en' ? 'Selected' : 'Выбрано'; ?>
                                     </span>
                                 </label>
                             </div>
@@ -535,8 +521,8 @@ include 'includes/header.php';
                             <!-- Кнопка отправки -->
                             <button 
                                 type="submit" 
-                                class="w-full px-6 py-4 text-base md:text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl min-h-[48px] md:min-h-[56px]"
-                                style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; border: none;"
+                                class="w-full px-6 py-4 text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:opacity-90 min-h-[48px] md:min-h-[56px]"
+                                style="background-color: #FF6B6B; color: white; border: none;"
                             >
                                 <?php echo $currentLang === 'en' ? 'Send' : 'Отправить'; ?>
                             </button>
@@ -558,44 +544,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const countryCodeSelect = document.getElementById('phone-country-code');
     const phoneFullValue = document.getElementById('phone-full-value');
     
-    // Обновление визуального отображения выбранного способа связи
-    function updateContactMethodDisplay() {
-        const selectedMethod = form.querySelector('input[name="contact_method"]:checked')?.value;
-        const messengerLabel = document.getElementById('label-messenger');
-        const callLabel = document.getElementById('label-call');
-        
-        // Сбрасываем все стили
-        [messengerLabel, callLabel].forEach(label => {
-            if (label) {
-                label.style.borderColor = 'var(--color-border)';
-                label.style.backgroundColor = 'var(--color-bg-lighter)';
-                const indicator = label.querySelector('.selected-indicator');
-                if (indicator) indicator.classList.add('hidden');
-            }
-        });
-        
-        // Применяем стили к выбранному
-        if (selectedMethod === 'messenger' && messengerLabel) {
-            messengerLabel.style.borderColor = '#6366f1';
-            messengerLabel.style.backgroundColor = 'rgba(99, 102, 241, 0.1)';
-            const indicator = messengerLabel.querySelector('.selected-indicator');
-            if (indicator) indicator.classList.remove('hidden');
-        } else if (selectedMethod === 'call' && callLabel) {
-            callLabel.style.borderColor = 'var(--color-text)';
-            callLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
-            const indicator = callLabel.querySelector('.selected-indicator');
-            if (indicator) indicator.classList.remove('hidden');
-        }
-    }
-    
-    // Обработчики изменения способа связи
+    // Обработчики изменения способа связи (упрощенная версия без визуальных изменений)
     const methodInputs = form.querySelectorAll('input[name="contact_method"]');
     methodInputs.forEach(input => {
-        input.addEventListener('change', updateContactMethodDisplay);
+        input.addEventListener('change', function() {
+            // Просто логируем выбор, стили применяются через CSS accent-color
+        });
     });
-    
-    // Инициализация при загрузке
-    updateContactMethodDisplay();
     
     function validatePhone(phone, countryCode) {
         // Удаляем все нецифровые символы кроме плюса
@@ -830,7 +785,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     const defaultRadio = form.querySelector('input[name="contact_method"][value="messenger"]');
                     if (defaultRadio) defaultRadio.checked = true;
                     // Обновляем отображение выбранного способа
-                    updateContactMethodDisplay();
                     // Очищаем ошибки
                     if (nameError) nameError.classList.add('hidden');
                     if (phoneError) phoneError.classList.add('hidden');
