@@ -351,7 +351,7 @@ if ($currentLang === 'en') {
                 ];
                 $gradient = $gradients[$project['id']] ?? 'from-gray-600/20 via-gray-500/20 to-gray-700/20';
             ?>
-                <div class="portfolio-item reveal <?php echo $filterClass; ?>" data-category="<?php echo $category ?: 'all'; ?>">
+                <div class="portfolio-item portfolio-item-3d reveal <?php echo $filterClass; ?>" data-category="<?php echo $category ?: 'all'; ?>">
                     <!-- Карточка проекта с визуальным превью -->
                     <div class="group relative overflow-hidden rounded-3xl border transition-all duration-500 hover:border-neon-purple/50" style="background-color: var(--color-surface); border-color: var(--color-border);">
                         <!-- Визуальное превью -->

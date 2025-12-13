@@ -153,6 +153,12 @@ $currentLang = getCurrentLanguage();
     <!-- Анимированные SVG иконки для услуг -->
     <script src="/assets/js/animated-icons.js"></script>
     
+    <!-- Skeleton Loading -->
+    <script src="/assets/js/skeleton-loading.js"></script>
+    
+    <!-- 3D эффекты для портфолио -->
+    <script src="/assets/js/portfolio-3d.js"></script>
+    
     <!-- Service Worker для Push-уведомлений -->
     <script>
     if ('serviceWorker' in navigator) {
