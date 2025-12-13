@@ -85,20 +85,20 @@ include 'includes/header.php';
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 lg:gap-24">
                 <!-- 100% онлайн проектов -->
                 <div class="text-center reveal">
-                    <div class="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-semibold mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
+                    <div class="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] font-semibold mb-4 md:mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
                         <span class="counter-number inline-block" data-target="100" data-suffix="%">0</span>
                     </div>
-                    <p class="text-xl md:text-2xl lg:text-3xl font-light" style="color: var(--color-text-secondary);">
+                    <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light" style="color: var(--color-text-secondary);">
                         <?php echo $currentLang === 'en' ? 'online projects' : 'онлайн проектов'; ?>
                     </p>
                 </div>
                 
                 <!-- 10+ лет в digital -->
                 <div class="text-center reveal">
-                    <div class="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-semibold mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
+                    <div class="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] font-semibold mb-4 md:mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
                         <span class="counter-number inline-block" data-target="10" data-suffix="+">0</span>
                     </div>
-                    <p class="text-xl md:text-2xl lg:text-3xl font-light" style="color: var(--color-text-secondary);">
+                    <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light" style="color: var(--color-text-secondary);">
                         <?php echo $currentLang === 'en' ? 'years in digital' : 'лет в digital сфере'; ?>
                     </p>
                 </div>
