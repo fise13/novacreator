@@ -131,12 +131,20 @@
             } else if (element.matches('.portfolio-item') || element.matches('.service-card-option')) {
                 cursor.classList.add('cursor-card');
             }
+        } else {
+            // Убираем все классы hover, но курсор остается видимым
+            isHovering = false;
+            cursor.classList.remove('cursor-hover', 'cursor-link', 'cursor-button', 'cursor-input', 'cursor-card');
         }
     }
     
     function handleMouseLeave(e) {
-        isHovering = false;
-        cursor.classList.remove('cursor-hover', 'cursor-link', 'cursor-button', 'cursor-input', 'cursor-card');
+        // Убираем классы hover только если мышь покинула интерактивный элемент
+        const element = e.target;
+        if (isInteractive(element)) {
+            isHovering = false;
+            cursor.classList.remove('cursor-hover', 'cursor-link', 'cursor-button', 'cursor-input', 'cursor-card');
+        }
     }
     
     // Обработка клика
@@ -161,19 +169,35 @@
     // Скрываем стандартный курсор
     document.body.style.cursor = 'none';
     
-    // Показываем кастомный курсор
+    // Показываем кастомный курсор (всегда видимый)
     cursor.style.opacity = '1';
     
     // Запускаем анимацию
     updateCursor();
     
-    // Скрываем курсор при выходе за пределы окна
-    document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
+    // Скрываем курсор только при выходе мыши за пределы окна
+    let isMouseInWindow = true;
+    
+    document.addEventListener('mouseleave', (e) => {
+        // Проверяем, что мышь действительно покинула окно
+        if (e.clientY <= 0 || e.clientX <= 0 || 
+            e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+            isMouseInWindow = false;
+            cursor.style.opacity = '0';
+        }
     });
     
     document.addEventListener('mouseenter', () => {
+        isMouseInWindow = true;
         cursor.style.opacity = '1';
+    });
+    
+    // Дополнительная проверка при движении мыши
+    document.addEventListener('mousemove', () => {
+        if (!isMouseInWindow) {
+            isMouseInWindow = true;
+            cursor.style.opacity = '1';
+        }
     });
     
     // Экспорт для внешнего использования
