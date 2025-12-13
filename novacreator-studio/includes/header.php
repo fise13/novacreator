@@ -548,6 +548,24 @@ require_once __DIR__ . '/theme_switcher.php';
                 contactBtn.style.color = '#ffffff';
             }
             
+            // Обновление стиля кнопки "Начать проект" в hero секции
+            function updateHeroCtaButton() {
+                const heroCtaBtn = document.querySelector('.hero-cta-btn');
+                if (!heroCtaBtn) return;
+                
+                const isLight = document.documentElement.classList.contains('light');
+                if (isLight) {
+                    // Светлая тема
+                    heroCtaBtn.style.background = 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)';
+                    heroCtaBtn.style.boxShadow = '0 2px 8px rgba(99, 102, 241, 0.25)';
+                } else {
+                    // Темная тема - более светлый градиент
+                    heroCtaBtn.style.background = 'linear-gradient(135deg, #818cf8 0%, #a78bfa 100%)';
+                    heroCtaBtn.style.boxShadow = '0 2px 10px rgba(129, 140, 248, 0.4)';
+                }
+                heroCtaBtn.style.color = '#ffffff';
+            }
+            
             if (themeToggle && window.setTheme) {
                 themeToggle.addEventListener('click', function() {
                     const currentTheme = window.getTheme();
@@ -555,16 +573,19 @@ require_once __DIR__ . '/theme_switcher.php';
                     window.setTheme(newTheme);
                     updateThemeIcon();
                     updateContactButton();
+                    updateHeroCtaButton();
                 });
                 
-                // Обновляем иконку и кнопку при загрузке
+                // Обновляем иконку и кнопки при загрузке
                 updateThemeIcon();
                 updateContactButton();
+                updateHeroCtaButton();
                 
                 // Слушаем изменения темы
                 const observer = new MutationObserver(function() {
                     updateThemeIcon();
                     updateContactButton();
+                    updateHeroCtaButton();
                 });
                 observer.observe(document.documentElement, {
                     attributes: true,
@@ -573,6 +594,7 @@ require_once __DIR__ . '/theme_switcher.php';
             } else {
                 // Если setTheme не доступен, все равно обновляем при загрузке
                 updateContactButton();
+                updateHeroCtaButton();
             }
         })();
     </script>

@@ -55,7 +55,7 @@ include 'includes/header.php';
             
             <!-- CTA кнопки - увеличенный размер текста -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 animate-on-scroll px-4 sm:px-0" style="animation-delay: 0.2s;">
-                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-opacity duration-200 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation btn-apple" style="background-color: var(--color-text); color: var(--color-bg);">
+                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="hero-cta-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);">
                     <?php echo htmlspecialchars(t('common.getStarted')); ?>
                 </a>
                 <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-opacity duration-200 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation btn-apple" style="border: 0.5px solid var(--color-border); color: var(--color-text); background-color: transparent;">
