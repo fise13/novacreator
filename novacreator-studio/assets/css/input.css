@@ -2656,3 +2656,135 @@
 .portfolio-item {
   animation: portfolioFadeIn 0.3s ease forwards;
 }
+
+/* ============================================
+   МИКРО-АНИМАЦИИ ПРИ HOVER
+   Плавные микро-анимации для интерактивных элементов
+   ============================================ */
+
+/* Микро-анимации для кнопок */
+a[class*="btn"], button, .btn-apple {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+}
+
+a[class*="btn"]:hover, button:hover, .btn-apple:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+a[class*="btn"]:active, button:active, .btn-apple:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+/* Микро-анимации для карточек */
+.reveal, .service-card-option, [class*="card"] {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+}
+
+.reveal:hover, .service-card-option:hover, [class*="card"]:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Микро-анимации для ссылок */
+a:not([class*="btn"]):not([class*="card"]) {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+a:not([class*="btn"]):not([class*="card"]):hover {
+  transform: translateX(2px);
+}
+
+/* Микро-анимации для иконок */
+svg {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:hover svg, button:hover svg {
+  transform: translateX(4px) scale(1.1);
+}
+
+/* Микро-анимации для изображений */
+img {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* Микро-анимации для input и select */
+input, select, textarea {
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+}
+
+/* Микро-анимации для навигации */
+.nav-link {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Микро-анимации для статистики */
+.counter-number {
+  transition: all 0.3s ease;
+}
+
+.counter-number:hover {
+  transform: scale(1.1) rotate(2deg);
+}
+
+/* Микро-анимации для градиентов */
+[class*="gradient"] {
+  transition: all 0.5s ease;
+}
+
+[class*="gradient"]:hover {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Отключение анимаций для пользователей с prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -14,9 +14,14 @@ include 'includes/header.php';
 ?>
 
 <!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="parallax-hero reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+    <!-- Parallax background elements -->
+    <div class="parallax-bg absolute inset-0 opacity-10 pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-neon-blue/30 to-neon-purple/30 rounded-full blur-3xl"></div>
+    </div>
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="max-w-7xl mx-auto text-center">
+        <div class="parallax-content max-w-7xl mx-auto text-center">
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.services.title')); ?>
             </h1>

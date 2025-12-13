@@ -147,6 +147,12 @@ $currentLang = getCurrentLanguage();
     <!-- Premium Staggered Reveal Animations -->
     <script src="/assets/js/reveal.js"></script>
     
+    <!-- Parallax эффект для hero-секций -->
+    <script src="/assets/js/parallax.js"></script>
+    
+    <!-- Анимированные SVG иконки для услуг -->
+    <script src="/assets/js/animated-icons.js"></script>
+    
     <!-- Service Worker для Push-уведомлений -->
     <script>
     if ('serviceWorker' in navigator) {
