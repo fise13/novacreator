@@ -89,8 +89,8 @@ $currentLang = getCurrentLanguage();
         </div>
     </footer>
     
-    <!-- Внутренняя перелинковка -->
-    <?php include __DIR__ . '/internal_linking.php'; ?>
+    <!-- Внутренняя перелинковка - отключена для минималистичного дизайна -->
+    <?php // include __DIR__ . '/internal_linking.php'; ?>
     
     <!-- Плавающий CTA виджет -->
     <?php 
