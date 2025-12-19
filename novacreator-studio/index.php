@@ -569,11 +569,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Удаляем все нецифровые символы
         let cleaned = value.replace(/[^\d]/g, '');
         
-        // Убираем код страны если он уже есть, но только если после него есть еще цифры
-        // Это предотвращает удаление первой цифры "7" при вводе номера для +7
         const codeDigits = countryCode.replace('+', '');
-        if (cleaned.startsWith(codeDigits) && cleaned.length > codeDigits.length) {
-            cleaned = cleaned.substring(codeDigits.length);
+        
+        // Для +7: специальная обработка
+        if (countryCode === '+7') {
+            // Если начинается с 8, заменяем на 7 (российский формат)
+            if (cleaned.startsWith('8')) {
+                cleaned = '7' + cleaned.substring(1);
+            }
+            // Для +7 НЕ удаляем первую "7", так как это часть номера
+            // Российские номера имеют формат: 7XXXXXXXXXX (11 цифр)
+            // Мы оставляем все цифры как есть
+        } else {
+            // Для других стран: убираем код страны только если:
+            // 1. Номер начинается с кода страны
+            // 2. После кода есть еще цифры (минимум 3, чтобы не удалить начало номера)
+            if (cleaned.startsWith(codeDigits) && cleaned.length > codeDigits.length + 2) {
+                cleaned = cleaned.substring(codeDigits.length);
+            }
         }
         
         // Форматирование зависит от кода страны
@@ -657,9 +670,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Форматирование и валидация телефона
     if (phoneInput && countryCodeSelect) {
+        // Обработка фокуса для автоматической обработки начала ввода
+        phoneInput.addEventListener('focus', function() {
+            // При фокусе ничего не делаем, просто готовимся к вводу
+        });
+        
         phoneInput.addEventListener('input', function(e) {
             const countryCode = countryCodeSelect.value;
-            const currentValue = e.target.value.replace(/[\s\-\(\)]/g, '');
+            let currentValue = e.target.value.replace(/[\s\-\(\)]/g, '');
+            
+            // Для +7: если пользователь начинает вводить с 8, заменяем на 7
+            if (countryCode === '+7' && currentValue.startsWith('8') && currentValue.length === 1) {
+                currentValue = '7';
+            }
+            
             e.target.value = formatPhoneByCountry(currentValue, countryCode);
             updatePhoneValue();
             
@@ -756,11 +780,26 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('type', form.querySelector('input[name="type"]').value);
             formData.append('form_name', form.querySelector('input[name="form_name"]').value);
             formData.append('name', nameInput.value.trim());
-            formData.append('phone', phoneFull || (countryCode + phone.replace(/[\s\-\(\)]/g, '')));
+            
+            // Обрабатываем телефон: если начинается с 8, заменяем на +7
+            let finalPhone = phoneFull || (countryCode + phone.replace(/[\s\-\(\)]/g, ''));
+            if (countryCode === '+7' && finalPhone.startsWith('+78')) {
+                // Если номер начинается с +78, заменяем на +77
+                finalPhone = '+7' + finalPhone.substring(3);
+            } else if (countryCode === '+7' && finalPhone.startsWith('8')) {
+                // Если номер начинается с 8, заменяем на +7
+                finalPhone = '+7' + finalPhone.substring(1);
+            }
+            formData.append('phone', finalPhone);
             formData.append('website', form.querySelector('input[name="website"]').value);
             
-            // Добавляем метод связи в сообщение - показываем явно выбранный способ
+            // Добавляем метод связи отдельным полем для Telegram
             const contactMethod = form.querySelector('input[name="contact_method"]:checked')?.value;
+            if (contactMethod) {
+                formData.append('contact_method', contactMethod);
+            }
+            
+            // Добавляем метод связи в сообщение - показываем явно выбранный способ
             let methodText = '';
             if (contactMethod === 'messenger') {
                 methodText = '<?php echo $currentLang === 'en' ? 'Preferred contact method: Write in messenger' : 'Предпочтительный способ связи: Написать в мессенджер'; ?>';

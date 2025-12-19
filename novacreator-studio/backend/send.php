@@ -138,6 +138,7 @@ $service = isset($_POST['service']) ? trim($_POST['service']) : '';
 $type = isset($_POST['type']) ? trim($_POST['type']) : 'contact'; // 'contact' или 'vacancy'
 $vacancy = isset($_POST['vacancy']) ? trim($_POST['vacancy']) : '';
 $formName = isset($_POST['form_name']) ? trim($_POST['form_name']) : '';
+$contactMethod = isset($_POST['contact_method']) ? trim($_POST['contact_method']) : ''; // 'messenger' или 'call'
 
 // Валидация данных
 $errors = [];
@@ -202,6 +203,15 @@ if (!empty($email)) {
     $telegramMessage .= "📧 <b>Email:</b> " . escapeHtml($email) . "\n";
 }
 $telegramMessage .= "📱 <b>Телефон:</b> " . escapeHtml($phone) . "\n";
+
+// Добавляем способ связи, если указан
+if (!empty($contactMethod)) {
+    if ($contactMethod === 'messenger') {
+        $telegramMessage .= "💬 <b>Способ связи:</b> Написать в мессенджер\n";
+    } elseif ($contactMethod === 'call') {
+        $telegramMessage .= "📞 <b>Способ связи:</b> Позвонить\n";
+    }
+}
 
 if ($type === 'vacancy' && !empty($vacancy)) {
     $telegramMessage .= "💼 <b>Вакансия:</b> " . escapeHtml($vacancy) . "\n";
@@ -373,6 +383,15 @@ if ($httpCode !== 200 || !$responseData || !isset($responseData['ok']) || !$resp
             $plainMessage .= "👤 Имя: " . $name . "\n";
             $plainMessage .= "📧 Email: " . $email . "\n";
             $plainMessage .= "📱 Телефон: " . $phone . "\n";
+            
+            // Добавляем способ связи, если указан
+            if (!empty($contactMethod)) {
+                if ($contactMethod === 'messenger') {
+                    $plainMessage .= "💬 Способ связи: Написать в мессенджер\n";
+                } elseif ($contactMethod === 'call') {
+                    $plainMessage .= "📞 Способ связи: Позвонить\n";
+                }
+            }
             
             if ($type === 'vacancy' && !empty($vacancy)) {
                 $plainMessage .= "💼 Вакансия: " . $vacancy . "\n";
