@@ -199,12 +199,15 @@ require_once __DIR__ . '/theme_switcher.php';
     <meta name="color-scheme" content="dark light">
     
     <!-- Favicon - оптимизировано для Google Search и Яндекс (RealFaviconGenerator) -->
-    <!-- Основной favicon.ico для Google Search (в корне, доступен по /favicon.ico) -->
+    <!-- Основной favicon.ico для Яндекса и Google (в корне, доступен по /favicon.ico) -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+    <!-- Дополнительные форматы для лучшей совместимости -->
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
     <!-- SVG favicon для современных браузеров -->
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
     <!-- Fallback для старых браузеров -->
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <!-- Apple Touch Icon для iOS -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <!-- Web App Manifest -->

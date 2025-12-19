@@ -227,6 +227,7 @@ if (!empty($message)) {
 $telegramMessage .= "━━━━━━━━━━━━━━━━━━━━\n";
 $telegramMessage .= "🌐 <b>IP адрес:</b> <code>" . escapeHtml($ip) . "</code>\n";
 $telegramMessage .= "🕐 <b>Время:</b> " . escapeHtml($timestamp) . "\n";
+$telegramMessage .= "👤 <b>Профиль:</b> <a href=\"https://t.me/victhefise\">@victhefise</a>\n";
 
 // Получаем Chat ID (если не указан в конфиге, пытаемся получить автоматически)
 // Проверяем, определена ли константа
@@ -403,6 +404,7 @@ if ($httpCode !== 200 || !$responseData || !isset($responseData['ok']) || !$resp
             $plainMessage .= "━━━━━━━━━━━━━━━━━━━━\n";
             $plainMessage .= "🌐 IP адрес: " . $ip . "\n";
             $plainMessage .= "🕐 Время: " . $timestamp . "\n";
+            $plainMessage .= "👤 Профиль: https://t.me/victhefise (@victhefise)\n";
             
             $postDataPlain = [
                 'chat_id' => $chatId,
