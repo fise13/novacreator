@@ -156,8 +156,8 @@ $currentLang = getCurrentLanguage();
     <!-- Skeleton Loading -->
     <script src="/assets/js/skeleton-loading.js"></script>
     
-    <!-- 3D эффекты для портфолио -->
-    <script src="/assets/js/portfolio-3d.js"></script>
+    <!-- 3D эффекты для портфолио - отключено -->
+    <?php // <script src="/assets/js/portfolio-3d.js"></script> ?>
     
     <!-- Улучшенные touch-жесты и swipe-функции -->
     <script src="/assets/js/touch-gestures.js"></script>

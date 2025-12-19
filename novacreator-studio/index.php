@@ -57,8 +57,8 @@ include 'includes/header.php';
                 <a href="#contact-form" onclick="const el = document.getElementById('contact-form'); if(el) { el.scrollIntoView({behavior: 'smooth'}); return false; }" class="hero-cta-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105 hover:shadow-xl" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);">
                     <?php echo htmlspecialchars(t('common.getStarted')); ?>
                 </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="hero-portfolio-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105" style="border: 1px solid rgba(99, 102, 241, 0.3); color: var(--color-text); background-color: transparent; text-decoration: none;">
-                    <?php echo htmlspecialchars(t('common.viewPortfolio')); ?>
+                <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="hero-portfolio-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105" style="border: 1px solid rgba(99, 102, 241, 0.3); color: var(--color-text); background-color: transparent; text-decoration: none;">
+                    <?php echo $currentLang === 'en' ? 'Our Services' : 'Наши услуги'; ?>
                 </a>
             </div>
         </div>
@@ -188,103 +188,81 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Секция кейсов/портфолио - интерактивные визуальные блоки -->
-<section id="portfolio" class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg);">
+<!-- Секция процесса работы - информативная -->
+<section id="process" class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <!-- Заголовок секции -->
             <div class="mb-12 md:mb-16 lg:mb-20 reveal">
                 <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
-                    <?php echo $currentLang === 'en' ? 'Our Work' : 'Наши работы'; ?>
+                    <?php echo $currentLang === 'en' ? 'How We Work' : 'Как мы работаем'; ?>
                 </h2>
                 <p class="text-lg sm:text-xl md:text-2xl max-w-3xl" style="color: var(--color-text-secondary);">
-                    <?php echo $currentLang === 'en' ? 'Real projects with real results' : 'Реальные проекты с измеримыми результатами'; ?>
+                    <?php echo $currentLang === 'en' ? 'A clear process from idea to result' : 'Четкий процесс от идеи до результата'; ?>
                 </p>
             </div>
             
-            <!-- Кейсы - интерактивные блоки -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
-                <?php
-                // Берем первые 4 проекта из портфолио
-                $langFile = __DIR__ . '/lang/' . $currentLang . '.json';
-                $projectsData = [];
-                if (file_exists($langFile)) {
-                    $data = json_decode(file_get_contents($langFile), true);
-                    $projectsData = $data['portfolio']['projects'] ?? [];
-                }
-                
-                // Если нет данных в JSON, используем статичные данные
-                if (empty($projectsData)) {
-                    $projectsData = [
-                        [
-                            'id' => 'northern-beans',
-                            'title' => $currentLang === 'en' ? 'Coffee shop "Northern Beans"' : 'Кофейня "Northern Beans"',
-                            'tag' => $currentLang === 'en' ? 'Website' : 'Сайт',
-                            'summary' => $currentLang === 'en' ? 'One-page website for a local coffee shop' : 'Одностраничный сайт для локальной кофейни'
-                        ],
-                        [
-                            'id' => 'bodycraft',
-                            'title' => $currentLang === 'en' ? 'Personal trainer "BodyCraft"' : 'Персональный тренер "BodyCraft"',
-                            'tag' => $currentLang === 'en' ? 'Landing' : 'Лендинг',
-                            'summary' => $currentLang === 'en' ? 'Landing page for a personal trainer' : 'Лендинг для персонального тренера'
-                        ],
-                        [
-                            'id' => 'urbanframe',
-                            'title' => $currentLang === 'en' ? 'Construction company "UrbanFrame"' : 'Строительная компания "UrbanFrame"',
-                            'tag' => $currentLang === 'en' ? 'Landing' : 'Лендинг',
-                            'summary' => $currentLang === 'en' ? 'Landing page for a construction company' : 'Лендинг для строительной компании'
-                        ],
-                        [
-                            'id' => 'technest',
-                            'title' => $currentLang === 'en' ? 'Online store "TechNest"' : 'Интернет-магазин "TechNest"',
-                            'tag' => $currentLang === 'en' ? 'E-commerce' : 'E-commerce',
-                            'summary' => $currentLang === 'en' ? 'Online electronics store' : 'Интернет-магазин электроники'
-                        ]
-                    ];
-                }
-                
-                $displayProjects = array_slice($projectsData, 0, 4);
-                foreach ($displayProjects as $index => $project):
-                ?>
-                <div class="group relative reveal cursor-pointer touch-manipulation overflow-hidden rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio#' . ($project['id'] ?? 'project-' . $index)); ?>" class="block p-8 md:p-10">
-                        <!-- Тег проекта -->
-                        <div class="mb-4">
-                            <span class="inline-block px-4 py-2 text-sm font-medium rounded-full" style="background-color: var(--color-bg); color: var(--color-text-secondary); border: 1px solid var(--color-border);">
-                                <?php echo htmlspecialchars($project['tag'] ?? 'Project'); ?>
-                            </span>
-                        </div>
-                        
-                        <!-- Заголовок -->
-                        <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight transition-colors duration-200 group-hover:opacity-80" style="color: var(--color-text);">
-                            <?php echo htmlspecialchars($project['title'] ?? 'Project Title'); ?>
-                        </h3>
-                        
-                        <!-- Описание -->
-                        <p class="text-base sm:text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
-                            <?php echo htmlspecialchars($project['summary'] ?? 'Project description'); ?>
-                        </p>
-                        
-                        <!-- Ссылка -->
-                        <div class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-all duration-200 group-hover:translate-x-1" style="color: var(--color-text);">
-                            <span><?php echo $currentLang === 'en' ? 'View case' : 'Смотреть кейс'; ?></span>
-                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </div>
-                    </a>
+            <!-- Этапы работы -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
+                <!-- Этап 1 -->
+                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+                        <span class="text-2xl font-bold" style="color: var(--color-text);">1</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Analysis' : 'Анализ'; ?>
+                    </h3>
+                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' 
+                            ? 'We study your business, competitors, and target audience to create an effective strategy.' 
+                            : 'Изучаем ваш бизнес, конкурентов и целевую аудиторию для создания эффективной стратегии.'; ?>
+                    </p>
                 </div>
-                <?php endforeach; ?>
-            </div>
-            
-            <!-- Кнопка "Смотреть все работы" -->
-            <div class="mt-12 md:mt-16 text-center reveal">
-                <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="inline-flex items-center gap-2 px-8 py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl min-h-[44px] touch-manipulation" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none;">
-                    <span><?php echo $currentLang === 'en' ? 'View all works' : 'Смотреть все работы'; ?></span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                </a>
+                
+                <!-- Этап 2 -->
+                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+                        <span class="text-2xl font-bold" style="color: var(--color-text);">2</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Planning' : 'Планирование'; ?>
+                    </h3>
+                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' 
+                            ? 'We develop a detailed plan with milestones, deadlines, and expected results.' 
+                            : 'Разрабатываем детальный план с этапами, сроками и ожидаемыми результатами.'; ?>
+                    </p>
+                </div>
+                
+                <!-- Этап 3 -->
+                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+                        <span class="text-2xl font-bold" style="color: var(--color-text);">3</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Implementation' : 'Реализация'; ?>
+                    </h3>
+                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' 
+                            ? 'We implement the solution step by step, keeping you informed at every stage.' 
+                            : 'Внедряем решение поэтапно, информируя вас на каждом этапе работы.'; ?>
+                    </p>
+                        </div>
+                        
+                <!-- Этап 4 -->
+                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+                        <span class="text-2xl font-bold" style="color: var(--color-text);">4</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Support' : 'Поддержка'; ?>
+                        </h3>
+                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' 
+                            ? 'We monitor results, optimize, and provide ongoing support for your project.' 
+                            : 'Отслеживаем результаты, оптимизируем и обеспечиваем постоянную поддержку проекта.'; ?>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -585,7 +563,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 1. Номер начинается с кода страны
             // 2. После кода есть еще цифры (минимум 3, чтобы не удалить начало номера)
             if (cleaned.startsWith(codeDigits) && cleaned.length > codeDigits.length + 2) {
-                cleaned = cleaned.substring(codeDigits.length);
+            cleaned = cleaned.substring(codeDigits.length);
             }
         }
         
