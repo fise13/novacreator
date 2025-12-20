@@ -56,10 +56,14 @@ Allow: /manifest.json
 Allow: /favicon/site.webmanifest
 
 # ===================================
-# КАРТЫ САЙТА
+# КАРТЫ САЙТА (оптимизировано для Google)
 # ===================================
 Sitemap: https://novacreatorstudio.com/sitemap.php
 Sitemap: https://novacreatorstudio.com/sitemap.xml
+
+# Дополнительные карты сайта для улучшения индексации
+Sitemap: https://novacreatorstudio.com/sitemap.php?lang=ru
+Sitemap: https://novacreatorstudio.com/sitemap.php?lang=en
 
 # ===================================
 # GOOGLE BOT

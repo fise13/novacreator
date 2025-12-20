@@ -18,11 +18,18 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="max-w-7xl mx-auto text-center">
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
-                <?php echo htmlspecialchars(t('pages.seo.title')); ?>
+                <?php echo $currentLang === 'en' 
+                    ? 'SEO Optimization Services'
+                    : 'SEO оптимизация купить'; ?>
             </h1>
             <!-- SEO-оптимизированный подзаголовок с ключевыми словами -->
             <div class="reveal mt-4">
-                <p class="text-lg md:text-xl text-center max-w-4xl mx-auto" style="color: var(--color-text-secondary);">
+                <p class="text-lg md:text-xl text-center max-w-4xl mx-auto font-semibold" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' 
+                        ? 'Buy professional SEO optimization services to rank your website in top-10 Google and Yandex. Order SEO promotion online with guaranteed results.' 
+                        : 'Купить SEO оптимизацию сайта по выгодной цене. Заказать SEO продвижение в топ-10 Google и Яндекс можно онлайн. Профессиональные услуги с гарантией результата.'; ?>
+                </p>
+                <p class="text-base md:text-lg text-center max-w-4xl mx-auto mt-4" style="color: var(--color-text-secondary);">
                     <?php echo $currentLang === 'en' 
                         ? 'Professional SEO services to rank your website in top-10 Google and Yandex search results. Technical SEO, content optimization, link building. Results in 3-6 months.' 
                         : 'Профессиональное SEO-продвижение сайтов в топ-10 Google и Яндекс с использованием новаторских методов. Технический SEO, оптимизация контента, построение ссылочной массы. Оптимизация сайта при разработке для максимальной эффективности. Результаты через 3-6 месяцев.'; ?>
@@ -556,6 +563,158 @@ include 'includes/header.php';
                             <?php echo htmlspecialchars(t('pages.services.guarantees.support.badge')); ?>
                         </span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Секция "Купить SEO оптимизацию" - оптимизация для коммерческого запроса -->
+<section class="py-20 md:py-32 section-compact" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 md:mb-20 reveal">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' ? 'How to Buy SEO Optimization' : 'Как купить SEO оптимизацию'; ?>
+                </h2>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' 
+                        ? 'Order professional SEO optimization for your website in just a few steps' 
+                        : 'Заказать профессиональную SEO оптимизацию для вашего сайта можно в несколько простых шагов'; ?>
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-12">
+                <!-- Шаг 1 -->
+                <div class="reveal border rounded-2xl p-8 hover:shadow-xl transition-all duration-300" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl font-bold text-white">1</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Leave a Request' : 'Оставьте заявку'; ?>
+                    </h3>
+                    <p class="text-center leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' 
+                            ? 'Fill out the contact form or call us. We will contact you within 24 hours to discuss your project.' 
+                            : 'Заполните форму обратной связи или позвоните нам. Мы свяжемся с вами в течение 24 часов для обсуждения проекта.'; ?>
+                    </p>
+                </div>
+                
+                <!-- Шаг 2 -->
+                <div class="reveal border rounded-2xl p-8 hover:shadow-xl transition-all duration-300" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl font-bold text-white">2</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Free Consultation' : 'Бесплатная консультация'; ?>
+                    </h3>
+                    <p class="text-center leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' 
+                            ? 'We analyze your site, competitors and target audience. We calculate the cost and draw up a plan.' 
+                            : 'Мы анализируем ваш сайт, конкурентов и целевую аудиторию. Рассчитываем стоимость и составляем план работ.'; ?>
+                    </p>
+                </div>
+                
+                <!-- Шаг 3 -->
+                <div class="reveal border rounded-2xl p-8 hover:shadow-xl transition-all duration-300" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl font-bold text-white">3</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Start Work' : 'Начинаем работу'; ?>
+                    </h3>
+                    <p class="text-center leading-relaxed" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' 
+                            ? 'After signing the contract, we immediately begin SEO optimization. You receive monthly reports on the results.' 
+                            : 'После подписания договора сразу начинаем SEO оптимизацию. Вы получаете ежемесячные отчеты о результатах.'; ?>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Цены и преимущества покупки SEO -->
+            <div class="mt-16 reveal border rounded-3xl p-8 md:p-12" style="background: linear-gradient(to bottom right, rgba(37, 99, 235, 0.05), rgba(147, 51, 234, 0.05)); border-color: var(--color-border);">
+                <h3 class="text-3xl md:text-4xl font-bold mb-6 text-center" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' ? 'Why Buy SEO Optimization from Us?' : 'Почему стоит купить SEO оптимизацию у нас?'; ?>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2" style="color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Transparent Pricing' : 'Прозрачное ценообразование'; ?>
+                            </h4>
+                            <p class="text-sm" style="color: var(--color-text-secondary);">
+                                <?php echo $currentLang === 'en' 
+                                    ? 'No hidden fees. The cost is calculated individually based on your project.' 
+                                    : 'Без скрытых платежей. Стоимость рассчитывается индивидуально исходя из вашего проекта.'; ?>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2" style="color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Lifetime Guarantee' : 'Пожизненная гарантия'; ?>
+                            </h4>
+                            <p class="text-sm" style="color: var(--color-text-secondary);">
+                                <?php echo $currentLang === 'en' 
+                                    ? 'We guarantee the quality of our work. If problems arise, we fix them for free.' 
+                                    : 'Гарантируем качество нашей работы. При возникновении проблем исправим бесплатно.'; ?>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2" style="color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Results in 3-6 Months' : 'Результаты через 3-6 месяцев'; ?>
+                            </h4>
+                            <p class="text-sm" style="color: var(--color-text-secondary);">
+                                <?php echo $currentLang === 'en' 
+                                    ? 'First results visible after 3-6 months. Top-10 ranking for target queries.' 
+                                    : 'Первые результаты видны через 3-6 месяцев. Попадание в топ-10 по целевым запросам.'; ?>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2" style="color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Monthly Reports' : 'Ежемесячные отчеты'; ?>
+                            </h4>
+                            <p class="text-sm" style="color: var(--color-text-secondary);">
+                                <?php echo $currentLang === 'en' 
+                                    ? 'Regular reporting on positions, traffic and conversions. You always know the results.' 
+                                    : 'Регулярная отчетность по позициям, трафику и конверсиям. Вы всегда в курсе результатов.'; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA кнопки -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+                    <a href="#contact-form" onclick="const el = document.getElementById('contact-form'); if(el) { el.scrollIntoView({behavior: 'smooth'}); return false; }" class="px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; text-decoration: none;">
+                        <?php echo $currentLang === 'en' ? 'Order SEO Optimization' : 'Заказать SEO оптимизацию'; ?>
+                    </a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>" class="px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105" style="border: 2px solid rgba(99, 102, 241, 0.5); color: var(--color-text); background-color: transparent; text-decoration: none;">
+                        <?php echo $currentLang === 'en' ? 'Calculate Cost' : 'Рассчитать стоимость'; ?>
+                    </a>
                 </div>
             </div>
         </div>

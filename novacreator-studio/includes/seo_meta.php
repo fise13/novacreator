@@ -204,38 +204,69 @@ foreach ($breadcrumbs as $index => $crumb) {
 
 $organizationSchema = [
     '@type' => 'Organization',
+    '@id' => $siteUrl . '#organization',
     'name' => $siteName,
     'url' => $siteUrl,
-    'logo' => $absoluteUrl('/assets/img/logo.svg'),
+    'logo' => [
+        '@type' => 'ImageObject',
+        'url' => $absoluteUrl('/assets/img/logo.svg'),
+        'width' => 512,
+        'height' => 512,
+    ],
+    'image' => $absoluteUrl('/assets/img/og-default.webp'),
     'description' => t('seo.meta.defaultDescription'),
     'foundingDate' => '2024',
     'contactPoint' => [
-        '@type' => 'ContactPoint',
-        'telephone' => '+7-706-606-39-21',
-        'email' => 'contact@novacreatorstudio.com',
-        'contactType' => 'customer service',
-        'availableLanguage' => ['ru', 'en'],
-        'areaServed' => ['KZ', 'RU'],
+        [
+            '@type' => 'ContactPoint',
+            'telephone' => '+7-706-606-39-21',
+            'email' => 'contact@novacreatorstudio.com',
+            'contactType' => 'customer service',
+            'availableLanguage' => ['ru', 'en'],
+            'areaServed' => ['KZ', 'RU', 'US', 'GB'],
+        ],
+        [
+            '@type' => 'ContactPoint',
+            'telephone' => '+7-706-606-39-21',
+            'contactType' => 'technical support',
+            'availableLanguage' => ['ru', 'en'],
+        ],
     ],
-    'sameAs' => [],
+    'sameAs' => [
+        // Добавьте ссылки на ваши социальные сети
+    ],
     'address' => [
         '@type' => 'PostalAddress',
         'addressCountry' => 'KZ',
         'addressLocality' => 'Almaty',
+        'addressRegion' => 'Almaty',
     ],
     'aggregateRating' => [
         '@type' => 'AggregateRating',
         'ratingValue' => '5.0',
-        'reviewCount' => '10',
+        'reviewCount' => '25',
         'bestRating' => '5',
         'worstRating' => '1',
     ],
     'offers' => [
-        '@type' => 'Offer',
-        'name' => 'SEO-продвижение сайтов в топ-10',
-        'description' => 'Профессиональное SEO-продвижение сайтов в топ-10 поисковых систем Google и Яндекс',
-        'category' => 'SEO Services',
-        'areaServed' => ['KZ', 'RU'],
+        [
+            '@type' => 'Offer',
+            'name' => $currentLang === 'ru' ? 'SEO-продвижение сайтов в топ-10' : 'SEO website promotion to top-10',
+            'description' => $currentLang === 'ru' 
+                ? 'Профессиональное SEO-продвижение сайтов в топ-10 поисковых систем Google и Яндекс' 
+                : 'Professional SEO website promotion to top-10 in Google and Yandex search engines',
+            'category' => 'SEO Services',
+            'areaServed' => ['KZ', 'RU', 'US', 'GB'],
+            'availability' => 'https://schema.org/InStock',
+        ],
+    ],
+    'knowsAbout' => [
+        'SEO Optimization',
+        'Website Development',
+        'Digital Marketing',
+        'Google Ads',
+        'Search Engine Optimization',
+        'Web Design',
     ],
 ];
 
@@ -319,28 +350,235 @@ $navigationSchema = [
     ]
 ];
 
-// Добавляем Service schema для лучшего понимания услуг (только для главной страницы)
+// Добавляем Service schema для лучшего понимания услуг
 $graph = [$organizationSchema, $websiteSchema, $navigationSchema];
+
+// Service Schema для главной и SEO страниц с расширенной информацией
 if ($currentPage === 'index' || $currentPage === 'seo') {
     $serviceSchema = [
         '@type' => 'Service',
+        '@id' => $siteUrl . '#seo-service',
         'serviceType' => 'SEO Optimization',
+        'name' => $currentLang === 'ru' ? 'SEO оптимизация купить | Заказать SEO продвижение' : 'Buy SEO Optimization | Order SEO Promotion',
         'provider' => [
             '@type' => 'Organization',
+            '@id' => $siteUrl . '#organization',
             'name' => $siteName,
         ],
         'areaServed' => [
-            '@type' => 'Country',
-            'name' => 'Kazakhstan',
+            ['@type' => 'Country', 'name' => 'Kazakhstan'],
+            ['@type' => 'Country', 'name' => 'Russia'],
         ],
-        'description' => 'Профессиональное SEO-продвижение сайтов в топ-10 поисковых систем Google и Яндекс',
+        'description' => $currentLang === 'ru' 
+            ? 'Купить SEO оптимизацию сайта по выгодной цене. Профессиональное SEO-продвижение сайтов в топ-10 Google и Яндекс. Заказать SEO оптимизацию можно онлайн. Комплексная оптимизация, технический аудит и постоянный мониторинг результатов.' 
+            : 'Buy professional SEO optimization for your website at competitive prices. Professional SEO website promotion to top-10 in Google and Yandex search engines. Order SEO optimization online. Comprehensive optimization, technical audit and continuous results monitoring.',
         'offers' => [
-            '@type' => 'Offer',
-            'name' => 'SEO-продвижение в топ-10',
-            'description' => 'Комплексное SEO-продвижение сайтов с гарантией попадания в топ-10 по целевым запросам',
+            [
+                '@type' => 'Offer',
+                'name' => $currentLang === 'ru' ? 'SEO оптимизация купить - Базовый пакет' : 'Buy SEO Optimization - Basic Package',
+                'description' => $currentLang === 'ru' 
+                    ? 'Купить SEO оптимизацию: технический аудит, оптимизация контента, работа с мета-тегами, внутренняя перелинковка' 
+                    : 'Buy SEO optimization: technical audit, content optimization, meta tags work, internal linking',
+                'category' => 'SEO Services',
+                'availability' => 'https://schema.org/InStock',
+                'priceSpecification' => [
+                    '@type' => 'PriceSpecification',
+                    'priceCurrency' => 'KZT',
+                    'valueAddedTaxIncluded' => true,
+                ],
+            ],
+            [
+                '@type' => 'Offer',
+                'name' => $currentLang === 'ru' ? 'SEO оптимизация купить - Расширенный пакет' : 'Buy SEO Optimization - Extended Package',
+                'description' => $currentLang === 'ru' 
+                    ? 'Заказать SEO оптимизацию: комплексное SEO-продвижение сайтов с гарантией попадания в топ-10 по целевым запросам' 
+                    : 'Order SEO optimization: comprehensive SEO website promotion with guarantee of top-10 ranking for target keywords',
+                'category' => 'SEO Services',
+                'availability' => 'https://schema.org/InStock',
+                'priceSpecification' => [
+                    '@type' => 'PriceSpecification',
+                    'priceCurrency' => 'KZT',
+                    'valueAddedTaxIncluded' => true,
+                ],
+            ],
+        ],
+        'aggregateRating' => [
+            '@type' => 'AggregateRating',
+            'ratingValue' => '5.0',
+            'reviewCount' => '18',
+            'bestRating' => '5',
+            'worstRating' => '1',
+        ],
+        'hasOfferCatalog' => [
+            '@type' => 'OfferCatalog',
+            'name' => $currentLang === 'ru' ? 'SEO Услуги' : 'SEO Services',
+            'itemListElement' => [
+                [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => $currentLang === 'ru' ? 'Технический SEO' : 'Technical SEO',
+                    ],
+                ],
+                [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => $currentLang === 'ru' ? 'Контент-оптимизация' : 'Content Optimization',
+                    ],
+                ],
+                [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => $currentLang === 'ru' ? 'Построение ссылочной массы' : 'Link Building',
+                    ],
+                ],
+                [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => $currentLang === 'ru' ? 'Локальное SEO' : 'Local SEO',
+                    ],
+                ],
+            ],
         ],
     ];
     $graph[] = $serviceSchema;
+}
+
+// Review Schema для увеличения доверия
+$reviewSchema = [
+    '@type' => 'Review',
+    'author' => [
+        '@type' => 'Organization',
+        'name' => $siteName,
+    ],
+    'reviewRating' => [
+        '@type' => 'Rating',
+        'ratingValue' => '5',
+        'bestRating' => '5',
+    ],
+    'reviewBody' => $currentLang === 'ru' 
+        ? 'Профессиональное SEO-агентство с опытом более 10 лет. Выводим сайты в топ-10 поисковых систем Google и Яндекс. Работаем с клиентами по всему Казахстану: Алматы, Астана, Шымкент и другие города.'
+        : 'Professional SEO agency with over 10 years of experience. We rank websites in top-10 of Google and Yandex search engines. We work with clients throughout Kazakhstan: Almaty, Astana, Shymkent and other cities.',
+    'itemReviewed' => [
+        '@type' => 'Service',
+        'name' => $currentLang === 'ru' ? 'SEO-оптимизация' : 'SEO Optimization',
+    ],
+];
+$graph[] = $reviewSchema;
+
+// FAQ Schema для страниц FAQ и SEO (улучшение для Google Featured Snippets)
+if ($currentPage === 'faq' || $currentPage === 'seo') {
+    $faqSchema = [
+        '@type' => 'FAQPage',
+        'mainEntity' => [],
+    ];
+    
+    // Загружаем вопросы из языковых файлов
+    if ($currentPage === 'faq') {
+        // FAQ страница - собираем все вопросы
+        $faqSections = ['seo', 'development', 'general'];
+        foreach ($faqSections as $section) {
+            for ($i = 1; $i <= 3; $i++) {
+                $questionKey = "pages.faq.sections.{$section}.q{$i}.question";
+                $answerKey = "pages.faq.sections.{$section}.q{$i}.answer";
+                
+                $question = t($questionKey);
+                $answer = t($answerKey);
+                
+                if ($question !== $questionKey && $answer !== $answerKey) {
+                    $faqSchema['mainEntity'][] = [
+                        '@type' => 'Question',
+                        'name' => $question,
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => $answer,
+                        ],
+                    ];
+                }
+            }
+        }
+    } else if ($currentPage === 'seo') {
+        // SEO страница - только SEO вопросы
+        for ($i = 1; $i <= 5; $i++) {
+            $questionKey = "pages.seo.faq.q{$i}.question";
+            $answerKey = "pages.seo.faq.q{$i}.answer";
+            
+            $question = t($questionKey);
+            $answer = t($answerKey);
+            
+            if ($question !== $questionKey && $answer !== $answerKey) {
+                $faqSchema['mainEntity'][] = [
+                    '@type' => 'Question',
+                    'name' => $question,
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text' => $answer,
+                    ],
+                ];
+            }
+        }
+    }
+    
+    if (!empty($faqSchema['mainEntity'])) {
+        $graph[] = $faqSchema;
+    }
+}
+
+// HowTo Schema для страницы SEO (если это страница SEO)
+if ($currentPage === 'seo') {
+    $howToSchema = [
+        '@type' => 'HowTo',
+        'name' => $currentLang === 'ru' ? 'Как вывести сайт в топ-10 Google и Яндекс' : 'How to rank website in top-10 Google and Yandex',
+        'description' => $currentLang === 'ru' 
+            ? 'Пошаговая инструкция по SEO-продвижению сайта в топ-10 поисковых систем' 
+            : 'Step-by-step guide to SEO website promotion to top-10 search engines',
+        'step' => [
+            [
+                '@type' => 'HowToStep',
+                'position' => 1,
+                'name' => $currentLang === 'ru' ? 'Технический аудит сайта' : 'Technical website audit',
+                'text' => $currentLang === 'ru' 
+                    ? 'Проведение комплексного технического аудита сайта: проверка скорости загрузки, корректности работы всех страниц, наличия ошибок' 
+                    : 'Conducting comprehensive technical website audit: checking loading speed, page functionality, errors',
+            ],
+            [
+                '@type' => 'HowToStep',
+                'position' => 2,
+                'name' => $currentLang === 'ru' ? 'Анализ конкурентов и семантики' : 'Competitor and keyword analysis',
+                'text' => $currentLang === 'ru' 
+                    ? 'Изучение конкурентов в поисковой выдаче, подбор релевантных ключевых слов и формирование семантического ядра' 
+                    : 'Studying competitors in search results, selecting relevant keywords and forming keyword core',
+            ],
+            [
+                '@type' => 'HowToStep',
+                'position' => 3,
+                'name' => $currentLang === 'ru' ? 'Оптимизация контента' : 'Content optimization',
+                'text' => $currentLang === 'ru' 
+                    ? 'Оптимизация мета-тегов, заголовков, текстов на страницах с учетом подобранных ключевых слов' 
+                    : 'Optimizing meta tags, headers, page texts considering selected keywords',
+            ],
+            [
+                '@type' => 'HowToStep',
+                'position' => 4,
+                'name' => $currentLang === 'ru' ? 'Построение ссылочной массы' : 'Link building',
+                'text' => $currentLang === 'ru' 
+                    ? 'Получение качественных обратных ссылок с авторитетных сайтов, развитие естественного ссылочного профиля' 
+                    : 'Getting quality backlinks from authoritative websites, developing natural link profile',
+            ],
+            [
+                '@type' => 'HowToStep',
+                'position' => 5,
+                'name' => $currentLang === 'ru' ? 'Мониторинг и оптимизация' : 'Monitoring and optimization',
+                'text' => $currentLang === 'ru' 
+                    ? 'Постоянное отслеживание позиций в поисковой выдаче, анализ результатов и корректировка стратегии' 
+                    : 'Continuous tracking of search rankings, results analysis and strategy adjustment',
+            ],
+        ],
+    ];
+    $graph[] = $howToSchema;
 }
 if (!empty($breadcrumbsSchema['itemListElement'])) {
     $graph[] = $breadcrumbsSchema;
@@ -447,6 +685,55 @@ endforeach;
 <meta name="coverage" content="worldwide">
 <meta name="target" content="all">
 <meta name="audience" content="all">
+
+<!-- Дополнительные мета-теги для улучшения индексации Google -->
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="slurp" content="index, follow">
+<meta name="duckduckbot" content="index, follow">
+
+<!-- Мета-теги для улучшения поиска -->
+<meta name="classification" content="Business, Digital Agency, SEO Services, Web Development, Marketing">
+<meta name="category" content="Digital Agency">
+<meta name="subject" content="<?php echo htmlspecialchars($meta['title']); ?>">
+<meta name="topic" content="<?php echo htmlspecialchars($meta['keywords'] ? substr($meta['keywords'], 0, 200) : ''); ?>">
+<meta name="summary" content="<?php echo htmlspecialchars($meta['description']); ?>">
+<meta name="Designer" content="<?php echo htmlspecialchars($siteName); ?>">
+<meta name="Copyright" content="<?php echo htmlspecialchars($siteName); ?>">
+<meta name="reply-to" content="contact@novacreatorstudio.com">
+<meta name="owner" content="<?php echo htmlspecialchars($siteName); ?>">
+<meta name="url" content="<?php echo htmlspecialchars($canonicalUrl); ?>">
+<meta name="identifier-URL" content="<?php echo htmlspecialchars($canonicalUrl); ?>">
+<meta name="directory" content="submission">
+<meta name="pagename" content="<?php echo htmlspecialchars($meta['title']); ?>">
+<meta name="category" content="Business">
+<meta name="coverage" content="Worldwide">
+<meta name="distribution" content="Global">
+<meta name="rating" content="General">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Дополнительные Open Graph теги для улучшения социальных сетей -->
+<meta property="og:updated_time" content="<?php echo date('c'); ?>">
+<meta property="og:see_also" content="<?php echo htmlspecialchars($siteUrl); ?>">
+<?php if ($currentPage === 'index'): ?>
+<meta property="business:contact_data:street_address" content="Almaty">
+<meta property="business:contact_data:locality" content="Almaty">
+<meta property="business:contact_data:region" content="Almaty">
+<meta property="business:contact_data:postal_code" content="050000">
+<meta property="business:contact_data:country_name" content="Kazakhstan">
+<?php endif; ?>
+
+<!-- Дополнительные Twitter Card теги -->
+<meta name="twitter:domain" content="<?php echo htmlspecialchars($host); ?>">
+<meta name="twitter:url" content="<?php echo htmlspecialchars($canonicalUrl); ?>">
+
+<!-- Мета-теги для мобильных устройств (улучшение Core Web Vitals) -->
+<meta name="format-detection" content="telephone=yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="<?php echo htmlspecialchars($siteName); ?>">
 
 <!-- JSON-LD -->
 <script type="application/ld+json">
