@@ -222,11 +222,11 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 </section>
 
 <!-- Содержание статьи -->
-<section class="py-20">
+<section class="py-20" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             <article class="prose prose-invert prose-lg max-w-none">
-                <div class="bg-dark-surface border border-dark-border rounded-2xl p-6 md:p-8 lg:p-12 shadow-2xl" style="box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.1);">
+                <div class="rounded-2xl p-6 md:p-8 lg:p-12 shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(99, 102, 241, 0.1);">
                     <div class="article-content">
                         <?php echo $articleContent; ?>
                     </div>
@@ -234,7 +234,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
             </article>
             
             <!-- Поделиться - улучшенные социальные кнопки -->
-            <div class="mt-12 pt-8 border-t border-dark-border">
+            <div class="mt-12 pt-8 border-t" style="border-color: var(--color-border);">
                 <?php 
                 // Устанавливаем мета-данные для статьи
                 $pageMetaTitle = getArticleField($article, 'title', $currentLang);
@@ -249,10 +249,10 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 
 <!-- Похожие статьи -->
 <?php if (!empty($relatedArticles)): ?>
-<section class="py-20 bg-dark-surface">
+<section class="py-20" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gradient text-center"><?php echo $currentLang === 'en' ? 'Related Articles' : 'Похожие статьи'; ?></h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" style="color: var(--color-text);"><?php echo $currentLang === 'en' ? 'Related Articles' : 'Похожие статьи'; ?></h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <?php foreach ($relatedArticles as $related): ?>
                     <?php 
@@ -261,22 +261,25 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
                     $relatedSlug = getArticleSlug($related, $currentLang);
                     $relatedCategory = $currentLang === 'en' ? ($related['category_en'] ?? $related['category']) : $related['category'];
                     ?>
-                    <article class="bg-dark-bg border border-dark-border rounded-xl p-6 hover:border-neon-purple transition-all duration-300">
+                    <article class="rounded-xl p-6 transition-all duration-300 hover:scale-[1.02]" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
                         <div class="mb-4">
-                            <span class="text-sm text-neon-purple font-semibold"><?php echo htmlspecialchars($relatedCategory); ?></span>
-                            <span class="text-gray-500 mx-2">•</span>
-                            <span class="text-sm text-gray-500"><?php echo formatDate($related['date'], $currentLang); ?></span>
+                            <span class="text-sm font-semibold px-3 py-1 rounded-full" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); color: var(--color-text); border: 1px solid rgba(99, 102, 241, 0.2);"><?php echo htmlspecialchars($relatedCategory); ?></span>
+                            <span class="mx-2" style="color: var(--color-text-secondary); opacity: 0.5;">•</span>
+                            <span class="text-sm" style="color: var(--color-text-secondary);"><?php echo formatDate($related['date'], $currentLang); ?></span>
                         </div>
-                        <h3 class="text-xl font-bold mb-3 text-gradient">
-                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($relatedSlug); ?>" class="hover:text-neon-blue transition-colors">
+                        <h3 class="text-xl font-bold mb-3" style="color: var(--color-text);">
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($relatedSlug); ?>" class="transition-colors hover:opacity-70" style="color: var(--color-text);">
                                 <?php echo htmlspecialchars($relatedTitle); ?>
                             </a>
                         </h3>
-                        <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                        <p class="mb-4 text-sm leading-relaxed" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(mb_substr($relatedExcerpt, 0, 100)) . '...'; ?>
                         </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($relatedSlug); ?>" class="text-neon-purple hover:text-neon-blue transition-colors text-sm font-semibold">
-                            <?php echo $currentLang === 'en' ? 'Read →' : 'Читать →'; ?>
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post'); ?>?slug=<?php echo htmlspecialchars($relatedSlug); ?>" class="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:gap-3" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Read more' : 'Читать далее'; ?>
+                            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
                         </a>
                     </article>
                 <?php endforeach; ?>
@@ -287,16 +290,16 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 <?php endif; ?>
 
 <!-- CTA секция -->
-<section class="reveal-group py-32 bg-gradient-to-r from-neon-purple/20 to-neon-blue/20">
+<section class="reveal-group py-32" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto reveal">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style="color: var(--color-text);">
                 <?php echo $currentLang === 'en' ? 'Need Help with Your Project?' : 'Нужна помощь с вашим проектом?'; ?>
             </h2>
-            <p class="text-xl text-gray-300 mb-12">
+            <p class="text-xl mb-12" style="color: var(--color-text-secondary);">
                 <?php echo $currentLang === 'en' ? 'Contact us and get a free consultation' : 'Свяжитесь с нами и получите бесплатную консультацию'; ?>
             </p>
-            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-block">
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="hero-cta-btn inline-block px-8 py-4 text-lg font-medium rounded-full transition-all duration-300" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3); text-decoration: none;">
                 <?php echo $currentLang === 'en' ? 'Get Consultation' : 'Получить консультацию'; ?>
             </a>
         </div>
@@ -311,7 +314,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 .article-content {
     font-size: 1.125rem;
     line-height: 1.8;
-    color: #E5E7EB;
+    color: var(--color-text);
 }
 
 /* Заголовки с градиентами */
@@ -321,8 +324,8 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     margin-top: 2.5rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid rgba(139, 92, 246, 0.3);
-    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -337,7 +340,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     transform: translateY(-50%);
     width: 4px;
     height: 60%;
-    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     border-radius: 2px;
 }
 
@@ -346,7 +349,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     font-weight: 600;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    color: #D1D5DB;
+    color: var(--color-text);
     position: relative;
     padding-left: 1rem;
 }
@@ -355,7 +358,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     content: '▸';
     position: absolute;
     left: 0;
-    color: #8B5CF6;
+    color: #6366f1;
     font-size: 1.25rem;
 }
 
@@ -364,13 +367,13 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     font-weight: 600;
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
-    color: #9CA3AF;
+    color: var(--color-text-secondary);
 }
 
 /* Параграфы с улучшенной читаемостью */
 .article-content p {
     margin-bottom: 1.5rem;
-    color: #E5E7EB;
+    color: var(--color-text);
     line-height: 1.8;
     font-size: 1.125rem;
     text-align: justify;
@@ -378,7 +381,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 
 .article-content p:first-of-type {
     font-size: 1.25rem;
-    color: #D1D5DB;
+    color: var(--color-text-secondary);
     font-weight: 500;
     line-height: 1.9;
     margin-bottom: 2rem;
@@ -389,7 +392,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 .article-content ol {
     margin: 1.5rem 0;
     padding-left: 2rem;
-    color: #E5E7EB;
+    color: var(--color-text);
 }
 
 .article-content ul {
@@ -402,14 +405,14 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     padding-left: 2rem;
     margin-bottom: 1rem;
     line-height: 1.8;
-    color: #E5E7EB;
+    color: var(--color-text);
 }
 
 .article-content ul li::before {
     content: '▹';
     position: absolute;
     left: 0;
-    color: #8B5CF6;
+    color: #6366f1;
     font-size: 1.25rem;
     font-weight: bold;
 }
@@ -425,7 +428,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     padding-left: 2.5rem;
     margin-bottom: 1rem;
     line-height: 1.8;
-    color: #E5E7EB;
+    color: var(--color-text);
     counter-increment: list-counter;
 }
 
@@ -436,45 +439,45 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     top: 0;
     width: 2rem;
     height: 2rem;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
-    border: 1px solid rgba(139, 92, 246, 0.5);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.5);
     border-radius: 0.375rem;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    color: #8B5CF6;
+    color: #6366f1;
     font-size: 0.875rem;
 }
 
 /* Выделение текста */
 .article-content strong {
-    color: #FFFFFF;
+    color: var(--color-text);
     font-weight: 700;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
     padding: 0.125rem 0.375rem;
     border-radius: 0.25rem;
 }
 
 .article-content em {
-    color: #D1D5DB;
+    color: var(--color-text-secondary);
     font-style: italic;
     font-weight: 500;
 }
 
 /* Ссылки */
 .article-content a {
-    color: #8B5CF6;
+    color: #6366f1;
     text-decoration: underline;
-    text-decoration-color: rgba(139, 92, 246, 0.3);
+    text-decoration-color: rgba(99, 102, 241, 0.3);
     text-underline-offset: 0.25rem;
     transition: all 0.3s ease;
     font-weight: 500;
 }
 
 .article-content a:hover {
-    color: #06B6D4;
-    text-decoration-color: rgba(6, 182, 212, 0.5);
+    color: #8b5cf6;
+    text-decoration-color: rgba(139, 92, 246, 0.5);
     text-decoration-thickness: 2px;
 }
 
@@ -482,11 +485,11 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 .article-content blockquote {
     margin: 2rem 0;
     padding: 1.5rem 2rem;
-    border-left: 4px solid #8B5CF6;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-left: 4px solid #6366f1;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
     border-radius: 0.5rem;
     font-style: italic;
-    color: #D1D5DB;
+    color: var(--color-text-secondary);
     position: relative;
 }
 
@@ -496,7 +499,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     top: -0.5rem;
     left: 1rem;
     font-size: 4rem;
-    color: rgba(139, 92, 246, 0.2);
+    color: rgba(99, 102, 241, 0.2);
     font-family: Georgia, serif;
 }
 
@@ -508,18 +511,18 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 
 /* Код */
 .article-content code {
-    background-color: rgba(139, 92, 246, 0.15);
-    color: #A78BFA;
+    background-color: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-family: 'Courier New', monospace;
     font-size: 0.9em;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 .article-content pre {
-    background-color: #1a1a24;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
     border-radius: 0.5rem;
     padding: 1.5rem;
     overflow-x: auto;
@@ -530,14 +533,14 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     background: none;
     border: none;
     padding: 0;
-    color: #E5E7EB;
+    color: var(--color-text);
 }
 
 /* Горизонтальная линия */
 .article-content hr {
     border: none;
     height: 2px;
-    background: linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.5) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.5) 50%, transparent 100%);
     margin: 3rem 0;
 }
 
@@ -546,28 +549,29 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     width: 100%;
     border-collapse: collapse;
     margin: 2rem 0;
-    background-color: rgba(26, 26, 36, 0.5);
+    background-color: var(--color-bg);
     border-radius: 0.5rem;
     overflow: hidden;
+    border: 1px solid var(--color-border);
 }
 
 .article-content table th {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
-    color: #FFFFFF;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+    color: var(--color-text);
     font-weight: 600;
     padding: 1rem;
     text-align: left;
-    border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+    border-bottom: 2px solid rgba(99, 102, 241, 0.3);
 }
 
 .article-content table td {
     padding: 1rem;
-    border-bottom: 1px solid rgba(42, 42, 58, 0.5);
-    color: #E5E7EB;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
 }
 
 .article-content table tr:hover {
-    background-color: rgba(139, 92, 246, 0.05);
+    background-color: rgba(99, 102, 241, 0.05);
 }
 
 /* Изображения */
@@ -576,14 +580,14 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     height: auto;
     border-radius: 0.75rem;
     margin: 2rem 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(139, 92, 246, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border);
 }
 
 /* Акценты и выделения */
 .article-content mark {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(6, 182, 212, 0.3) 100%);
-    color: #FFFFFF;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%);
+    color: var(--color-text);
     padding: 0.125rem 0.375rem;
     border-radius: 0.25rem;
     font-weight: 500;
@@ -638,7 +642,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
     line-height: 1;
     font-weight: 700;
     margin: 0.1em 0.1em 0 0;
-    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -661,7 +665,7 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 
 .article-content ul ul li::before {
     content: '▪';
-    color: #06B6D4;
+    color: #8b5cf6;
 }
 
 /* Улучшение для выделения важных моментов */
@@ -670,8 +674,8 @@ $relatedArticles = array_slice($relatedArticles, 0, 3);
 .article-content p[style*="border"] {
     font-weight: 500;
     padding-left: 1.5rem;
-    border-left: 3px solid rgba(139, 92, 246, 0.5);
-    background: rgba(139, 92, 246, 0.05);
+    border-left: 3px solid rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.05);
     padding: 1rem 1rem 1rem 1.5rem;
     border-radius: 0.5rem;
     margin: 1.5rem 0;
