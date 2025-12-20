@@ -40,8 +40,30 @@ if (file_exists($blogFile)) {
     $blogArticles = json_decode(file_get_contents($blogFile), true) ?: [];
 }
 
-// Поддерживаемые языки
+// Поддерживаемые языки (основные)
 $languages = ['ru', 'en'];
+
+// Дополнительные языки для глобального охвата в sitemap
+// Google будет знать, что сайт доступен для всех этих регионов
+$globalLanguageMap = [
+    'ru' => 'ru-RU',
+    'en' => 'en-US',
+    'zh-CN' => 'zh-CN', // Китай
+    'zh-TW' => 'zh-TW', // Тайвань
+    'ja' => 'ja-JP', // Япония
+    'ko' => 'ko-KR', // Корея
+    'de' => 'de-DE', // Германия
+    'fr' => 'fr-FR', // Франция
+    'es' => 'es-ES', // Испания
+    'it' => 'it-IT', // Италия
+    'pt' => 'pt-PT', // Португалия
+    'pt-BR' => 'pt-BR', // Бразилия
+    'ar' => 'ar-SA', // Саудовская Аравия
+    'hi' => 'hi-IN', // Индия
+    'nl' => 'nl-NL', // Нидерланды
+    'pl' => 'pl-PL', // Польша
+    'tr' => 'tr-TR', // Турция
+];
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
 ?>
@@ -65,12 +87,16 @@ foreach ($staticPages as $page) {
         echo '        <changefreq>' . $page['changefreq'] . '</changefreq>' . PHP_EOL;
         echo '        <priority>' . $page['priority'] . '</priority>' . PHP_EOL;
         
-        // Добавляем альтернативные языковые версии
+        // Добавляем альтернативные языковые версии (основные)
         foreach ($languages as $altLang) {
             $altUrl = $baseUrl . getLocalizedUrl($altLang, $page['url']);
             $hreflang = $altLang === 'ru' ? 'ru-RU' : 'en-US';
             echo '        <xhtml:link rel="alternate" hreflang="' . $hreflang . '" href="' . htmlspecialchars($altUrl) . '" />' . PHP_EOL;
         }
+        
+        // Добавляем x-default для глобального охвата
+        $defaultUrl = $baseUrl . getLocalizedUrl('ru', $page['url']);
+        echo '        <xhtml:link rel="alternate" hreflang="x-default" href="' . htmlspecialchars($defaultUrl) . '" />' . PHP_EOL;
         
         // Добавляем изображения для страниц с images = true (улучшение для Google Images)
         if (!empty($page['images'])) {

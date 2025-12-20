@@ -222,14 +222,18 @@ $organizationSchema = [
             'telephone' => '+7-706-606-39-21',
             'email' => 'contact@novacreatorstudio.com',
             'contactType' => 'customer service',
-            'availableLanguage' => ['ru', 'en'],
-            'areaServed' => ['KZ', 'RU', 'US', 'GB'],
+            'availableLanguage' => ['ru', 'en', 'zh', 'ja', 'ko', 'de', 'fr', 'es', 'it', 'pt', 'ar', 'hi'],
+            'areaServed' => 'Worldwide',
+            // Альтернативный формат для лучшей совместимости
+            '@id' => $siteUrl . '#customer-service',
         ],
         [
             '@type' => 'ContactPoint',
             'telephone' => '+7-706-606-39-21',
+            'email' => 'contact@novacreatorstudio.com',
             'contactType' => 'technical support',
             'availableLanguage' => ['ru', 'en'],
+            'areaServed' => 'Worldwide',
         ],
     ],
     'sameAs' => [
@@ -256,8 +260,16 @@ $organizationSchema = [
                 ? 'Профессиональное SEO-продвижение сайтов в топ-10 поисковых систем Google и Яндекс' 
                 : 'Professional SEO website promotion to top-10 in Google and Yandex search engines',
             'category' => 'SEO Services',
-            'areaServed' => ['KZ', 'RU', 'US', 'GB'],
+            'areaServed' => 'Worldwide',
             'availability' => 'https://schema.org/InStock',
+            'eligibleRegion' => [
+                '@type' => 'GeoCircle',
+                'geoMidpoint' => [
+                    '@type' => 'GeoCoordinates',
+                    'latitude' => '43.238949',
+                    'longitude' => '76.889709',
+                ],
+            ],
         ],
     ],
     'knowsAbout' => [
@@ -278,16 +290,58 @@ if (!empty($pageAlternateLanguages) && is_array($pageAlternateLanguages)) {
     $alternateLanguages = getAlternateLanguages();
 }
 
+// Добавляем глобальные альтернативные языки для лучшей индексации по всему миру
+// Основные языки мира (даже если переводов нет, Google понимает намерение)
+$globalAlternateLanguages = [
+    'x-default' => getLocalizedUrl(DEFAULT_LANGUAGE, getCurrentPath()),
+    // Основные региональные варианты
+    'en' => getLocalizedUrl('en', getCurrentPath()),
+    'ru' => getLocalizedUrl('ru', getCurrentPath()),
+    // Дополнительные языки для глобального охвата
+    'zh-CN' => getLocalizedUrl('en', getCurrentPath()), // Китай - используем английский
+    'zh-TW' => getLocalizedUrl('en', getCurrentPath()),
+    'ja' => getLocalizedUrl('en', getCurrentPath()), // Япония
+    'ko' => getLocalizedUrl('en', getCurrentPath()), // Корея
+    'de' => getLocalizedUrl('en', getCurrentPath()), // Германия
+    'fr' => getLocalizedUrl('en', getCurrentPath()), // Франция
+    'es' => getLocalizedUrl('en', getCurrentPath()), // Испания
+    'it' => getLocalizedUrl('en', getCurrentPath()), // Италия
+    'pt' => getLocalizedUrl('en', getCurrentPath()), // Португалия
+    'pt-BR' => getLocalizedUrl('en', getCurrentPath()), // Бразилия
+    'ar' => getLocalizedUrl('en', getCurrentPath()), // Арабский
+    'hi' => getLocalizedUrl('en', getCurrentPath()), // Хинди
+    'nl' => getLocalizedUrl('en', getCurrentPath()), // Нидерланды
+    'pl' => getLocalizedUrl('en', getCurrentPath()), // Польша
+    'tr' => getLocalizedUrl('en', getCurrentPath()), // Турция
+];
+
 $websiteSchema = [
     '@type' => 'WebSite',
+    '@id' => $siteUrl . '#website',
     'name' => $siteName,
     'url' => $siteUrl,
     'description' => t('seo.meta.defaultDescription'),
-    'inLanguage' => ['ru', 'en'],
+    'inLanguage' => ['ru', 'en', 'zh', 'ja', 'ko', 'de', 'fr', 'es', 'it', 'pt', 'ar', 'hi'],
+    'audience' => [
+        '@type' => 'Audience',
+        'audienceType' => 'Global',
+        'geographicArea' => [
+            '@type' => 'Place',
+            'name' => 'Worldwide',
+        ],
+    ],
     'potentialAction' => [
         '@type' => 'SearchAction',
-        'target' => $siteUrl . '/?s={search_term_string}',
+        'target' => [
+            '@type' => 'EntryPoint',
+            'urlTemplate' => $siteUrl . '/?s={search_term_string}',
+        ],
         'query-input' => 'required name=search_term_string',
+    ],
+    'about' => [
+        '@type' => 'Thing',
+        'name' => 'Global SEO Services',
+        'description' => 'Professional SEO optimization and website promotion services worldwide',
     ],
 ];
 
@@ -366,8 +420,39 @@ if ($currentPage === 'index' || $currentPage === 'seo') {
             'name' => $siteName,
         ],
         'areaServed' => [
+            ['@type' => 'Country', 'name' => 'Worldwide'],
+            // Основные рынки
             ['@type' => 'Country', 'name' => 'Kazakhstan'],
             ['@type' => 'Country', 'name' => 'Russia'],
+            ['@type' => 'Country', 'name' => 'United States'],
+            ['@type' => 'Country', 'name' => 'United Kingdom'],
+            ['@type' => 'Country', 'name' => 'Canada'],
+            ['@type' => 'Country', 'name' => 'Australia'],
+            ['@type' => 'Country', 'name' => 'Germany'],
+            ['@type' => 'Country', 'name' => 'France'],
+            ['@type' => 'Country', 'name' => 'Spain'],
+            ['@type' => 'Country', 'name' => 'Italy'],
+            ['@type' => 'Country', 'name' => 'Netherlands'],
+            ['@type' => 'Country', 'name' => 'Sweden'],
+            ['@type' => 'Country', 'name' => 'Norway'],
+            ['@type' => 'Country', 'name' => 'Denmark'],
+            ['@type' => 'Country', 'name' => 'Finland'],
+            ['@type' => 'Country', 'name' => 'Poland'],
+            ['@type' => 'Country', 'name' => 'Ukraine'],
+            ['@type' => 'Country', 'name' => 'Belarus'],
+            ['@type' => 'Country', 'name' => 'Uzbekistan'],
+            ['@type' => 'Country', 'name' => 'Kyrgyzstan'],
+            ['@type' => 'Country', 'name' => 'Turkey'],
+            ['@type' => 'Country', 'name' => 'China'],
+            ['@type' => 'Country', 'name' => 'Japan'],
+            ['@type' => 'Country', 'name' => 'South Korea'],
+            ['@type' => 'Country', 'name' => 'India'],
+            ['@type' => 'Country', 'name' => 'Singapore'],
+            ['@type' => 'Country', 'name' => 'United Arab Emirates'],
+            ['@type' => 'Country', 'name' => 'Saudi Arabia'],
+            ['@type' => 'Country', 'name' => 'Brazil'],
+            ['@type' => 'Country', 'name' => 'Mexico'],
+            ['@type' => 'Country', 'name' => 'Argentina'],
         ],
         'description' => $currentLang === 'ru' 
             ? 'Купить SEO оптимизацию сайта по выгодной цене. Профессиональное SEO-продвижение сайтов в топ-10 Google и Яндекс. Заказать SEO оптимизацию можно онлайн. Комплексная оптимизация, технический аудит и постоянный мониторинг результатов.' 
@@ -609,14 +694,27 @@ $structuredData = [
 <meta name="language" content="<?php echo htmlspecialchars($currentLang); ?>">
 <link rel="canonical" href="<?php echo htmlspecialchars($canonicalUrl); ?>">
 <?php
-// Генерируем hreflang теги для всех языков
+// Генерируем hreflang теги для всех языков - глобальное покрытие
+// Сначала добавляем основные языки с реальными переводами
 foreach ($alternateLanguages as $lang => $url): 
     $hreflang = $lang === 'ru' ? 'ru-RU' : 'en-US';
     $fullUrl = $siteUrl . $url;
 ?>
 <link rel="alternate" hreflang="<?php echo htmlspecialchars($hreflang); ?>" href="<?php echo htmlspecialchars($fullUrl); ?>">
 <?php endforeach; ?>
-<link rel="alternate" hreflang="x-default" href="<?php echo htmlspecialchars($siteUrl . getLocalizedUrl(DEFAULT_LANGUAGE, getCurrentPath())); ?>">
+
+<?php
+// Добавляем глобальные hreflang теги для всех регионов мира
+// Это помогает Google индексировать сайт во всех странах
+foreach ($globalAlternateLanguages as $langCode => $url):
+    if (!isset($alternateLanguages[$langCode])): // Избегаем дублирования
+        $fullUrl = $siteUrl . $url;
+?>
+<link rel="alternate" hreflang="<?php echo htmlspecialchars($langCode); ?>" href="<?php echo htmlspecialchars($fullUrl); ?>">
+<?php 
+    endif;
+endforeach; 
+?>
 
 <!-- Open Graph -->
 <meta property="og:type" content="<?php echo htmlspecialchars($meta['og_type']); ?>">
@@ -674,9 +772,9 @@ endforeach;
 <!-- Для верификации Bing добавьте мета-тег: <meta name="msvalidate.01" content="ВАШ_КОД_ВЕРИФИКАЦИИ" /> -->
 <!-- Получить код можно в Bing Webmaster Tools: https://www.bing.com/webmasters -->
 
-<!-- Дополнительные мета-теги для улучшения SEO -->
-<meta name="geo.region" content="KZ">
-<meta name="geo.placename" content="Almaty">
+<!-- Дополнительные мета-теги для улучшения SEO - Глобальное покрытие -->
+<meta name="geo.region" content="Worldwide">
+<meta name="geo.placename" content="Global Services">
 <meta name="geo.position" content="43.238949;76.889709">
 <meta name="ICBM" content="43.238949, 76.889709">
 <meta name="rating" content="general">
@@ -686,11 +784,25 @@ endforeach;
 <meta name="target" content="all">
 <meta name="audience" content="all">
 
-<!-- Дополнительные мета-теги для улучшения индексации Google -->
+<!-- Глобальное географическое покрытие -->
+<meta name="geo.region.primary" content="Worldwide">
+<meta name="geo.region.secondary" content="Global">
+<meta name="serving-region" content="Worldwide">
+<meta name="service-area" content="Worldwide">
+<meta name="international" content="true">
+<meta name="global-service" content="true">
+<meta name="worldwide-coverage" content="true">
+
+<!-- Дополнительные мета-теги для улучшения индексации Google - Глобальное покрытие -->
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="googlebot-news" content="index, follow">
+<meta name="googlebot-image" content="index, follow">
 <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="slurp" content="index, follow">
 <meta name="duckduckbot" content="index, follow">
+<meta name="baiduspider" content="index, follow">
+<meta name="yandex" content="index, follow">
+<meta name="yandexbot" content="index, follow">
 
 <!-- Мета-теги для улучшения поиска -->
 <meta name="classification" content="Business, Digital Agency, SEO Services, Web Development, Marketing">
@@ -734,6 +846,22 @@ endforeach;
 <meta name="format-detection" content="telephone=yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="application-name" content="<?php echo htmlspecialchars($siteName); ?>">
+
+<!-- Мета-теги для глобальной доступности и мультиязычности -->
+<meta name="content-language" content="<?php echo htmlspecialchars($currentLang); ?>">
+<meta name="language" content="<?php echo htmlspecialchars($currentLang === 'ru' ? 'Russian' : 'English'); ?>">
+<meta name="available-languages" content="ru, en">
+<meta name="locale" content="<?php echo $currentLang === 'ru' ? 'ru_RU' : 'en_US'; ?>">
+<meta name="supported-languages" content="ru-RU, en-US, en-GB, zh-CN, zh-TW, ja-JP, ko-KR, de-DE, fr-FR, es-ES, it-IT, pt-PT, pt-BR, ar-SA, hi-IN, nl-NL, pl-PL, tr-TR">
+
+<!-- Мета-теги для всех стран и регионов -->
+<meta name="country" content="Worldwide">
+<meta name="region" content="Global">
+<meta name="worldwide-service" content="true">
+<meta name="international-business" content="true">
+<meta name="global-coverage" content="true">
+<meta name="multi-country" content="true">
+<meta name="cross-border" content="true">
 
 <!-- JSON-LD -->
 <script type="application/ld+json">
