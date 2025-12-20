@@ -260,8 +260,67 @@ $websiteSchema = [
     ],
 ];
 
+// Добавляем SiteNavigationElement для быстрых ссылок (оптимизация для Яндекс)
+$navigationSchema = [
+    '@type' => 'SiteNavigationElement',
+    'name' => $currentLang === 'ru' ? 'Основная навигация' : 'Main Navigation',
+    'url' => $siteUrl,
+    'hasPart' => [
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'Услуги' : 'Services',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/services')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'SEO' : 'SEO',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/seo')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'Google Ads' : 'Google Ads',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/ads')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'Портфолио' : 'Portfolio',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/portfolio')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'О нас' : 'About',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/about')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'Блог' : 'Blog',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/blog')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'Контакты' : 'Contact',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/contact')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'FAQ' : 'FAQ',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/faq')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'Вакансии' : 'Vacancies',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/vacancies')
+        ],
+        [
+            '@type' => 'SiteNavigationElement',
+            'name' => $currentLang === 'ru' ? 'Калькулятор' : 'Calculator',
+            'url' => $siteUrl . getLocalizedUrl($currentLang, '/calculator')
+        ]
+    ]
+];
+
 // Добавляем Service schema для лучшего понимания услуг (только для главной страницы)
-$graph = [$organizationSchema, $websiteSchema];
+$graph = [$organizationSchema, $websiteSchema, $navigationSchema];
 if ($currentPage === 'index' || $currentPage === 'seo') {
     $serviceSchema = [
         '@type' => 'Service',
