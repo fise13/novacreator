@@ -82,7 +82,7 @@ function formatDate($date) {
                     </p>
                 </div>
             <?php else: ?>
-                <div class="space-y-12 md:space-y-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                     <?php foreach ($articles as $index => $article): ?>
                         <?php
                         $title = getArticleField($article, 'title', $currentLang);
@@ -91,52 +91,77 @@ function formatDate($date) {
                         $category = getArticleField($article, 'category', $currentLang);
                         $date = formatDate($article['date']);
                         ?>
-                        <article class="reveal">
-                            <div class="mb-4">
-                                <span class="text-sm uppercase tracking-wider" style="color: var(--color-text-secondary);">
-                                    <?php echo htmlspecialchars($category); ?>
-                                </span>
-                                <span class="mx-2" style="color: var(--color-text-secondary);">•</span>
-                                <span class="text-sm" style="color: var(--color-text-secondary);">
-                                    <?php echo htmlspecialchars($date); ?>
-                                </span>
-                            </div>
-                            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
-                                <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post?slug=' . urlencode($slug)); ?>" class="hover:underline">
-                                    <?php echo htmlspecialchars($title); ?>
+                        <article class="blog-card reveal group relative overflow-hidden rounded-2xl p-8 md:p-10 transition-all duration-500 hover:scale-[1.02]" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+                            <!-- Декоративный градиент при hover -->
+                            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);"></div>
+                            
+                            <div class="relative z-10">
+                                <!-- Метаданные -->
+                                <div class="mb-6 flex items-center gap-3 flex-wrap">
+                                    <span class="blog-category px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); color: var(--color-text); border: 1px solid rgba(99, 102, 241, 0.2);">
+                                        <?php echo htmlspecialchars($category); ?>
+                                    </span>
+                                    <span class="text-sm" style="color: var(--color-text-secondary);">
+                                        <?php echo htmlspecialchars($date); ?>
+                                    </span>
+                                </div>
+                                
+                                <!-- Заголовок -->
+                                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight transition-colors duration-300 group-hover:opacity-90" style="color: var(--color-text);">
+                                    <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post?slug=' . urlencode($slug)); ?>" class="blog-title-link">
+                                        <?php echo htmlspecialchars($title); ?>
+                                    </a>
+                                </h2>
+                                
+                                <!-- Описание -->
+                                <p class="text-base md:text-lg leading-relaxed mb-6 line-clamp-3" style="color: var(--color-text-secondary);">
+                                    <?php echo htmlspecialchars($excerpt); ?>
+                                </p>
+                                
+                                <!-- Кнопка "Читать далее" -->
+                                <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post?slug=' . urlencode($slug)); ?>" class="blog-read-more-btn inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 group-hover:gap-3" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);">
+                                    <span><?php echo $currentLang === 'en' ? 'Read more' : 'Читать далее'; ?></span>
+                                    <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                    </svg>
                                 </a>
-                            </h2>
-                            <p class="text-lg md:text-xl leading-relaxed mb-6" style="color: var(--color-text-secondary); max-width: 65ch;">
-                                <?php echo htmlspecialchars($excerpt); ?>
-                            </p>
-                            <a href="<?php echo getLocalizedUrl($currentLang, '/blog-post?slug=' . urlencode($slug)); ?>" class="inline-flex items-center gap-2 text-lg font-semibold hover:underline" style="color: var(--color-text);">
-                                <?php echo $currentLang === 'en' ? 'Read more' : 'Читать далее'; ?>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </a>
+                            </div>
                         </article>
                     <?php endforeach; ?>
                 </div>
                 
                 <!-- Пагинация -->
                 <?php if ($totalPages > 1): ?>
-                    <div class="mt-16 flex justify-center gap-4 reveal">
+                    <div class="mt-16 flex flex-wrap justify-center items-center gap-3 reveal">
                         <?php if ($page > 1): ?>
-                            <a href="?page=<?php echo $page - 1; ?>" class="px-6 py-3 border-2 rounded-lg hover:bg-gray-50 transition-colors" style="border-color: var(--color-border); color: var(--color-text);">
-                                <?php echo $currentLang === 'en' ? 'Previous' : 'Назад'; ?>
+                            <a href="?page=<?php echo $page - 1; ?>" class="pagination-btn pagination-btn-prev inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all duration-300 hover:gap-3" style="border: 1px solid var(--color-border); color: var(--color-text); background-color: var(--color-bg);">
+                                <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                                <span><?php echo $currentLang === 'en' ? 'Previous' : 'Назад'; ?></span>
                             </a>
                         <?php endif; ?>
                         
-                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <a href="?page=<?php echo $i; ?>" class="px-6 py-3 border-2 rounded-lg transition-colors <?php echo $i === $page ? 'bg-black text-white' : 'hover:bg-gray-50'; ?>" style="<?php echo $i === $page ? '' : 'border-color: var(--color-border); color: var(--color-text);'; ?>">
-                                <?php echo $i; ?>
-                            </a>
-                        <?php endfor; ?>
+                        <div class="flex gap-2">
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <?php if ($i === $page): ?>
+                                    <span class="pagination-btn pagination-btn-active inline-flex items-center justify-center w-10 h-10 rounded-full font-medium transition-all duration-300" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);">
+                                        <?php echo $i; ?>
+                                    </span>
+                                <?php else: ?>
+                                    <a href="?page=<?php echo $i; ?>" class="pagination-btn pagination-btn-number inline-flex items-center justify-center w-10 h-10 rounded-full font-medium transition-all duration-300 hover:scale-110" style="border: 1px solid var(--color-border); color: var(--color-text); background-color: var(--color-bg);">
+                                        <?php echo $i; ?>
+                                    </a>
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                        </div>
                         
                         <?php if ($page < $totalPages): ?>
-                            <a href="?page=<?php echo $page + 1; ?>" class="px-6 py-3 border-2 rounded-lg hover:bg-gray-50 transition-colors" style="border-color: var(--color-border); color: var(--color-text);">
-                                <?php echo $currentLang === 'en' ? 'Next' : 'Вперед'; ?>
+                            <a href="?page=<?php echo $page + 1; ?>" class="pagination-btn pagination-btn-next inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all duration-300 hover:gap-3" style="border: 1px solid var(--color-border); color: var(--color-text); background-color: var(--color-bg);">
+                                <span><?php echo $currentLang === 'en' ? 'Next' : 'Вперед'; ?></span>
+                                <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                                </svg>
                             </a>
                         <?php endif; ?>
                     </div>
@@ -145,6 +170,174 @@ function formatDate($date) {
         </div>
     </div>
 </section>
+
+<!-- Стили для блога -->
+<style>
+/* Карточки блога */
+.blog-card {
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+}
+
+.blog-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(99, 102, 241, 0.08), 
+        transparent);
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+
+.blog-card:hover::before {
+    left: 100%;
+}
+
+.blog-title-link {
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.blog-title-link:hover {
+    color: #6366f1;
+}
+
+/* Кнопка "Читать далее" */
+.blog-read-more-btn {
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.blog-read-more-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.blog-read-more-btn:hover::before {
+    left: 100%;
+}
+
+.blog-read-more-btn:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
+}
+
+.blog-read-more-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+}
+
+/* Категория блога */
+.blog-category {
+    transition: all 0.3s ease;
+}
+
+.blog-card:hover .blog-category {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: scale(1.05);
+}
+
+/* Кнопки пагинации */
+.pagination-btn {
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.pagination-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(99, 102, 241, 0.1), 
+        transparent);
+    transition: left 0.4s ease;
+}
+
+.pagination-btn:hover::before {
+    left: 100%;
+}
+
+.pagination-btn:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    background-color: rgba(99, 102, 241, 0.05);
+    transform: translateY(-2px);
+}
+
+.pagination-btn-prev:hover svg {
+    transform: translateX(-2px);
+}
+
+.pagination-btn-next:hover svg {
+    transform: translateX(2px);
+}
+
+.pagination-btn-number:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    background-color: rgba(99, 102, 241, 0.1);
+    color: #6366f1;
+}
+
+.pagination-btn-active {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 16px rgba(99, 102, 241, 0.5);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .blog-card {
+        padding: 1.5rem;
+    }
+    
+    .pagination-btn {
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .pagination-btn-number {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
+
+/* Утилита для ограничения строк */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+</style>
 
 <!-- Скрипт для анимации -->
 <script>
