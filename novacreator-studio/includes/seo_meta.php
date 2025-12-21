@@ -247,10 +247,10 @@ $organizationSchema = [
     ],
     'aggregateRating' => [
         '@type' => 'AggregateRating',
-        'ratingValue' => '5.0',
-        'reviewCount' => '25',
-        'bestRating' => '5',
-        'worstRating' => '1',
+        'ratingValue' => 5.0,
+        'reviewCount' => 25,
+        'bestRating' => 5,
+        'worstRating' => 1,
     ],
     'offers' => [
         [
@@ -489,10 +489,10 @@ if ($currentPage === 'index' || $currentPage === 'seo') {
         ],
         'aggregateRating' => [
             '@type' => 'AggregateRating',
-            'ratingValue' => '5.0',
-            'reviewCount' => '18',
-            'bestRating' => '5',
-            'worstRating' => '1',
+            'ratingValue' => 5.0,
+            'reviewCount' => 18,
+            'bestRating' => 5,
+            'worstRating' => 1,
         ],
         'hasOfferCatalog' => [
             '@type' => 'OfferCatalog',
@@ -541,15 +541,25 @@ $reviewSchema = [
     ],
     'reviewRating' => [
         '@type' => 'Rating',
-        'ratingValue' => '5',
-        'bestRating' => '5',
+        'ratingValue' => 5,
+        'bestRating' => 5,
+        'worstRating' => 1,
     ],
     'reviewBody' => $currentLang === 'ru' 
         ? 'Профессиональное SEO-агентство с опытом более 10 лет. Выводим сайты в топ-10 поисковых систем Google и Яндекс. Работаем с клиентами по всему Казахстану: Алматы, Астана, Шымкент и другие города.'
         : 'Professional SEO agency with over 10 years of experience. We rank websites in top-10 of Google and Yandex search engines. We work with clients throughout Kazakhstan: Almaty, Astana, Shymkent and other cities.',
     'itemReviewed' => [
         '@type' => 'Service',
+        '@id' => $siteUrl . '#seo-service',
         'name' => $currentLang === 'ru' ? 'SEO-оптимизация' : 'SEO Optimization',
+        'description' => $currentLang === 'ru' 
+            ? 'Профессиональная SEO-оптимизация и продвижение сайтов в поисковых системах Google и Яндекс'
+            : 'Professional SEO optimization and website promotion in Google and Yandex search engines',
+        'provider' => [
+            '@type' => 'Organization',
+            '@id' => $siteUrl . '#organization',
+            'name' => $siteName,
+        ],
     ],
 ];
 $graph[] = $reviewSchema;
