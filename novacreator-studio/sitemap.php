@@ -27,7 +27,8 @@ $staticPages = [
     ['url' => '/seo', 'priority' => '0.95', 'changefreq' => 'daily', 'images' => true], // Высокий приоритет для SEO страницы
     ['url' => '/services', 'priority' => '0.9', 'changefreq' => 'daily', 'images' => true],
     ['url' => '/ads', 'priority' => '0.9', 'changefreq' => 'daily', 'images' => true],
-    ['url' => '/portfolio', 'priority' => '0.85', 'changefreq' => 'daily', 'images' => true],
+    ['url' => '/portfolio', 'priority' => '0.85', 'changefreq' => 'weekly', 'images' => false],
+    ['url' => '/portfolio/case/coffee-shop-landing', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
     ['url' => '/blog', 'priority' => '0.85', 'changefreq' => 'daily', 'images' => true],
     ['url' => '/faq', 'priority' => '0.8', 'changefreq' => 'weekly', 'images' => false], // FAQ важен для SEO
     ['url' => '/contact', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],

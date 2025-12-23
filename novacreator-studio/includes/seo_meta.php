@@ -163,6 +163,14 @@ $pagesMeta = [
         'breadcrumb' => 'Разработка корпоративных сайтов',
         'canonical' => '/corporate-website-development',
     ],
+    'coffee-shop-landing' => [
+        'title' => 'Лендинг для кофейни: от Instagram к онлайн-заказам | Кейс | NovaCreator Studio',
+        'description' => 'Кейс: как мы построили лендинг для локальной кофейни, который увеличил онлайн-заказы на 340% и попал в топ-3 Google Maps. Проблема, решение, результаты с метриками.',
+        'keywords' => 'кейс лендинга кофейни, сайт для кофейни, локальное SEO кейс, landing page для локального бизнеса, кейс увеличения заказов',
+        'og_type' => 'article',
+        'breadcrumb' => 'Кейс: Лендинг для кофейни',
+        'canonical' => '/portfolio/case/coffee-shop-landing',
+    ],
 ];
 
 $meta = array_merge($defaultMeta, $pagesMeta[$currentPage] ?? []);
