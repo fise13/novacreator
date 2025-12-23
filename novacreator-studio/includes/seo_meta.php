@@ -16,7 +16,14 @@ $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset
 $scheme = 'https';
 $siteUrl = $scheme . '://' . $host;
 $siteName = t('site.name');
-$currentPage = basename($_SERVER['PHP_SELF'], '.php');
+// Определяем текущую страницу: для вложенных путей используем путь, для обычных - имя файла
+$scriptPath = $_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '';
+if (strpos($scriptPath, '/portfolio/case/') !== false) {
+    // Для кейсов используем имя файла без расширения
+    $currentPage = basename($scriptPath, '.php');
+} else {
+    $currentPage = basename($scriptPath, '.php');
+}
 $currentLang = getCurrentLanguage();
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
