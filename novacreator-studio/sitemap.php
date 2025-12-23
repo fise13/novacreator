@@ -36,6 +36,7 @@ $staticPages = [
     ['url' => '/vacancies', 'priority' => '0.65', 'changefreq' => 'weekly', 'images' => false],
     ['url' => '/landing-page-development', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
     ['url' => '/ecommerce-development', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
+    ['url' => '/corporate-website-development', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
 ];
 
 // Загружаем статьи блога

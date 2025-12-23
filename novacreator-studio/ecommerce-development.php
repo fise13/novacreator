@@ -108,6 +108,65 @@ include 'includes/header.php';
     </div>
 </section>
 
+<!-- Когда интернет-магазин НЕ подойдет -->
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 md:mb-16 reveal">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' ? 'When an Online Store Won\'t Work' : 'Когда интернет-магазин не подойдет'; ?>
+                </h2>
+            </div>
+            
+            <div class="space-y-8">
+                <div class="reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'You sell only a few products (1-5 items)' : 'Вы продаете только несколько товаров (1-5 штук)'; ?>
+                    </h3>
+                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                        <?php echo $currentLang === 'en'
+                            ? 'If you have just a few products, an online store is overkill. A <a href="' . getLocalizedUrl($currentLang, '/landing-page-development') . '" class="underline">landing page</a> or simple <a href="' . getLocalizedUrl($currentLang, '/corporate-website-development') . '" class="underline">corporate website</a> with a product showcase is more cost-effective and faster to develop.'
+                            : 'Если у вас всего несколько товаров, интернет-магазин — избыточен. <a href="' . getLocalizedUrl($currentLang, '/landing-page-development') . '" class="underline">Лендинг</a> или простой <a href="' . getLocalizedUrl($currentLang, '/corporate-website-development') . '" class="underline">корпоративный сайт</a> с витриной товаров будет более рентабельным и быстрее разработать.'; ?>
+                    </p>
+                </div>
+                
+                <div class="reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'You don\'t have logistics or delivery set up' : 'У вас не налажена логистика или доставка'; ?>
+                    </h3>
+                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                        <?php echo $currentLang === 'en'
+                            ? 'An online store requires fulfillment: packaging, shipping, handling returns. If you haven\'t figured out how to deliver products to customers, start with that first. A store without delivery is useless — customers can\'t get their orders.'
+                            : 'Интернет-магазин требует выполнения заказов: упаковка, доставка, обработка возвратов. Если вы еще не разобрались, как доставлять товары клиентам, сначала решите это. Магазин без доставки бесполезен — клиенты не смогут получить заказы.'; ?>
+                    </p>
+                </div>
+                
+                <div class="reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'You sell services, not products' : 'Вы продаете услуги, а не товары'; ?>
+                    </h3>
+                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                        <?php echo $currentLang === 'en'
+                            ? 'If you provide services (consultations, repairs, design), an online store structure doesn\'t fit. You need a <a href="' . getLocalizedUrl($currentLang, '/corporate-website-development') . '" class="underline">service website</a> with contact forms, booking systems, or service descriptions. Services can\'t be "added to cart" like products.'
+                            : 'Если вы предоставляете услуги (консультации, ремонт, дизайн), структура интернет-магазина не подходит. Вам нужен <a href="' . getLocalizedUrl($currentLang, '/corporate-website-development') . '" class="underline">сайт услуг</a> с формами обратной связи, системами бронирования или описаниями услуг. Услуги нельзя "добавить в корзину", как товары.'; ?>
+                    </p>
+                </div>
+                
+                <div class="reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'You sell only locally with no shipping' : 'Вы продаете только локально, без доставки'; ?>
+                    </h3>
+                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                        <?php echo $currentLang === 'en'
+                            ? 'If customers must come to your physical location to buy (e.g., furniture that requires viewing, custom-made items), a full e-commerce store with checkout is unnecessary. A website with a catalog and contact information is sufficient — customers browse online, then visit in person.'
+                            : 'Если клиенты должны приехать в ваше физическое местоположение для покупки (например, мебель, которую нужно посмотреть, изделия на заказ), полноценный интернет-магазин с оформлением заказа не нужен. Сайт с каталогом и контактами достаточен — клиенты просматривают онлайн, затем приезжают лично.'; ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Что включает разработка -->
 <section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
@@ -189,8 +248,67 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Этапы работы -->
+<!-- Какой результат получает клиент -->
 <section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 md:mb-16 reveal">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' ? 'What Results You Get' : 'Какой результат получает клиент'; ?>
+                </h2>
+            </div>
+            
+            <div class="space-y-8">
+                <div class="reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? '24/7 online sales' : 'Продажи онлайн 24/7'; ?>
+                    </h3>
+                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                        <?php echo $currentLang === 'en'
+                            ? 'Your store works around the clock — customers can browse products, place orders, and pay at any time, even when your physical store is closed. This expands your sales opportunities and allows you to reach customers beyond your local area.'
+                            : 'Ваш магазин работает круглосуточно — клиенты могут просматривать товары, размещать заказы и платить в любое время, даже когда ваш физический магазин закрыт. Это расширяет возможности продаж и позволяет охватывать клиентов за пределами вашего региона.'; ?>
+                    </p>
+                </div>
+                
+                <div class="reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Automated order processing' : 'Автоматизированная обработка заказов'; ?>
+                    </h3>
+                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                        <?php echo $currentLang === 'en'
+                            ? 'Orders come to your admin panel automatically. You see new orders immediately, can track their status, update inventory, process payments. This reduces manual work and errors compared to taking orders by phone or email.'
+                            : 'Заказы поступают в вашу админ-панель автоматически. Вы видите новые заказы сразу, можете отслеживать их статус, обновлять склад, обрабатывать платежи. Это снижает ручную работу и ошибки по сравнению с приемом заказов по телефону или email.'; ?>
+                    </p>
+                </div>
+                
+                <div class="reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Scalable business growth' : 'Масштабируемый рост бизнеса'; ?>
+                    </h3>
+                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                        <?php echo $currentLang === 'en'
+                            ? 'An online store can handle thousands of products and orders without proportional increase in costs. You can add new products, expand to new regions, increase traffic — the store infrastructure scales with your business. Physical stores have space and staffing limits; online stores can grow much larger.'
+                            : 'Интернет-магазин может обрабатывать тысячи товаров и заказов без пропорционального увеличения затрат. Вы можете добавлять новые товары, расширяться в новые регионы, увеличивать трафик — инфраструктура магазина масштабируется с вашим бизнесом. Физические магазины имеют ограничения по площади и персоналу; интернет-магазины могут расти намного больше.'; ?>
+                    </p>
+                </div>
+                
+                <div class="reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Customer data and analytics' : 'Данные клиентов и аналитика'; ?>
+                    </h3>
+                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                        <?php echo $currentLang === 'en'
+                            ? 'You see detailed analytics: which products sell best, which pages visitors view, where they come from, what the conversion rates are. You can segment customers, send targeted emails, create personalized offers. This data helps you make informed decisions and improve sales.'
+                            : 'Вы видите детальную аналитику: какие товары продаются лучше, какие страницы просматривают посетители, откуда они приходят, какая конверсия. Вы можете сегментировать клиентов, отправлять целевые email, создавать персонализированные предложения. Эти данные помогают принимать обоснованные решения и улучшать продажи.'; ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Этапы работы -->
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
