@@ -63,75 +63,14 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Предотвращение автоматического определения телефонных номеров на iOS -->
     <meta name="format-detection" content="telephone=yes">
     
-    <!-- Google tag (gtag.js) - Улучшенная аналитика -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XD6LHCBQZS"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        
-        // Базовая конфигурация
-        gtag('config', 'G-XD6LHCBQZS', {
-            'page_path': window.location.pathname + window.location.search,
-            'page_title': document.title,
-            'page_location': window.location.href,
-            'send_page_view': true,
-            'anonymize_ip': false,
-            'cookie_flags': 'SameSite=None;Secure'
-        });
-        
-        // Отслеживание событий скролла
-        let scrollTracked = false;
-        window.addEventListener('scroll', function() {
-            if (!scrollTracked && window.scrollY > window.innerHeight * 0.5) {
-                scrollTracked = true;
-                gtag('event', 'scroll', {
-                    'event_category': 'engagement',
-                    'event_label': '50% scroll',
-                    'value': 1
-                });
-            }
-        }, { passive: true });
-        
-        // Отслеживание времени на странице
-        let timeOnPage = 0;
-        setInterval(function() {
-            timeOnPage += 30;
-            if (timeOnPage === 30) {
-                gtag('event', 'timing_complete', {
-                    'name': 'time_on_page',
-                    'value': 30
-                });
-            }
-        }, 30000);
-        
-        // Отслеживание кликов по внешним ссылкам
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a[href^="http"]').forEach(function(link) {
-                if (link.hostname !== window.location.hostname) {
-                    link.addEventListener('click', function() {
-                        gtag('event', 'click', {
-                            'event_category': 'outbound',
-                            'event_label': link.href,
-                            'transport_type': 'beacon'
-                        });
-                    });
-                }
-            });
-        });
-        
-        // Отслеживание загрузки файлов
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a[href$=".pdf"], a[href$=".doc"], a[href$=".zip"]').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    gtag('event', 'file_download', {
-                        'event_category': 'downloads',
-                        'event_label': link.href.split('/').pop(),
-                        'transport_type': 'beacon'
-                    });
-                });
-            });
-        });
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XD6LHCBQZS');
     </script>
     
     <!-- Title -->
