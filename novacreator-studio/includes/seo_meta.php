@@ -21,6 +21,17 @@ $requestUri = strtok($requestUri, '#');
 $requestUri = $requestUri ?: '/';
 $cleanPath = $requestUri === '/' ? '/' : rtrim($requestUri, '/');
 
+// Проверяем, есть ли параметры запроса, которые делают страницу уникальной (например, вакансии)
+$queryString = $_SERVER['QUERY_STRING'] ?? '';
+$hasIndexableParams = false;
+if (!empty($queryString)) {
+    parse_str($queryString, $params);
+    // Если есть параметр type=vacancy, это уникальная страница вакансии, которая должна индексироваться
+    if (isset($params['type']) && $params['type'] === 'vacancy' && !empty($params['vacancy'])) {
+        $hasIndexableParams = true;
+    }
+}
+
 // Формируем канонический URL с учетом языка
 $canonicalPath = getCurrentPath();
 $canonicalUrl = $siteUrl . getLocalizedUrl($currentLang, $canonicalPath);
@@ -140,6 +151,9 @@ if (isset($pageMetaKeywords)) {
 }
 if (isset($pageMetaRobots)) {
     $meta['robots'] = $pageMetaRobots;
+} elseif ($hasIndexableParams) {
+    // Для страниц с индексируемыми параметрами (например, вакансии) явно устанавливаем index, follow
+    $meta['robots'] = 'index, follow';
 }
 if (isset($pageMetaOgType)) {
     $meta['og_type'] = $pageMetaOgType;
@@ -157,6 +171,14 @@ $absoluteUrl = static function (?string $path) use ($siteUrl): string {
 // Формируем канонический URL с учетом языка
 if (!empty($pageMetaCanonical)) {
     $canonicalUrl = $absoluteUrl($pageMetaCanonical);
+} elseif ($hasIndexableParams) {
+    // Для страниц с индексируемыми параметрами canonical должен указывать на саму страницу с параметрами
+    $currentPath = getCurrentPath();
+    $canonicalUrl = $siteUrl . getLocalizedUrl($currentLang, $currentPath);
+    // Добавляем параметры запроса к canonical URL
+    if (!empty($queryString)) {
+        $canonicalUrl .= '?' . $queryString;
+    }
 } elseif (!empty($meta['canonical'])) {
     $canonicalUrl = $siteUrl . getLocalizedUrl($currentLang, $meta['canonical']);
 } else {
