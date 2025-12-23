@@ -166,7 +166,13 @@ $absoluteUrl = static function (?string $path) use ($siteUrl): string {
         return $siteUrl;
     }
     if (preg_match('#^https?://#i', $path)) {
-        return $path;
+        // Если передан полный URL, нормализуем его (убираем www, используем HTTPS)
+        $parsed = parse_url($path);
+        $normalizedHost = preg_replace('/^www\./i', '', $parsed['host'] ?? '');
+        $normalizedScheme = 'https';
+        $normalizedPath = $parsed['path'] ?? '/';
+        $normalizedQuery = !empty($parsed['query']) ? '?' . $parsed['query'] : '';
+        return $normalizedScheme . '://' . $normalizedHost . $normalizedPath . $normalizedQuery;
     }
     return rtrim($siteUrl, '/') . '/' . ltrim($path, '/');
 };
@@ -734,6 +740,10 @@ $structuredData = [
 foreach ($alternateLanguages as $lang => $url): 
     $hreflang = $lang === 'ru' ? 'ru-RU' : 'en-US';
     $fullUrl = $siteUrl . $url;
+    // Для текущего языка используем canonical URL для согласованности
+    if ($lang === $currentLang) {
+        $fullUrl = $canonicalUrl;
+    }
 ?>
 <link rel="alternate" hreflang="<?php echo htmlspecialchars($hreflang); ?>" href="<?php echo htmlspecialchars($fullUrl); ?>">
 <?php endforeach; ?>
