@@ -8,9 +8,12 @@ if (!function_exists('t')) {
     require_once __DIR__ . '/i18n.php';
 }
 
-$host = $_SERVER['HTTP_HOST'] ?? 'novacreator-studio.com';
+$host = $_SERVER['HTTP_HOST'] ?? 'novacreatorstudio.com';
+// Убираем www из хоста для единообразия (www будет редиректить на non-www через .htaccess)
+$host = preg_replace('/^www\./i', '', $host);
 $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
-$scheme = $isSecure ? 'https' : 'http';
+// Всегда используем HTTPS (HTTP будет редиректить на HTTPS через .htaccess)
+$scheme = 'https';
 $siteUrl = $scheme . '://' . $host;
 $siteName = t('site.name');
 $currentPage = basename($_SERVER['PHP_SELF'], '.php');

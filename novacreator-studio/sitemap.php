@@ -9,10 +9,13 @@ header('Content-Type: application/xml; charset=utf-8');
 // Подключаем систему локализации
 require_once __DIR__ . '/includes/i18n.php';
 
-// Базовый URL сайта
+// Базовый URL сайта (всегда без www и всегда HTTPS для правильной индексации)
 $host = $_SERVER['HTTP_HOST'] ?? 'novacreatorstudio.com';
+// Убираем www из хоста, чтобы избежать редиректов в sitemap
+$host = preg_replace('/^www\./i', '', $host);
 $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
-$scheme = $isSecure ? 'https' : 'http';
+// Всегда используем HTTPS для sitemap
+$scheme = 'https';
 $baseUrl = $scheme . '://' . $host;
 
 // Текущая дата для lastmod
