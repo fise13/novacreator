@@ -98,15 +98,25 @@ include 'includes/header.php';
             <div class="space-y-6 mb-8">
                 <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
-                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                        <?php echo htmlspecialchars(t('pages.services.development.types.landing')); ?>
-                    </p>
+                    <div class="flex-1">
+                        <p class="text-lg md:text-xl leading-relaxed mb-2" style="color: var(--color-text-secondary); max-width: 65ch;">
+                            <?php echo htmlspecialchars(t('pages.services.development.types.landing')); ?>
+                        </p>
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/landing-page-development'); ?>" class="text-base font-medium hover:underline" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Learn more about landing pages' : 'Подробнее о лендингах'; ?> →
+                        </a>
+                    </div>
                 </div>
                 <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
-                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                        <?php echo htmlspecialchars(t('pages.services.development.types.shop')); ?>
-                    </p>
+                    <div class="flex-1">
+                        <p class="text-lg md:text-xl leading-relaxed mb-2" style="color: var(--color-text-secondary); max-width: 65ch;">
+                            <?php echo htmlspecialchars(t('pages.services.development.types.shop')); ?>
+                        </p>
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/ecommerce-development'); ?>" class="text-base font-medium hover:underline" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Learn more about online stores' : 'Подробнее об интернет-магазинах'; ?> →
+                        </a>
+                    </div>
                 </div>
                 <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>

@@ -52,14 +52,42 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Ценности -->
+<!-- Опыт и подход -->
 <section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 md:mb-16 reveal">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                    <?php echo htmlspecialchars(t('pages.about.experience.title')); ?>
+                </h2>
+            </div>
+            
+            <div class="space-y-6">
+                <p class="reveal text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                    <?php echo htmlspecialchars(t('pages.about.experience.description1')); ?>
+                </p>
+                <p class="reveal text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                    <?php echo htmlspecialchars(t('pages.about.experience.description2')); ?>
+                </p>
+                <p class="reveal text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                    <?php echo htmlspecialchars(t('pages.about.experience.description3')); ?>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ценности -->
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
                 <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.about.values.title')); ?>
                 </h2>
+                <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
+                    <?php echo htmlspecialchars(t('pages.about.values.subtitle')); ?>
+                </p>
             </div>
             
             <div class="space-y-12 md:space-y-16">
@@ -104,7 +132,7 @@ include 'includes/header.php';
 </section>
 
 <!-- Почему мы -->
-<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+<section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
