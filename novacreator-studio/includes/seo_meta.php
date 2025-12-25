@@ -114,14 +114,6 @@ $pagesMeta = [
         'breadcrumb' => t('seo.pages.vacancies.breadcrumb'),
         'canonical' => '/vacancies',
     ],
-    'portfolio' => [
-        'title' => t('seo.pages.portfolio.title'),
-        'description' => t('seo.pages.portfolio.description'),
-        'keywords' => t('seo.pages.portfolio.keywords'),
-        'og_type' => 'website',
-        'breadcrumb' => t('seo.pages.portfolio.breadcrumb'),
-        'canonical' => '/portfolio',
-    ],
     'calculator' => [
         'title' => t('seo.pages.calculator.title'),
         'description' => t('seo.pages.calculator.description'),
