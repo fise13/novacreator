@@ -23,15 +23,16 @@
     RewriteCond %{REQUEST_URI} ^(.+)\.php$
     RewriteRule ^(.+)\.php$ /$1 [R=301,L]
     
+    # Мультиязычность (должно быть ПЕРЕД правилом добавления .php)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(ru|en)/(.*)$ $2?lang=$1 [QSA,L]
+    
+    # Добавляем .php расширение для ЧПУ
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}.php -f
     RewriteRule ^([^\.]+)$ $1.php [L]
-    
-    # Мультиязычность
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(ru|en)/(.*)$ /$2?lang=$1 [QSA,L]
 </IfModule>
 
 # КЕШИРОВАНИЕ БРАУЗЕРА - Улучшенное
