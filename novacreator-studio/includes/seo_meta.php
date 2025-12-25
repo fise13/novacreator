@@ -18,8 +18,8 @@ $siteUrl = $scheme . '://' . $host;
 $siteName = t('site.name');
 // Определяем текущую страницу: для вложенных путей используем путь, для обычных - имя файла
 $scriptPath = $_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '';
-if (strpos($scriptPath, '/portfolio/case/') !== false) {
-    // Для кейсов используем имя файла без расширения
+if (false) {
+    // Удалено: проверка для кейсов портфолио
     $currentPage = basename($scriptPath, '.php');
 } else {
     $currentPage = basename($scriptPath, '.php');
@@ -89,14 +89,6 @@ $pagesMeta = [
         'og_type' => 'article',
         'breadcrumb' => t('seo.pages.ads.breadcrumb'),
         'canonical' => '/ads',
-    ],
-    'portfolio' => [
-        'title' => t('seo.pages.portfolio.title'),
-        'description' => t('seo.pages.portfolio.description'),
-        'keywords' => t('seo.pages.portfolio.keywords'),
-        'og_type' => 'website',
-        'breadcrumb' => t('seo.pages.portfolio.breadcrumb'),
-        'canonical' => '/portfolio',
     ],
     'about' => [
         'title' => t('seo.pages.about.title'),
@@ -169,14 +161,6 @@ $pagesMeta = [
         'og_type' => 'service',
         'breadcrumb' => 'Разработка корпоративных сайтов',
         'canonical' => '/corporate-website-development',
-    ],
-    'coffee-shop-landing' => [
-        'title' => 'Лендинг для кофейни: от Instagram к онлайн-заказам | Кейс | NovaCreator Studio',
-        'description' => 'Кейс: как мы построили лендинг для локальной кофейни, который увеличил онлайн-заказы на 340% и попал в топ-3 Google Maps. Проблема, решение, результаты с метриками.',
-        'keywords' => 'кейс лендинга кофейни, сайт для кофейни, локальное SEO кейс, landing page для локального бизнеса, кейс увеличения заказов',
-        'og_type' => 'article',
-        'breadcrumb' => 'Кейс: Лендинг для кофейни',
-        'canonical' => '/portfolio/case/coffee-shop-landing',
     ],
 ];
 
@@ -435,11 +419,6 @@ $navigationSchema = [
             '@type' => 'SiteNavigationElement',
             'name' => $currentLang === 'ru' ? 'Google Ads' : 'Google Ads',
             'url' => $siteUrl . getLocalizedUrl($currentLang, '/ads')
-        ],
-        [
-            '@type' => 'SiteNavigationElement',
-            'name' => $currentLang === 'ru' ? 'Портфолио' : 'Portfolio',
-            'url' => $siteUrl . getLocalizedUrl($currentLang, '/portfolio')
         ],
         [
             '@type' => 'SiteNavigationElement',

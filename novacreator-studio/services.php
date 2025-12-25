@@ -342,13 +342,10 @@ include 'includes/header.php';
             <p class="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 lg:mb-12 leading-relaxed reveal" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.services.cta.subtitle')); ?>
             </p>
-            <div class="reveal flex flex-col sm:flex-row gap-4 justify-center">
+            <div class="reveal">
                 <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative inline-block w-full sm:w-auto px-10 py-5 md:px-12 md:py-6 bg-black text-white text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 min-h-[48px] md:min-h-[56px] shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
                     <span class="relative z-10"><?php echo htmlspecialchars(t('pages.services.cta.button')); ?></span>
                     <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="px-10 py-5 md:px-12 md:py-6 text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 min-h-[48px] md:min-h-[56px] border-2" style="border-color: var(--color-border); color: var(--color-text); background-color: transparent;">
-                    <?php echo $currentLang === 'en' ? 'View Portfolio' : 'Посмотреть портфолио'; ?>
                 </a>
             </div>
         </div>

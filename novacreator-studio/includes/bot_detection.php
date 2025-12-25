@@ -353,11 +353,9 @@ function checkAndBlockBots($strict = false) {
     $requestUri = $_SERVER['REQUEST_URI'] ?? '';
     $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
     
-    // Пропускаем проверку для админки, backend и некоторых публичных страниц
+    // Пропускаем проверку для админки и backend
     if (strpos($requestUri, '/admin') === 0 || 
-        strpos($requestUri, '/backend') === 0 ||
-        strpos($requestUri, '/portfolio') !== false ||
-        strpos($scriptName, '/portfolio') !== false) {
+        strpos($requestUri, '/backend') === 0) {
         return; // Пропускаем проверку
     }
     

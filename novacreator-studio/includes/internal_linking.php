@@ -17,7 +17,6 @@ $internalLinks = [
         ['url' => '/seo', 'text' => $currentLang === 'en' ? 'SEO Optimization Services' : 'SEO-оптимизация сайтов', 'description' => $currentLang === 'en' ? 'Professional SEO services - Top 10 ranking in Google and Yandex' : 'Профессиональные SEO услуги - Продвижение в топ-10 Google и Яндекс', 'anchor' => 'seo-services'],
         ['url' => '/services', 'text' => $currentLang === 'en' ? 'Digital Marketing Services' : 'Услуги digital-маркетинга', 'description' => $currentLang === 'en' ? 'Comprehensive digital services: SEO, development, advertising' : 'Комплексные digital услуги: SEO, разработка, реклама', 'anchor' => 'all-services'],
         ['url' => '/ads', 'text' => $currentLang === 'en' ? 'Google Ads Setup and Management' : 'Настройка и ведение Google Ads', 'description' => $currentLang === 'en' ? 'Contextual advertising setup and optimization' : 'Настройка и оптимизация контекстной рекламы', 'anchor' => 'google-ads'],
-        ['url' => '/portfolio', 'text' => $currentLang === 'en' ? 'SEO Case Studies and Portfolio' : 'Кейсы SEO и портфолио', 'description' => $currentLang === 'en' ? 'See real results of our SEO work' : 'Посмотрите реальные результаты наших SEO работ', 'anchor' => 'seo-cases'],
         ['url' => '/blog', 'text' => $currentLang === 'en' ? 'SEO and Marketing Blog' : 'Блог о SEO и маркетинге', 'description' => $currentLang === 'en' ? 'Articles about SEO, website promotion and marketing' : 'Статьи о SEO, продвижении сайтов и маркетинге', 'anchor' => 'seo-blog'],
         ['url' => '/faq', 'text' => $currentLang === 'en' ? 'SEO FAQ' : 'Вопросы и ответы по SEO', 'description' => $currentLang === 'en' ? 'Frequently asked questions about SEO promotion' : 'Часто задаваемые вопросы о SEO продвижении', 'anchor' => 'seo-faq'],
     ],
@@ -34,7 +33,6 @@ $internalLinks = [
         ['url' => '/blog', 'text' => $currentLang === 'en' ? 'SEO Optimization Articles and Guides' : 'Статьи и гайды по SEO оптимизации', 'description' => $currentLang === 'en' ? 'Expert articles about SEO, website promotion and search engine optimization' : 'Экспертные статьи о SEO, продвижении сайтов и оптимизации', 'anchor' => 'seo-articles'],
         ['url' => '/calculator', 'text' => $currentLang === 'en' ? 'SEO Promotion Cost Calculator' : 'Калькулятор стоимости SEO продвижения', 'description' => $currentLang === 'en' ? 'Calculate the cost of SEO services for your project' : 'Рассчитайте стоимость SEO услуг для вашего проекта', 'anchor' => 'seo-calculator'],
         ['url' => '/faq', 'text' => $currentLang === 'en' ? 'SEO Promotion FAQ' : 'Вопросы и ответы о SEO продвижении', 'description' => $currentLang === 'en' ? 'Answers to popular questions about SEO optimization' : 'Ответы на популярные вопросы о SEO оптимизации', 'anchor' => 'seo-faq'],
-        ['url' => '/portfolio', 'text' => $currentLang === 'en' ? 'SEO Promotion Case Studies' : 'Кейсы SEO продвижения', 'description' => $currentLang === 'en' ? 'Real results of SEO website promotion to top-10' : 'Реальные результаты SEO продвижения сайтов в топ-10', 'anchor' => 'seo-cases'],
     ],
     'ads' => [
         ['url' => '/seo', 'text' => $currentLang === 'en' ? 'SEO Services' : 'SEO услуги', 'description' => $currentLang === 'en' ? 'Combine with SEO' : 'Комбинировать с SEO'],
@@ -48,7 +46,6 @@ $internalLinks = [
     ],
     'about' => [
         ['url' => '/services', 'text' => $currentLang === 'en' ? 'Our Services' : 'Наши услуги', 'description' => $currentLang === 'en' ? 'What we do' : 'Что мы делаем'],
-        ['url' => '/portfolio', 'text' => $currentLang === 'en' ? 'Our Work' : 'Наши работы', 'description' => $currentLang === 'en' ? 'See examples' : 'Посмотреть примеры'],
         ['url' => '/contact', 'text' => $currentLang === 'en' ? 'Contact Us' : 'Связаться с нами', 'description' => $currentLang === 'en' ? 'Get in touch' : 'Связаться'],
     ],
 ];

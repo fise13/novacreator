@@ -78,19 +78,6 @@
       ]
     },
     {
-      "name": "Portfolio",
-      "short_name": "Portfolio",
-      "description": "View our work",
-      "url": "/portfolio",
-      "icons": [
-        {
-          "src": "/assets/img/icon-portfolio.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
       "name": "Calculator",
       "short_name": "Calculator",
       "description": "Calculate project cost",

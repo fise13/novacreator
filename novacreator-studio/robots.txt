@@ -33,7 +33,6 @@ Allow: /$
 Allow: /services$
 Allow: /seo$
 Allow: /ads$
-Allow: /portfolio$
 Allow: /about$
 Allow: /contact$
 Allow: /vacancies$

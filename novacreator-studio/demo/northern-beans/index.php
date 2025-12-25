@@ -5,8 +5,8 @@ $pageMetaDescription = 'Fresh roasted coffee daily. Order ahead for pickup, expl
 $ASSET_BASE_OVERRIDE = ''; // грузим ассеты из корня
 require_once __DIR__ . '/../../includes/header.php';
 $currentLang = getCurrentLanguage();
-$back = getLocalizedUrl($currentLang, '/portfolio');
-$backToPortfolio = $currentLang === 'en' ? 'Back to portfolio' : 'Назад в портфолио';
+$back = getLocalizedUrl($currentLang, '/');
+$backToPortfolio = $currentLang === 'en' ? 'Back to home' : 'Назад на главную';
 ?>
 
 <style>

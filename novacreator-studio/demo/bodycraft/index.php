@@ -5,7 +5,8 @@ $pageMetaDescription = 'Neon trainer landing: before/after and quiz placeholders
 $ASSET_BASE_OVERRIDE = ''; // грузим ассеты из корня
 require_once __DIR__ . '/../../includes/header.php';
 $currentLang = getCurrentLanguage();
-$back = getLocalizedUrl($currentLang, '/portfolio');
+$back = getLocalizedUrl($currentLang, '/');
+$backToPortfolio = $currentLang === 'en' ? 'Back to home' : 'Назад на главную';
 $ctaDemo = $currentLang === 'en' ? 'demo' : 'демо';
 $badge = $currentLang === 'en' ? 'Demo layout' : 'Демо-макет';
 $logicOff = $currentLang === 'en' ? 'Logic is disabled' : 'Логика отключена';

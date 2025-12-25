@@ -25,7 +25,6 @@ $pageMap = [
     'services' => ['name' => t('seo.pages.services.breadcrumb'), 'url' => '/services'],
     'seo' => ['name' => t('seo.pages.seo.breadcrumb'), 'url' => '/seo'],
     'ads' => ['name' => t('seo.pages.ads.breadcrumb'), 'url' => '/ads'],
-    'portfolio' => ['name' => t('seo.pages.portfolio.breadcrumb'), 'url' => '/portfolio'],
     'about' => ['name' => t('seo.pages.about.breadcrumb'), 'url' => '/about'],
     'contact' => ['name' => t('seo.pages.contact.breadcrumb'), 'url' => '/contact'],
     'vacancies' => ['name' => t('seo.pages.vacancies.breadcrumb'), 'url' => '/vacancies'],

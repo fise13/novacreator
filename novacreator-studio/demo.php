@@ -100,7 +100,7 @@ $pageMetaDescription = $demo['description'][$currentLang] ?? '';
 
 // Локализованные тексты
 $texts = [
-    'backToPortfolio' => $currentLang === 'en' ? 'Back to Portfolio' : 'Назад к портфолио',
+    'backToPortfolio' => $currentLang === 'en' ? 'Back to home' : 'Назад на главную',
     'demoBadge' => $currentLang === 'en' ? 'Demo Layout' : 'Демо-макет',
     'logicOff' => $currentLang === 'en' ? 'Logic Disabled' : 'Логика отключена',
     'noteStatic' => $currentLang === 'en'
@@ -738,7 +738,7 @@ function buttonDisabled(string $label, string $theme = 'default'): string {
                 <a href="#" class="disabled-link"><?php echo $currentLang === 'en' ? 'Home' : 'Главная'; ?></a>
                 <a href="#" class="disabled-link"><?php echo $currentLang === 'en' ? 'Features' : 'Возможности'; ?></a>
                 <a href="#" class="disabled-link"><?php echo $currentLang === 'en' ? 'About' : 'О нас'; ?></a>
-                <a href="<?php echo htmlspecialchars(getLocalizedUrl($currentLang, '/portfolio')); ?>" class="active-link">
+                <a href="<?php echo htmlspecialchars(getLocalizedUrl($currentLang, '/')); ?>" class="active-link">
                     <?php echo $texts['backToPortfolio']; ?>
                 </a>
             </div>
