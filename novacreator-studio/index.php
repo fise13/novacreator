@@ -15,19 +15,8 @@ $pageMetaKeywords = t('seo.pages.index.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция - крупный заголовок, подзаголовок и CTA -->
-<section class="parallax-hero reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
-    <!-- Parallax background elements -->
-    <div class="parallax-bg absolute inset-0 opacity-10 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-neon-blue/30 to-neon-purple/30 rounded-full blur-3xl"></div>
-    </div>
-    
-    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="parallax-content max-w-7xl mx-auto text-center">
-            <!-- Главный заголовок -->
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php 
+// Hero секция - подготовка данных
                 static $headlinesData = null;
                 if ($headlinesData === null) {
                     $langFile = __DIR__ . '/lang/' . $currentLang . '.json';
@@ -39,40 +28,29 @@ include 'includes/header.php';
                 }
                 $headlines = $headlinesData['home']['hero']['headlines'] ?? [];
                 $randomHeadline = !empty($headlines) ? $headlines[array_rand($headlines)] : ['title' => 'Your growth is our goal', 'subtitle' => ''];
-                echo htmlspecialchars($currentLang === 'en' ? 'Your growth is our goal' : $randomHeadline['title']); 
-                ?>
-            </h1>
-            
-            <!-- Подзаголовок -->
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
-                <?php 
+$heroTitle = $currentLang === 'en' ? 'Your growth is our goal' : $randomHeadline['title'];
                 $descriptions = $headlinesData['home']['hero']['descriptions'] ?? [];
                 $randomDescription = !empty($descriptions) ? $descriptions[array_rand($descriptions)] : ($currentLang === 'en' ? 'Digital agency specializing in SEO, web development, and marketing strategies' : 'Цифровое агентство');
-                echo htmlspecialchars($randomDescription); 
-                ?>
-            </p>
-            
-            <!-- CTA кнопки -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 reveal px-4 sm:px-0">
-                <a href="#contact-form" onclick="const el = document.getElementById('contact-form'); if(el) { el.scrollIntoView({behavior: 'smooth'}); return false; }" class="hero-cta-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105 hover:shadow-xl" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);">
-                    <?php echo htmlspecialchars(t('common.getStarted')); ?>
-                </a>
-                <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="hero-portfolio-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105" style="border: 1px solid rgba(99, 102, 241, 0.3); color: var(--color-text); background-color: transparent; text-decoration: none;">
-                    <?php echo $currentLang === 'en' ? 'Our Services' : 'Наши услуги'; ?>
-                </a>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Индикатор прокрутки -->
-    <div class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
-        <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform cursor-pointer" style="border-color: var(--color-border); background-color: rgba(255, 255, 255, 0.05);">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text-secondary);">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </div>
-    </div>
-</section>
+$heroSubtitle = $randomDescription;
+$heroCtaButtons = [
+    [
+        'text' => t('common.getStarted'),
+        'url' => '#contact-form',
+        'onclick' => "const el = document.getElementById('contact-form'); if(el) { el.scrollIntoView({behavior: 'smooth'}); return false; }",
+        'class' => 'hero-cta-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105 hover:shadow-xl',
+        'style' => 'background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);'
+    ],
+    [
+        'text' => $currentLang === 'en' ? 'Our Services' : 'Наши услуги',
+        'url' => getLocalizedUrl($currentLang, '/services'),
+        'class' => 'hero-portfolio-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105',
+        'style' => 'border: 1px solid rgba(99, 102, 241, 0.3); color: var(--color-text); background-color: transparent; text-decoration: none;'
+    ]
+];
+$heroWithParallax = true;
+$heroScrollIndicator = true;
+include __DIR__ . '/includes/partials/hero-section.php';
+?>
 
 <!-- Статистика - Apple минимализм -->
 <section class="reveal-group py-12 md:py-20 lg:py-32 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
@@ -107,82 +85,40 @@ include 'includes/header.php';
 <section id="services" class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <!-- Заголовок секции -->
-            <div class="mb-12 md:mb-16 lg:mb-20 reveal">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
-                    <?php echo htmlspecialchars(t('home.services.title')); ?>
-                </h2>
-            </div>
+            <?php
+            // Заголовок секции
+            $sectionTitle = t('home.services.title');
+            include __DIR__ . '/includes/partials/section-header.php';
+            ?>
             
             <!-- Карточки услуг - стиль holymedia.kz -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
-                <!-- SEO -->
-                <div class="group relative reveal cursor-pointer touch-manipulation p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 mb-6 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
-                        <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
-                        <?php echo htmlspecialchars(t('home.services.seo.title')); ?>
-                    </h3>
-                    <p class="text-base sm:text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? htmlspecialchars(t('home.services.seo.description')) 
-                            : 'Выводим ваш сайт в топ поисковых систем с использованием новаторских методов продвижения. Комплексная оптимизация, технический аудит и постоянный мониторинг результатов.'; ?>
-                    </p>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-all duration-200 hover:opacity-70 hover:translate-x-1 min-h-[44px] touch-manipulation" style="color: var(--color-text);">
-                        <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
-                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                    </a>
-                </div>
+                <?php
+                // SEO карточка
+                $cardTitle = t('home.services.seo.title');
+                $cardDescription = $currentLang === 'en' 
+                    ? t('home.services.seo.description') 
+                    : 'Выводим ваш сайт в топ поисковых систем с использованием новаторских методов продвижения. Комплексная оптимизация, технический аудит и постоянный мониторинг результатов.';
+                $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>';
+                $cardLinkUrl = getLocalizedUrl($currentLang, '/seo');
+                include __DIR__ . '/includes/partials/service-card.php';
                 
-                <!-- Разработка сайтов -->
-                <div class="group relative reveal cursor-pointer touch-manipulation p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 mb-6 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
-                        <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
-                        <?php echo htmlspecialchars(t('home.services.development.title')); ?>
-                    </h3>
-                    <p class="text-base sm:text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo htmlspecialchars(t('home.services.development.description')); ?>
-                    </p>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-all duration-200 hover:opacity-70 hover:translate-x-1 min-h-[44px] touch-manipulation" style="color: var(--color-text);">
-                        <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
-                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                    </a>
-                </div>
+                // Разработка сайтов карточка
+                $cardTitle = t('home.services.development.title');
+                $cardDescription = t('home.services.development.description');
+                $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>';
+                $cardLinkUrl = getLocalizedUrl($currentLang, '/services#development');
+                include __DIR__ . '/includes/partials/service-card.php';
                 
-                <!-- Google Ads -->
-                <div class="group relative reveal cursor-pointer touch-manipulation p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 mb-6 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
-                        <svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 leading-tight transition-opacity duration-200 group-hover:opacity-80" style="color: var(--color-text);">
-                        <?php echo htmlspecialchars(t('home.services.ads.title')); ?>
-                    </h3>
-                    <p class="text-base sm:text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? htmlspecialchars(t('home.services.ads.description')) 
-                            : 'Контекстная реклама и поисковая интернет реклама под ключ. Настройка, запуск и оптимизация кампаний для максимальной конверсии и ROI.'; ?>
-                    </p>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-all duration-200 hover:opacity-70 hover:translate-x-1 min-h-[44px] touch-manipulation" style="color: var(--color-text);">
-                        <span><?php echo $currentLang === 'en' ? 'Learn more' : 'Подробнее'; ?></span>
-                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                    </a>
-                </div>
+                // Google Ads карточка
+                $cardTitle = t('home.services.ads.title');
+                $cardDescription = $currentLang === 'en' 
+                    ? t('home.services.ads.description') 
+                    : 'Контекстная реклама и поисковая интернет реклама под ключ. Настройка, запуск и оптимизация кампаний для максимальной конверсии и ROI.';
+                $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>';
+                $cardLinkUrl = getLocalizedUrl($currentLang, '/ads');
+                include __DIR__ . '/includes/partials/service-card.php';
+                ?>
             </div>
         </div>
     </div>
