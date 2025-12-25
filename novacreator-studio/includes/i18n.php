@@ -160,9 +160,11 @@ function getLocalizedUrl(string $lang, ?string $path = null): string {
         return '/';
     }
     
-    // Для языка по умолчанию добавляем префикс только для не-корневых путей
+    // Для языка по умолчанию (ru) возвращаем путь БЕЗ префикса /ru/
+    // Это предотвращает циклы редиректов с правилом .htaccess
+    // Правило .htaccess обработает /ru/... и добавит ?lang=ru
     if ($lang === DEFAULT_LANGUAGE) {
-        return '/ru' . $cleanPath;
+        return $cleanPath;
     }
     
     return '/' . $lang . $cleanPath;

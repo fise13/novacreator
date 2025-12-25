@@ -24,11 +24,15 @@
     RewriteRule ^(.+)\.php$ /$1 [R=301,L]
     
     # Мультиязычность (должно быть ПЕРЕД правилом добавления .php)
+    # Обрабатываем только URL вида /ru/... или /en/... 
+    # КРИТИЧНО: не применяем, если уже есть параметр lang в query string, чтобы избежать циклов
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(ru|en)/(.*)$ $2?lang=$1 [QSA,L]
+    RewriteCond %{QUERY_STRING} !lang=
+    RewriteRule ^(ru|en)/(.*)$ $2?lang=$1 [L]
     
-    # Добавляем .php расширение для ЧПУ
+    # Добавляем .php расширение для ЧПУ (включая portfolio)
+    # Важно: проверяем, что файл существует, чтобы избежать циклов
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}.php -f

@@ -351,8 +351,14 @@ function blockBot($log = true) {
 function checkAndBlockBots($strict = false) {
     // Исключаем проверку для админ-панели (чтобы не блокировать себя)
     $requestUri = $_SERVER['REQUEST_URI'] ?? '';
-    if (strpos($requestUri, '/admin') === 0 || strpos($requestUri, '/backend') === 0) {
-        return; // Пропускаем проверку для админки и backend
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+    
+    // Пропускаем проверку для админки, backend и некоторых публичных страниц
+    if (strpos($requestUri, '/admin') === 0 || 
+        strpos($requestUri, '/backend') === 0 ||
+        strpos($requestUri, '/portfolio') !== false ||
+        strpos($scriptName, '/portfolio') !== false) {
+        return; // Пропускаем проверку
     }
     
     // Проверяем на бота

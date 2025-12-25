@@ -18,7 +18,7 @@ $pageMetaKeywords = $currentLang === 'en'
     : 'портфолио, проекты, разработка сайтов, seo, реклама, кейсы';
 $pageMetaCanonical = '/portfolio';
 
-include __DIR__ . '/includes/header.php';
+include 'includes/header.php';
 
 // Данные проектов
 $projects = [
@@ -211,5 +211,5 @@ $projects = [
     </div>
 </section>
 
-<?php include __DIR__ . '/includes/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>
 
