@@ -119,6 +119,20 @@ include 'includes/header.php';
                 <div id="development-options" class="service-options hidden space-y-6">
                     <div>
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Industry/Niche' : 'Отрасль/Ниша'; ?>
+                        </label>
+                        <select name="niche" id="niche-select" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                            <option value="general"><?php echo $currentLang === 'en' ? 'General' : 'Общее'; ?></option>
+                            <option value="restaurant"><?php echo $currentLang === 'en' ? 'Restaurant/Cafe' : 'Ресторан/Кафе'; ?></option>
+                            <option value="fitness"><?php echo $currentLang === 'en' ? 'Fitness/Gym' : 'Фитнес/Спортзал'; ?></option>
+                            <option value="ecommerce"><?php echo $currentLang === 'en' ? 'Online Store' : 'Интернет-магазин'; ?></option>
+                            <option value="hotel"><?php echo $currentLang === 'en' ? 'Hotel/Tourism' : 'Отель/Туризм'; ?></option>
+                            <option value="medical"><?php echo $currentLang === 'en' ? 'Medical/Beauty' : 'Медицина/Красота'; ?></option>
+                            <option value="education"><?php echo $currentLang === 'en' ? 'Education' : 'Образование'; ?></option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('pages.calculator.development.siteType')); ?>
                         </label>
                         <select name="dev_type" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
@@ -133,6 +147,13 @@ include 'includes/header.php';
                             <?php echo htmlspecialchars(t('pages.calculator.development.pages')); ?>
                         </label>
                         <input type="number" name="pages" value="10" min="1" max="100" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                    </div>
+                    <!-- Примеры для ниши -->
+                    <div id="niche-examples" class="hidden p-4 rounded-lg" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                        <p class="text-sm font-semibold mb-2" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Example projects:' : 'Примеры проектов:'; ?>
+                        </p>
+                        <div id="niche-examples-content" class="text-sm space-y-1" style="color: var(--color-text-secondary);"></div>
                     </div>
                 </div>
 
@@ -167,12 +188,24 @@ include 'includes/header.php';
                             <?php echo htmlspecialchars(t('pages.calculator.result.title')); ?>
                         </h3>
                         <div class="text-5xl md:text-6xl font-bold mb-4" style="color: var(--color-text);" id="price">0 ₸</div>
-                        <p class="text-lg mb-6" style="color: var(--color-text-secondary);" id="price-note">
+                        <p class="text-lg mb-4" style="color: var(--color-text-secondary);" id="price-note">
                             <?php echo htmlspecialchars(t('pages.calculator.result.note')); ?>
                         </p>
-                        <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="inline-block px-8 py-4 bg-black text-white text-lg font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200">
-                            <?php echo htmlspecialchars(t('pages.calculator.result.button')); ?>
-                        </a>
+                        <!-- Похожий кейс -->
+                        <div id="similar-case" class="mb-6 p-4 rounded-lg hidden" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                            <p class="text-sm mb-2" style="color: var(--color-text-secondary);">
+                                <?php echo $currentLang === 'en' ? 'Similar project:' : 'Похожий проект:'; ?>
+                            </p>
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" id="similar-case-link" class="text-base font-semibold hover:underline" style="color: var(--color-text);"></a>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="inline-block px-8 py-4 bg-black text-white text-lg font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200 text-center">
+                                <?php echo htmlspecialchars(t('pages.calculator.result.button')); ?>
+                            </a>
+                            <button type="button" id="saveCalculation" class="px-8 py-4 border-2 rounded-lg text-lg font-semibold transition-colors duration-200" style="border-color: var(--color-border); color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Save & Email' : 'Сохранить и отправить'; ?>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -201,9 +234,66 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('.service-radio:checked').dispatchEvent(new Event('change'));
 
+    // Примеры проектов по нишам
+    const nicheExamples = {
+        restaurant: {
+            ru: 'Кофейня на Абая: лендинг 250 000 ₸, сайт-меню 300 000 ₸',
+            en: 'Coffee Shop on Abay: landing 250,000 ₸, menu site 300,000 ₸'
+        },
+        fitness: {
+            ru: 'FlexFit: корпоративный сайт 450 000 ₸, онлайн-запись 500 000 ₸',
+            en: 'FlexFit: corporate site 450,000 ₸, online booking 500,000 ₸'
+        },
+        ecommerce: {
+            ru: 'StyleKZ: интернет-магазин 800 000 ₸, каталог товаров 600 000 ₸',
+            en: 'StyleKZ: online store 800,000 ₸, product catalog 600,000 ₸'
+        },
+        hotel: {
+            ru: 'Lakeview Hotel: сайт с бронированием 950 000 ₸, система управления 1 200 000 ₸',
+            en: 'Lakeview Hotel: booking site 950,000 ₸, management system 1,200,000 ₸'
+        },
+        medical: {
+            ru: 'Dental Care: сайт-визитка 350 000 ₸, запись онлайн 450 000 ₸',
+            en: 'Dental Care: business card site 350,000 ₸, online booking 450,000 ₸'
+        },
+        education: {
+            ru: 'StudyKZ: сайт школы 400 000 ₸, LMS-платформа 1 200 000 ₸',
+            en: 'StudyKZ: school site 400,000 ₸, LMS platform 1,200,000 ₸'
+        }
+    };
+
+    // Похожие кейсы
+    const similarCases = {
+        restaurant: { ru: 'Кофейня на Абая', en: 'Coffee Shop on Abay' },
+        fitness: { ru: 'FlexFit', en: 'FlexFit' },
+        ecommerce: { ru: 'StyleKZ', en: 'StyleKZ' },
+        hotel: { ru: 'Lakeview Hotel', en: 'Lakeview Hotel' },
+        medical: { ru: 'Dental Care', en: 'Dental Care' },
+        education: { ru: 'StudyKZ', en: 'StudyKZ' }
+    };
+
+    // Показ примеров для ниши
+    const nicheSelect = document.getElementById('niche-select');
+    const nicheExamplesDiv = document.getElementById('niche-examples');
+    const nicheExamplesContent = document.getElementById('niche-examples-content');
+    
+    if (nicheSelect) {
+        nicheSelect.addEventListener('change', function() {
+            const niche = this.value;
+            if (niche !== 'general' && nicheExamples[niche]) {
+                const lang = '<?php echo $currentLang; ?>';
+                nicheExamplesContent.textContent = nicheExamples[niche][lang] || nicheExamples[niche]['ru'];
+                nicheExamplesDiv.classList.remove('hidden');
+            } else {
+                nicheExamplesDiv.classList.add('hidden');
+            }
+        });
+    }
+
     calculateBtn.addEventListener('click', function() {
         const service = document.querySelector('.service-radio:checked').value;
         let price = 0;
+        let similarCase = null;
 
         if (service === 'seo') {
             const siteType = document.querySelector('[name="site_type"]').value;
@@ -226,12 +316,31 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (service === 'development') {
             const devType = document.querySelector('[name="dev_type"]').value;
             const pages = parseInt(document.querySelector('[name="pages"]').value) || 10;
+            const niche = document.querySelector('[name="niche"]')?.value || 'general';
             
             let basePrice = 0;
+            // Базовые цены по типу сайта
             if (devType === 'landing') basePrice = 180000;
             else if (devType === 'corporate') basePrice = 300000;
             else if (devType === 'shop') basePrice = 500000;
             else if (devType === 'webapp') basePrice = 750000;
+
+            // Корректировка по нише
+            const nicheMultipliers = {
+                restaurant: { landing: 1.0, corporate: 0.9, shop: 0.85, webapp: 1.0 },
+                fitness: { landing: 1.0, corporate: 1.1, shop: 1.0, webapp: 1.2 },
+                ecommerce: { landing: 0.9, corporate: 1.0, shop: 1.0, webapp: 1.1 },
+                hotel: { landing: 1.0, corporate: 1.0, shop: 1.0, webapp: 1.3 },
+                medical: { landing: 0.95, corporate: 1.0, shop: 0.9, webapp: 1.0 },
+                education: { landing: 1.0, corporate: 1.0, shop: 0.9, webapp: 1.4 }
+            };
+
+            if (niche !== 'general' && nicheMultipliers[niche] && nicheMultipliers[niche][devType]) {
+                basePrice = Math.round(basePrice * nicheMultipliers[niche][devType]);
+                if (similarCases[niche]) {
+                    similarCase = similarCases[niche];
+                }
+            }
 
             price = Math.round(basePrice + (pages - 5) * 30000);
         } else if (service === 'ads') {
@@ -245,9 +354,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         priceDiv.textContent = price.toLocaleString('ru-RU') + ' ₸';
+        
+        // Показываем похожий кейс если есть
+        const similarCaseDiv = document.getElementById('similar-case');
+        const similarCaseLink = document.getElementById('similar-case-link');
+        if (similarCase && similarCaseDiv && similarCaseLink) {
+            const lang = '<?php echo $currentLang; ?>';
+            similarCaseLink.textContent = similarCase[lang] || similarCase['ru'];
+            similarCaseDiv.classList.remove('hidden');
+        } else if (similarCaseDiv) {
+            similarCaseDiv.classList.add('hidden');
+        }
+        
         resultDiv.classList.remove('hidden');
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+
+    // Сохранение расчета
+    const saveBtn = document.getElementById('saveCalculation');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', function() {
+            const service = document.querySelector('.service-radio:checked').value;
+            const price = priceDiv.textContent;
+            const calculationData = {
+                service: service,
+                price: price,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Здесь можно добавить отправку на email через AJAX
+            alert('<?php echo $currentLang === "en" ? "Calculation saved! We will send it to your email." : "Расчет сохранен! Мы отправим его на ваш email."; ?>');
+        });
+    }
     
     const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

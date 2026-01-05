@@ -97,6 +97,39 @@ if ($estimatedCompletion === null) {
     $estimatedCompletion = $avgProgressPerDay > 0 ? ceil((100 - $progress) / $avgProgressPerDay) : 0;
 }
 
+// Загружаем данные для расширенного кабинета
+require_once __DIR__ . '/includes/db.php';
+$pdo = getDb();
+
+// Отчеты
+$reportsStmt = $pdo->prepare('SELECT * FROM reports WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 10');
+$reportsStmt->execute(['user_id' => $user['id']]);
+$reports = $reportsStmt->fetchAll();
+
+// История работ
+$historyStmt = $pdo->prepare('SELECT * FROM work_history WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 20');
+$historyStmt->execute(['user_id' => $user['id']]);
+$workHistory = $historyStmt->fetchAll();
+
+// Уведомления
+$notificationsStmt = $pdo->prepare('SELECT * FROM notifications WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 10');
+$notificationsStmt->execute(['user_id' => $user['id']]);
+$notifications = $notificationsStmt->fetchAll();
+$unreadCount = count(array_filter($notifications, function($n) { return empty($n['read_at']); }));
+
+// Файлы
+$filesStmt = $pdo->prepare('SELECT * FROM files WHERE user_id = :user_id ORDER BY uploaded_at DESC LIMIT 20');
+$filesStmt->execute(['user_id' => $user['id']]);
+$files = $filesStmt->fetchAll();
+
+// Тикеты/чат
+$ticketsStmt = $pdo->prepare('SELECT t.*, 
+    (SELECT COUNT(*) FROM ticket_messages WHERE ticket_id = t.id) as message_count,
+    (SELECT MAX(created_at) FROM ticket_messages WHERE ticket_id = t.id) as last_message_at
+    FROM tickets t WHERE user_id = :user_id ORDER BY updated_at DESC LIMIT 10');
+$ticketsStmt->execute(['user_id' => $user['id']]);
+$tickets = $ticketsStmt->fetchAll();
+
 function minutesToHuman(int $minutes): string
 {
     $hours = intdiv($minutes, 60);
@@ -366,6 +399,200 @@ include __DIR__ . '/includes/header.php';
                 <div class="text-center py-12">
                     <p class="text-lg mb-2" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.timeline.empty.title')); ?></p>
                     <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('dashboard.timeline.empty.subtitle')); ?></p>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Отчеты по SEO/рекламе -->
+        <div class="animate-on-scroll p-8 border rounded-lg mb-8" style="border-color: var(--color-border); background-color: var(--color-bg);">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' ? 'Reports' : 'Отчеты'; ?>
+                </h3>
+                <span class="text-sm" style="color: var(--color-text-secondary);">
+                    <?php echo count($reports); ?> <?php echo $currentLang === 'en' ? 'reports' : 'отчетов'; ?>
+                </span>
+            </div>
+            <?php if (empty($reports)): ?>
+                <p class="text-base" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' ? 'No reports yet' : 'Отчетов пока нет'; ?>
+                </p>
+            <?php else: ?>
+                <div class="space-y-4">
+                    <?php foreach ($reports as $report): ?>
+                        <div class="p-4 border rounded-lg hover:opacity-70 transition-opacity" style="border-color: var(--color-border); background-color: var(--color-bg-lighter);">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <h4 class="text-lg font-semibold mb-1" style="color: var(--color-text);">
+                                        <?php echo htmlspecialchars($report['title']); ?>
+                                    </h4>
+                                    <p class="text-sm mb-2" style="color: var(--color-text-secondary);">
+                                        <?php echo htmlspecialchars($report['type']); ?> • 
+                                        <?php echo date('d.m.Y', strtotime($report['created_at'])); ?>
+                                    </p>
+                                    <?php if ($report['file_url']): ?>
+                                        <a href="<?php echo htmlspecialchars($report['file_url']); ?>" 
+                                           class="text-sm underline" 
+                                           style="color: var(--color-text);">
+                                            <?php echo $currentLang === 'en' ? 'Download' : 'Скачать'; ?>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- История работ -->
+        <div class="animate-on-scroll p-8 border rounded-lg mb-8" style="border-color: var(--color-border); background-color: var(--color-bg);">
+            <h3 class="text-2xl font-bold mb-6" style="color: var(--color-text);">
+                <?php echo $currentLang === 'en' ? 'Work History' : 'История работ'; ?>
+            </h3>
+            <?php if (empty($workHistory)): ?>
+                <p class="text-base" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' ? 'No work history yet' : 'Истории работ пока нет'; ?>
+                </p>
+            <?php else: ?>
+                <div class="space-y-3">
+                    <?php foreach ($workHistory as $item): ?>
+                        <div class="flex items-start gap-4 p-3 border rounded-lg" style="border-color: var(--color-border); background-color: var(--color-bg-lighter);">
+                            <div class="w-2 h-2 rounded-full mt-2" style="background-color: var(--color-text);"></div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium" style="color: var(--color-text);">
+                                    <?php echo htmlspecialchars($item['action']); ?>
+                                </p>
+                                <?php if ($item['description']): ?>
+                                    <p class="text-sm mt-1" style="color: var(--color-text-secondary);">
+                                        <?php echo htmlspecialchars($item['description']); ?>
+                                    </p>
+                                <?php endif; ?>
+                                <p class="text-xs mt-1" style="color: var(--color-text-secondary);">
+                                    <?php echo date('d.m.Y H:i', strtotime($item['created_at'])); ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Уведомления -->
+        <div class="animate-on-scroll p-8 border rounded-lg mb-8" style="border-color: var(--color-border); background-color: var(--color-bg);">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' ? 'Notifications' : 'Уведомления'; ?>
+                </h3>
+                <?php if ($unreadCount > 0): ?>
+                    <span class="px-3 py-1 text-sm font-semibold rounded-full" style="background-color: var(--color-text); color: var(--color-bg);">
+                        <?php echo $unreadCount; ?>
+                    </span>
+                <?php endif; ?>
+            </div>
+            <?php if (empty($notifications)): ?>
+                <p class="text-base" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' ? 'No notifications' : 'Уведомлений нет'; ?>
+                </p>
+            <?php else: ?>
+                <div class="space-y-3">
+                    <?php foreach ($notifications as $notification): ?>
+                        <div class="p-4 border rounded-lg <?php echo empty($notification['read_at']) ? 'border-l-4' : ''; ?> transition-opacity hover:opacity-70" 
+                             style="border-color: var(--color-border); background-color: var(--color-bg-lighter); <?php echo empty($notification['read_at']) ? 'border-left-color: var(--color-text);' : ''; ?>">
+                            <h4 class="text-base font-semibold mb-1" style="color: var(--color-text);">
+                                <?php echo htmlspecialchars($notification['title']); ?>
+                            </h4>
+                            <?php if ($notification['message']): ?>
+                                <p class="text-sm mb-2" style="color: var(--color-text-secondary);">
+                                    <?php echo htmlspecialchars($notification['message']); ?>
+                                </p>
+                            <?php endif; ?>
+                            <p class="text-xs" style="color: var(--color-text-secondary);">
+                                <?php echo date('d.m.Y H:i', strtotime($notification['created_at'])); ?>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Файловый архив -->
+        <div class="animate-on-scroll p-8 border rounded-lg mb-8" style="border-color: var(--color-border); background-color: var(--color-bg);">
+            <h3 class="text-2xl font-bold mb-6" style="color: var(--color-text);">
+                <?php echo $currentLang === 'en' ? 'Files' : 'Файлы'; ?>
+            </h3>
+            <?php if (empty($files)): ?>
+                <p class="text-base" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' ? 'No files yet' : 'Файлов пока нет'; ?>
+                </p>
+            <?php else: ?>
+                <div class="space-y-3">
+                    <?php foreach ($files as $file): ?>
+                        <div class="flex items-center justify-between p-3 border rounded-lg hover:opacity-70 transition-opacity" style="border-color: var(--color-border); background-color: var(--color-bg-lighter);">
+                            <div class="flex-1">
+                                <p class="text-base font-medium" style="color: var(--color-text);">
+                                    <?php echo htmlspecialchars($file['name']); ?>
+                                </p>
+                                <p class="text-sm" style="color: var(--color-text-secondary);">
+                                    <?php echo $file['file_size'] ? number_format($file['file_size'] / 1024, 2) . ' KB' : ''; ?> • 
+                                    <?php echo date('d.m.Y', strtotime($file['uploaded_at'])); ?>
+                                </p>
+                            </div>
+                            <a href="<?php echo htmlspecialchars($file['file_path']); ?>" 
+                               class="px-4 py-2 text-sm font-semibold rounded-lg border transition-colors" 
+                               style="border-color: var(--color-border); color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Download' : 'Скачать'; ?>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Чат/Тикеты -->
+        <div class="animate-on-scroll p-8 border rounded-lg mb-8" style="border-color: var(--color-border); background-color: var(--color-bg);">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' ? 'Support Tickets' : 'Тикеты поддержки'; ?>
+                </h3>
+                <button id="newTicketBtn" class="px-4 py-2 text-sm font-semibold rounded-lg transition-colors" style="background-color: var(--color-text); color: var(--color-bg);">
+                    <?php echo $currentLang === 'en' ? '+ New Ticket' : '+ Новый тикет'; ?>
+                </button>
+            </div>
+            <?php if (empty($tickets)): ?>
+                <p class="text-base" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' ? 'No tickets yet' : 'Тикетов пока нет'; ?>
+                </p>
+            <?php else: ?>
+                <div class="space-y-3">
+                    <?php foreach ($tickets as $ticket): ?>
+                        <div class="p-4 border rounded-lg hover:opacity-70 transition-opacity cursor-pointer" 
+                             style="border-color: var(--color-border); background-color: var(--color-bg-lighter);"
+                             onclick="window.location.href='/dashboard.php?ticket=<?php echo $ticket['id']; ?>'">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <h4 class="text-base font-semibold mb-1" style="color: var(--color-text);">
+                                        <?php echo htmlspecialchars($ticket['subject']); ?>
+                                    </h4>
+                                    <p class="text-sm" style="color: var(--color-text-secondary);">
+                                        <?php echo $ticket['message_count']; ?> <?php echo $currentLang === 'en' ? 'messages' : 'сообщений'; ?> • 
+                                        <?php echo date('d.m.Y', strtotime($ticket['created_at'])); ?>
+                                    </p>
+                                </div>
+                                <span class="px-3 py-1 text-xs font-semibold rounded-full" 
+                                      style="background-color: <?php echo $ticket['status'] === 'open' ? 'var(--color-text)' : 'var(--color-border)'; ?>; color: <?php echo $ticket['status'] === 'open' ? 'var(--color-bg)' : 'var(--color-text-secondary)'; ?>;">
+                                    <?php 
+                                    $statusLabels = [
+                                        'open' => $currentLang === 'en' ? 'Open' : 'Открыт',
+                                        'closed' => $currentLang === 'en' ? 'Closed' : 'Закрыт',
+                                        'pending' => $currentLang === 'en' ? 'Pending' : 'В ожидании'
+                                    ];
+                                    echo $statusLabels[$ticket['status']] ?? $ticket['status'];
+                                    ?>
+                                </span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             <?php endif; ?>
         </div>

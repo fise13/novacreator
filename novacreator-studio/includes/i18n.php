@@ -9,33 +9,113 @@ define('SUPPORTED_LANGUAGES', ['ru', 'en']);
 define('DEFAULT_LANGUAGE', 'ru');
 
 /**
- * Определяет текущий язык из URL
+ * Определяет текущий язык из URL, браузера и IP
  * @return string Код языка (ru или en)
  */
 function detectLanguage(): string {
-    // Сначала проверяем параметр lang из query string
+    // Сначала проверяем параметр lang из query string (приоритет 1)
     if (isset($_GET['lang']) && in_array($_GET['lang'], SUPPORTED_LANGUAGES)) {
         return $_GET['lang'];
+    }
+    
+    // Проверяем сохраненный язык в сессии (приоритет 2)
+    if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['user_lang']) && in_array($_SESSION['user_lang'], SUPPORTED_LANGUAGES)) {
+        return $_SESSION['user_lang'];
     }
     
     $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
     $path = parse_url($requestUri, PHP_URL_PATH);
     $segments = explode('/', trim($path, '/'));
     
-    // Проверяем первый сегмент URL
+    // Проверяем первый сегмент URL (приоритет 3)
     if (!empty($segments[0]) && in_array($segments[0], SUPPORTED_LANGUAGES)) {
         return $segments[0];
     }
     
-    // Проверяем Accept-Language заголовок
+    // Проверяем Accept-Language заголовок браузера (приоритет 4)
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
         $acceptLang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-        if (preg_match('/^en/i', $acceptLang)) {
-            return 'en';
+        // Парсим Accept-Language заголовок
+        $languages = [];
+        preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;q=([0-9.]+))?/i', $acceptLang, $matches);
+        if (!empty($matches[1])) {
+            foreach ($matches[1] as $index => $lang) {
+                $lang = strtolower($lang);
+                $q = isset($matches[2][$index]) ? (float)$matches[2][$index] : 1.0;
+                $languages[$lang] = $q;
+            }
+            arsort($languages);
+            
+            // Проверяем предпочтения браузера
+            foreach ($languages as $lang => $q) {
+                $langCode = substr($lang, 0, 2);
+                if ($langCode === 'en') {
+                    return 'en';
+                } elseif ($langCode === 'ru') {
+                    return 'ru';
+                }
+            }
         }
     }
     
+    // Определение по IP (приоритет 5) - только если нет других данных
+    $ipLang = detectLanguageByIP();
+    if ($ipLang !== null) {
+        return $ipLang;
+    }
+    
     return DEFAULT_LANGUAGE;
+}
+
+/**
+ * Определяет язык по IP адресу пользователя
+ * @return string|null Код языка или null если не удалось определить
+ */
+function detectLanguageByIP(): ?string {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? null;
+    if (!$ip) {
+        return null;
+    }
+    
+    // Список стран с английским языком (упрощенный)
+    $englishCountries = ['US', 'GB', 'CA', 'AU', 'NZ', 'IE', 'ZA', 'IN', 'PK', 'BD', 'NG', 'KE', 'GH', 'TZ', 'UG', 'ZW', 'ZM', 'MW', 'SL', 'LR', 'GM', 'BS', 'BB', 'BZ', 'GY', 'JM', 'TT', 'AG', 'BS', 'DM', 'GD', 'KN', 'LC', 'VC', 'SG', 'MY', 'PH', 'FJ', 'PG', 'SB', 'VU', 'NR', 'PW', 'FM', 'MH'];
+    
+    // Список стран с русским языком (упрощенный)
+    $russianCountries = ['RU', 'KZ', 'BY', 'UA', 'KG', 'TJ', 'TM', 'UZ', 'MD', 'AM', 'AZ', 'GE'];
+    
+    try {
+        // Используем бесплатный API для определения страны по IP
+        // Можно использовать ip-api.com, ipinfo.io или другие сервисы
+        $context = stream_context_create([
+            'http' => [
+                'timeout' => 2,
+                'method' => 'GET',
+                'header' => 'Accept: application/json'
+            ]
+        ]);
+        
+        // Используем ip-api.com (бесплатный, до 45 запросов в минуту)
+        $url = "http://ip-api.com/json/{$ip}?fields=countryCode";
+        $response = @file_get_contents($url, false, $context);
+        
+        if ($response) {
+            $data = json_decode($response, true);
+            if (isset($data['countryCode'])) {
+                $countryCode = $data['countryCode'];
+                
+                if (in_array($countryCode, $englishCountries)) {
+                    return 'en';
+                } elseif (in_array($countryCode, $russianCountries)) {
+                    return 'ru';
+                }
+            }
+        }
+    } catch (Exception $e) {
+        // В случае ошибки просто возвращаем null
+        return null;
+    }
+    
+    return null;
 }
 
 /**

@@ -134,6 +134,97 @@ function runMigrations(PDO $pdo): void
         );'
     );
     
+    // Отчеты по SEO/рекламе
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS reports (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            type TEXT NOT NULL,
+            title TEXT NOT NULL,
+            content TEXT,
+            metrics TEXT,
+            file_url TEXT,
+            created_at TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        );'
+    );
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_reports_user ON reports(user_id, created_at);');
+
+    // История работ
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS work_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            action TEXT NOT NULL,
+            description TEXT,
+            created_at TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        );'
+    );
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_work_history_user ON work_history(user_id, created_at);');
+
+    // Уведомления
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS notifications (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            type TEXT NOT NULL,
+            title TEXT NOT NULL,
+            message TEXT,
+            link TEXT,
+            read_at TEXT,
+            created_at TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        );'
+    );
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_notifications_user ON notifications(user_id, created_at);');
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_notifications_read ON notifications(user_id, read_at);');
+
+    // Файловый архив
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS files (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            file_path TEXT NOT NULL,
+            file_size INTEGER,
+            file_type TEXT,
+            category TEXT,
+            description TEXT,
+            uploaded_at TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        );'
+    );
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_files_user ON files(user_id, uploaded_at);');
+
+    // Чат/тикеты
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS tickets (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            subject TEXT NOT NULL,
+            status TEXT NOT NULL DEFAULT "open",
+            priority TEXT DEFAULT "normal",
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        );'
+    );
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS ticket_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ticket_id INTEGER NOT NULL,
+            user_id INTEGER,
+            admin_id INTEGER,
+            message TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            FOREIGN KEY (ticket_id) REFERENCES tickets(id) ON DELETE CASCADE,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+        );'
+    );
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_tickets_user ON tickets(user_id, created_at);');
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_ticket_messages_ticket ON ticket_messages(ticket_id, created_at);');
+
     // Вставляем дефолтные значения, если их нет (гарантируем наличие на сервере)
     $now = date('c');
     

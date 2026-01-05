@@ -256,6 +256,40 @@ foreach ($breadcrumbs as $index => $crumb) {
     ];
 }
 
+// LocalBusiness Schema для локального SEO
+$localBusinessSchema = [
+    '@type' => 'LocalBusiness',
+    '@id' => $siteUrl . '#localbusiness',
+    'name' => $siteName,
+    'image' => $absoluteUrl('/assets/img/og-default.webp'),
+    'url' => $siteUrl,
+    'telephone' => '+7-706-606-39-21',
+    'email' => 'contact@novacreatorstudio.com',
+    'address' => [
+        '@type' => 'PostalAddress',
+        'addressCountry' => 'KZ',
+        'addressLocality' => 'Almaty',
+        'addressRegion' => 'Almaty',
+        'postalCode' => '050000',
+    ],
+    'geo' => [
+        '@type' => 'GeoCoordinates',
+        'latitude' => '43.238949',
+        'longitude' => '76.889709',
+    ],
+    'openingHoursSpecification' => [
+        [
+            '@type' => 'OpeningHoursSpecification',
+            'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            'opens' => '09:00',
+            'closes' => '18:00',
+        ],
+    ],
+    'priceRange' => '$$',
+    'currenciesAccepted' => 'KZT',
+    'paymentAccepted' => 'Cash, Credit Card, Bank Transfer',
+];
+
 $organizationSchema = [
     '@type' => 'Organization',
     '@id' => $siteUrl . '#organization',
@@ -454,7 +488,31 @@ $navigationSchema = [
 ];
 
 // Добавляем Service schema для лучшего понимания услуг
-$graph = [$organizationSchema, $websiteSchema, $navigationSchema];
+$graph = [$organizationSchema, $websiteSchema, $navigationSchema, $localBusinessSchema];
+
+// Review Schema с фото для отзывов клиентов
+$reviewSchema = [
+    '@type' => 'Review',
+    'author' => [
+        '@type' => 'Person',
+        'name' => 'Aigul Nurlandova',
+    ],
+    'reviewRating' => [
+        '@type' => 'Rating',
+        'ratingValue' => 5,
+        'bestRating' => 5,
+        'worstRating' => 1,
+    ],
+    'reviewBody' => $currentLang === 'ru' 
+        ? 'Отличная работа! Сайт работает быстро, заказы приходят постоянно. Рекомендую!'
+        : 'Great work! The site works fast, orders come constantly. I recommend!',
+    'itemReviewed' => [
+        '@type' => 'Service',
+        '@id' => $siteUrl . '#seo-service',
+        'name' => $currentLang === 'ru' ? 'SEO-оптимизация' : 'SEO Optimization',
+    ],
+];
+$graph[] = $reviewSchema;
 
 // Service Schema для главной и SEO страниц с расширенной информацией
 if ($currentPage === 'index' || $currentPage === 'seo') {
@@ -727,6 +785,61 @@ if ($currentPage === 'seo') {
 if (!empty($breadcrumbsSchema['itemListElement'])) {
     $graph[] = $breadcrumbsSchema;
 }
+
+// VideoObject Schema для видео-контента (если есть видео на странице)
+if (isset($pageVideoUrl) && !empty($pageVideoUrl)) {
+    $videoSchema = [
+        '@type' => 'VideoObject',
+        'name' => $meta['title'],
+        'description' => $meta['description'],
+        'thumbnailUrl' => $metaImage,
+        'uploadDate' => isset($articleDate) ? date('c', strtotime($articleDate)) : date('c'),
+        'contentUrl' => $pageVideoUrl,
+        'embedUrl' => $pageVideoUrl,
+    ];
+    $graph[] = $videoSchema;
+}
+
+// Event Schema для вебинаров/мероприятий (если страница события)
+if (isset($pageEventData) && is_array($pageEventData)) {
+    $eventSchema = [
+        '@type' => 'Event',
+        'name' => $pageEventData['name'] ?? $meta['title'],
+        'description' => $pageEventData['description'] ?? $meta['description'],
+        'startDate' => $pageEventData['startDate'] ?? date('c'),
+        'endDate' => $pageEventData['endDate'] ?? null,
+        'eventAttendanceMode' => 'https://schema.org/OnlineEventAttendanceMode',
+        'eventStatus' => 'https://schema.org/EventScheduled',
+        'location' => [
+            '@type' => 'VirtualLocation',
+            'url' => $pageEventData['url'] ?? $canonicalUrl,
+        ],
+        'organizer' => [
+            '@type' => 'Organization',
+            '@id' => $siteUrl . '#organization',
+            'name' => $siteName,
+        ],
+    ];
+    $graph[] = $eventSchema;
+}
+
+// Course Schema для обучающих материалов (если страница курса)
+if (isset($pageCourseData) && is_array($pageCourseData)) {
+    $courseSchema = [
+        '@type' => 'Course',
+        'name' => $pageCourseData['name'] ?? $meta['title'],
+        'description' => $pageCourseData['description'] ?? $meta['description'],
+        'provider' => [
+            '@type' => 'Organization',
+            '@id' => $siteUrl . '#organization',
+            'name' => $siteName,
+        ],
+        'courseCode' => $pageCourseData['code'] ?? null,
+        'educationalCredentialAwarded' => $pageCourseData['credential'] ?? null,
+    ];
+    $graph[] = $courseSchema;
+}
+
 if (!empty($pageStructuredData)) {
     if (isset($pageStructuredData[0])) {
         foreach ($pageStructuredData as $schemaBlock) {
