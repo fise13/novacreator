@@ -215,6 +215,7 @@ require_once __DIR__ . '/theme_switcher.php';
                     <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
                     <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.about')); ?></a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'portfolio' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'portfolio' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.portfolio')); ?></a>
                     <?php 
                     $currentPageName = basename($_SERVER['PHP_SELF'], '.php');
                     $hasContactForm = ($currentPageName === 'index' || $currentPageName === 'demo');
@@ -408,6 +409,10 @@ require_once __DIR__ . '/theme_switcher.php';
                     
                     <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'about' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('nav.about')); ?>
+                    </a>
+                    
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'portfolio' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'portfolio' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('nav.portfolio')); ?>
                     </a>
                     
                     <?php 

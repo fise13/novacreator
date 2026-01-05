@@ -18,9 +18,11 @@
     RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,L]
     
     # ЧПУ - убираем .php расширение
+    # Исключаем portfolio и другие файлы, которые могут вызывать циклы редиректов
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}\.php -f
     RewriteCond %{REQUEST_URI} ^(.+)\.php$
+    RewriteCond %{REQUEST_URI} !^/(portfolio|index|contact|about|services|seo|ads|blog|faq|calculator|vacancies)\.php$
     RewriteRule ^(.+)\.php$ /$1 [R=301,L]
     
     # Мультиязычность (должно быть ПЕРЕД правилом добавления .php)

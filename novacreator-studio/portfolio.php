@@ -16,7 +16,16 @@ include 'includes/header.php';
 $portfolioFile = __DIR__ . '/data/portfolio.json';
 $projects = [];
 if (file_exists($portfolioFile)) {
-    $projects = json_decode(file_get_contents($portfolioFile), true) ?: [];
+    $jsonContent = file_get_contents($portfolioFile);
+    $decoded = json_decode($jsonContent, true);
+    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+        $projects = $decoded;
+    } else {
+        // Логируем ошибку JSON если есть
+        error_log('Portfolio JSON decode error: ' . json_last_error_msg());
+    }
+} else {
+    error_log('Portfolio file not found: ' . $portfolioFile);
 }
 
 function getProjectField($project, $field, $lang) {
@@ -30,7 +39,7 @@ function getProjectField($project, $field, $lang) {
 $serviceFilter = $_GET['service'] ?? 'all';
 if ($serviceFilter !== 'all' && in_array($serviceFilter, ['seo', 'development', 'ads'])) {
     $projects = array_filter($projects, function($project) use ($serviceFilter) {
-        return $project['service_type'] === $serviceFilter;
+        return isset($project['service_type']) && $project['service_type'] === $serviceFilter;
     });
 }
 
@@ -38,12 +47,25 @@ if ($serviceFilter !== 'all' && in_array($serviceFilter, ['seo', 'development', 
 $categoryFilter = $_GET['category'] ?? 'all';
 if ($categoryFilter !== 'all') {
     $projects = array_filter($projects, function($project) use ($categoryFilter) {
-        return $project['category'] === $categoryFilter;
+        return isset($project['category']) && $project['category'] === $categoryFilter;
     });
 }
 
 // Переиндексируем массив после фильтрации
 $projects = array_values($projects);
+
+// Временная отладка для проверки загрузки проектов
+if (isset($_GET['debug'])) {
+    $debugInfo = [
+        'file_exists' => file_exists($portfolioFile),
+        'total_before_filter' => count(json_decode(file_get_contents($portfolioFile), true) ?: []),
+        'total_after_filter' => count($projects),
+        'service_filter' => $serviceFilter,
+        'category_filter' => $categoryFilter,
+        'projects' => array_map(function($p) { return $p['title'] ?? 'no title'; }, $projects)
+    ];
+    error_log('Portfolio debug: ' . json_encode($debugInfo, JSON_UNESCAPED_UNICODE));
+}
 ?>
 
 <!-- Hero секция -->
@@ -101,23 +123,54 @@ $projects = array_values($projects);
 <section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
+            <?php 
+            // Временная отладка - показываем количество проектов
+            $totalBeforeFilter = 0;
+            if (file_exists($portfolioFile)) {
+                $allProjects = json_decode(file_get_contents($portfolioFile), true) ?: [];
+                $totalBeforeFilter = count($allProjects);
+            }
+            ?>
             <?php if (empty($projects)): ?>
                 <div class="text-center py-20 reveal">
-                    <p class="text-xl md:text-2xl" style="color: var(--color-text-secondary);">
+                    <p class="text-xl md:text-2xl mb-4" style="color: var(--color-text-secondary);">
                         <?php echo $currentLang === 'en' ? 'No projects found' : 'Проекты не найдены'; ?>
                     </p>
+                    <?php if ($serviceFilter !== 'all' || $categoryFilter !== 'all'): ?>
+                        <p class="text-base mt-4 mb-4" style="color: var(--color-text-secondary);">
+                            <?php echo $currentLang === 'en' 
+                                ? 'Try changing filters or view all projects' 
+                                : 'Попробуйте изменить фильтры или посмотреть все проекты'; ?>
+                        </p>
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" 
+                           class="inline-block px-6 py-3 border rounded-lg transition-colors hover:opacity-70" 
+                           style="border-color: var(--color-border); color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Show all projects' : 'Показать все проекты'; ?>
+                        </a>
+                    <?php else: ?>
+                        <p class="text-sm mt-4" style="color: var(--color-text-secondary);">
+                            <?php echo $currentLang === 'en' 
+                                ? 'Total projects in database: ' . $totalBeforeFilter
+                                : 'Всего проектов в базе: ' . $totalBeforeFilter; ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
             <?php else: ?>
                 <div id="portfolioProjects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
                     <?php foreach ($projects as $index => $project): ?>
                         <?php
+                        // Проверяем, что проект валидный
+                        if (empty($project) || !isset($project['title'])) {
+                            continue;
+                        }
+                        
                         $title = getProjectField($project, 'title', $currentLang);
                         $description = getProjectField($project, 'description', $currentLang);
                         $city = getProjectField($project, 'city', $currentLang);
-                        $category = $project['category'];
-                        $serviceType = $project['service_type'];
+                        $category = $project['category'] ?? 'general';
+                        $serviceType = $project['service_type'] ?? 'development';
                         $results = $project['results'] ?? [];
-                        $price = number_format((int)$project['price'], 0, ',', ' ') . ' ₸';
+                        $price = isset($project['price']) ? number_format((int)$project['price'], 0, ',', ' ') . ' ₸' : '';
                         $duration = getProjectField($project, 'duration', $currentLang);
                         $testimonial = $project['testimonial'] ?? null;
                         ?>
@@ -207,12 +260,18 @@ $projects = array_values($projects);
                                 <?php endif; ?>
                                 
                                 <!-- Цена и сроки -->
+                                <?php if ($price || $duration): ?>
                                 <div class="flex justify-between items-center pt-4 border-t" style="border-color: var(--color-border);">
                                     <div>
+                                        <?php if ($price): ?>
                                         <div class="text-lg font-bold" style="color: var(--color-text);"><?php echo $price; ?></div>
+                                        <?php endif; ?>
+                                        <?php if ($duration): ?>
                                         <div class="text-sm" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars($duration); ?></div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
+                                <?php endif; ?>
                                 
                                 <!-- Отзыв клиента -->
                                 <?php if ($testimonial): ?>

@@ -64,6 +64,7 @@ $currentLang = getCurrentLanguage();
                             <li><a href="<?php echo getLocalizedUrl($currentLang, '/faq'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.faq')); ?></a></li>
                             <li><a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.calculator')); ?></a></li>
                             <li><a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.blog')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.portfolio')); ?></a></li>
                             <li><a href="<?php echo getLocalizedUrl($currentLang, '/vacancies'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.vacancies')); ?></a></li>
                         </ul>
                     </div>
