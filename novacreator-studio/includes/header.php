@@ -505,7 +505,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <div
         id="burgerMenu"
         class="fixed left-0 w-full z-[9999] opacity-0 -translate-y-3 pointer-events-none transition-all duration-300 ease-out hidden"
-        style="top: calc(64px + env(safe-area-inset-top));"
+        style="top: calc(60px + env(safe-area-inset-top));"
         role="dialog"
         aria-modal="true"
         aria-labelledby="burgerMenuTitle"
@@ -637,7 +637,7 @@ require_once __DIR__ . '/theme_switcher.php';
         }
         /* Dropdown: под navbar с отступом, на всю ширину, не side panel */
         #burgerMenu {
-            top: calc(64px + env(safe-area-inset-top)) !important;
+            top: calc(60px + env(safe-area-inset-top)) !important;
             left: 0 !important;
             right: 0 !important;
             bottom: auto !important;
@@ -653,7 +653,7 @@ require_once __DIR__ . '/theme_switcher.php';
         /* Принудительно на мобильных (тот же breakpoint, что в output.css) */
         @media (max-width: 768px) {
             #burgerMenu {
-                top: calc(64px + env(safe-area-inset-top)) !important;
+                top: calc(60px + env(safe-area-inset-top)) !important;
                 left: 0 !important;
                 right: 0 !important;
                 bottom: auto !important;
