@@ -184,9 +184,22 @@ include 'includes/header.php';
                     </button>
 
                     <div id="result" class="border-2 rounded-lg p-8 hidden" style="border-color: var(--color-border);">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-text);">
-                            <?php echo htmlspecialchars(t('pages.calculator.result.title')); ?>
-                        </h3>
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                            <h3 class="text-2xl md:text-3xl font-bold" style="color: var(--color-text);">
+                                <?php echo htmlspecialchars(t('pages.calculator.result.title')); ?>
+                            </h3>
+                            <div class="inline-flex items-center rounded-full border px-1 py-1 bg-transparent text-sm font-medium" style="border-color: var(--color-border);">
+                                <button type="button" class="currency-toggle-btn px-3 py-1 rounded-full text-xs sm:text-sm transition-colors duration-150" data-currency="KZT">
+                                    ₸&nbsp;KZT
+                                </button>
+                                <button type="button" class="currency-toggle-btn px-3 py-1 rounded-full text-xs sm:text-sm transition-colors duration-150" data-currency="RUB">
+                                    ₽&nbsp;RUB
+                                </button>
+                                <button type="button" class="currency-toggle-btn px-3 py-1 rounded-full text-xs sm:text-sm transition-colors duration-150" data-currency="USD">
+                                    $&nbsp;USD
+                                </button>
+                            </div>
+                        </div>
                         <div class="text-5xl md:text-6xl font-bold mb-4" style="color: var(--color-text);" id="price">0 ₸</div>
                         <p class="text-lg mb-4" style="color: var(--color-text-secondary);" id="price-note">
                             <?php echo htmlspecialchars(t('pages.calculator.result.note')); ?>
@@ -220,6 +233,55 @@ document.addEventListener('DOMContentLoaded', function() {
     const priceDiv = document.getElementById('price');
     const priceNote = document.getElementById('price-note');
     const calculateBtn = document.getElementById('calculateBtn');
+    const currencyButtons = document.querySelectorAll('.currency-toggle-btn');
+
+    // Базовая цена всегда считается в тенге
+    let lastPriceKzt = 0;
+    let currentCurrency = 'KZT';
+
+    const currencySettings = {
+        KZT: { symbol: '₸', rate: 1, locale: 'ru-RU' },
+        RUB: { symbol: '₽', rate: 1 / 5.5, locale: 'ru-RU' },   // примерно 5.5 ₸ за 1 ₽
+        USD: { symbol: '$', rate: 1 / 480, locale: 'en-US' }     // примерно 480 ₸ за 1 $
+    };
+
+    function updatePriceDisplay() {
+        if (!lastPriceKzt) {
+            priceDiv.textContent = '0 ₸';
+            return;
+        }
+
+        const settings = currencySettings[currentCurrency] || currencySettings.KZT;
+        const converted = Math.round(lastPriceKzt * settings.rate);
+        priceDiv.textContent = converted.toLocaleString(settings.locale) + ' ' + settings.symbol;
+    }
+
+    function setActiveCurrency(newCurrency) {
+        currentCurrency = newCurrency;
+        currencyButtons.forEach(btn => {
+            if (btn.dataset.currency === newCurrency) {
+                btn.classList.add('bg-black', 'text-white');
+                btn.classList.remove('bg-transparent');
+            } else {
+                btn.classList.remove('bg-black', 'text-white');
+                btn.classList.add('bg-transparent');
+            }
+        });
+        updatePriceDisplay();
+    }
+
+    if (currencyButtons.length) {
+        currencyButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const currency = this.dataset.currency;
+                if (currency) {
+                    setActiveCurrency(currency);
+                }
+            });
+        });
+        // дефолтное состояние – тенге
+        setActiveCurrency('KZT');
+    }
 
     serviceRadios.forEach(radio => {
         radio.addEventListener('change', function() {
@@ -352,8 +414,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             price = Math.round(budget * percentage);
         }
-
-        priceDiv.textContent = price.toLocaleString('ru-RU') + ' ₸';
+        
+        // сохраняем базовую цену в тенге и обновляем отображение
+        lastPriceKzt = price;
+        updatePriceDisplay();
         
         // Показываем похожий кейс если есть
         const similarCaseDiv = document.getElementById('similar-case');
@@ -375,10 +439,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (saveBtn) {
         saveBtn.addEventListener('click', function() {
             const service = document.querySelector('.service-radio:checked').value;
-            const price = priceDiv.textContent;
+            const priceFormatted = priceDiv.textContent;
             const calculationData = {
                 service: service,
-                price: price,
+                priceKzt: lastPriceKzt,
+                currency: currentCurrency,
+                priceFormatted: priceFormatted,
                 timestamp: new Date().toISOString()
             };
             
