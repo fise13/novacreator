@@ -138,11 +138,11 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 </p>
             </div>
             
-            <!-- Этапы работы: на десктопе — линия 1→2→3→4, на мобиле — нумерация -->
-            <div class="process-steps relative">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
+            <!-- Этапы работы: на десктопе — стрелки между карточками 1→2→3→4 -->
+            <div class="process-steps">
+                <div class="flex flex-col lg:flex-row lg:items-stretch gap-8 md:gap-12 lg:gap-4 lg:justify-between">
                     <!-- Этап 1: Анализ — лупа -->
-                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step flex-1 min-w-0" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
                         <div class="relative w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">1</span>
@@ -154,9 +154,10 @@ include __DIR__ . '/includes/partials/hero-section.php';
                             <?php echo $currentLang === 'en' ? 'We study your business, competitors, and target audience to create an effective strategy.' : 'Изучаем ваш бизнес, конкурентов и целевую аудиторию для создания эффективной стратегии.'; ?>
                         </p>
                     </div>
-                    
+                    <!-- Стрелка 1→2 (только lg) -->
+                    <div class="hidden lg:flex items-center justify-center flex-shrink-0 text-2xl" style="color: var(--color-border);" aria-hidden="true">→</div>
                     <!-- Этап 2: Планирование — план/документ -->
-                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step flex-1 min-w-0" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
                         <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
                             <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">2</span>
@@ -168,9 +169,10 @@ include __DIR__ . '/includes/partials/hero-section.php';
                             <?php echo $currentLang === 'en' ? 'We develop a detailed plan with milestones, deadlines, and expected results.' : 'Разрабатываем детальный план с этапами, сроками и ожидаемыми результатами.'; ?>
                         </p>
                     </div>
-                    
+                    <!-- Стрелка 2→3 (только lg) -->
+                    <div class="hidden lg:flex items-center justify-center flex-shrink-0 text-2xl" style="color: var(--color-border);" aria-hidden="true">→</div>
                     <!-- Этап 3: Реализация — шестерёнка -->
-                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step flex-1 min-w-0" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
                         <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">3</span>
@@ -182,9 +184,10 @@ include __DIR__ . '/includes/partials/hero-section.php';
                             <?php echo $currentLang === 'en' ? 'We implement the solution step by step, keeping you informed at every stage.' : 'Внедряем решение поэтапно, информируя вас на каждом этапе работы.'; ?>
                         </p>
                     </div>
-                    
+                    <!-- Стрелка 3→4 (только lg) -->
+                    <div class="hidden lg:flex items-center justify-center flex-shrink-0 text-2xl" style="color: var(--color-border);" aria-hidden="true">→</div>
                     <!-- Этап 4: Поддержка — headset -->
-                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step flex-1 min-w-0" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
                         <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                             <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">4</span>
@@ -196,14 +199,6 @@ include __DIR__ . '/includes/partials/hero-section.php';
                             <?php echo $currentLang === 'en' ? 'We monitor results, optimize, and provide ongoing support for your project.' : 'Отслеживаем результаты, оптимизируем и обеспечиваем постоянную поддержку проекта.'; ?>
                         </p>
                     </div>
-                </div>
-                
-                <!-- Визуальная нить 1→2→3→4 (только на десктопе) -->
-                <div class="hidden lg:block absolute top-[4.5rem] left-[12%] right-[12%] pointer-events-none" style="height: 2px; border-top: 2px dashed var(--color-border);"></div>
-                <div class="hidden lg:flex absolute top-[4rem] left-[12%] right-[12%] justify-between pointer-events-none" aria-hidden="true">
-                    <span class="text-xl" style="color: var(--color-text-secondary);">→</span>
-                    <span class="text-xl" style="color: var(--color-text-secondary);">→</span>
-                    <span class="text-xl" style="color: var(--color-text-secondary);">→</span>
                 </div>
                 
                 <!-- CTA под блоком -->
@@ -343,12 +338,25 @@ include __DIR__ . '/includes/partials/hero-section.php';
 
                 <!-- Форма справа - оптимизирована для мобильных -->
                 <div class="reveal order-1 lg:order-2">
-                    <div class="p-5 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl transition-all duration-300 hover:shadow-xl" style="background-color: var(--color-bg); border: 2px solid var(--color-border); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);">
+                    <div class="p-5 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl transition-all duration-300 hover:shadow-xl relative" style="background-color: var(--color-bg); border: 2px solid var(--color-border); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);">
                         <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-5 sm:mb-6 md:mb-8" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Leave a request' : 'Оставить заявку'; ?>
                         </h3>
 
-                        <form class="contact-form space-y-3 sm:space-y-4 md:space-y-6" method="POST" action="/backend/send.php" id="contactFormMain">
+                        <!-- Inline success block (скрыт по умолчанию) -->
+                        <div id="contact-form-success" class="hidden flex flex-col items-center justify-center py-12 px-6 text-center rounded-xl" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.04)); border: 1px solid rgba(34, 197, 94, 0.3);">
+                            <div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full" style="background: linear-gradient(135deg, #22c55e, #16a34a);">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <p class="text-xl md:text-2xl font-semibold mb-2" style="color: var(--color-text);">
+                                <?php echo $currentLang === 'en' ? 'Thank you!' : 'Спасибо!'; ?>
+                            </p>
+                            <p class="text-base md:text-lg" style="color: var(--color-text-secondary);">
+                                <?php echo $currentLang === 'en' ? 'We will contact you within 2 hours.' : 'Мы свяжемся с вами в течение 2 часов.'; ?>
+                            </p>
+                        </div>
+
+                        <form id="contactFormMain" class="contact-form space-y-3 sm:space-y-4 md:space-y-6" method="POST" action="/backend/send.php">
                             <input type="hidden" name="type" value="contact">
                             <input type="hidden" name="form_name" value="<?php echo $currentLang === 'en' ? 'Contact Form' : 'Форма обратной связи'; ?>">
                             <input type="text" name="website" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px;" aria-hidden="true">
@@ -744,19 +752,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
 
                 if (data.success) {
-                    // Улучшенное сообщение об успехе
-                    const successMsg = data.message || '<?php echo $currentLang === 'en' ? 'Request sent successfully! We will contact you soon.' : 'Заявка отправлена успешно! Мы свяжемся с вами в ближайшее время.'; ?>';
-                    alert(successMsg);
                     form.reset();
-                    // Сбрасываем радио-кнопку на значение по умолчанию
                     const defaultRadio = form.querySelector('input[name="contact_method"][value="messenger"]');
                     if (defaultRadio) defaultRadio.checked = true;
-                    // Обновляем отображение выбранного способа
-                    // Очищаем ошибки
                     if (nameError) nameError.classList.add('hidden');
                     if (phoneError) phoneError.classList.add('hidden');
-                    nameInput.style.borderColor = '';
-                    phoneInput.style.borderColor = '';
+                    if (nameInput) nameInput.style.borderColor = '';
+                    if (phoneInput) phoneInput.style.borderColor = '';
+                    // Показываем inline-блок вместо alert
+                    form.classList.add('hidden');
+                    const successBlock = document.getElementById('contact-form-success');
+                    if (successBlock) successBlock.classList.remove('hidden');
                 } else {
                     alert(data.message || '<?php echo $currentLang === 'en' ? 'Error sending request. Please try again.' : 'Ошибка отправки заявки. Попробуйте еще раз.'; ?>');
                 }
