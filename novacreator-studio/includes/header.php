@@ -194,37 +194,123 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Индикатор прогресса прокрутки -->
     <div class="scroll-progress-bar fixed top-0 left-0 h-1 bg-gradient-to-r from-neon-purple to-neon-blue z-50" style="width: 0%; transition: width 0.1s ease-out;"></div>
     
-    <!-- Навигация - Apple минималистичный дизайн -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" style="padding-top: env(safe-area-inset-top); background-color: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--color-border);">
-        
-        <div class="container mx-auto px-4 sm:px-5 md:px-6 lg:px-8 relative z-10">
-            <div class="flex items-center justify-between h-16 sm:h-18 md:h-20 gap-2 sm:gap-3">
-                <!-- Название сайта - Apple минимализм -->
-                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="text-lg sm:text-xl md:text-2xl font-semibold group touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
-                    <?php echo htmlspecialchars(t('site.name')); ?>
+    <!-- Премиальный glass header -->
+    <header id="mainNavbar" class="fixed inset-x-0 top-5 z-50 flex justify-center pointer-events-none transition-all duration-300" style="padding-top: env(safe-area-inset-top);">
+        <div class="w-[92%] max-w-6xl pointer-events-auto">
+            <?php 
+            $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+            $currentPath = getCurrentPath();
+            $currentPageName = $currentPage;
+            $hasContactForm = ($currentPageName === 'index' || $currentPageName === 'demo');
+            ?>
+            <div
+                id="glass-header"
+                class="flex items-center justify-between gap-4 rounded-2xl border border-white/30
+                       bg-white/30 backdrop-blur-md shadow-lg shadow-black/5
+                       px-4 sm:px-6 py-3 sm:py-4 transition-all duration-300"
+            >
+                <!-- Логотип / бренд -->
+                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="flex items-center gap-3" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo $currentPage === 'index' ? 'page' : 'false'; ?>">
+                    <span class="hidden sm:inline-flex h-8 w-8 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-500 shadow-sm shadow-indigo-500/40"></span>
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-xs sm:text-sm font-semibold tracking-[0.2em] text-gray-900 uppercase">
+                            NovaCreator
+                        </span>
+                        <span class="text-[10px] sm:text-[11px] font-medium text-gray-500 tracking-[0.28em] uppercase">
+                            Studio
+                        </span>
+                    </div>
                 </a>
-                
-                <!-- Меню для десктопа -->
-                <div class="hidden md:flex items-center space-x-4 lg:space-x-6" role="menubar">
-                    <?php 
-                    $currentPage = basename($_SERVER['PHP_SELF'], '.php');
-                    $currentPath = getCurrentPath();
+
+                <!-- Навигация desktop -->
+                <nav class="hidden md:flex items-center gap-4 lg:gap-6 text-sm flex-1 justify-center" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>">
+                    <?php
+                    $navItems = [
+                        [
+                            'key' => 'home',
+                            'label' => t('nav.home'),
+                            'href' => getLocalizedUrl($currentLang, '/'),
+                            'isActive' => $currentPage === 'index',
+                        ],
+                        [
+                            'key' => 'services',
+                            'label' => t('nav.services'),
+                            'href' => getLocalizedUrl($currentLang, '/services'),
+                            'isActive' => $currentPage === 'services',
+                        ],
+                        [
+                            'key' => 'seo',
+                            'label' => t('nav.seo'),
+                            'href' => getLocalizedUrl($currentLang, '/seo'),
+                            'isActive' => $currentPage === 'seo',
+                        ],
+                        [
+                            'key' => 'ads',
+                            'label' => t('nav.ads'),
+                            'href' => getLocalizedUrl($currentLang, '/ads'),
+                            'isActive' => $currentPage === 'ads',
+                        ],
+                        [
+                            'key' => 'about',
+                            'label' => t('nav.about'),
+                            'href' => getLocalizedUrl($currentLang, '/about'),
+                            'isActive' => $currentPage === 'about',
+                        ],
+                    ];
+
+                    foreach ($navItems as $item):
+                        $isActive = $item['isActive'];
                     ?>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'index' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.home')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'services' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.services')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.about')); ?></a>
-                    <?php 
-                    $currentPageName = basename($_SERVER['PHP_SELF'], '.php');
-                    $hasContactForm = ($currentPageName === 'index' || $currentPageName === 'demo');
-                    ?>
-                    <a href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>" <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?> class="header-contact-btn relative inline-flex items-center justify-center px-6 py-2 text-base font-medium rounded-full transition-all duration-300" role="menuitem" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none;">
-                        <?php echo htmlspecialchars(t('nav.contact')); ?>
+                        <a
+                            href="<?php echo htmlspecialchars($item['href']); ?>"
+                            class="group relative inline-flex items-center text-[13px] font-medium
+                                   <?php echo $isActive ? 'text-gray-900' : 'text-gray-900/70'; ?>
+                                   hover:text-gray-900"
+                        >
+                            <span
+                                class="px-3 py-1.5 rounded-full transition
+                                       <?php echo $isActive ? 'bg-indigo-500/10 text-gray-900' : 'hover:bg-gray-900/5'; ?>"
+                            >
+                                <?php echo htmlspecialchars($item['label']); ?>
+                            </span>
+
+                            <?php if ($isActive): ?>
+                                <span
+                                    class="pointer-events-none absolute left-1/2 -bottom-1.5 h-1 w-1.5 -translate-x-1/2
+                                           rounded-full bg-indigo-500"
+                                ></span>
+                            <?php else: ?>
+                                <span
+                                    class="pointer-events-none absolute inset-x-3 -bottom-1.5 h-px origin-center scale-x-0
+                                           bg-gray-900/40 transition-transform duration-200 group-hover:scale-x-100"
+                                ></span>
+                            <?php endif; ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
+
+                <!-- Правая часть: CTA, переключатели, бургер -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <!-- CTA "Связаться" -->
+                    <a
+                        href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
+                        <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
+                        class="header-contact-btn inline-flex items-center justify-center rounded-full
+                               bg-gradient-to-r from-indigo-600 to-purple-600
+                               px-4 sm:px-5 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-semibold text-white
+                               shadow-md shadow-indigo-500/30
+                               hover:shadow-lg hover:shadow-indigo-500/40
+                               hover:scale-[1.02] active:scale-[0.99]
+                               transition transform duration-200 whitespace-nowrap"
+                    >
+                        <?php
+                        $contactLabel = t('nav.contact');
+                        echo htmlspecialchars($contactLabel . ' →');
+                        ?>
                     </a>
-                    
-                    <!-- Переключатель темы -->
-                    <button id="themeToggle" class="relative w-9 h-9 rounded-full flex items-center justify-center transition-opacity duration-200 hover:opacity-70 focus:outline-none" aria-label="Переключить тему" style="background-color: transparent; color: var(--color-text);">
+
+                    <!-- Переключатель темы (desktop) -->
+                    <button id="themeToggle" class="hidden md:inline-flex w-9 h-9 rounded-full items-center justify-center border border-white/40 bg-white/40 backdrop-blur-sm text-gray-900 shadow-sm shadow-black/5 transition hover:bg-white/70 focus:outline-none" aria-label="Переключить тему">
                         <svg id="themeIconLight" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                         </svg>
@@ -233,18 +319,18 @@ require_once __DIR__ . '/theme_switcher.php';
                         </svg>
                     </button>
 
-                    <!-- Переключатель языка -->
-                    <div class="flex items-center space-x-1 rounded-full p-1" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" style="background-color: transparent;">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 min-w-[40px] text-center focus:outline-none <?php echo $currentLang === 'ru' ? 'font-semibold' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
+                    <!-- Переключатель языка (desktop) -->
+                    <div class="hidden md:flex items-center gap-1 rounded-full border border-white/40 bg-white/30 px-1 py-0.5" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
+                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="relative px-2.5 py-1 text-[11px] font-medium rounded-full transition-all duration-300 min-w-[34px] text-center <?php echo $currentLang === 'ru' ? 'bg-gray-900 text-white' : 'text-gray-900/80 hover:bg-gray-900/5'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>">
                             <span class="relative z-10">RU</span>
                         </a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 min-w-[40px] text-center focus:outline-none <?php echo $currentLang === 'en' ? 'font-semibold' : ''; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
+                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="relative px-2.5 py-1 text-[11px] font-medium rounded-full transition-all duration-300 min-w-[34px] text-center <?php echo $currentLang === 'en' ? 'bg-gray-900 text-white' : 'text-gray-900/80 hover:bg-gray-900/5'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>">
                             <span class="relative z-10">EN</span>
                         </a>
                     </div>
 
-                    <!-- Аккаунт - минималистичный стиль -->
-                    <div class="relative">
+                    <!-- Аккаунт -->
+                    <div class="relative hidden md:block">
                         <?php
                         if (!function_exists('getInitials')) {
                             function getInitials(string $name): string {
@@ -287,7 +373,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         }
                         $userInitials = $userName ? getInitials($userName) : '';
                         ?>
-                        <button id="accountMenuBtn" class="relative w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-opacity duration-200 hover:opacity-70 focus:outline-none overflow-hidden group" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $userName ? htmlspecialchars($userName) : 'Аккаунт'; ?>" style="background-color: transparent; color: var(--color-text);">
+                        <button id="accountMenuBtn" class="relative w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium overflow-hidden group border border-white/40 bg-white/40 backdrop-blur-sm text-gray-900 shadow-sm shadow-black/5 transition hover:bg-white/70 focus:outline-none" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $userName ? htmlspecialchars($userName) : 'Аккаунт'; ?>">
                             <?php if ($userAvatar): ?>
                                 <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($userName); ?>" class="w-full h-full object-cover rounded-full" id="userAvatarImg" loading="lazy" onerror="this.style.display='none'; const fallback = document.getElementById('userAvatarFallback'); if(fallback) fallback.style.display='flex';">
                                 <span id="userAvatarFallback" class="absolute inset-0 flex items-center justify-center text-xs font-bold leading-none hidden z-10"><?php echo $userInitials ? htmlspecialchars($userInitials) : ''; ?></span>
@@ -347,22 +433,31 @@ require_once __DIR__ . '/theme_switcher.php';
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Кнопка бургер-меню - оптимизирована для мобильных -->
-                <div class="flex items-center flex-shrink-0 md:hidden">
-                    <button class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 min-w-[44px] min-h-[44px] touch-manipulation flex-shrink-0 active:scale-95 focus:outline-none relative" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="burgerMenu" type="button" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text); -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);">
-                        <svg id="burgerIcon" class="w-6 h-6 absolute transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                        <svg id="burgerCloseIcon" class="w-6 h-6 absolute transition-all duration-300 opacity-0 rotate-90 scale-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
+
+                    <!-- Бургер-меню (mobile) -->
+                    <button
+                        class="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-full border border-white/40
+                               bg-white/40 backdrop-blur-sm text-gray-900 shadow-sm shadow-black/5
+                               transition hover:bg-white/70 focus:outline-none"
+                        id="burgerBtn"
+                        aria-label="Меню"
+                        aria-expanded="false"
+                        aria-controls="burgerMenu"
+                        type="button"
+                    >
+                        <span class="relative block h-3.5 w-3.5">
+                            <svg id="burgerIcon" class="absolute inset-0 w-full h-full transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
+                            </svg>
+                            <svg id="burgerCloseIcon" class="absolute inset-0 w-full h-full transition-all duration-300 opacity-0 rotate-90 scale-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </span>
                     </button>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
     
     <!-- Overlay для бургер-меню -->
     <div id="burgerOverlay" class="fixed inset-0 opacity-0 transition-opacity duration-300 z-[9998]" style="display: none; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);"></div>
@@ -899,6 +994,53 @@ require_once __DIR__ . '/theme_switcher.php';
                     }
                 });
             }
+        })();
+    </script>
+    
+    <!-- Glass header scroll эффект -->
+    <script>
+        (function () {
+            const header = document.getElementById('glass-header');
+            if (!header) return;
+
+            function updateHeaderOnScroll() {
+                const scrolled = window.scrollY > 60;
+
+                if (scrolled) {
+                    header.classList.remove(
+                        'bg-white/30',
+                        'backdrop-blur-md',
+                        'shadow-lg',
+                        'shadow-black/5',
+                        'border-white/30'
+                    );
+                    header.classList.add(
+                        'bg-white/80',
+                        'backdrop-blur-2xl',
+                        'shadow-xl',
+                        'shadow-black/10',
+                        'border-gray-200'
+                    );
+                } else {
+                    header.classList.add(
+                        'bg-white/30',
+                        'backdrop-blur-md',
+                        'shadow-lg',
+                        'shadow-black/5',
+                        'border-white/30'
+                    );
+                    header.classList.remove(
+                        'bg-white/80',
+                        'backdrop-blur-2xl',
+                        'shadow-xl',
+                        'shadow-black/10',
+                        'border-gray-200'
+                    );
+                }
+            }
+
+            updateHeaderOnScroll();
+            window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
         })();
     </script>
     
