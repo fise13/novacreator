@@ -194,178 +194,309 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Индикатор прогресса прокрутки -->
     <div class="scroll-progress-bar fixed top-0 left-0 h-1 bg-gradient-to-r from-neon-purple to-neon-blue z-50" style="width: 0%; transition: width 0.1s ease-out;"></div>
     
-    <!-- Навигация - Apple минималистичный дизайн -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="mainNavbar" role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>" style="padding-top: env(safe-area-inset-top); background-color: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--color-border);">
-        
-        <div class="container mx-auto px-4 sm:px-5 md:px-6 lg:px-8 relative z-10">
-            <div class="flex items-center justify-between h-16 sm:h-18 md:h-20 gap-2 sm:gap-3">
-                <!-- Название сайта - Apple минимализм -->
-                <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="text-lg sm:text-xl md:text-2xl font-semibold group touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70" aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>" aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+    <!-- Навигация - минималистичный Figma-style header -->
+    <nav
+        id="mainNavbar"
+        role="navigation"
+        aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>"
+        class="navbar fixed top-0 left-0 right-0 z-50 border-b border-black/10 dark:border-white/10 bg-white/30 dark:bg-neutral-900/60 backdrop-blur-2xl supports-[backdrop-filter]:backdrop-blur-2xl supports-[backdrop-filter]:bg-white/40 transition-all duration-300 pt-[env(safe-area-inset-top)]"
+    >
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center justify-between gap-4 py-[20px]">
+                <!-- Логотип / название сайта -->
+                <a
+                    href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
+                    class="text-lg sm:text-xl md:text-2xl font-medium tracking-tight group touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
+                    aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>"
+                    aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>"
+                >
                     <?php echo htmlspecialchars(t('site.name')); ?>
                 </a>
-                
-                <!-- Меню для десктопа -->
-                <div class="hidden md:flex items-center space-x-4 lg:space-x-6" role="menubar">
-                    <?php 
-                    $currentPage = basename($_SERVER['PHP_SELF'], '.php');
-                    $currentPath = getCurrentPath();
-                    ?>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'index' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.home')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'services' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.services')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'seo' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.seo')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'ads' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.ads')); ?></a>
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="nav-link px-3 py-2 text-base font-medium transition-colors duration-300 <?php echo $currentPage == 'about' ? 'font-semibold' : ''; ?>" role="menuitem" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;"><?php echo htmlspecialchars(t('nav.about')); ?></a>
-                    <?php 
-                    $currentPageName = basename($_SERVER['PHP_SELF'], '.php');
-                    $hasContactForm = ($currentPageName === 'index' || $currentPageName === 'demo');
-                    ?>
-                    <a href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>" <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?> class="header-contact-btn relative inline-flex items-center justify-center px-6 py-2 text-base font-medium rounded-full transition-all duration-300" role="menuitem" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none;">
-                        <?php echo htmlspecialchars(t('nav.contact')); ?>
-                    </a>
-                    
-                    <!-- Переключатель темы -->
-                    <button id="themeToggle" class="relative w-9 h-9 rounded-full flex items-center justify-center transition-opacity duration-200 hover:opacity-70 focus:outline-none" aria-label="Переключить тему" style="background-color: transparent; color: var(--color-text);">
-                        <svg id="themeIconLight" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                        <svg id="themeIconDark" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                        </svg>
-                    </button>
 
-                    <!-- Переключатель языка -->
-                    <div class="flex items-center space-x-1 rounded-full p-1" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" style="background-color: transparent;">
-                        <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 min-w-[40px] text-center focus:outline-none <?php echo $currentLang === 'ru' ? 'font-semibold' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
-                            <span class="relative z-10">RU</span>
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <!-- Навигация для десктопа -->
+                    <div class="hidden md:flex items-center gap-[20px] text-sm md:text-base font-medium tracking-tight" role="menubar">
+                        <?php 
+                        $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+                        $currentPath = getCurrentPath();
+                        ?>
+                        <a
+                            href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
+                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'index' ? 'opacity-100' : 'opacity-80'; ?>"
+                            role="menuitem"
+                            aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>"
+                        >
+                            <?php echo htmlspecialchars(t('nav.home')); ?>
                         </a>
-                        <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-300 min-w-[40px] text-center focus:outline-none <?php echo $currentLang === 'en' ? 'font-semibold' : ''; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text);">
-                            <span class="relative z-10">EN</span>
+                        <a
+                            href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
+                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'services' ? 'opacity-100' : 'opacity-80'; ?>"
+                            role="menuitem"
+                            aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
+                        >
+                            <?php echo htmlspecialchars(t('nav.services')); ?>
+                        </a>
+                        <a
+                            href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
+                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'seo' ? 'opacity-100' : 'opacity-80'; ?>"
+                            role="menuitem"
+                            aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
+                        >
+                            <?php echo htmlspecialchars(t('nav.seo')); ?>
+                        </a>
+                        <a
+                            href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
+                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'ads' ? 'opacity-100' : 'opacity-80'; ?>"
+                            role="menuitem"
+                            aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
+                        >
+                            <?php echo htmlspecialchars(t('nav.ads')); ?>
+                        </a>
+                        <a
+                            href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
+                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'about' ? 'opacity-100' : 'opacity-80'; ?>"
+                            role="menuitem"
+                            aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
+                        >
+                            <?php echo htmlspecialchars(t('nav.about')); ?>
+                        </a>
+                        <?php 
+                        $currentPageName = basename($_SERVER['PHP_SELF'], '.php');
+                        $hasContactForm = ($currentPageName === 'index' || $currentPageName === 'demo');
+                        ?>
+                        <a
+                            href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
+                            <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
+                            class="inline-flex items-center gap-1 text-sm md:text-base transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'contact' ? 'opacity-100' : 'opacity-80'; ?>"
+                            role="menuitem"
+                            aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>"
+                        >
+                            <?php echo htmlspecialchars(t('nav.contact')); ?>
+                        </a>
+                        <a
+                            href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
+                            <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
+                            class="group inline-flex items-center gap-1 rounded-full border border-black/10 dark:border-white/15 px-4 py-1.5 text-sm md:text-base transition-all duration-200 hover:opacity-70"
+                        >
+                            <span>Get started</span>
+                            <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
                         </a>
                     </div>
 
-                    <!-- Аккаунт - минималистичный стиль -->
-                    <div class="relative">
-                        <?php
-                        if (!function_exists('getInitials')) {
-                            function getInitials(string $name): string {
-                                $name = trim($name);
-                                if (empty($name)) {
-                                    return '';
+                    <!-- Блок действий: тема, язык, аккаунт -->
+                    <div class="hidden md:flex items-center gap-3">
+                        <!-- Переключатель темы -->
+                        <button
+                            id="themeToggle"
+                            class="relative w-9 h-9 rounded-full flex items-center justify-center transition-opacity duration-200 hover:opacity-70 focus:outline-none"
+                            aria-label="Переключить тему"
+                        >
+                            <svg id="themeIconLight" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                            <svg id="themeIconDark" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            </svg>
+                        </button>
+
+                        <!-- Переключатель языка -->
+                        <div class="flex items-center space-x-1 rounded-full p-1" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>">
+                            <a
+                                href="<?php echo getLocalizedUrl('ru', $currentPath); ?>"
+                                class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-opacity duration-200 hover:opacity-70 min-w-[40px] text-center focus:outline-none <?php echo $currentLang === 'ru' ? 'opacity-100' : 'opacity-70'; ?>"
+                                aria-label="Русский язык"
+                                aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>"
+                            >
+                                <span class="relative z-10">RU</span>
+                            </a>
+                            <a
+                                href="<?php echo getLocalizedUrl('en', $currentPath); ?>"
+                                class="relative px-3 py-1.5 text-sm font-medium rounded-md transition-opacity duration-200 hover:opacity-70 min-w-[40px] text-center focus:outline-none <?php echo $currentLang === 'en' ? 'opacity-100' : 'opacity-70'; ?>"
+                                aria-label="English language"
+                                aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>"
+                            >
+                                <span class="relative z-10">EN</span>
+                            </a>
+                        </div>
+
+                        <!-- Аккаунт -->
+                        <div class="relative">
+                            <?php
+                            if (!function_exists('getInitials')) {
+                                function getInitials(string $name): string {
+                                    $name = trim($name);
+                                    if (empty($name)) {
+                                        return '';
+                                    }
+                                    $words = explode(' ', $name);
+                                    if (count($words) >= 2) {
+                                        return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+                                    }
+                                    return strtoupper(substr($name, 0, 2));
                                 }
-                                $words = explode(' ', $name);
-                                if (count($words) >= 2) {
-                                    return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
-                                }
-                                return strtoupper(substr($name, 0, 2));
                             }
-                        }
-                        $userName = $currentUser && isset($currentUser['name']) ? trim($currentUser['name']) : '';
-                        // Получаем аватар: проверяем наличие и валидность URL
-                        $userAvatar = null;
-                        if ($currentUser) {
-                            // Проверяем avatar_url напрямую из массива
-                            $avatarUrl = $currentUser['avatar_url'] ?? null;
-                            if ($avatarUrl) {
-                                $avatarUrl = trim($avatarUrl);
-                                // Очень мягкая проверка - если не пустая строка и длиннее 5 символов, считаем валидным
-                                if (!empty($avatarUrl) && strlen($avatarUrl) > 5) {
-                                    // Если начинается с http или https - используем как есть
-                                    if (strpos($avatarUrl, 'http://') === 0 || strpos($avatarUrl, 'https://') === 0) {
-                                        $userAvatar = $avatarUrl;
-                                    } elseif (strpos($avatarUrl, '//') === 0) {
-                                        // Если начинается с //, добавляем https:
-                                        $userAvatar = 'https:' . $avatarUrl;
-                                    } elseif (strpos($avatarUrl, '.') !== false) {
-                                        // Если содержит точку (вероятно домен), добавляем https://
-                                        $userAvatar = 'https://' . ltrim($avatarUrl, '/');
-                                    } else {
-                                        // В остальных случаях просто используем как есть
-                                        $userAvatar = $avatarUrl;
+                            $userName = $currentUser && isset($currentUser['name']) ? trim($currentUser['name']) : '';
+                            // Получаем аватар: проверяем наличие и валидность URL
+                            $userAvatar = null;
+                            if ($currentUser) {
+                                // Проверяем avatar_url напрямую из массива
+                                $avatarUrl = $currentUser['avatar_url'] ?? null;
+                                if ($avatarUrl) {
+                                    $avatarUrl = trim($avatarUrl);
+                                    // Очень мягкая проверка - если не пустая строка и длиннее 5 символов, считаем валидным
+                                    if (!empty($avatarUrl) && strlen($avatarUrl) > 5) {
+                                        // Если начинается с http или https - используем как есть
+                                        if (strpos($avatarUrl, 'http://') === 0 || strpos($avatarUrl, 'https://') === 0) {
+                                            $userAvatar = $avatarUrl;
+                                        } elseif (strpos($avatarUrl, '//') === 0) {
+                                            // Если начинается с //, добавляем https:
+                                            $userAvatar = 'https:' . $avatarUrl;
+                                        } elseif (strpos($avatarUrl, '.') !== false) {
+                                            // Если содержит точку (вероятно домен), добавляем https://
+                                            $userAvatar = 'https://' . ltrim($avatarUrl, '/');
+                                        } else {
+                                            // В остальных случаях просто используем как есть
+                                            $userAvatar = $avatarUrl;
+                                        }
                                     }
                                 }
                             }
-                        }
-                        $userInitials = $userName ? getInitials($userName) : '';
-                        ?>
-                        <button id="accountMenuBtn" class="relative w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-opacity duration-200 hover:opacity-70 focus:outline-none overflow-hidden group" aria-expanded="false" aria-haspopup="true" aria-label="<?php echo $userName ? htmlspecialchars($userName) : 'Аккаунт'; ?>" style="background-color: transparent; color: var(--color-text);">
-                            <?php if ($userAvatar): ?>
-                                <img src="<?php echo htmlspecialchars($userAvatar); ?>" alt="<?php echo htmlspecialchars($userName); ?>" class="w-full h-full object-cover rounded-full" id="userAvatarImg" loading="lazy" onerror="this.style.display='none'; const fallback = document.getElementById('userAvatarFallback'); if(fallback) fallback.style.display='flex';">
-                                <span id="userAvatarFallback" class="absolute inset-0 flex items-center justify-center text-xs font-bold leading-none hidden z-10"><?php echo $userInitials ? htmlspecialchars($userInitials) : ''; ?></span>
-                            <?php elseif ($userInitials): ?>
-                                <span class="relative z-10 text-xs font-bold leading-none"><?php echo htmlspecialchars($userInitials); ?></span>
-                            <?php else: ?>
-                                <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                            <?php endif; ?>
-                        </button>
-                        <div id="accountMenu" class="absolute right-0 mt-2 w-56 rounded-lg shadow-xl opacity-0 pointer-events-none transition-all duration-200 z-50 hidden transform translate-y-2" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
-                            <div class="py-2">
-                                <?php if ($currentUser): ?>
-                                    <div class="px-4 py-3 border-b" style="border-color: var(--color-border);">
-                                        <p class="text-sm font-semibold truncate" style="color: var(--color-text);"><?php echo htmlspecialchars($currentUser['name']); ?></p>
-                                        <p class="text-xs truncate mt-0.5" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars($currentUser['email']); ?></p>
-                                    </div>
-                                    <?php if (!$isRootAdmin): ?>
-                                        <a href="/dashboard.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                            </svg>
-                                            <span>Личный кабинет</span>
-                                        </a>
-                                    <?php endif; ?>
-                                    <?php if ($isRootAdmin): ?>
-                                        <a href="/adm/" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            </svg>
-                                            <span>Админ-панель</span>
-                                        </a>
-                                    <?php endif; ?>
-                                    <div class="border-t my-1" style="border-color: var(--color-border);"></div>
-                                    <a href="/logout.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                                        </svg>
-                                        <span>Выйти</span>
-                                    </a>
+                            $userInitials = $userName ? getInitials($userName) : '';
+                            ?>
+                            <button
+                                id="accountMenuBtn"
+                                class="relative w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-opacity duration-200 hover:opacity-70 focus:outline-none overflow-hidden group"
+                                aria-expanded="false"
+                                aria-haspopup="true"
+                                aria-label="<?php echo $userName ? htmlspecialchars($userName) : 'Аккаунт'; ?>"
+                            >
+                                <?php if ($userAvatar): ?>
+                                    <img
+                                        src="<?php echo htmlspecialchars($userAvatar); ?>"
+                                        alt="<?php echo htmlspecialchars($userName); ?>"
+                                        class="w-full h-full object-cover rounded-full"
+                                        id="userAvatarImg"
+                                        loading="lazy"
+                                        onerror="this.style.display='none'; const fallback = document.getElementById('userAvatarFallback'); if(fallback) fallback.style.display='flex';"
+                                    >
+                                    <span
+                                        id="userAvatarFallback"
+                                        class="absolute inset-0 flex items-center justify-center text-xs font-bold leading-none hidden z-10"
+                                    >
+                                        <?php echo $userInitials ? htmlspecialchars($userInitials) : ''; ?>
+                                    </span>
+                                <?php elseif ($userInitials): ?>
+                                    <span class="relative z-10 text-xs font-bold leading-none">
+                                        <?php echo htmlspecialchars($userInitials); ?>
+                                    </span>
                                 <?php else: ?>
-                                    <a href="/login.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                                        </svg>
-                                        <span>Вход</span>
-                                    </a>
-                                    <a href="/register.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                                        </svg>
-                                        <span>Регистрация</span>
-                                    </a>
+                                    <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
                                 <?php endif; ?>
+                            </button>
+                            <div
+                                id="accountMenu"
+                                class="absolute right-0 mt-2 w-56 rounded-lg shadow-xl opacity-0 pointer-events-none transition-all duration-200 z-50 hidden transform translate-y-2"
+                                style="background-color: var(--color-bg); border: 1px solid var(--color-border);"
+                            >
+                                <div class="py-2">
+                                    <?php if ($currentUser): ?>
+                                        <div class="px-4 py-3 border-b" style="border-color: var(--color-border);">
+                                            <p class="text-sm font-semibold truncate" style="color: var(--color-text);">
+                                                <?php echo htmlspecialchars($currentUser['name']); ?>
+                                            </p>
+                                            <p class="text-xs truncate mt-0.5" style="color: var(--color-text-secondary);">
+                                                <?php echo htmlspecialchars($currentUser['email']); ?>
+                                            </p>
+                                        </div>
+                                        <?php if (!$isRootAdmin): ?>
+                                            <a href="/dashboard.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                                </svg>
+                                                <span>Личный кабинет</span>
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php if ($isRootAdmin): ?>
+                                            <a href="/adm/" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                </svg>
+                                                <span>Админ-панель</span>
+                                            </a>
+                                        <?php endif; ?>
+                                        <div class="border-t my-1" style="border-color: var(--color-border);"></div>
+                                        <a href="/logout.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                            </svg>
+                                            <span>Выйти</span>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="/login.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                            </svg>
+                                            <span>Вход</span>
+                                        </a>
+                                        <a href="/register.php" class="flex items-center gap-3 px-4 py-3 text-sm transition-colors" style="color: var(--color-text); text-decoration: none;">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                            </svg>
+                                            <span>Регистрация</span>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Кнопка бургер-меню - оптимизирована для мобильных -->
-                <div class="flex items-center flex-shrink-0 md:hidden">
-                    <button class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 min-w-[44px] min-h-[44px] touch-manipulation flex-shrink-0 active:scale-95 focus:outline-none relative" id="burgerBtn" aria-label="Меню" aria-expanded="false" aria-controls="burgerMenu" type="button" style="background-color: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text); -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);">
-                        <svg id="burgerIcon" class="w-6 h-6 absolute transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                        <svg id="burgerCloseIcon" class="w-6 h-6 absolute transition-all duration-300 opacity-0 rotate-90 scale-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
+
+                    <!-- Кнопка бургер-меню (мобильная навигация) -->
+                    <div class="flex items-center flex-shrink-0 md:hidden">
+                        <button
+                            id="burgerBtn"
+                            type="button"
+                            aria-label="Меню"
+                            aria-expanded="false"
+                            aria-controls="burgerMenu"
+                            class="inline-flex items-center justify-center w-10 h-10 min-w-[44px] min-h-[44px] rounded-full border border-black/10 dark:border-white/15 bg-white/50 dark:bg-neutral-900/60 backdrop-blur-md transition-all duration-200 active:scale-95 focus:outline-none"
+                        >
+                            <svg
+                                id="burgerIcon"
+                                class="w-6 h-6 absolute transition-all duration-300"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                                stroke-width="2"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                            <svg
+                                id="burgerCloseIcon"
+                                class="w-6 h-6 absolute transition-all duration-300 opacity-0 rotate-90 scale-0"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                                stroke-width="2"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
     
     <!-- Overlay для бургер-меню -->
-    <div id="burgerOverlay" class="fixed inset-0 opacity-0 transition-opacity duration-300 z-[9998]" style="display: none; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);"></div>
+    <div
+        id="burgerOverlay"
+        class="fixed inset-0 z-[9998] hidden opacity-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300"
+    ></div>
     
     <!-- Боковое меню справа - минималистичный стиль holymedia.kz с перетеканием из header -->
     <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 z-[9999] flex flex-col" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;">
