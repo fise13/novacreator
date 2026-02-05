@@ -47,7 +47,6 @@ $heroCtaButtons = [
         'style' => 'border-color: var(--color-border); color: var(--color-text); background-color: transparent; text-decoration: none;'
     ]
 ];
-$heroShowVisualAnchor = false;
 $heroWithParallax = true;
 $heroScrollIndicator = true;
 include __DIR__ . '/includes/partials/hero-section.php';
