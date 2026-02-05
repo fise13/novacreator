@@ -13,21 +13,25 @@ if (!isset($heroTitle)) {
 
 $heroSubtitle = $heroSubtitle ?? '';
 $heroCtaButtons = $heroCtaButtons ?? [];
+$heroTrustLine = $heroTrustLine ?? '';
 $heroWithParallax = $heroWithParallax ?? true;
 $heroScrollIndicator = $heroScrollIndicator ?? false;
+$heroShowVisualAnchor = $heroShowVisualAnchor ?? true;
 ?>
 
-<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
+<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background: linear-gradient(135deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 95%, rgba(99, 102, 241, 0.06)) 50%, var(--color-bg) 100%);">
     <?php if ($heroWithParallax): ?>
-    <!-- Parallax background elements -->
-    <div class="parallax-bg absolute inset-0 opacity-10 pointer-events-none">
+    <!-- Parallax background elements + geometric pattern -->
+    <div class="parallax-bg absolute inset-0 opacity-15 pointer-events-none">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 rounded-full blur-3xl"></div>
         <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-neon-blue/30 to-neon-purple/30 rounded-full blur-3xl"></div>
     </div>
+    <!-- Soft geometric pattern overlay -->
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;);"></div>
     <?php endif; ?>
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="<?php echo $heroWithParallax ? 'parallax-content' : ''; ?> max-w-7xl mx-auto text-center">
+        <div class="<?php echo $heroWithParallax ? 'parallax-content' : ''; ?> max-w-7xl mx-auto text-center relative">
             <!-- Главный заголовок -->
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
                 <?php echo htmlspecialchars($heroTitle); ?>
@@ -53,6 +57,32 @@ $heroScrollIndicator = $heroScrollIndicator ?? false;
                         <?php echo htmlspecialchars($button['text']); ?>
                     </a>
                 <?php endforeach; ?>
+            </div>
+            <?php if ($heroTrustLine): ?>
+            <!-- Trust line -->
+            <p class="reveal mt-6 md:mt-8 text-base md:text-lg font-medium" style="color: var(--color-text-secondary);">
+                <?php echo htmlspecialchars($heroTrustLine); ?>
+            </p>
+            <?php endif; ?>
+            <?php endif; ?>
+            
+            <?php if ($heroShowVisualAnchor): ?>
+            <!-- Visual anchor: abstract metrics growth graphic + logo -->
+            <div class="reveal mt-12 md:mt-16 lg:mt-20 flex flex-col items-center gap-6 md:gap-8">
+                <div class="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 opacity-90">
+                    <!-- Abstract growth chart SVG -->
+                    <svg class="absolute inset-0 w-full h-full text-current opacity-20" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--color-text);">
+                        <path d="M10 90 L35 70 L55 55 L75 40 L95 25 L110 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 90 L35 70 L55 55 L75 40 L95 25 L110 15" stroke="url(#heroSectionGradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+                        <circle cx="35" cy="70" r="4" fill="currentColor" opacity="0.5"/>
+                        <circle cx="55" cy="55" r="4" fill="currentColor" opacity="0.6"/>
+                        <circle cx="75" cy="40" r="4" fill="currentColor" opacity="0.8"/>
+                        <circle cx="95" cy="25" r="5" fill="currentColor"/>
+                        <defs><linearGradient id="heroSectionGradient" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+                    </svg>
+                    <!-- Studio logo -->
+                    <img src="/assets/img/logo.svg" alt="NovaCreator Studio" class="absolute inset-0 w-full h-full object-contain opacity-80" loading="eager">
+                </div>
             </div>
             <?php endif; ?>
         </div>

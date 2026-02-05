@@ -713,7 +713,7 @@ require_once __DIR__ . '/theme_switcher.php';
             
             // Обновление стиля кнопки "Начать проект" в hero секции
             function updateHeroCtaButton() {
-                const heroCtaBtn = document.querySelector('.hero-cta-btn');
+                const heroCtaBtn = document.querySelector('.hero-cta-btn, .hero-cta-main');
                 if (!heroCtaBtn) return;
                 
                 const isLight = document.documentElement.classList.contains('light');

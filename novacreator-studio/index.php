@@ -37,16 +37,17 @@ $heroCtaButtons = [
         'text' => t('common.getStarted'),
         'url' => '#contact-form',
         'onclick' => "const el = document.getElementById('contact-form'); if(el) { el.scrollIntoView({behavior: 'smooth'}); return false; }",
-        'class' => 'hero-cta-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105 hover:shadow-xl',
-        'style' => 'background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);'
+        'class' => 'hero-cta-main w-full sm:w-auto px-10 md:px-12 py-4 md:py-5 text-lg md:text-xl font-semibold rounded-full transition-all duration-300 min-h-[48px] md:min-h-[56px] flex items-center justify-center touch-manipulation hover:scale-105 hover:shadow-xl',
+        'style' => 'background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);'
     ],
     [
         'text' => $currentLang === 'en' ? 'Our Services' : 'Наши услуги',
         'url' => getLocalizedUrl($currentLang, '/services'),
-        'class' => 'hero-portfolio-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105',
-        'style' => 'border: 1px solid rgba(99, 102, 241, 0.3); color: var(--color-text); background-color: transparent; text-decoration: none;'
+        'class' => 'hero-cta-secondary w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation border-2',
+        'style' => 'border-color: var(--color-border); color: var(--color-text); background-color: transparent; text-decoration: none;'
     ]
 ];
+$heroTrustLine = t('home.hero.trustLine');
 $heroWithParallax = true;
 $heroScrollIndicator = true;
 include __DIR__ . '/includes/partials/hero-section.php';
