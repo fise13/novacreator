@@ -625,15 +625,15 @@ require_once __DIR__ . '/theme_switcher.php';
         </div>
     </div>
 
-    <!-- Стили dropdown бургер-меню (переопределяют side-panel в output.css) -->
-    <style>
+    <!-- Стили dropdown бургер-меню: переопределяют ВСЕ правила из output.css -->
+    <style id="burger-dropdown-overrides">
         /* Overlay: только затемнение, без blur */
         #burgerOverlay {
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
             background: rgba(0, 0, 0, 0.2) !important;
         }
-        /* Dropdown: под navbar с отступом (воздух), не full viewport */
+        /* Dropdown: под navbar с отступом, на всю ширину, не side panel */
         #burgerMenu {
             top: calc(96px + env(safe-area-inset-top)) !important;
             left: 0 !important;
@@ -642,10 +642,24 @@ require_once __DIR__ . '/theme_switcher.php';
             width: 100% !important;
             max-width: none !important;
             height: auto !important;
+            max-height: none !important;
             inset: auto !important;
             transform: translateY(-0.75rem);
+            background: transparent !important;
         }
         #burgerMenu::before { display: none !important; }
+        /* Принудительно на мобильных (тот же breakpoint, что в output.css) */
+        @media (max-width: 768px) {
+            #burgerMenu {
+                top: calc(96px + env(safe-area-inset-top)) !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: auto !important;
+                width: 100% !important;
+                max-width: none !important;
+                height: auto !important;
+            }
+        }
     </style>
 
     <!-- Скрипт для переключения темы -->

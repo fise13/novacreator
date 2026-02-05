@@ -1739,11 +1739,7 @@
       min-height: -webkit-fill-available;
     }
     
-    #burgerMenu {
-      height: -webkit-fill-available;
-      max-height: -webkit-fill-available;
-    }
-    
+    /* Не переопределять #burgerMenu height — dropdown остаётся height: auto */
     #burgerOverlay {
       height: -webkit-fill-available;
       max-height: -webkit-fill-available;
@@ -2298,18 +2294,13 @@
     transition: opacity 0.3s ease-out;
   }
   
-  /* Оптимизация для мобильных */
+  /* Оптимизация для мобильных — dropdown на всю ширину */
   @media (max-width: 768px) {
     #burgerMenu {
-      width: 80vw !important;
-      max-width: 360px !important;
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-                  opacity 0.2s ease-out;
-      /* Поддержка safe-area для iPhone */
-      padding-top: env(safe-area-inset-top) !important;
-      padding-bottom: env(safe-area-inset-bottom) !important;
-      padding-left: env(safe-area-inset-left) !important;
-      padding-right: env(safe-area-inset-right) !important;
+      width: 100% !important;
+      max-width: none !important;
+      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      padding: 0 !important;
     }
     
     /* Минималистичные элементы меню для мобильных */
@@ -2330,13 +2321,10 @@
     }
   }
   
-  /* Специальная оптимизация для iPhone */
+  /* Специальная оптимизация для iPhone — не переопределять height/position dropdown */
   @supports (-webkit-touch-callout: none) {
     #burgerMenu {
-      /* Фикс для iOS Safari */
       -webkit-overflow-scrolling: touch;
-      position: fixed;
-      height: -webkit-fill-available;
     }
     
     #burgerOverlay {
