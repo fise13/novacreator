@@ -322,18 +322,43 @@ document.addEventListener('DOMContentLoaded', function() {
         setActiveCurrency('KZT');
     }
 
+    function activateService(value) {
+        const target = Array.from(serviceRadios).find(r => r.value === value);
+        const fallback = document.querySelector('.service-radio:checked') || serviceRadios[0];
+        const radio = target || fallback;
+        if (!radio) return;
+        radio.checked = true;
+        document.querySelectorAll('.service-options').forEach(opt => opt.classList.add('hidden'));
+        const optionsBlock = document.getElementById(radio.value + '-options');
+        if (optionsBlock) {
+            optionsBlock.classList.remove('hidden');
+        }
+        document.querySelectorAll('.service-card-option').forEach(card => {
+            card.classList.remove('border-black', 'bg-gray-50');
+        });
+        const card = radio.closest('label')?.querySelector('.service-card-option');
+        if (card) {
+            card.classList.add('border-black', 'bg-gray-50');
+        }
+    }
+
     serviceRadios.forEach(radio => {
         radio.addEventListener('change', function() {
-            document.querySelectorAll('.service-options').forEach(opt => opt.classList.add('hidden'));
-            document.getElementById(this.value + '-options').classList.remove('hidden');
-            document.querySelectorAll('.service-card-option').forEach(card => {
-                card.classList.remove('border-black', 'bg-gray-50');
-            });
-            this.closest('label').querySelector('.service-card-option').classList.add('border-black', 'bg-gray-50');
+            activateService(this.value);
         });
     });
 
-    document.querySelector('.service-radio:checked').dispatchEvent(new Event('change'));
+    // Активируем услугу по умолчанию или из query-параметра ?service=
+    const params = new URLSearchParams(window.location.search);
+    const initialService = params.get('service');
+    if (initialService) {
+        activateService(initialService);
+    } else {
+        const checked = document.querySelector('.service-radio:checked') || serviceRadios[0];
+        if (checked) {
+            activateService(checked.value);
+        }
+    }
 
     // Примеры проектов по нишам
     const nicheExamples = {
@@ -457,22 +482,23 @@ document.addEventListener('DOMContentLoaded', function() {
             const integrations = document.querySelector('[name="ios_integrations"]').value;
 
             let basePrice = 0;
-            if (iosType === 'mvp') basePrice = 1200000;
-            else if (iosType === 'business') basePrice = 2200000;
-            else if (iosType === 'complex') basePrice = 3500000;
+            // Более доступные ориентиры по бюджету (тенге)
+            if (iosType === 'mvp') basePrice = 600000;            // MVP / пилот
+            else if (iosType === 'business') basePrice = 1100000; // Бизнес‑приложение
+            else if (iosType === 'complex') basePrice = 1800000;  // Сложный продукт
 
             // коррекция по количеству экранов
             if (screens > 10) {
-                basePrice += (screens - 10) * 80000;
+                basePrice += (screens - 10) * 40000;
             } else if (screens < 10) {
-                basePrice -= (10 - screens) * 40000;
+                basePrice -= (10 - screens) * 20000;
             }
 
             // коррекция по интеграциям
             if (integrations === 'extended') {
-                basePrice *= 1.15;
+                basePrice *= 1.12;
             } else if (integrations === 'enterprise') {
-                basePrice *= 1.35;
+                basePrice *= 1.25;
             }
 
             price = Math.round(basePrice);

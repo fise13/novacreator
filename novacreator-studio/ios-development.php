@@ -12,7 +12,7 @@ $pageTitle = $currentLang === 'en'
 
 $pageMetaTitle = $currentLang === 'en'
     ? 'iOS App Development on Swift/SwiftUI | NovaCreator Studio'
-    : 'iOS разработка на Swift/SwiftUI под бизнес-задачи';
+    : 'iOS разработка Swift/SwiftUI — Казахстан, Алматы';
 
 $pageMetaDescription = $currentLang === 'en'
     ? 'Native iOS app development on Swift and SwiftUI for business. Analytics, design, architecture, Firebase, API integrations, App Store launch and post-release support.'
@@ -83,7 +83,7 @@ include 'includes/header.php';
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
                     <?php echo $currentLang === 'en'
                         ? 'We handle the full cycle — from analytics and architecture to publication in the App Store and post-release support.'
-                        : 'Мы берем на себя весь цикл — от аналитики и архитектуры до публикации в App Store и пострелизной поддержки.'; ?>
+                        : 'Мы берем на себя весь цикл — от аналитики и архитектуры до публикации в App Store и пострелизной поддержки. Для быстрой прикидки бюджета можете воспользоваться калькулятором стоимости iOS‑разработки.'; ?>
                 </p>
             </div>
 
@@ -650,10 +650,15 @@ include 'includes/header.php';
             </div>
 
             <div class="mt-8 md:mt-10 reveal">
+                <p class="text-lg md:text-xl leading-relaxed mb-4" style="color: var(--color-text-secondary); max-width: 70ch;">
+                    <?php echo $currentLang === 'en'
+                        ? 'Final cost depends on feature scope, design depth, number and complexity of APIs, performance requirements and deadlines.'
+                        : 'Итоговая стоимость зависит от объема функционала, глубины дизайна, количества и сложности API‑интеграций, требований к производительности и срокам.'; ?>
+                </p>
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 70ch;">
                     <?php echo $currentLang === 'en'
-                        ? 'Final cost depends on feature scope, design depth, number and complexity of APIs, performance requirements and deadlines. Send us a brief to receive a tailored estimate within 24 hours.'
-                        : 'Итоговая стоимость зависит от объема функционала, глубины дизайна, количества и сложности API-интеграций, требований к производительности и срокам. Отправьте краткий бриф — мы подготовим понятный диапазон стоимости в течение 24 часов.'; ?>
+                        ? 'You can get an instant rough estimate via our online calculator and then send us a brief to receive a detailed quote within 24 hours.'
+                        : 'Для быстрой прикидки бюджета воспользуйтесь нашим онлайн‑калькулятором iOS‑разработки, а затем отправьте краткий бриф — мы подготовим детальный расчет в течение 24 часов.'; ?>
                 </p>
             </div>
         </div>
@@ -766,16 +771,21 @@ include 'includes/header.php';
             </h2>
             <p class="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 lg:mb-12 leading-relaxed reveal" style="color: var(--color-text-secondary);">
                 <?php echo $currentLang === 'en'
-                    ? 'We will assess your idea, estimate the scope and prepare a roadmap and budget within 24 hours.'
-                    : 'Оценим идею, прикинем объем работ и подготовим roadmap и диапазон бюджета в течение 24 часов.'; ?>
+                    ? 'We will assess your idea, estimate the scope and prepare a roadmap and budget within 24 hours. You can also run an initial estimate via our cost calculator.'
+                    : 'Оценим идею, прикинем объем работ и подготовим roadmap и диапазон бюджета в течение 24 часов. Для предварительного расчета можете использовать калькулятор стоимости.'; ?>
             </p>
             <div class="reveal">
-                <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative inline-block px-10 py-5 md:px-12 md:py-6 bg-black text-white text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 min-h-[48px] md:min-h-[56px] shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
-                    <span class="relative z-10">
-                        <?php echo $currentLang === 'en' ? 'Discuss the project' : 'Оценить проект и сроки'; ?>
-                    </span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </a>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="group relative inline-block px-10 py-5 md:px-12 md:py-6 bg-black text-white text-lg md:text-xl font-semibold rounded-lg transition-all duration-300 min-h-[48px] md:min-h-[56px] shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
+                        <span class="relative z-10">
+                            <?php echo $currentLang === 'en' ? 'Discuss the project' : 'Оценить проект и сроки'; ?>
+                        </span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                    <a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>?service=ios" class="inline-block px-10 py-5 md:px-12 md:py-6 border-2 rounded-lg text-lg md:text-xl font-semibold transition-colors duration-200 text-center" style="border-color: var(--color-border); color: var(--color-text);">
+                        <?php echo $currentLang === 'en' ? 'Calculate iOS app cost' : 'Рассчитать стоимость iOS‑приложения'; ?>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
