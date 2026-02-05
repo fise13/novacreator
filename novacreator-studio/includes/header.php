@@ -505,7 +505,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <div
         id="burgerMenu"
         class="fixed left-0 w-full z-[9999] opacity-0 -translate-y-3 pointer-events-none transition-all duration-300 ease-out hidden"
-        style="top: calc(60px + env(safe-area-inset-top));"
+        style="top: calc(56px + env(safe-area-inset-top));"
         role="dialog"
         aria-modal="true"
         aria-labelledby="burgerMenuTitle"
@@ -522,11 +522,11 @@ require_once __DIR__ . '/theme_switcher.php';
         >
             <span id="burgerMenuTitle" class="sr-only"><?php echo htmlspecialchars(t('nav.main')); ?></span>
 
-            <!-- Пункты меню: разделители border #dbe0ec -->
+            <!-- Пункты меню: Figma-типографика font-radio -->
             <nav role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>">
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                    class="burger-menu-link block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50 border-t-0"
+                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t-0"
                     aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -534,7 +534,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
-                    class="burger-menu-link block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
                     aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -542,7 +542,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
-                    class="burger-menu-link block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
                     aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -550,7 +550,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
-                    class="burger-menu-link block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
                     aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -558,7 +558,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
-                    class="burger-menu-link block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
                     aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -567,7 +567,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 <a
                     href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                     <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                    class="burger-menu-link block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50 border-t border-b border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-b border-[#dbe0ec]"
                     aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -575,40 +575,40 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
             </nav>
 
-            <!-- CTA кнопка (как в Figma) -->
+            <!-- CTA кнопка: Figma-style primary -->
             <a
                 id="burgerCtaBtn"
                 href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                 <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                class="w-full p-[16px] text-[20px] font-medium text-center bg-black text-white transition-opacity duration-200 hover:opacity-80 rounded-xl"
-                style="text-decoration: none;"
+                class="font-radio w-full py-4 px-5 text-[20px] font-semibold tracking-tight text-center bg-black text-white rounded-xl transition-all duration-200 hover:opacity-90 active:opacity-80 active:scale-[0.98] min-h-[56px] flex items-center justify-center"
+                style="text-decoration: none; -webkit-tap-highlight-color: transparent;"
             >
                 <?php echo htmlspecialchars(t('common.getStarted')); ?>
             </a>
 
             <?php if ($currentUser): ?>
-                <div class="pt-4 border-t border-[#dbe0ec] space-y-2 text-sm" style="color: var(--color-text-secondary);">
+                <div class="pt-4 border-t border-[#dbe0ec] space-y-1" style="color: var(--color-text-secondary);">
                     <?php if (!$isRootAdmin): ?>
-                        <a href="/dashboard.php" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60" style="color: inherit; text-decoration: none;">Личный кабинет</a>
+                        <a href="/dashboard.php" class="font-radio block py-3 px-0 text-[15px] font-medium transition-all duration-200 hover:opacity-80 active:opacity-60 min-h-[44px] flex items-center" style="color: inherit; text-decoration: none;">Личный кабинет</a>
                     <?php endif; ?>
                     <?php if ($isRootAdmin): ?>
-                        <a href="/adm/" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60" style="color: inherit; text-decoration: none;">Админ-панель</a>
+                        <a href="/adm/" class="font-radio block py-3 px-0 text-[15px] font-medium transition-all duration-200 hover:opacity-80 active:opacity-60 min-h-[44px] flex items-center" style="color: inherit; text-decoration: none;">Админ-панель</a>
                     <?php endif; ?>
-                    <a href="/logout.php" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60" style="color: inherit; text-decoration: none;">Выйти</a>
+                    <a href="/logout.php" class="font-radio block py-3 px-0 text-[15px] font-medium transition-all duration-200 hover:opacity-80 active:opacity-60 min-h-[44px] flex items-center" style="color: inherit; text-decoration: none;">Выйти</a>
                 </div>
             <?php else: ?>
-                <div class="pt-4 border-t border-[#dbe0ec] space-y-2 text-sm" style="color: var(--color-text-secondary);">
-                    <a href="/login.php" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60" style="color: inherit; text-decoration: none;">Войти</a>
-                    <a href="/register.php" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60" style="color: inherit; text-decoration: none;">Регистрация</a>
+                <div class="pt-4 border-t border-[#dbe0ec] space-y-1" style="color: var(--color-text-secondary);">
+                    <a href="/login.php" class="font-radio block py-3 px-0 text-[15px] font-medium transition-all duration-200 hover:opacity-80 active:opacity-60 min-h-[44px] flex items-center" style="color: inherit; text-decoration: none;">Войти</a>
+                    <a href="/register.php" class="font-radio block py-3 px-0 text-[15px] font-medium transition-all duration-200 hover:opacity-80 active:opacity-60 min-h-[44px] flex items-center" style="color: inherit; text-decoration: none;">Регистрация</a>
                 </div>
             <?php endif; ?>
 
-            <!-- Переключатель темы и языка -->
+            <!-- Переключатель темы и языка: Figma-style кнопки -->
             <div class="pt-3 border-t border-black/10 dark:border-white/10 flex items-center justify-between" role="group" aria-label="Настройки">
                 <button
                     id="burgerThemeToggle"
                     type="button"
-                    class="relative w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-neutral-800/90 text-neutral-900 dark:text-neutral-100 border border-black/10 dark:border-white/15 transition-opacity duration-200 hover:opacity-80 active:opacity-60 touch-manipulation min-w-[44px] min-h-[44px]"
+                    class="font-radio relative w-11 h-11 flex items-center justify-center rounded-xl bg-black/5 dark:bg-white/10 text-current border border-black/10 dark:border-white/15 transition-all duration-200 hover:bg-black/10 dark:hover:bg-white/15 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px]"
                     aria-label="Переключить тему оформления"
                 >
                     <svg id="burgerThemeIconLight" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -618,10 +618,10 @@ require_once __DIR__ . '/theme_switcher.php';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                     </svg>
                 </button>
-                <div id="burgerLangGroup" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" class="flex items-center gap-3 text-sm">
-                    <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-3 py-1.5 min-w-[44px] min-h-[32px] flex items-center justify-center rounded-full transition-opacity duration-200 hover:opacity-80 active:opacity-60 <?php echo $currentLang === 'ru' ? 'font-semibold' : 'font-normal'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;">RU</a>
-                    <span class="opacity-50" style="color: var(--color-text-secondary);">|</span>
-                    <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-3 py-1.5 min-w-[44px] min-h-[32px] flex items-center justify-center rounded-full transition-opacity duration-200 hover:opacity-80 active:opacity-60 <?php echo $currentLang === 'en' ? 'font-semibold' : 'font-normal'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;">EN</a>
+                <div id="burgerLangGroup" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" class="flex items-center gap-2">
+                    <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="font-radio px-4 py-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-[15px] font-medium transition-all duration-200 hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 <?php echo $currentLang === 'ru' ? 'font-semibold bg-black/5 dark:bg-white/10' : 'font-normal'; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;">RU</a>
+                    <span class="font-radio opacity-40 text-sm" style="color: var(--color-text-secondary);">|</span>
+                    <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="font-radio px-4 py-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-[15px] font-medium transition-all duration-200 hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 <?php echo $currentLang === 'en' ? 'font-semibold bg-black/5 dark:bg-white/10' : 'font-normal'; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;">EN</a>
                 </div>
             </div>
         </div>
@@ -637,7 +637,7 @@ require_once __DIR__ . '/theme_switcher.php';
         }
         /* Dropdown: под navbar с отступом, на всю ширину, не side panel */
         #burgerMenu {
-            top: calc(60px + env(safe-area-inset-top)) !important;
+            top: calc(56px + env(safe-area-inset-top)) !important;
             left: 0 !important;
             right: 0 !important;
             bottom: auto !important;
@@ -653,7 +653,7 @@ require_once __DIR__ . '/theme_switcher.php';
         /* Принудительно на мобильных (тот же breakpoint, что в output.css) */
         @media (max-width: 768px) {
             #burgerMenu {
-                top: calc(60px + env(safe-area-inset-top)) !important;
+                top: calc(56px + env(safe-area-inset-top)) !important;
                 left: 0 !important;
                 right: 0 !important;
                 bottom: auto !important;
