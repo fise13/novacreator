@@ -507,31 +507,6 @@ require_once __DIR__ . '/theme_switcher.php';
         aria-labelledby="burgerMenuTitle"
         style="display: none;"
     >
-        <!-- Верхняя панель -->
-        <div
-            class="h-16 flex-shrink-0 border-b border-black/10 dark:border-white/10 bg-white/30 dark:bg-neutral-900/80 backdrop-blur-2xl px-5"
-            style="padding-top: env(safe-area-inset-top);"
-        >
-            <div class="flex items-center justify-between h-full">
-                <span
-                    id="burgerMenuTitle"
-                    class="text-lg font-semibold tracking-tight leading-none"
-                    style="color: var(--color-text);"
-                >
-                    <?php echo htmlspecialchars(t('site.name')); ?>
-                </span>
-                <button
-                    id="burgerCloseBtn"
-                    class="inline-flex items-center justify-center w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-white/80 dark:bg-neutral-800/90 border border-black/10 dark:border-white/15 text-black/70 dark:text-white/80 hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-neutral-800 transition-all duration-200 active:scale-95 touch-manipulation relative z-20"
-                    aria-label="Закрыть меню"
-                >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        
         <?php 
         $currentPage = basename($_SERVER['PHP_SELF'], '.php');
         $currentPageNameMobile = basename($_SERVER['PHP_SELF'], '.php');
@@ -539,13 +514,39 @@ require_once __DIR__ . '/theme_switcher.php';
         ?>
 
         <!-- Контент меню - прокручиваемая область -->
-        <div class="flex-1 overflow-y-auto px-5 pt-6 pb-6">
-            <div class="flex flex-col gap-6">
+        <div class="flex-1 overflow-y-auto px-[20px] pb-[20px]">
+            <!-- Верхняя панель (sticky) -->
+            <div
+                class="sticky top-0 z-10 h-[60px] border-b border-black/10 dark:border-white/10 bg-white/30 dark:bg-neutral-900/80 backdrop-blur-[32px]"
+                style="padding-top: env(safe-area-inset-top);"
+            >
+                <div class="flex items-center justify-between h-full">
+                    <span
+                        id="burgerMenuTitle"
+                        class="text-lg font-semibold tracking-tight leading-none"
+                        style="color: var(--color-text);"
+                    >
+                        <?php echo htmlspecialchars(t('site.name')); ?>
+                    </span>
+                    <button
+                        id="burgerCloseBtn"
+                        class="inline-flex items-center justify-center w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-white/80 dark:bg-neutral-800/90 border border-black/10 dark:border-white/15 text-black/70 dark:text-white/80 hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-neutral-800 transition-all duration-200 active:scale-95 touch-manipulation"
+                        aria-label="Закрыть меню"
+                    >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Основной контент: пункты меню + CTA -->
+            <div class="mt-[8px] flex flex-col gap-6">
                 <!-- Навигационные ссылки - Figma-style -->
                 <nav role="navigation" aria-label="Основная навигация">
                     <a
                         href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'index' ? '' : ''; ?>"
+                        class="block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50"
                         aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>"
                         style="color: var(--color-text);"
                     >
@@ -553,7 +554,7 @@ require_once __DIR__ . '/theme_switcher.php';
                     </a>
                     <a
                         href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
-                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'services' ? '' : ''; ?>"
+                        class="block w-full border-t border-[#dbe0ec] text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50"
                         aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
                         style="color: var(--color-text);"
                     >
@@ -561,7 +562,7 @@ require_once __DIR__ . '/theme_switcher.php';
                     </a>
                     <a
                         href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
-                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'seo' ? '' : ''; ?>"
+                        class="block w-full border-t border-[#dbe0ec] text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50"
                         aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
                         style="color: var(--color-text);"
                     >
@@ -569,7 +570,7 @@ require_once __DIR__ . '/theme_switcher.php';
                     </a>
                     <a
                         href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
-                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'ads' ? '' : ''; ?>"
+                        class="block w-full border-t border-[#dbe0ec] text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50"
                         aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
                         style="color: var(--color-text);"
                     >
@@ -577,7 +578,7 @@ require_once __DIR__ . '/theme_switcher.php';
                     </a>
                     <a
                         href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
-                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'about' ? '' : ''; ?>"
+                        class="block w-full border-t border-[#dbe0ec] text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50"
                         aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
                         style="color: var(--color-text);"
                     >
@@ -586,7 +587,7 @@ require_once __DIR__ . '/theme_switcher.php';
                     <a
                         href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                         <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                        class="block border-t border-b border-[#dbe0ec] text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50"
+                        class="block w-full border-t border-b border-[#dbe0ec] text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-opacity duration-200 hover:opacity-70 active:opacity-50"
                         aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>"
                         style="color: var(--color-text);"
                     >
@@ -598,7 +599,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 <a
                     href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                     <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                    class="w-full p-4 text-[20px] font-medium text-center rounded-xl bg-black text-white transition-opacity duration-200 hover:opacity-80"
+                    class="w-full p-[16px] text-[20px] font-medium text-center bg-black text-white transition-opacity duration-200 hover:opacity-80"
                 >
                     Get started
                 </a>
@@ -837,7 +838,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 // Небольшая задержка перед анимацией, чтобы браузер успел применить display
                 requestAnimationFrame(() => {
                     setTimeout(() => {
-                        // Плавная анимация появления меню справа с cubic-bezier
+                    // Плавная анимация появления меню справа
                         burgerOverlay.style.transition = 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
                         burgerMenu.style.transition = 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out';
                         
@@ -847,17 +848,17 @@ require_once __DIR__ . '/theme_switcher.php';
                             burgerMenu.style.opacity = '1';
                         });
                         
-                        // Улучшенная анимация элементов меню с задержкой и трансформацией
-                        const menuLinks = burgerMenu.querySelectorAll('a, button, .menu-item');
+                        // Каскадная анимация элементов меню (сначала пункты, затем CTA и низ)
+                        const menuLinks = burgerMenu.querySelectorAll('nav[aria-label="Основная навигация"] a, .menu-item, a.w-full.p-\\[16px\\]');
                         menuLinks.forEach((item, index) => {
                             item.style.opacity = '0';
-                            item.style.transform = 'translateX(20px)';
+                            item.style.transform = 'translateX(12px)';
                             item.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                             
                             setTimeout(() => {
                                 item.style.opacity = '1';
                                 item.style.transform = 'translateX(0)';
-                            }, 100 + (index * 30));
+                            }, 100 + (index * 40));
                         });
                     }, 10);
                 });
@@ -881,12 +882,12 @@ require_once __DIR__ . '/theme_switcher.php';
                 }
                 
                 // Плавная анимация закрытия элементов меню
-                const menuLinks = burgerMenu.querySelectorAll('a, button, .menu-item');
+                const menuLinks = burgerMenu.querySelectorAll('nav[aria-label="Основная навигация"] a, .menu-item, a.w-full.p-\\[16px\\]');
                 menuLinks.forEach((item, index) => {
                     setTimeout(() => {
                         item.style.opacity = '0';
-                        item.style.transform = 'translateX(10px)';
-                    }, index * 15);
+                        item.style.transform = 'translateX(12px)';
+                    }, index * 30);
                 });
                 
                 // Анимация закрытия с улучшенным timing
