@@ -16,7 +16,6 @@ $heroCtaButtons = $heroCtaButtons ?? [];
 $heroTrustLine = $heroTrustLine ?? false;
 $heroWithParallax = $heroWithParallax ?? true;
 $heroScrollIndicator = $heroScrollIndicator ?? false;
-$heroShowVisualAnchor = $heroShowVisualAnchor ?? true;
 ?>
 
 <section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background: linear-gradient(135deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 95%, rgba(99, 102, 241, 0.06)) 50%, var(--color-bg) 100%);">
@@ -62,26 +61,6 @@ $heroShowVisualAnchor = $heroShowVisualAnchor ?? true;
                 <?php echo htmlspecialchars($heroTrustLine); ?>
             </p>
             <?php endif; ?>
-            <?php endif; ?>
-            
-            <?php if ($heroShowVisualAnchor): ?>
-            <!-- Visual anchor: abstract metrics growth graphic + logo -->
-            <div class="reveal mt-12 md:mt-16 lg:mt-20 flex flex-col items-center gap-6 md:gap-8">
-                <div class="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 opacity-90">
-                    <!-- Abstract growth chart SVG -->
-                    <svg class="absolute inset-0 w-full h-full text-current opacity-20" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--color-text);">
-                        <path d="M10 90 L35 70 L55 55 L75 40 L95 25 L110 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M10 90 L35 70 L55 55 L75 40 L95 25 L110 15" stroke="url(#heroSectionGradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
-                        <circle cx="35" cy="70" r="4" fill="currentColor" opacity="0.5"/>
-                        <circle cx="55" cy="55" r="4" fill="currentColor" opacity="0.6"/>
-                        <circle cx="75" cy="40" r="4" fill="currentColor" opacity="0.8"/>
-                        <circle cx="95" cy="25" r="5" fill="currentColor"/>
-                        <defs><linearGradient id="heroSectionGradient" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
-                    </svg>
-                    <!-- Studio logo -->
-                    <img src="/assets/img/logo.svg" alt="NovaCreator Studio" class="absolute inset-0 w-full h-full object-contain opacity-80" loading="eager">
-                </div>
-            </div>
             <?php endif; ?>
         </div>
     </div>
