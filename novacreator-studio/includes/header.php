@@ -206,11 +206,12 @@ require_once __DIR__ . '/theme_switcher.php';
     >
         <div class="max-w-[1400px] mx-auto px-[20px] md:px-6 lg:px-8 relative z-10 w-full">
             <div class="flex items-center justify-between gap-6 md:gap-[24px] w-full">
-                <!-- Логотип / название сайта (Figma Navigation: Radio Canada Big 18px Medium) -->
+                <!-- Логотип / название сайта (Figma Navigation: только Radio Canada Big, без text-lg/font-semibold/font-sans) -->
                 <a
+                    id="site-logo"
                     href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
                     class="font-radio font-medium text-[18px] leading-[1.2] tracking-[-0.3px] touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
-                    style="color: var(--color-text); font-family: 'Radio Canada Big', sans-serif;"
+                    style="color: var(--color-text);"
                     aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>"
                     aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>"
                 >
@@ -628,8 +629,16 @@ require_once __DIR__ . '/theme_switcher.php';
         </div>
     </div>
 
-    <!-- Стили dropdown бургер-меню: переопределяют ВСЕ правила из output.css -->
+    <!-- Стили dropdown бургер-меню + логотип Figma (Radio Canada Big) -->
     <style id="burger-dropdown-overrides">
+        /* Логотип: только Radio Canada Big, без наследования font-sans */
+        #site-logo {
+            font-family: "Radio Canada Big", sans-serif !important;
+            font-weight: 500 !important;
+            font-size: 18px !important;
+            line-height: 1.2 !important;
+            letter-spacing: -0.3px !important;
+        }
         /* Overlay: только затемнение, без blur */
         #burgerOverlay {
             backdrop-filter: none !important;
