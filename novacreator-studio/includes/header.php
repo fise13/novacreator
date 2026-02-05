@@ -199,14 +199,14 @@ require_once __DIR__ . '/theme_switcher.php';
         id="mainNavbar"
         role="navigation"
         aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>"
-        class="navbar fixed top-0 left-0 right-0 z-50 border-b border-black/10 dark:border-white/10 bg-white/30 dark:bg-neutral-900/60 backdrop-blur-2xl supports-[backdrop-filter]:backdrop-blur-2xl supports-[backdrop-filter]:bg-white/40 transition-all duration-300 pt-[env(safe-area-inset-top)]"
+        class="navbar fixed top-0 left-0 right-0 z-50 border-b border-black/10 dark:border-white/10 bg-white/30 dark:bg-neutral-900/60 backdrop-blur-2xl supports-[backdrop-filter]:backdrop-blur-2xl supports-[backdrop-filter]:bg-white/40 transition-all duration-300 pt-[env(safe-area-inset-top)] h-16 sm:h-18 md:h-20 flex items-center"
     >
-        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex items-center justify-between gap-4 py-[20px]">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="flex items-center justify-between gap-6 md:gap-[24px] w-full">
                 <!-- Логотип / название сайта -->
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                    class="text-lg sm:text-xl md:text-2xl font-medium tracking-tight group touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
+                    class="text-xl md:text-2xl font-semibold tracking-tight leading-none group touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
                     aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>"
                     aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>"
                 >
@@ -215,14 +215,14 @@ require_once __DIR__ . '/theme_switcher.php';
 
                 <div class="flex items-center gap-4 sm:gap-6">
                     <!-- Навигация для десктопа -->
-                    <div class="hidden md:flex items-center gap-[20px] text-sm md:text-base font-medium tracking-tight" role="menubar">
+                    <div class="hidden md:flex items-center gap-6 lg:gap-[24px] text-[15px] md:text-[16px] font-medium tracking-tight leading-none" role="menubar">
                         <?php 
                         $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                         $currentPath = getCurrentPath();
                         ?>
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'index' ? 'opacity-100' : 'opacity-80'; ?>"
+                            class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'index' ? 'opacity-100' : 'opacity-80'; ?>"
                             role="menuitem"
                             aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>"
                         >
@@ -230,7 +230,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         </a>
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
-                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'services' ? 'opacity-100' : 'opacity-80'; ?>"
+                            class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'services' ? 'opacity-100' : 'opacity-80'; ?>"
                             role="menuitem"
                             aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
                         >
@@ -238,7 +238,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         </a>
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
-                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'seo' ? 'opacity-100' : 'opacity-80'; ?>"
+                            class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'seo' ? 'opacity-100' : 'opacity-80'; ?>"
                             role="menuitem"
                             aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
                         >
@@ -246,7 +246,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         </a>
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
-                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'ads' ? 'opacity-100' : 'opacity-80'; ?>"
+                            class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'ads' ? 'opacity-100' : 'opacity-80'; ?>"
                             role="menuitem"
                             aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
                         >
@@ -254,7 +254,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         </a>
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
-                            class="nav-link inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'about' ? 'opacity-100' : 'opacity-80'; ?>"
+                            class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'about' ? 'opacity-100' : 'opacity-80'; ?>"
                             role="menuitem"
                             aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
                         >
@@ -267,7 +267,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                             <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                            class="inline-flex items-center gap-1 text-sm md:text-base transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'contact' ? 'opacity-100' : 'opacity-80'; ?>"
+                            class="inline-flex items-center gap-1 text-[15px] md:text-[16px] leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'contact' ? 'opacity-100' : 'opacity-80'; ?>"
                             role="menuitem"
                             aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>"
                         >
@@ -276,7 +276,7 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                             <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                            class="group inline-flex items-center gap-1 rounded-full border border-black/10 dark:border-white/15 px-4 py-1.5 text-sm md:text-base transition-all duration-200 hover:opacity-70"
+                            class="group inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/40 px-5 py-2 text-[15px] md:text-[16px] leading-none transition-all duration-200 hover:bg-white/60 hover:border-black/20"
                         >
                             <span>Get started</span>
                             <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
