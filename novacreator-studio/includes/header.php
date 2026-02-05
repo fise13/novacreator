@@ -94,7 +94,8 @@ require_once __DIR__ . '/theme_switcher.php';
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <!-- Google Fonts: Figma-шрифты -->
+    <!-- Google Fonts: Radio Canada Big (Figma Navigation) + остальные -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
@@ -205,10 +206,11 @@ require_once __DIR__ . '/theme_switcher.php';
     >
         <div class="max-w-[1400px] mx-auto px-[20px] md:px-6 lg:px-8 relative z-10 w-full">
             <div class="flex items-center justify-between gap-6 md:gap-[24px] w-full">
-                <!-- Логотип / название сайта -->
+                <!-- Логотип / название сайта (Figma Navigation: Radio Canada Big 18px Medium) -->
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                    class="font-radio font-medium text-[16px] leading-[1.2] tracking-[-0.2px] touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
+                    class="font-radio font-medium text-[18px] leading-[1.2] tracking-[-0.3px] touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
+                    style="color: var(--color-text); font-family: 'Radio Canada Big', sans-serif;"
                     aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>"
                     aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>"
                 >
