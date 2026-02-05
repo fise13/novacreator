@@ -498,92 +498,155 @@ require_once __DIR__ . '/theme_switcher.php';
         class="fixed inset-0 z-[9998] hidden opacity-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300"
     ></div>
     
-    <!-- Боковое меню справа - минималистичный стиль holymedia.kz с перетеканием из header -->
-    <div id="burgerMenu" class="fixed top-0 right-0 bottom-0 z-[9999] flex flex-col" role="dialog" aria-modal="true" aria-labelledby="burgerMenuTitle" style="display: none; width: 85vw; max-width: 400px; background-color: var(--color-bg); transform: translateX(100%); opacity: 0; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;">
-        <!-- Перетекание из header - верхняя часть - закреплена -->
-        <div class="h-16 sm:h-18 md:h-20 border-b flex-shrink-0" style="background-color: var(--color-bg); border-color: var(--color-border); padding-top: env(safe-area-inset-top);">
-            <div class="flex items-center justify-between h-full px-6">
-                <span class="text-lg font-semibold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
-                <button id="burgerCloseBtn" class="w-10 h-10 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation min-w-[44px] min-h-[44px] relative z-20" style="color: #ef4444; background-color: transparent;" aria-label="Закрыть меню">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2.5">
+    <!-- Боковое меню справа - Figma Navigation Mobile -->
+    <div
+        id="burgerMenu"
+        class="fixed top-0 right-0 bottom-0 z-[9999] flex flex-col w-[85vw] max-w-[420px] bg-[var(--color-bg)] translate-x-full opacity-0 transition-transform duration-300 ease-out"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="burgerMenuTitle"
+        style="display: none;"
+    >
+        <!-- Верхняя панель -->
+        <div
+            class="h-16 flex-shrink-0 border-b border-black/10 dark:border-white/10 bg-white/30 dark:bg-neutral-900/80 backdrop-blur-2xl px-5"
+            style="padding-top: env(safe-area-inset-top);"
+        >
+            <div class="flex items-center justify-between h-full">
+                <span
+                    id="burgerMenuTitle"
+                    class="text-lg font-semibold tracking-tight leading-none"
+                    style="color: var(--color-text);"
+                >
+                    <?php echo htmlspecialchars(t('site.name')); ?>
+                </span>
+                <button
+                    id="burgerCloseBtn"
+                    class="inline-flex items-center justify-center w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-white/80 dark:bg-neutral-800/90 border border-black/10 dark:border-white/15 text-black/70 dark:text-white/80 hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-neutral-800 transition-all duration-200 active:scale-95 touch-manipulation relative z-20"
+                    aria-label="Закрыть меню"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
         </div>
         
-        <!-- Контент меню - с прокруткой -->
-        <div class="flex-1 overflow-y-auto px-6 py-6">
-            
-            <?php 
-            $currentPage = basename($_SERVER['PHP_SELF'], '.php');
-            ?>
-                
-                <!-- Навигационные ссылки - чистый минимализм как на holymedia.kz -->
-                <nav role="navigation" aria-label="Основная навигация" class="space-y-2 mb-8">
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'index' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+        <?php 
+        $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+        $currentPageNameMobile = basename($_SERVER['PHP_SELF'], '.php');
+        $hasContactFormMobile = ($currentPageNameMobile === 'index' || $currentPageNameMobile === 'demo');
+        ?>
+
+        <!-- Контент меню - прокручиваемая область -->
+        <div class="flex-1 overflow-y-auto px-5 pt-6 pb-6">
+            <div class="flex flex-col gap-6">
+                <!-- Навигационные ссылки - Figma-style -->
+                <nav role="navigation" aria-label="Основная навигация">
+                    <a
+                        href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
+                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'index' ? '' : ''; ?>"
+                        aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>"
+                        style="color: var(--color-text);"
+                    >
                         <?php echo htmlspecialchars(t('nav.home')); ?>
                     </a>
-                    
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'services' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a
+                        href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
+                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'services' ? '' : ''; ?>"
+                        aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
+                        style="color: var(--color-text);"
+                    >
                         <?php echo htmlspecialchars(t('nav.services')); ?>
                     </a>
-                    
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'seo' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a
+                        href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
+                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'seo' ? '' : ''; ?>"
+                        aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
+                        style="color: var(--color-text);"
+                    >
                         <?php echo htmlspecialchars(t('nav.seo')); ?>
                     </a>
-                    
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'ads' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a
+                        href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
+                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'ads' ? '' : ''; ?>"
+                        aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
+                        style="color: var(--color-text);"
+                    >
                         <?php echo htmlspecialchars(t('nav.ads')); ?>
                     </a>
-                    
-                    <a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="block py-2 text-xl font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 <?php echo $currentPage == 'about' ? 'font-medium' : ''; ?>" aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a
+                        href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
+                        class="block border-t border-[#dbe0ec] last:border-b text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50 <?php echo $currentPage == 'about' ? '' : ''; ?>"
+                        aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
+                        style="color: var(--color-text);"
+                    >
                         <?php echo htmlspecialchars(t('nav.about')); ?>
                     </a>
-                    
-                    <?php 
-                    $currentPageNameMobile = basename($_SERVER['PHP_SELF'], '.php');
-                    $hasContactFormMobile = ($currentPageNameMobile === 'index' || $currentPageNameMobile === 'demo');
-                    ?>
-                    <a href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>" <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?> class="block py-2 mt-6 text-xl font-medium transition-opacity duration-200 hover:opacity-60 active:opacity-40" aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>" style="color: var(--color-text);">
+                    <a
+                        href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
+                        <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
+                        class="block border-t border-b border-[#dbe0ec] text-[40px] font-medium leading-none tracking-[-1.2px] py-6 transition-opacity duration-200 hover:opacity-80 active:opacity-50"
+                        aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>"
+                        style="color: var(--color-text);"
+                    >
                         <?php echo htmlspecialchars(t('nav.contact')); ?>
                     </a>
                 </nav>
-                
-                <!-- Дополнительные ссылки -->
+
+                <!-- CTA кнопка -->
+                <a
+                    href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
+                    <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
+                    class="w-full p-4 text-[20px] font-medium text-center rounded-xl bg-black text-white transition-opacity duration-200 hover:opacity-80"
+                >
+                    Get started
+                </a>
+
+                <!-- Дополнительные ссылки аккаунта -->
                 <?php if ($currentUser): ?>
-                    <div class="mt-8 pt-6 border-t space-y-2" style="border-color: var(--color-border);">
+                    <div class="pt-4 border-t border-[#dbe0ec] space-y-2 text-sm" style="color: var(--color-text-secondary);">
                         <?php if (!$isRootAdmin): ?>
-                            <a href="/dashboard.php" class="block py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40" style="color: var(--color-text-secondary);">
+                            <a href="/dashboard.php" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60">
                                 Личный кабинет
                             </a>
                         <?php endif; ?>
                         <?php if ($isRootAdmin): ?>
-                            <a href="/adm/" class="block py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40" style="color: var(--color-text-secondary);">
+                            <a href="/adm/" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60">
                                 Админ-панель
                             </a>
                         <?php endif; ?>
-                        <a href="/logout.php" class="block py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40" style="color: var(--color-text-secondary);">
+                        <a href="/logout.php" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60">
                             Выйти
                         </a>
                     </div>
                 <?php else: ?>
-                    <div class="mt-8 pt-6 border-t space-y-2" style="border-color: var(--color-border);">
-                        <a href="/login.php" class="block py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40" style="color: var(--color-text-secondary);">
+                    <div class="pt-4 border-t border-[#dbe0ec] space-y-2 text-sm" style="color: var(--color-text-secondary);">
+                        <a href="/login.php" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60">
                             Войти
                         </a>
-                        <a href="/register.php" class="block py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40" style="color: var(--color-text-secondary);">
+                        <a href="/register.php" class="block py-1.5 transition-opacity duration-200 hover:opacity-80 active:opacity-60">
                             Регистрация
                         </a>
                     </div>
                 <?php endif; ?>
-                
+            </div>
         </div>
         
         <!-- Переключатель темы и языка внизу - закреплен вне прокрутки -->
-        <div class="pt-4 pb-4 px-6 border-t flex items-center justify-between flex-shrink-0" role="group" aria-label="Настройки" style="border-color: var(--color-border); background-color: var(--color-bg); padding-bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));">
+        <div
+            class="px-5 pt-3 pb-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between flex-shrink-0 bg-[var(--color-bg)]"
+            role="group"
+            aria-label="Настройки"
+            style="padding-bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));"
+        >
             <!-- Переключатель темы -->
-            <button id="burgerThemeToggle" class="relative w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-60 active:opacity-40 touch-manipulation min-w-[44px] min-h-[44px]" style="color: var(--color-text);" aria-label="Переключить тему оформления">
+            <button
+                id="burgerThemeToggle"
+                class="relative w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-70 active:opacity-50 touch-manipulation min-w-[44px] min-h-[44px]"
+                style="color: var(--color-text);"
+                aria-label="Переключить тему оформления"
+            >
                 <svg id="burgerThemeIconLight" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                 </svg>
@@ -593,16 +656,31 @@ require_once __DIR__ . '/theme_switcher.php';
             </button>
             
             <!-- Переключатель языка -->
-            <div id="burgerLangGroup" role="group" aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>" class="flex items-center gap-2">
-                <a href="<?php echo getLocalizedUrl('ru', $currentPath); ?>" class="px-4 py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation <?php echo $currentLang === 'ru' ? 'font-medium' : ''; ?>" aria-label="Русский язык" aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;">
+            <div
+                id="burgerLangGroup"
+                role="group"
+                aria-label="<?php echo htmlspecialchars(t('nav.language')); ?>"
+                class="flex items-center gap-3 text-sm"
+            >
+                <a
+                    href="<?php echo getLocalizedUrl('ru', $currentPath); ?>"
+                    class="px-3 py-1.5 min-w-[44px] min-h-[32px] flex items-center justify-center rounded-full transition-opacity duration-200 hover:opacity-80 active:opacity-60 <?php echo $currentLang === 'ru' ? 'font-semibold' : 'font-normal'; ?>"
+                    aria-label="Русский язык"
+                    aria-current="<?php echo $currentLang === 'ru' ? 'true' : 'false'; ?>"
+                    style="color: var(--color-text); text-decoration: none;"
+                >
                     RU
                 </a>
-                <span style="color: var(--color-text-secondary); opacity: 0.5;">|</span>
-                <a href="<?php echo getLocalizedUrl('en', $currentPath); ?>" class="px-4 py-2 text-base font-normal transition-opacity duration-200 hover:opacity-60 active:opacity-40 focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation <?php echo $currentLang === 'en' ? 'font-medium' : ''; ?>" aria-label="English language" aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>" style="color: var(--color-text); text-decoration: none;">
+                <span class="opacity-50" style="color: var(--color-text-secondary);">|</span>
+                <a
+                    href="<?php echo getLocalizedUrl('en', $currentPath); ?>"
+                    class="px-3 py-1.5 min-w-[44px] min-h-[32px] flex items-center justify-center rounded-full transition-opacity duration-200 hover:opacity-80 active:opacity-60 <?php echo $currentLang === 'en' ? 'font-semibold' : 'font-normal'; ?>"
+                    aria-label="English language"
+                    aria-current="<?php echo $currentLang === 'en' ? 'true' : 'false'; ?>"
+                    style="color: var(--color-text); text-decoration: none;"
+                >
                     EN
                 </a>
-            </div>
-        </div>
             </div>
         </div>
     </div>
