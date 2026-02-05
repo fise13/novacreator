@@ -48,7 +48,7 @@ include 'includes/header.php';
                     <label class="block text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.calculator.selectService')); ?>
                     </label>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="seo" class="hidden service-radio" checked>
                             <div class="border-2 rounded-lg p-6 text-center hover:border-black transition-colors service-card-option" style="border-color: var(--color-border);">
@@ -73,6 +73,15 @@ include 'includes/header.php';
                                 <div class="text-3xl mb-3">📢</div>
                                 <div class="font-semibold text-lg mb-2" style="color: var(--color-text);">
                                     <?php echo htmlspecialchars(t('pages.calculator.services.ads')); ?>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="service" value="ios" class="hidden service-radio">
+                            <div class="border-2 rounded-lg p-6 text-center hover:border-black transition-colors service-card-option" style="border-color: var(--color-border);">
+                                <div class="text-3xl mb-3">📱</div>
+                                <div class="font-semibold text-lg mb-2" style="color: var(--color-text);">
+                                    <?php echo $currentLang === 'en' ? 'iOS development' : 'iOS разработка'; ?>
                                 </div>
                             </div>
                         </label>
@@ -173,6 +182,36 @@ include 'includes/header.php';
                             <option value="google" selected><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.google')); ?></option>
                             <option value="yandex"><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.yandex')); ?></option>
                             <option value="both"><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.both')); ?></option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Параметры для iOS разработки -->
+                <div id="ios-options" class="service-options hidden space-y-6">
+                    <div>
+                        <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'App type' : 'Тип iOS приложения'; ?>
+                        </label>
+                        <select name="ios_type" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                            <option value="mvp"><?php echo $currentLang === 'en' ? 'MVP / pilot' : 'MVP / пилот'; ?></option>
+                            <option value="business" selected><?php echo $currentLang === 'en' ? 'Business app' : 'Бизнес‑приложение'; ?></option>
+                            <option value="complex"><?php echo $currentLang === 'en' ? 'Complex product' : 'Сложный продукт'; ?></option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Number of screens' : 'Количество экранов'; ?>
+                        </label>
+                        <input type="number" name="ios_screens" value="12" min="3" max="80" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                    </div>
+                    <div>
+                        <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Integrations' : 'Интеграции'; ?>
+                        </label>
+                        <select name="ios_integrations" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                            <option value="basic"><?php echo $currentLang === 'en' ? 'Basic (1–2 APIs, Firebase)' : 'Базовые (1–2 API, Firebase)'; ?></option>
+                            <option value="extended"><?php echo $currentLang === 'en' ? 'Extended (3–4 APIs, payments, maps)' : 'Расширенные (3–4 API, оплаты, карты)'; ?></option>
+                            <option value="enterprise"><?php echo $currentLang === 'en' ? 'Enterprise (many systems, CRM/ERP)' : 'Enterprise (много систем, CRM/ERP)'; ?></option>
                         </select>
                     </div>
                 </div>
@@ -408,11 +447,35 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (service === 'ads') {
             const budget = parseInt(document.querySelector('[name="budget"]').value) || 100000;
             const platform = document.querySelector('[name="platform"]').value;
-            
             let percentage = 0.12;
             if (platform === 'both') percentage = 0.15;
             
             price = Math.round(budget * percentage);
+        } else if (service === 'ios') {
+            const iosType = document.querySelector('[name="ios_type"]').value;
+            const screens = parseInt(document.querySelector('[name="ios_screens"]').value) || 12;
+            const integrations = document.querySelector('[name="ios_integrations"]').value;
+
+            let basePrice = 0;
+            if (iosType === 'mvp') basePrice = 1200000;
+            else if (iosType === 'business') basePrice = 2200000;
+            else if (iosType === 'complex') basePrice = 3500000;
+
+            // коррекция по количеству экранов
+            if (screens > 10) {
+                basePrice += (screens - 10) * 80000;
+            } else if (screens < 10) {
+                basePrice -= (10 - screens) * 40000;
+            }
+
+            // коррекция по интеграциям
+            if (integrations === 'extended') {
+                basePrice *= 1.15;
+            } else if (integrations === 'enterprise') {
+                basePrice *= 1.35;
+            }
+
+            price = Math.round(basePrice);
         }
         
         // сохраняем базовую цену в тенге и обновляем отображение

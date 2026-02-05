@@ -36,6 +36,7 @@ $staticPages = [
     ['url' => '/landing-page-development', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
     ['url' => '/ecommerce-development', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
     ['url' => '/corporate-website-development', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
+    ['url' => '/ios-razrabotka-swift-swiftui', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
 ];
 
 // Загружаем статьи блога

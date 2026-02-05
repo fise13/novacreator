@@ -781,37 +781,6 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- SEO-текст -->
-<section class="reveal-group py-12 md:py-16" style="background-color: var(--color-bg);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-5xl mx-auto reveal">
-            <div class="prose prose-lg max-w-none" style="color: var(--color-text-secondary);">
-                <?php if ($currentLang === 'en'): ?>
-                    <p>
-                        In Kazakhstan, mobile services are growing rapidly and users expect key functions of your business to be available from their iPhone. Native iOS app development on Swift and SwiftUI allows companies from Almaty, Astana and other cities to launch products that work fast, stay stable and fully comply with Apple standards. This is especially important when your app processes payments, personal data and mission-critical operations.
-                    </p>
-                    <p>
-                        NovaCreator Studio helps businesses treat iOS development not as an image project, but as a measurable growth tool. We start with analytics, design user journeys and build architecture on Swift and MVVM so that the app can be safely evolved over years. We use Firebase, analytics, push notifications, integrate with CRM and external APIs to link the iPhone app with your existing digital ecosystem.
-                    </p>
-                    <p>
-                        For queries like “iOS app development Kazakhstan”, “Swift developer Almaty” or “SwiftUI development”, it is not enough to simply declare the stack — what matters is the combination of reliable technology and clear business goals. Using SwiftUI, we speed up MVP release and updates while keeping native performance and quality UX. As a result, your iOS application becomes a functional part of your marketing and service strategy, strengthening your brand and generating measurable business value.
-                    </p>
-                <?php else: ?>
-                    <p>
-                        Рынок мобильных сервисов в Казахстане растет, и пользователи все чаще ожидают, что ключевые функции бизнеса будут доступны в один тап на экране iPhone. Нативная <strong>iOS разработка на Swift/SwiftUI</strong> позволяет компаниям из Алматы, Астаны и других городов запускать продукты, которые работают быстро, стабильно и соответствуют стандартам Apple. Это особенно важно, когда через приложение проходят платежи, персональные данные клиентов и критичные для бизнеса процессы.
-                    </p>
-                    <p>
-                        NovaCreator Studio помогает воспринимать <strong>разработку приложений iPhone</strong> не как имиджевый проект, а как измеримый инструмент продаж и сервиса. Мы начинаем с аналитики, прорабатываем пользовательские сценарии, проектируем архитектуру на Swift и MVVM, чтобы приложение можно было безопасно развивать годами. При необходимости подключаем <strong>Firebase</strong> для аналитики и Push‑уведомлений, интегрируем CRM, платежные системы и внешние API, чтобы связать мобильный продукт с уже существующей цифровой инфраструктурой.
-                    </p>
-                    <p>
-                        Для запросов вроде «<strong>iOS разработка Казахстан</strong>», «<strong>Swift разработчик Алматы</strong>» или «<strong>SwiftUI разработка</strong>» важен не только используемый стек, но и понимание реальных задач бизнеса. Используя SwiftUI, мы ускоряем выпуск MVP и последующих обновлений, сохраняя нативную производительность и качество интерфейсов. В результате ваше iOS приложение органично дополняет сайт и офлайн‑каналы, помогает собирать аналитику и повышает ценность бренда в глазах пользователей.
-                    </p>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
 {

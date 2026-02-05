@@ -120,9 +120,14 @@ include 'includes/header.php';
                 </div>
                 <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
-                    <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
-                        <?php echo htmlspecialchars(t('pages.services.development.types.app')); ?>
-                    </p>
+                    <div class="flex-1">
+                        <p class="text-lg md:text-xl leading-relaxed mb-2" style="color: var(--color-text-secondary); max-width: 65ch;">
+                            <?php echo htmlspecialchars(t('pages.services.development.types.app')); ?>
+                        </p>
+                        <a href="<?php echo getLocalizedUrl($currentLang, '/ios-razrabotka-swift-swiftui'); ?>" class="text-base font-medium hover:underline" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Learn more about iOS development' : 'Подробнее о iOS‑разработке'; ?> →
+                        </a>
+                    </div>
                 </div>
                 <div class="reveal flex items-start gap-4">
                     <span class="text-2xl font-bold" style="color: var(--color-text);">•</span>
