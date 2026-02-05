@@ -495,14 +495,14 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Overlay: клик закрывает dropdown -->
     <div
         id="burgerOverlay"
-        class="fixed inset-0 z-[9998] bg-black/10 backdrop-blur-sm transition-opacity duration-300 pointer-events-none opacity-0"
+        class="fixed inset-0 z-[9998] bg-black/10 backdrop-blur-sm transition-opacity duration-300 pointer-events-none opacity-0 hidden"
         aria-hidden="true"
     ></div>
 
     <!-- DropdownContent: выпадает вниз под navbar (не side panel) -->
     <div
         id="burgerMenu"
-        class="fixed left-0 w-full z-[9999] opacity-0 -translate-y-3 pointer-events-none transition-all duration-300 ease-out"
+        class="fixed left-0 w-full z-[9999] opacity-0 -translate-y-3 pointer-events-none transition-all duration-300 ease-out hidden"
         style="top: calc(60px + env(safe-area-inset-top));"
         role="dialog"
         aria-modal="true"
@@ -516,7 +516,7 @@ require_once __DIR__ . '/theme_switcher.php';
         ?>
         <div
             id="burgerPanel"
-            class="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-[32px] border-b border-black/10 dark:border-white/10 px-[20px] pb-[20px] flex flex-col gap-[24px]"
+            class="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-[32px] border-b border-black/10 dark:border-white/10 px-[20px] pb-[20px] flex flex-col gap-[24px] shadow-[0_16px_40px_rgba(0,0,0,0.12)] rounded-b-2xl"
         >
             <span id="burgerMenuTitle" class="sr-only"><?php echo htmlspecialchars(t('nav.main')); ?></span>
 
@@ -769,6 +769,10 @@ require_once __DIR__ . '/theme_switcher.php';
                 isBurgerOpen = true;
                 savedScrollY = window.scrollY;
 
+                // показываем элементы (снимаем hidden, который нужен для старых стилей)
+                burgerOverlay.classList.remove('hidden');
+                burgerMenu.classList.remove('hidden');
+
                 toggleBurgerIcon(true);
 
                 document.body.style.position = 'fixed';
@@ -844,6 +848,8 @@ require_once __DIR__ . '/theme_switcher.php';
                     burgerOverlay.setAttribute('aria-hidden', 'true');
                     burgerMenu.style.pointerEvents = 'none';
                     burgerMenu.setAttribute('aria-hidden', 'true');
+                    burgerOverlay.classList.add('hidden');
+                    burgerMenu.classList.add('hidden');
 
                     var menuLinks = burgerMenu.querySelectorAll('.burger-menu-link');
                     menuLinks.forEach(function(item) {
