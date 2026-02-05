@@ -6,7 +6,7 @@ module.exports = {
     "./assets/js/**/*.js"
   ],
   safelist: [
-    { pattern: /^font-(radio|serif|geist)$/ }
+    { pattern: /^font-(crimson|radio|serif|geist)$/ }
   ],
   theme: {
     extend: {
@@ -83,6 +83,7 @@ module.exports = {
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         display: ['Inter', 'system-ui', 'sans-serif'],
+        crimson: ['"Crimson Text"', 'serif'],
         radio: ['"Radio Canada Big"', 'sans-serif'],
         serif: ['"Source Serif 4"', 'serif'],
         geist: ['"Geist Mono"', 'monospace'],

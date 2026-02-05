@@ -96,7 +96,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <!-- Google Fonts: Radio Canada Big (Figma Navigation) + остальные -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Radio+Canada+Big:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <?php

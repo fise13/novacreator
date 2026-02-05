@@ -28,7 +28,7 @@ include 'includes/header.php';
                 }
                 $headlines = $headlinesData['home']['hero']['headlines'] ?? [];
                 $randomHeadline = !empty($headlines) ? $headlines[array_rand($headlines)] : ['title' => 'Your growth is our goal', 'subtitle' => ''];
-$heroTitle = $currentLang === 'en' ? 'Your growth is our goal' : $randomHeadline['title'];
+$heroTitle = 'NovaCreator Studio';
                 $descriptions = $headlinesData['home']['hero']['descriptions'] ?? [];
                 $randomDescription = !empty($descriptions) ? $descriptions[array_rand($descriptions)] : ($currentLang === 'en' ? 'Digital agency specializing in SEO, web development, and marketing strategies' : 'Цифровое агентство');
 $heroSubtitle = $randomDescription;

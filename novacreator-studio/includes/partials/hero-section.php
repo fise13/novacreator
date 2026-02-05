@@ -30,8 +30,8 @@ $heroShowVisualAnchor = $heroShowVisualAnchor ?? true;
     
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div class="<?php echo $heroWithParallax ? 'parallax-content' : ''; ?> max-w-7xl mx-auto text-center relative">
-            <!-- Главный заголовок -->
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
+            <!-- Главный заголовок в стиле Figma -->
+            <h1 class="font-crimson font-normal text-[52px] sm:text-[90px] lg:text-[160px] leading-[0.9] tracking-[-2px] sm:tracking-[-4px] lg:tracking-[-6.8px] text-black whitespace-nowrap mb-6 md:mb-8 lg:mb-10 reveal">
                 <?php echo htmlspecialchars($heroTitle); ?>
             </h1>
             
