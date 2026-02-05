@@ -334,7 +334,7 @@
   @media (max-width: 768px) {
     #burgerMenu {
       position: fixed !important;
-      top: calc(96px + env(safe-area-inset-top)) !important;
+      top: calc(64px + env(safe-area-inset-top)) !important;
       left: 0 !important;
       right: 0 !important;
       bottom: auto !important;
@@ -1087,7 +1087,7 @@
     #burgerMenu {
       will-change: transform, opacity;
       position: fixed !important;
-      top: calc(96px + env(safe-area-inset-top)) !important;
+      top: calc(64px + env(safe-area-inset-top)) !important;
       left: 0 !important;
       right: 0 !important;
       bottom: auto !important;
@@ -1166,7 +1166,7 @@
       margin: 0 !important;
       padding: 0 !important;
       pointer-events: auto !important;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.05);
       opacity: 0;
       transition: opacity 0.3s ease-out;
     }
@@ -2197,7 +2197,7 @@
     transform: translateZ(0);
     will-change: transform, opacity;
     position: fixed !important;
-    top: calc(96px + env(safe-area-inset-top)) !important;
+    top: calc(64px + env(safe-area-inset-top)) !important;
     left: 0 !important;
     right: 0 !important;
     bottom: auto !important;
@@ -2290,7 +2290,7 @@
     position: fixed !important;
     inset: 0 !important;
     z-index: 9998 !important;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.05);
     transition: opacity 0.3s ease-out;
   }
   

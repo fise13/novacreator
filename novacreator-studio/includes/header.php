@@ -495,7 +495,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Overlay: только затемнение, без blur -->
     <div
         id="burgerOverlay"
-        class="fixed inset-0 z-[9998] bg-black/20 transition-opacity duration-300 pointer-events-none opacity-0 hidden"
+        class="fixed inset-0 z-[9998] bg-black/5 transition-opacity duration-300 pointer-events-none opacity-0 hidden"
         aria-hidden="true"
     ></div>
 
@@ -503,7 +503,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <div
         id="burgerMenu"
         class="fixed left-0 w-full z-[9999] opacity-0 -translate-y-3 pointer-events-none transition-all duration-300 ease-out hidden"
-        style="top: calc(96px + env(safe-area-inset-top));"
+        style="top: calc(64px + env(safe-area-inset-top));"
         role="dialog"
         aria-modal="true"
         aria-labelledby="burgerMenuTitle"
@@ -631,11 +631,11 @@ require_once __DIR__ . '/theme_switcher.php';
         #burgerOverlay {
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
-            background: rgba(0, 0, 0, 0.2) !important;
+            background: rgba(0, 0, 0, 0.05) !important;
         }
         /* Dropdown: под navbar с отступом, на всю ширину, не side panel */
         #burgerMenu {
-            top: calc(96px + env(safe-area-inset-top)) !important;
+            top: calc(64px + env(safe-area-inset-top)) !important;
             left: 0 !important;
             right: 0 !important;
             bottom: auto !important;
@@ -651,7 +651,7 @@ require_once __DIR__ . '/theme_switcher.php';
         /* Принудительно на мобильных (тот же breakpoint, что в output.css) */
         @media (max-width: 768px) {
             #burgerMenu {
-                top: calc(96px + env(safe-area-inset-top)) !important;
+                top: calc(64px + env(safe-area-inset-top)) !important;
                 left: 0 !important;
                 right: 0 !important;
                 bottom: auto !important;
