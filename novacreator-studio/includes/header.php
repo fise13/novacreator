@@ -278,10 +278,9 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                             <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                            class="group inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/40 px-5 py-2 text-[15px] md:text-[16px] leading-none transition-all duration-200 hover:bg-white/60 hover:border-black/20"
+                            class="font-radio inline-flex items-center justify-center bg-black text-white rounded-xl px-6 py-3 text-[16px] font-semibold tracking-tight transition-all duration-200 hover:opacity-90 active:opacity-80 active:scale-[0.98]"
                         >
-                            <span>Get started</span>
-                            <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                            <?php echo htmlspecialchars(t('common.getStarted')); ?>
                         </a>
                     </div>
 
@@ -505,7 +504,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <div
         id="burgerMenu"
         class="fixed left-0 w-full z-[9999] opacity-0 -translate-y-3 pointer-events-none transition-all duration-300 ease-out hidden"
-        style="top: calc(56px + env(safe-area-inset-top));"
+        style="top: calc(52px + env(safe-area-inset-top));"
         role="dialog"
         aria-modal="true"
         aria-labelledby="burgerMenuTitle"
@@ -575,13 +574,13 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
             </nav>
 
-            <!-- CTA кнопка: Figma-style primary -->
+            <!-- CTA кнопка: как на фото — чёрная, белый текст "Get started" -->
             <a
                 id="burgerCtaBtn"
                 href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                 <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                class="font-radio w-full py-4 px-5 text-[20px] font-semibold tracking-tight text-center bg-black text-white rounded-xl transition-all duration-200 hover:opacity-90 active:opacity-80 active:scale-[0.98] min-h-[56px] flex items-center justify-center"
-                style="text-decoration: none; -webkit-tap-highlight-color: transparent;"
+                class="font-radio w-full py-[18px] px-5 text-[18px] font-semibold tracking-tight text-center bg-black text-white rounded-xl transition-all duration-200 hover:opacity-90 active:opacity-80 active:scale-[0.98] flex items-center justify-center"
+                style="text-decoration: none; -webkit-tap-highlight-color: transparent; min-height: 56px;"
             >
                 <?php echo htmlspecialchars(t('common.getStarted')); ?>
             </a>
@@ -637,7 +636,7 @@ require_once __DIR__ . '/theme_switcher.php';
         }
         /* Dropdown: под navbar с отступом, на всю ширину, не side panel */
         #burgerMenu {
-            top: calc(56px + env(safe-area-inset-top)) !important;
+            top: calc(52px + env(safe-area-inset-top)) !important;
             left: 0 !important;
             right: 0 !important;
             bottom: auto !important;
@@ -653,7 +652,7 @@ require_once __DIR__ . '/theme_switcher.php';
         /* Принудительно на мобильных (тот же breakpoint, что в output.css) */
         @media (max-width: 768px) {
             #burgerMenu {
-                top: calc(56px + env(safe-area-inset-top)) !important;
+                top: calc(52px + env(safe-area-inset-top)) !important;
                 left: 0 !important;
                 right: 0 !important;
                 bottom: auto !important;

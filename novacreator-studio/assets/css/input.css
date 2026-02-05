@@ -334,7 +334,7 @@
   @media (max-width: 768px) {
     #burgerMenu {
       position: fixed !important;
-      top: calc(56px + env(safe-area-inset-top)) !important;
+      top: calc(52px + env(safe-area-inset-top)) !important;
       left: 0 !important;
       right: 0 !important;
       bottom: auto !important;
@@ -1087,7 +1087,7 @@
     #burgerMenu {
       will-change: transform, opacity;
       position: fixed !important;
-      top: calc(56px + env(safe-area-inset-top)) !important;
+      top: calc(52px + env(safe-area-inset-top)) !important;
       left: 0 !important;
       right: 0 !important;
       bottom: auto !important;
@@ -2197,7 +2197,7 @@
     transform: translateZ(0);
     will-change: transform, opacity;
     position: fixed !important;
-    top: calc(56px + env(safe-area-inset-top)) !important;
+    top: calc(52px + env(safe-area-inset-top)) !important;
     left: 0 !important;
     right: 0 !important;
     bottom: auto !important;
