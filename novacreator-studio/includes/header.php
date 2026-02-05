@@ -627,10 +627,18 @@ require_once __DIR__ . '/theme_switcher.php';
 
     <!-- Стили dropdown бургер-меню (переопределяют side-panel в output.css) -->
     <style>
+        /* Overlay: только затемнение, без blur */
+        #burgerOverlay {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(0, 0, 0, 0.2) !important;
+        }
+        /* Dropdown: под navbar с отступом (воздух), не full viewport */
         #burgerMenu {
             top: calc(72px + env(safe-area-inset-top)) !important;
             left: 0 !important;
             right: 0 !important;
+            bottom: auto !important;
             width: 100% !important;
             max-width: none !important;
             height: auto !important;
