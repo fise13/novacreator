@@ -28,7 +28,7 @@ include 'includes/header.php';
                 }
                 $headlines = $headlinesData['home']['hero']['headlines'] ?? [];
                 $randomHeadline = !empty($headlines) ? $headlines[array_rand($headlines)] : ['title' => 'Your growth is our goal', 'subtitle' => ''];
-$heroTitle = 'NovaCreator Studio';
+$heroTitle = $currentLang === 'en' ? 'Your growth is our goal' : $randomHeadline['title'];
                 $descriptions = $headlinesData['home']['hero']['descriptions'] ?? [];
                 $randomDescription = !empty($descriptions) ? $descriptions[array_rand($descriptions)] : ($currentLang === 'en' ? 'Digital agency specializing in SEO, web development, and marketing strategies' : 'Цифровое агентство');
 $heroSubtitle = $randomDescription;
@@ -47,6 +47,7 @@ $heroCtaButtons = [
         'style' => 'border-color: var(--color-border); color: var(--color-text); background-color: transparent; text-decoration: none;'
     ]
 ];
+$heroShowVisualAnchor = false;
 $heroWithParallax = true;
 $heroScrollIndicator = true;
 include __DIR__ . '/includes/partials/hero-section.php';
