@@ -138,66 +138,79 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 </p>
             </div>
             
-            <!-- Этапы работы -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
-                <!-- Этап 1 -->
-                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                        <span class="text-2xl font-bold" style="color: var(--color-text);">1</span>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                        <?php echo $currentLang === 'en' ? 'Analysis' : 'Анализ'; ?>
-                    </h3>
-                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? 'We study your business, competitors, and target audience to create an effective strategy.' 
-                            : 'Изучаем ваш бизнес, конкурентов и целевую аудиторию для создания эффективной стратегии.'; ?>
-                    </p>
-                </div>
-                
-                <!-- Этап 2 -->
-                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                        <span class="text-2xl font-bold" style="color: var(--color-text);">2</span>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                        <?php echo $currentLang === 'en' ? 'Planning' : 'Планирование'; ?>
-                    </h3>
-                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? 'We develop a detailed plan with milestones, deadlines, and expected results.' 
-                            : 'Разрабатываем детальный план с этапами, сроками и ожидаемыми результатами.'; ?>
-                    </p>
-                </div>
-                
-                <!-- Этап 3 -->
-                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                        <span class="text-2xl font-bold" style="color: var(--color-text);">3</span>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                        <?php echo $currentLang === 'en' ? 'Implementation' : 'Реализация'; ?>
-                    </h3>
-                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? 'We implement the solution step by step, keeping you informed at every stage.' 
-                            : 'Внедряем решение поэтапно, информируя вас на каждом этапе работы.'; ?>
-                    </p>
+            <!-- Этапы работы: на десктопе — линия 1→2→3→4, на мобиле — нумерация -->
+            <div class="process-steps relative">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
+                    <!-- Этап 1: Анализ — лупа -->
+                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                        <div class="relative w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">1</span>
                         </div>
-                        
-                <!-- Этап 4 -->
-                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                        <span class="text-2xl font-bold" style="color: var(--color-text);">4</span>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                        <?php echo $currentLang === 'en' ? 'Support' : 'Поддержка'; ?>
+                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Analysis' : 'Анализ'; ?>
                         </h3>
-                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? 'We monitor results, optimize, and provide ongoing support for your project.' 
-                            : 'Отслеживаем результаты, оптимизируем и обеспечиваем постоянную поддержку проекта.'; ?>
-                    </p>
+                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                            <?php echo $currentLang === 'en' ? 'We study your business, competitors, and target audience to create an effective strategy.' : 'Изучаем ваш бизнес, конкурентов и целевую аудиторию для создания эффективной стратегии.'; ?>
+                        </p>
+                    </div>
+                    
+                    <!-- Этап 2: Планирование — план/документ -->
+                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                        <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">2</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Planning' : 'Планирование'; ?>
+                        </h3>
+                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                            <?php echo $currentLang === 'en' ? 'We develop a detailed plan with milestones, deadlines, and expected results.' : 'Разрабатываем детальный план с этапами, сроками и ожидаемыми результатами.'; ?>
+                        </p>
+                    </div>
+                    
+                    <!-- Этап 3: Реализация — шестерёнка -->
+                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                        <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">3</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Implementation' : 'Реализация'; ?>
+                        </h3>
+                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                            <?php echo $currentLang === 'en' ? 'We implement the solution step by step, keeping you informed at every stage.' : 'Внедряем решение поэтапно, информируя вас на каждом этапе работы.'; ?>
+                        </p>
+                    </div>
+                    
+                    <!-- Этап 4: Поддержка — headset -->
+                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                        <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">4</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
+                            <?php echo $currentLang === 'en' ? 'Support' : 'Поддержка'; ?>
+                        </h3>
+                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
+                            <?php echo $currentLang === 'en' ? 'We monitor results, optimize, and provide ongoing support for your project.' : 'Отслеживаем результаты, оптимизируем и обеспечиваем постоянную поддержку проекта.'; ?>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Визуальная нить 1→2→3→4 (только на десктопе) -->
+                <div class="hidden lg:block absolute top-[4.5rem] left-[12%] right-[12%] pointer-events-none" style="height: 2px; border-top: 2px dashed var(--color-border);"></div>
+                <div class="hidden lg:flex absolute top-[4rem] left-[12%] right-[12%] justify-between pointer-events-none" aria-hidden="true">
+                    <span class="text-xl" style="color: var(--color-text-secondary);">→</span>
+                    <span class="text-xl" style="color: var(--color-text-secondary);">→</span>
+                    <span class="text-xl" style="color: var(--color-text-secondary);">→</span>
+                </div>
+                
+                <!-- CTA под блоком -->
+                <div class="reveal mt-12 md:mt-16 text-center">
+                    <a href="#contact-form" onclick="document.getElementById('contact-form')?.scrollIntoView({behavior:'smooth'}); return false;" class="inline-flex items-center justify-center px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl border-2" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border-color: transparent; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);">
+                        <?php echo $currentLang === 'en' ? 'Discuss my project' : 'Обсудить мой проект'; ?>
+                    </a>
                 </div>
             </div>
         </div>
