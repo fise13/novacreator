@@ -6,7 +6,7 @@ module.exports = {
     "./assets/js/**/*.js"
   ],
   safelist: [
-    { pattern: /^font-(radio|serif|geist)$/ }
+    { pattern: /^font-(radio|serif|geist|geistMono)$/ }
   ],
   theme: {
     extend: {
@@ -85,7 +85,8 @@ module.exports = {
         display: ['Inter', 'system-ui', 'sans-serif'],
         radio: ['"Radio Canada Big"', 'sans-serif'],
         serif: ['"Source Serif 4"', 'serif'],
-        geist: ['"Geist Mono"', 'monospace'],
+        geist: ['"Geist"', 'sans-serif'],
+        geistMono: ['"Geist Mono"', 'monospace'],
       },
       fontSize: {
         // Единая типографическая шкала
