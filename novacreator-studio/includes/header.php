@@ -461,7 +461,7 @@ require_once __DIR__ . '/theme_switcher.php';
                             aria-label="Меню"
                             aria-expanded="false"
                             aria-controls="burgerMenu"
-                            class="inline-flex items-center justify-center w-10 h-10 min-w-[44px] min-h-[44px] rounded-full border border-black/10 dark:border-white/15 bg-white/50 dark:bg-neutral-900/60 backdrop-blur-md transition-all duration-200 active:scale-95 focus:outline-none"
+                            class="inline-flex items-center justify-center w-10 h-10 min-w-[44px] min-h-[44px] rounded-full border border-black/10 dark:border-white/15 bg-white/60 dark:bg-neutral-900/70 text-neutral-900 dark:text-neutral-100 backdrop-blur-md transition-all duration-200 active:scale-95 focus:outline-none"
                         >
                             <svg
                                 id="burgerIcon"
@@ -643,8 +643,7 @@ require_once __DIR__ . '/theme_switcher.php';
             <!-- Переключатель темы -->
             <button
                 id="burgerThemeToggle"
-                class="relative w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-70 active:opacity-50 touch-manipulation min-w-[44px] min-h-[44px]"
-                style="color: var(--color-text);"
+                class="relative w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-neutral-800/90 text-neutral-900 dark:text-neutral-100 border border-black/10 dark:border-white/15 transition-opacity duration-200 hover:opacity-80 active:opacity-60 touch-manipulation min-w-[44px] min-h-[44px]"
                 aria-label="Переключить тему оформления"
             >
                 <svg id="burgerThemeIconLight" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
