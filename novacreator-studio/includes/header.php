@@ -208,7 +208,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 <!-- Логотип / название сайта -->
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                    class="text-xl md:text-2xl font-semibold tracking-tight leading-none group touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
+                    class="font-radio font-medium text-[16px] leading-[1.2] tracking-[-0.2px] touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
                     aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>"
                     aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>"
                 >
