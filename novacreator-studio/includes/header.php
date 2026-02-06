@@ -98,6 +98,18 @@ require_once __DIR__ . '/theme_switcher.php';
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Локальный fallback для Radio Canada Big (только для логотипа) -->
+    <style>
+        @font-face {
+            font-family: "Radio Canada Big";
+            src: url("/radio-canada-big_5/webfonts/radio-canada-big-latin-ext-500-normal.woff2") format("woff2"),
+                 url("/radio-canada-big_5/webfonts/radio-canada-big-latin-ext-500-normal.woff") format("woff");
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    
     <!-- Tailwind CSS -->
     <?php
     // Определяем правильный путь к CSS, учитывая preview режим Plesk
