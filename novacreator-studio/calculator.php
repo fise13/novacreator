@@ -48,39 +48,39 @@ include 'includes/header.php';
                     <label class="block text-xl md:text-2xl font-bold mb-4" style="color: var(--color-text);">
                         <?php echo htmlspecialchars(t('pages.calculator.selectService')); ?>
                     </label>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="seo" class="hidden service-radio" checked>
-                            <div class="border-2 rounded-lg p-6 text-center hover:border-black transition-colors service-card-option" style="border-color: var(--color-border);">
+                            <div class="calculator-service-card service-card-option p-6 selected">
                                 <div class="text-3xl mb-3">🔍</div>
-                                <div class="font-semibold text-lg mb-2" style="color: var(--color-text);">
+                                <div class="font-semibold text-lg mb-2">
                                     <?php echo htmlspecialchars(t('pages.calculator.services.seo')); ?>
                                 </div>
                             </div>
                         </label>
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="development" class="hidden service-radio">
-                            <div class="border-2 rounded-lg p-6 text-center hover:border-black transition-colors service-card-option" style="border-color: var(--color-border);">
+                            <div class="calculator-service-card service-card-option p-6">
                                 <div class="text-3xl mb-3">💻</div>
-                                <div class="font-semibold text-lg mb-2" style="color: var(--color-text);">
+                                <div class="font-semibold text-lg mb-2">
                                     <?php echo htmlspecialchars(t('pages.calculator.services.development')); ?>
                                 </div>
                             </div>
                         </label>
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="ads" class="hidden service-radio">
-                            <div class="border-2 rounded-lg p-6 text-center hover:border-black transition-colors service-card-option" style="border-color: var(--color-border);">
+                            <div class="calculator-service-card service-card-option p-6">
                                 <div class="text-3xl mb-3">📢</div>
-                                <div class="font-semibold text-lg mb-2" style="color: var(--color-text);">
+                                <div class="font-semibold text-lg mb-2">
                                     <?php echo htmlspecialchars(t('pages.calculator.services.ads')); ?>
                                 </div>
                             </div>
                         </label>
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="ios" class="hidden service-radio">
-                            <div class="border-2 rounded-lg p-6 text-center hover:border-black transition-colors service-card-option" style="border-color: var(--color-border);">
+                            <div class="calculator-service-card service-card-option p-6">
                                 <div class="text-3xl mb-3">📱</div>
-                                <div class="font-semibold text-lg mb-2" style="color: var(--color-text);">
+                                <div class="font-semibold text-lg mb-2">
                                     <?php echo $currentLang === 'en' ? 'iOS development' : 'iOS разработка'; ?>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('pages.calculator.seo.siteType')); ?>
                         </label>
-                        <select name="site_type" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <select name="site_type" class="form-input">
                             <option value="small"><?php echo htmlspecialchars(t('pages.calculator.seo.siteTypes.small')); ?></option>
                             <option value="medium" selected><?php echo htmlspecialchars(t('pages.calculator.seo.siteTypes.medium')); ?></option>
                             <option value="large"><?php echo htmlspecialchars(t('pages.calculator.seo.siteTypes.large')); ?></option>
@@ -105,7 +105,7 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('pages.calculator.seo.region')); ?>
                         </label>
-                        <select name="region" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <select name="region" class="form-input">
                             <option value="local"><?php echo htmlspecialchars(t('pages.calculator.seo.regions.local')); ?></option>
                             <option value="regional" selected><?php echo htmlspecialchars(t('pages.calculator.seo.regions.regional')); ?></option>
                             <option value="national"><?php echo htmlspecialchars(t('pages.calculator.seo.regions.national')); ?></option>
@@ -116,7 +116,7 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('pages.calculator.seo.competition')); ?>
                         </label>
-                        <select name="competition" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <select name="competition" class="form-input">
                             <option value="low"><?php echo htmlspecialchars(t('pages.calculator.seo.competitions.low')); ?></option>
                             <option value="medium" selected><?php echo htmlspecialchars(t('pages.calculator.seo.competitions.medium')); ?></option>
                             <option value="high"><?php echo htmlspecialchars(t('pages.calculator.seo.competitions.high')); ?></option>
@@ -130,7 +130,7 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Industry/Niche' : 'Отрасль/Ниша'; ?>
                         </label>
-                        <select name="niche" id="niche-select" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <select name="niche" id="niche-select" class="form-input">
                             <option value="general"><?php echo $currentLang === 'en' ? 'General' : 'Общее'; ?></option>
                             <option value="restaurant"><?php echo $currentLang === 'en' ? 'Restaurant/Cafe' : 'Ресторан/Кафе'; ?></option>
                             <option value="fitness"><?php echo $currentLang === 'en' ? 'Fitness/Gym' : 'Фитнес/Спортзал'; ?></option>
@@ -144,7 +144,7 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('pages.calculator.development.siteType')); ?>
                         </label>
-                        <select name="dev_type" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <select name="dev_type" class="form-input">
                             <option value="landing"><?php echo htmlspecialchars(t('pages.calculator.development.siteTypes.landing')); ?></option>
                             <option value="corporate" selected><?php echo htmlspecialchars(t('pages.calculator.development.siteTypes.corporate')); ?></option>
                             <option value="shop"><?php echo htmlspecialchars(t('pages.calculator.development.siteTypes.shop')); ?></option>
@@ -155,7 +155,7 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('pages.calculator.development.pages')); ?>
                         </label>
-                        <input type="number" name="pages" value="10" min="1" max="100" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <input type="number" name="pages" value="10" min="1" max="100" class="form-input">
                     </div>
                     <!-- Примеры для ниши -->
                     <div id="niche-examples" class="hidden p-4 rounded-lg" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
@@ -172,13 +172,13 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('pages.calculator.ads.budget')); ?>
                         </label>
-                        <input type="number" name="budget" value="100000" min="50000" step="10000" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <input type="number" name="budget" value="100000" min="50000" step="10000" class="form-input">
                     </div>
                     <div>
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo htmlspecialchars(t('pages.calculator.ads.platform')); ?>
                         </label>
-                        <select name="platform" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <select name="platform" class="form-input">
                             <option value="google" selected><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.google')); ?></option>
                             <option value="yandex"><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.yandex')); ?></option>
                             <option value="both"><?php echo htmlspecialchars(t('pages.calculator.ads.platforms.both')); ?></option>
@@ -192,7 +192,7 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'App type' : 'Тип iOS приложения'; ?>
                         </label>
-                        <select name="ios_type" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <select name="ios_type" class="form-input">
                             <option value="mvp"><?php echo $currentLang === 'en' ? 'MVP / pilot' : 'MVP / пилот'; ?></option>
                             <option value="business" selected><?php echo $currentLang === 'en' ? 'Business app' : 'Бизнес‑приложение'; ?></option>
                             <option value="complex"><?php echo $currentLang === 'en' ? 'Complex product' : 'Сложный продукт'; ?></option>
@@ -202,13 +202,13 @@ include 'includes/header.php';
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Number of screens' : 'Количество экранов'; ?>
                         </label>
-                        <input type="number" name="ios_screens" value="12" min="3" max="80" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <input type="number" name="ios_screens" value="12" min="3" max="80" class="form-input">
                     </div>
                     <div>
                         <label class="block text-lg md:text-xl font-semibold mb-3" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Integrations' : 'Интеграции'; ?>
                         </label>
-                        <select name="ios_integrations" class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors" style="background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+                        <select name="ios_integrations" class="form-input">
                             <option value="basic"><?php echo $currentLang === 'en' ? 'Basic (1–2 APIs, Firebase)' : 'Базовые (1–2 API, Firebase)'; ?></option>
                             <option value="extended"><?php echo $currentLang === 'en' ? 'Extended (3–4 APIs, payments, maps)' : 'Расширенные (3–4 API, оплаты, карты)'; ?></option>
                             <option value="enterprise"><?php echo $currentLang === 'en' ? 'Enterprise (many systems, CRM/ERP)' : 'Enterprise (много систем, CRM/ERP)'; ?></option>
@@ -218,23 +218,23 @@ include 'includes/header.php';
 
                 <!-- Результат -->
                 <div class="space-y-6">
-                    <button type="button" id="calculateBtn" class="w-full px-10 py-5 bg-black text-white text-lg font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200 min-h-[56px]">
+                    <button type="button" id="calculateBtn" class="btn-neon w-full min-h-[56px] text-lg font-semibold">
                         <?php echo htmlspecialchars(t('pages.calculator.calculate')); ?>
                     </button>
 
-                    <div id="result" class="border-2 rounded-lg p-8 hidden" style="border-color: var(--color-border);">
+                    <div id="result" class="calculator-result hidden p-8">
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
                             <h3 class="text-2xl md:text-3xl font-bold" style="color: var(--color-text);">
                                 <?php echo htmlspecialchars(t('pages.calculator.result.title')); ?>
                             </h3>
-                            <div class="inline-flex items-center rounded-full border px-1 py-1 bg-transparent text-sm font-medium" style="border-color: var(--color-border);">
-                                <button type="button" class="currency-toggle-btn px-3 py-1 rounded-full text-xs sm:text-sm transition-colors duration-150" data-currency="KZT">
+                            <div class="currency-segment" role="group" aria-label="<?php echo $currentLang === 'en' ? 'Currency' : 'Валюта'; ?>">
+                                <button type="button" class="currency-toggle-btn currency-segment-active" data-currency="KZT">
                                     ₸&nbsp;KZT
                                 </button>
-                                <button type="button" class="currency-toggle-btn px-3 py-1 rounded-full text-xs sm:text-sm transition-colors duration-150" data-currency="RUB">
+                                <button type="button" class="currency-toggle-btn" data-currency="RUB">
                                     ₽&nbsp;RUB
                                 </button>
-                                <button type="button" class="currency-toggle-btn px-3 py-1 rounded-full text-xs sm:text-sm transition-colors duration-150" data-currency="USD">
+                                <button type="button" class="currency-toggle-btn" data-currency="USD">
                                     $&nbsp;USD
                                 </button>
                             </div>
@@ -251,10 +251,10 @@ include 'includes/header.php';
                             <a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" id="similar-case-link" class="text-base font-semibold hover:underline" style="color: var(--color-text);"></a>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="inline-block px-8 py-4 bg-black text-white text-lg font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200 text-center">
+                            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="btn-neon inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-center">
                                 <?php echo htmlspecialchars(t('pages.calculator.result.button')); ?>
                             </a>
-                            <button type="button" id="saveCalculation" class="px-8 py-4 border-2 rounded-lg text-lg font-semibold transition-colors duration-200" style="border-color: var(--color-border); color: var(--color-text);">
+                            <button type="button" id="saveCalculation" class="btn-outline px-8 py-4 text-lg font-semibold">
                                 <?php echo $currentLang === 'en' ? 'Save & Email' : 'Сохранить и отправить'; ?>
                             </button>
                         </div>
@@ -299,11 +299,9 @@ document.addEventListener('DOMContentLoaded', function() {
         currentCurrency = newCurrency;
         currencyButtons.forEach(btn => {
             if (btn.dataset.currency === newCurrency) {
-                btn.classList.add('bg-black', 'text-white');
-                btn.classList.remove('bg-transparent');
+                btn.classList.add('currency-segment-active');
             } else {
-                btn.classList.remove('bg-black', 'text-white');
-                btn.classList.add('bg-transparent');
+                btn.classList.remove('currency-segment-active');
             }
         });
         updatePriceDisplay();
@@ -318,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        // дефолтное состояние – тенге
         setActiveCurrency('KZT');
     }
 
@@ -334,11 +331,11 @@ document.addEventListener('DOMContentLoaded', function() {
             optionsBlock.classList.remove('hidden');
         }
         document.querySelectorAll('.service-card-option').forEach(card => {
-            card.classList.remove('border-black', 'bg-gray-50');
+            card.classList.remove('selected');
         });
         const card = radio.closest('label')?.querySelector('.service-card-option');
         if (card) {
-            card.classList.add('border-black', 'bg-gray-50');
+            card.classList.add('selected');
         }
     }
 
@@ -520,6 +517,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         resultDiv.classList.remove('hidden');
+        resultDiv.classList.remove('calculator-result-enter');
+        void resultDiv.offsetWidth;
+        resultDiv.classList.add('calculator-result-enter');
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
