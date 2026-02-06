@@ -2279,6 +2279,19 @@
     background: none;
   }
   
+  /* Кнопка "Начать проект" в бургере — всегда видимая, чёрная (не сбрасывать фон) */
+  #burgerMenu #burgerCtaBtn {
+    background: #000 !important;
+    color: #fff !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
   #burgerMenu a:hover,
   #burgerMenu button:hover {
     text-decoration: none;
@@ -2312,6 +2325,14 @@
       align-items: center;
       user-select: none;
       -webkit-user-select: none;
+    }
+    
+    /* Кнопка "Начать проект" на телефонах — всегда видна, чёрная */
+    #burgerMenu #burgerCtaBtn {
+      background: #000 !important;
+      color: #fff !important;
+      min-height: 56px;
+      flex-shrink: 0;
     }
     
     /* Простая кнопка закрытия */
