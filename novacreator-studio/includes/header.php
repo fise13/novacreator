@@ -616,6 +616,13 @@ require_once __DIR__ . '/theme_switcher.php';
             line-height: 1.2 !important;
             letter-spacing: -0.3px !important;
         }
+        /* Общий Figma-шрифт для навигации и CTA (как в React-примере font-['Radio_Canada_Big:Medium',sans-serif]) */
+        .font-radio,
+        .nav-link {
+            font-family: "Radio Canada Big", sans-serif !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+        }
         /* Overlay: только затемнение, без blur */
         #burgerOverlay {
             backdrop-filter: none !important;
