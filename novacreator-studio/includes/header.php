@@ -272,15 +272,6 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                             <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                            class="inline-flex items-center gap-1 text-[15px] md:text-[16px] leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'contact' ? 'opacity-100' : 'opacity-80'; ?>"
-                            role="menuitem"
-                            aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>"
-                        >
-                            <?php echo htmlspecialchars(t('nav.contact')); ?>
-                        </a>
-                        <a
-                            href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
-                            <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
                             class="font-radio inline-flex items-center justify-center bg-black text-white rounded-xl px-6 py-3 text-[16px] font-semibold tracking-tight transition-all duration-200 hover:opacity-90 active:opacity-80 active:scale-[0.98]"
                         >
                             <?php echo htmlspecialchars(t('common.getStarted')); ?>
@@ -513,11 +504,7 @@ require_once __DIR__ . '/theme_switcher.php';
         aria-labelledby="burgerMenuTitle"
         aria-hidden="true"
     >
-        <?php
-        $currentPage = basename($_SERVER['PHP_SELF'], '.php');
-        $currentPageNameMobile = basename($_SERVER['PHP_SELF'], '.php');
-        $hasContactFormMobile = ($currentPageNameMobile === 'index' || $currentPageNameMobile === 'demo');
-        ?>
+        <?php $currentPage = basename($_SERVER['PHP_SELF'], '.php'); ?>
         <div
             id="burgerPanel"
             class="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-[32px] border-b border-black/10 dark:border-white/10 px-[20px] pb-[20px] flex flex-col gap-[24px] shadow-[0_16px_40px_rgba(0,0,0,0.12)] rounded-b-2xl"
@@ -560,30 +547,20 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-b border-[#dbe0ec]"
                     aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
                     <?php echo htmlspecialchars(t('nav.about')); ?>
                 </a>
-                <a
-                    href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
-                    <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-b border-[#dbe0ec]"
-                    aria-current="<?php echo $currentPage == 'contact' ? 'page' : 'false'; ?>"
-                    style="color: var(--color-text); text-decoration: none;"
-                >
-                    <?php echo htmlspecialchars(t('nav.contact')); ?>
-                </a>
             </nav>
 
-            <!-- CTA кнопка: как на фото — чёрная, белый текст "Get started" -->
+            <!-- CTA кнопка "Начать проект" — всегда ведёт на contact.php (удобно на телефоне) -->
             <a
                 id="burgerCtaBtn"
-                href="<?php echo $hasContactFormMobile ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
-                <?php echo $hasContactFormMobile ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
+                href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>"
                 class="font-radio w-full py-[18px] px-5 text-[18px] font-semibold tracking-tight text-center bg-black text-white rounded-xl transition-all duration-200 hover:opacity-90 active:opacity-80 active:scale-[0.98] flex items-center justify-center"
-                style="text-decoration: none; -webkit-tap-highlight-color: transparent; min-height: 56px;"
+                style="text-decoration: none; -webkit-tap-highlight-color: transparent; min-height: 56px; opacity: 1;"
             >
                 <?php echo htmlspecialchars(t('common.getStarted')); ?>
             </a>
@@ -780,7 +757,6 @@ require_once __DIR__ . '/theme_switcher.php';
             let savedScrollY = 0;
 
             const STAGGER_DELAY = 40;
-            const CTA_DELAY = 250;
 
             function toggleBurgerIcon(isOpen) {
                 if (!burgerIcon || !burgerCloseIcon) return;
@@ -846,13 +822,8 @@ require_once __DIR__ . '/theme_switcher.php';
 
                 var ctaBtn = document.getElementById('burgerCtaBtn');
                 if (ctaBtn) {
-                    ctaBtn.style.opacity = '0';
-                    ctaBtn.style.transform = 'translateX(12px)';
-                    ctaBtn.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
-                    setTimeout(function() {
-                        ctaBtn.style.opacity = '1';
-                        ctaBtn.style.transform = 'translateX(0)';
-                    }, CTA_DELAY);
+                    ctaBtn.style.opacity = '1';
+                    ctaBtn.style.transform = 'translateX(0)';
                 }
 
                 burgerBtn?.setAttribute('aria-expanded', 'true');
