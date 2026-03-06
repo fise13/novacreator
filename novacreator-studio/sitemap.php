@@ -31,6 +31,7 @@ $staticPages = [
     ['url' => '/faq', 'priority' => '0.8', 'changefreq' => 'weekly', 'images' => false], // FAQ важен для SEO
     ['url' => '/contact', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],
     ['url' => '/about', 'priority' => '0.75', 'changefreq' => 'monthly', 'images' => true],
+    ['url' => '/privacy', 'priority' => '0.7', 'changefreq' => 'monthly', 'images' => false],
     ['url' => '/calculator', 'priority' => '0.7', 'changefreq' => 'monthly', 'images' => false],
     ['url' => '/vacancies', 'priority' => '0.65', 'changefreq' => 'weekly', 'images' => false],
     ['url' => '/landing-page-development', 'priority' => '0.8', 'changefreq' => 'monthly', 'images' => false],

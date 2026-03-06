@@ -60,6 +60,7 @@ $currentLang = getCurrentLanguage();
                         <h3 class="text-xl md:text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.company')); ?></h3>
                         <ul class="space-y-4">
                             <li><a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.about')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/privacy'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'Privacy Policy' : 'Политика конфиденциальности'; ?></a></li>
                             <li><a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.contacts')); ?></a></li>
                             <li><a href="<?php echo getLocalizedUrl($currentLang, '/faq'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.faq')); ?></a></li>
                             <li><a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.calculator')); ?></a></li>
