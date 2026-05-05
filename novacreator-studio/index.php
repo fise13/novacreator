@@ -77,30 +77,91 @@ include __DIR__ . '/includes/partials/hero-section.php';
     </div>
 </section>
 
-<!-- Статистика - Apple минимализм -->
-<section class="reveal-group py-12 md:py-20 lg:py-32 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
-    <div class="absolute top-0 left-0 right-0 h-24 md:h-48 pointer-events-none" style="background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-lighter));"></div>
-    
+<!-- Метрики и доверие -->
+<section class="reveal-group py-14 md:py-20 lg:py-24 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
-                <div class="text-center reveal">
-                    <div class="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] font-semibold mb-4 md:mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
-                        <span class="counter-number inline-block" data-target="100" data-suffix="%">0</span>
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-8 md:mb-12">
+                <p class="text-xs md:text-sm uppercase tracking-[0.14em] mb-3" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' ? 'Performance Snapshot' : 'Ключевые показатели'; ?>
+                </p>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-3" style="color: var(--color-text);">
+                    <?php echo $currentLang === 'en' ? 'Results Businesses Trust' : 'Результаты, которым доверяют'; ?>
+                </h2>
+                <p class="text-base md:text-lg max-w-3xl" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en'
+                        ? 'Clear metrics from real projects in SEO, web development and performance marketing.'
+                        : 'Понятные метрики из реальных проектов по SEO, разработке и performance-маркетингу.'; ?>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
+                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(99,102,241,0.06), rgba(99,102,241,0.01)); border: 1px solid var(--color-border);">
+                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(99, 102, 241, 0.12); color: #6366f1;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7h18M6 7v10a1 1 0 001 1h10a1 1 0 001-1V7M9 11h6"></path></svg>
                     </div>
-                    <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' ? 'online projects' : 'онлайн проектов'; ?>
+                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">
+                        <span class="counter-number" data-target="100" data-suffix="+">0</span>
                     </p>
-                </div>
-                
-                <div class="text-center reveal">
-                    <div class="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] font-semibold mb-4 md:mb-6 leading-none tracking-tighter" style="color: var(--color-text);">
-                        <span class="counter-number inline-block" data-target="10" data-suffix="+">0</span>
+                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'projects launched' : 'проектов запущено'; ?>
+                    </p>
+                </article>
+
+                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(139,92,246,0.07), rgba(139,92,246,0.01)); border: 1px solid var(--color-border);">
+                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(139, 92, 246, 0.12); color: #8b5cf6;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' ? 'years in digital' : 'лет в digital сфере'; ?>
+                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">
+                        <span class="counter-number" data-target="10" data-suffix="+">0</span>
                     </p>
-                </div>
+                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'years of experience' : 'лет опыта'; ?>
+                    </p>
+                </article>
+
+                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(99,102,241,0.06), rgba(99,102,241,0.01)); border: 1px solid var(--color-border);">
+                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(99, 102, 241, 0.12); color: #6366f1;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"></path></svg>
+                    </div>
+                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">
+                        <span class="counter-number" data-target="2" data-suffix="h">0</span>
+                    </p>
+                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'average response time' : 'среднее время ответа'; ?>
+                    </p>
+                </article>
+
+                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(139,92,246,0.07), rgba(139,92,246,0.01)); border: 1px solid var(--color-border);">
+                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(139, 92, 246, 0.12); color: #8b5cf6;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 17l6-6 4 4 8-8"></path></svg>
+                    </div>
+                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">x2-x5</p>
+                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'lead growth for clients' : 'рост заявок у клиентов'; ?>
+                    </p>
+                </article>
+
+                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(99,102,241,0.06), rgba(99,102,241,0.01)); border: 1px solid var(--color-border);">
+                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(99, 102, 241, 0.12); color: #6366f1;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8c-1.5 0-3 .75-3 2s1.5 2 3 2 3 .75 3 2-1.5 2-3 2m0-10v10m0 0v2"></path></svg>
+                    </div>
+                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">-60%</p>
+                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
+                        <?php echo $currentLang === 'en' ? 'cost per lead reduction' : 'снижение стоимости лида'; ?>
+                    </p>
+                </article>
+            </div>
+
+            <div class="reveal mt-6 md:mt-8 p-4 md:p-5 rounded-xl max-w-4xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+                <p class="text-sm md:text-base italic" style="color: var(--color-text-secondary);">
+                    "<?php echo $currentLang === 'en'
+                        ? 'After launching SEO + Ads strategy with NovaCreator, we doubled lead volume in under 4 months while reducing CPL.'
+                        : 'После запуска SEO + Ads стратегии с NovaCreator мы увеличили объем заявок в 2 раза менее чем за 4 месяца и снизили CPL.'; ?>"
+                </p>
+                <p class="text-xs md:text-sm mt-2" style="color: var(--color-text-secondary);">
+                    <?php echo $currentLang === 'en' ? 'Client from service business, Almaty' : 'Клиент из сферы услуг, Алматы'; ?>
+                </p>
             </div>
         </div>
     </div>
