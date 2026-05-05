@@ -115,18 +115,6 @@ $currentLang = getCurrentLanguage();
         </svg>
     </button>
 
-    <!-- Mobile sticky CTA -->
-    <div class="fixed md:hidden left-0 right-0 z-40 px-3 pb-3" style="bottom: max(0.5rem, env(safe-area-inset-bottom));">
-        <div class="grid grid-cols-2 gap-2 rounded-xl p-2" style="background-color: color-mix(in srgb, var(--color-bg) 88%, #000 12%); border: 1px solid var(--color-border); backdrop-filter: blur(8px);">
-            <a href="tel:+77066063921" class="inline-flex items-center justify-center min-h-[44px] rounded-lg text-sm font-semibold" style="background-color: var(--color-bg-lighter); color: var(--color-text); text-decoration: none;">
-                <?php echo $currentLang === 'en' ? 'Call now' : 'Позвонить'; ?>
-            </a>
-            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="inline-flex items-center justify-center min-h-[44px] rounded-lg text-sm font-semibold" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; text-decoration: none;">
-                <?php echo $currentLang === 'en' ? 'Get proposal' : 'Получить КП'; ?>
-            </a>
-        </div>
-    </div>
-    
     <!-- Подключение основного JavaScript -->
     <?php
     // Определяем правильный путь к JS, учитывая preview режим Plesk

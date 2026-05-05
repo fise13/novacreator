@@ -314,8 +314,8 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 </div>
 
                 <!-- Форма справа - оптимизирована для мобильных -->
-                <div class="reveal order-1 lg:order-2">
-                    <div class="p-5 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl transition-all duration-300 hover:shadow-xl relative" style="background-color: var(--color-bg); border: 2px solid var(--color-border); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);">
+                <div class="reveal order-1 lg:order-2 w-full">
+                    <div class="w-full max-w-full overflow-hidden p-5 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl transition-all duration-300 hover:shadow-xl relative" style="background-color: var(--color-bg); border: 2px solid var(--color-border); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);">
                         <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-5 sm:mb-6 md:mb-8" style="color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Leave a request' : 'Оставить заявку'; ?>
                         </h3>
@@ -333,7 +333,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                             </p>
                         </div>
 
-                        <form id="contactFormMain" class="contact-form space-y-3 sm:space-y-4 md:space-y-6" method="POST" action="/backend/send.php">
+                        <form id="contactFormMain" class="contact-form w-full max-w-full space-y-3 sm:space-y-4 md:space-y-6" method="POST" action="/backend/send.php">
                             <input type="hidden" name="type" value="contact">
                             <input type="hidden" name="form_name" value="<?php echo $currentLang === 'en' ? 'Contact Form' : 'Форма обратной связи'; ?>">
                             <input type="text" name="website" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px;" aria-hidden="true">
@@ -355,12 +355,12 @@ include __DIR__ . '/includes/partials/hero-section.php';
 
                             <!-- Телефон с выбором страны - оптимизирован для мобильных -->
                             <div>
-                                <div class="flex gap-2">
+                                <div class="flex w-full max-w-full items-stretch gap-2">
                                     <select 
                                         id="phone-country-code"
                                         name="country_code"
-                                        class="px-3 sm:px-4 py-3.5 sm:py-4 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-base sm:text-lg cursor-pointer appearance-none touch-manipulation" 
-                                        style="background-color: white; border-color: #000000; border-width: 1px; color: #000000; min-width: 100px; min-height: 48px; font-size: 16px; -webkit-appearance: none; background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22%3E%3Cpath fill=%22%23000%22 d=%22M6 9L1 4h10z%22/%3E%3C/svg%3E'); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 12px 12px;"
+                                        class="shrink-0 px-3 sm:px-4 py-3.5 sm:py-4 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-base sm:text-lg cursor-pointer appearance-none touch-manipulation" 
+                                        style="background-color: white; border-color: #000000; border-width: 1px; color: #000000; width: 110px; min-height: 48px; font-size: 16px; -webkit-appearance: none; background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22%3E%3Cpath fill=%22%23000%22 d=%22M6 9L1 4h10z%22/%3E%3C/svg%3E'); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 12px 12px;"
                                     >
                                         <option value="+7" data-flag="🇰🇿">🇰🇿 +7</option>
                                         <option value="+7" data-flag="🇷🇺">🇷🇺 +7</option>
@@ -384,7 +384,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                                         name="phone" 
                                         id="contact-phone"
                                         placeholder="(000) 000-00-00"
-                                        class="flex-1 px-4 py-3.5 sm:py-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-base sm:text-lg touch-manipulation" 
+                                        class="flex-1 min-w-0 px-4 py-3.5 sm:py-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-base sm:text-lg touch-manipulation" 
                                         style="background-color: white; border-color: #000000; border-width: 1px; color: #000000; min-height: 48px; font-size: 16px; -webkit-appearance: none;"
                                         required
                                         autocomplete="tel"
