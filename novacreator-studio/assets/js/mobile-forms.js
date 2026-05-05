@@ -67,25 +67,9 @@
     // 2. Предотвращение zoom на iOS при фокусе
     // ============================================
     function preventIOSZoom() {
-        const textInputs = document.querySelectorAll('input, textarea, select');
-        
-        textInputs.forEach(input => {
-            // Проверяем размер шрифта
-            const computedStyle = window.getComputedStyle(input);
-            const fontSize = parseFloat(computedStyle.fontSize);
-            
-            // Если размер меньше 16px, увеличиваем до 16px для предотвращения zoom на iOS
-            if (fontSize < 16) {
-                input.style.fontSize = '16px';
-            }
-            
-            // Добавляем обработчик focus для дополнительной защиты
-            input.addEventListener('focus', function() {
-                if (this.style.fontSize === '' || parseFloat(this.style.fontSize) < 16) {
-                    this.style.fontSize = '16px';
-                }
-            }, { passive: true });
-        });
+        // Оставляем без runtime-измерений layout.
+        // Размеры шрифта контролируются CSS (16px на мобильных), чтобы избежать forced reflow.
+        return;
     }
     
     // ============================================
@@ -310,7 +294,6 @@
             preventIOSZoom();
             enhanceRealTimeValidation();
             enhanceAutocomplete();
-            enhanceMobileUX();
             optimizeForVirtualKeyboard();
         });
     } else {
@@ -318,7 +301,6 @@
         preventIOSZoom();
         enhanceRealTimeValidation();
         enhanceAutocomplete();
-        enhanceMobileUX();
         optimizeForVirtualKeyboard();
     }
 })();

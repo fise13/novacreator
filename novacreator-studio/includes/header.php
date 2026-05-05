@@ -63,16 +63,6 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Предотвращение автоматического определения телефонных номеров на iOS -->
     <meta name="format-detection" content="telephone=yes">
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XD6LHCBQZS"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-XD6LHCBQZS');
-    </script>
-    
     <!-- Title -->
     <title><?php 
         if (isset($pageMetaTitle)) {
@@ -89,10 +79,10 @@ require_once __DIR__ . '/theme_switcher.php';
     
     <!-- Preconnect для ускорения загрузки -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <!-- Google Fonts: Radio Canada Big (Figma Navigation) + остальные -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&display=swap" as="style">
@@ -143,17 +133,24 @@ require_once __DIR__ . '/theme_switcher.php';
         $baseDir = $GLOBALS['ASSET_BASE_OVERRIDE'];
     }
 
-    // Формируем путь к CSS и JS
-    $cssPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/css/output.css';
-    $cssPath = preg_replace('#/+#', '/', $cssPath);
-    $jsPreloadPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
-    $jsPreloadPath = preg_replace('#/+#', '/', $jsPreloadPath);
+    // Формируем путь к CSS и JS.
+    // Для обычного сайта всегда используем абсолютный путь от корня, чтобы /en/... не ломал ассеты.
+    if (strpos($scriptPath, '/plesk-site-preview/') !== false) {
+        $cssPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/css/output.css';
+        $cssPath = preg_replace('#/+#', '/', $cssPath);
+        $jsPreloadPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
+        $jsPreloadPath = preg_replace('#/+#', '/', $jsPreloadPath);
+    } else {
+        $cssPath = '/assets/css/output.css';
+        $jsPreloadPath = '/assets/js/main.min.js';
+    }
     ?>
     <link rel="preload" as="style" href="<?php echo $cssPath; ?>">
     <link href="<?php echo $cssPath; ?>" rel="stylesheet">
     
-    <!-- Минималистичные hover эффекты - убираем все боксы и tooltip -->
-    <link rel="stylesheet" href="/assets/css/minimal-hover.css">
+    <!-- Минималистичные hover эффекты (non-blocking) -->
+    <link rel="preload" as="style" href="/assets/css/minimal-hover.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/minimal-hover.css"></noscript>
     
     <link rel="preload" as="image" type="image/webp" href="/assets/img/og-default.webp">
     <link rel="preload" as="script" href="<?php echo $jsPreloadPath; ?>">
@@ -189,14 +186,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <meta name="msapplication-config" content="/browserconfig.xml">
     
     <!-- Prefetch для улучшения производительности -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
-    
-    <!-- Preconnect для критических ресурсов -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script>
         // Load Figma capture script only when figma hash params are present.
         (function() {

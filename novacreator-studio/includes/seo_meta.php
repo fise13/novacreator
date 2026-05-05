@@ -8,6 +8,13 @@ $siteName = t('site.name');
 $currentLang = getCurrentLanguage();
 $currentPath = getCurrentPath();
 
+// Canonical language should follow the current URL structure, not browser detection.
+$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+$requestSegments = explode('/', trim($requestPath, '/'));
+$urlLang = (!empty($requestSegments[0]) && in_array($requestSegments[0], SUPPORTED_LANGUAGES, true))
+    ? $requestSegments[0]
+    : DEFAULT_LANGUAGE;
+
 $defaultMeta = [
     'title' => t('seo.meta.defaultTitle'),
     'description' => t('seo.meta.defaultDescription'),
@@ -55,7 +62,7 @@ if (isset($pageMetaOgType)) {
 $canonicalPath = $meta['canonical'] ?? $currentPath;
 $canonicalUrl = isset($pageMetaCanonical)
     ? $siteUrl . (strpos($pageMetaCanonical, '/') === 0 ? $pageMetaCanonical : '/' . $pageMetaCanonical)
-    : $siteUrl . getLocalizedUrl($currentLang, $canonicalPath);
+    : $siteUrl . getLocalizedUrl($urlLang, $canonicalPath);
 
 $metaImage = $siteUrl . ($meta['image'][0] === '/' ? $meta['image'] : '/' . $meta['image']);
 $altRu = $siteUrl . getLocalizedUrl('ru', $currentPath);

@@ -250,15 +250,7 @@ function initForms() {
             input.setAttribute('autocomplete', 'name');
         });
         
-        // Предотвращаем zoom на iOS при фокусе (размер шрифта должен быть минимум 16px)
-        const textInputs = document.querySelectorAll('input, textarea');
-        textInputs.forEach(input => {
-            const computedStyle = window.getComputedStyle(input);
-            const fontSize = parseFloat(computedStyle.fontSize);
-            if (fontSize < 16) {
-                input.style.fontSize = '16px';
-            }
-        });
+        // Размеры шрифта контролируются через CSS, чтобы не вызывать layout-измерения в рантайме.
     }
     
     forms.forEach(form => {

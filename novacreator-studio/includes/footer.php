@@ -138,9 +138,14 @@ $currentLang = getCurrentLanguage();
     $baseDir = ($baseDir === '/' || $baseDir === '\\' || $baseDir === '.') ? '' : $baseDir;
     $baseDir = rtrim($baseDir, '/\\');
     
-    // Формируем путь к JS
-    $jsPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
-    $jsPath = preg_replace('#/+#', '/', $jsPath);
+    // Формируем путь к JS.
+    // Для обычного сайта используем абсолютный путь от корня, чтобы не было 404 на /en/... маршрутах.
+    if (strpos($scriptPath, '/plesk-site-preview/') !== false) {
+        $jsPath = ($baseDir ? $baseDir . '/' : '/') . 'assets/js/main.min.js';
+        $jsPath = preg_replace('#/+#', '/', $jsPath);
+    } else {
+        $jsPath = '/assets/js/main.min.js';
+    }
     ?>
     <script src="<?php echo $jsPath; ?>" defer></script>
     

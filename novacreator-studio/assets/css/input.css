@@ -191,9 +191,6 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
   }
   
-  /* Подключение шрифта Inter */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-  
   /* Базовые стили */
   html {
     scroll-behavior: smooth;
