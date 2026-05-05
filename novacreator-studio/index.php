@@ -52,121 +52,6 @@ $heroScrollIndicator = true;
 include __DIR__ . '/includes/partials/hero-section.php';
 ?>
 
-<!-- Social proof -->
-<section class="reveal-group py-8 md:py-12" style="background-color: var(--color-bg); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto reveal">
-            <p class="text-sm sm:text-base uppercase tracking-[0.12em] mb-4 text-center" style="color: var(--color-text-secondary);">
-                <?php echo $currentLang === 'en' ? 'Trusted by businesses in Kazakhstan and abroad' : 'Нам доверяют бизнесы в Казахстане и за его пределами'; ?>
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
-                <div class="p-4 rounded-xl text-center" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                    <p class="text-2xl font-bold" style="color: var(--color-text);">100+</p>
-                    <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'projects delivered' : 'проектов запущено'; ?></p>
-                </div>
-                <div class="p-4 rounded-xl text-center" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                    <p class="text-2xl font-bold" style="color: var(--color-text);">10+</p>
-                    <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'years in digital' : 'лет в digital'; ?></p>
-                </div>
-                <div class="p-4 rounded-xl text-center" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                    <p class="text-2xl font-bold" style="color: var(--color-text);">2h</p>
-                    <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'average response time' : 'среднее время ответа'; ?></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Метрики и доверие -->
-<section class="reveal-group py-14 md:py-20 lg:py-24 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-8 md:mb-12">
-                <p class="text-xs md:text-sm uppercase tracking-[0.14em] mb-3" style="color: var(--color-text-secondary);">
-                    <?php echo $currentLang === 'en' ? 'Performance Snapshot' : 'Ключевые показатели'; ?>
-                </p>
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-3" style="color: var(--color-text);">
-                    <?php echo $currentLang === 'en' ? 'Results Businesses Trust' : 'Результаты, которым доверяют'; ?>
-                </h2>
-                <p class="text-base md:text-lg max-w-3xl" style="color: var(--color-text-secondary);">
-                    <?php echo $currentLang === 'en'
-                        ? 'Clear metrics from real projects in SEO, web development and performance marketing.'
-                        : 'Понятные метрики из реальных проектов по SEO, разработке и performance-маркетингу.'; ?>
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
-                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(99,102,241,0.06), rgba(99,102,241,0.01)); border: 1px solid var(--color-border);">
-                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(99, 102, 241, 0.12); color: #6366f1;">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7h18M6 7v10a1 1 0 001 1h10a1 1 0 001-1V7M9 11h6"></path></svg>
-                    </div>
-                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">
-                        <span class="counter-number" data-target="100" data-suffix="+">0</span>
-                    </p>
-                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' ? 'projects launched' : 'проектов запущено'; ?>
-                    </p>
-                </article>
-
-                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(139,92,246,0.07), rgba(139,92,246,0.01)); border: 1px solid var(--color-border);">
-                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(139, 92, 246, 0.12); color: #8b5cf6;">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">
-                        <span class="counter-number" data-target="10" data-suffix="+">0</span>
-                    </p>
-                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' ? 'years of experience' : 'лет опыта'; ?>
-                    </p>
-                </article>
-
-                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(99,102,241,0.06), rgba(99,102,241,0.01)); border: 1px solid var(--color-border);">
-                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(99, 102, 241, 0.12); color: #6366f1;">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"></path></svg>
-                    </div>
-                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">
-                        <span class="counter-number" data-target="2" data-suffix="h">0</span>
-                    </p>
-                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' ? 'average response time' : 'среднее время ответа'; ?>
-                    </p>
-                </article>
-
-                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(139,92,246,0.07), rgba(139,92,246,0.01)); border: 1px solid var(--color-border);">
-                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(139, 92, 246, 0.12); color: #8b5cf6;">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 17l6-6 4 4 8-8"></path></svg>
-                    </div>
-                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">x2-x5</p>
-                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' ? 'lead growth for clients' : 'рост заявок у клиентов'; ?>
-                    </p>
-                </article>
-
-                <article class="reveal p-5 md:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg" style="background: linear-gradient(160deg, rgba(99,102,241,0.06), rgba(99,102,241,0.01)); border: 1px solid var(--color-border);">
-                    <div class="w-9 h-9 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(99, 102, 241, 0.12); color: #6366f1;">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8c-1.5 0-3 .75-3 2s1.5 2 3 2 3 .75 3 2-1.5 2-3 2m0-10v10m0 0v2"></path></svg>
-                    </div>
-                    <p class="text-3xl md:text-4xl font-bold leading-none mb-2" style="color: var(--color-text);">-60%</p>
-                    <p class="text-sm md:text-base leading-snug" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' ? 'cost per lead reduction' : 'снижение стоимости лида'; ?>
-                    </p>
-                </article>
-            </div>
-
-            <div class="reveal mt-6 md:mt-8 p-4 md:p-5 rounded-xl max-w-4xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
-                <p class="text-sm md:text-base italic" style="color: var(--color-text-secondary);">
-                    "<?php echo $currentLang === 'en'
-                        ? 'After launching SEO + Ads strategy with NovaCreator, we doubled lead volume in under 4 months while reducing CPL.'
-                        : 'После запуска SEO + Ads стратегии с NovaCreator мы увеличили объем заявок в 2 раза менее чем за 4 месяца и снизили CPL.'; ?>"
-                </p>
-                <p class="text-xs md:text-sm mt-2" style="color: var(--color-text-secondary);">
-                    <?php echo $currentLang === 'en' ? 'Client from service business, Almaty' : 'Клиент из сферы услуг, Алматы'; ?>
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Услуги - карточки в стиле holymedia.kz -->
 <section id="services" class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
@@ -188,7 +73,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/seo');
                 $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=seo');
-                $cardSecondaryText = $currentLang === 'en' ? 'Estimate cost' : 'Рассчитать стоимость';
+                $cardSecondaryText = $currentLang === 'en' ? 'Get audit' : 'Получить аудит';
                 include __DIR__ . '/includes/partials/service-card.php';
                 
                 // Разработка сайтов карточка
@@ -197,7 +82,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/services#development');
                 $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=development');
-                $cardSecondaryText = $currentLang === 'en' ? 'Estimate cost' : 'Рассчитать стоимость';
+                $cardSecondaryText = $currentLang === 'en' ? 'Discuss project' : 'Обсудить проект';
                 include __DIR__ . '/includes/partials/service-card.php';
                 
                 // Google Ads карточка
@@ -208,7 +93,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/ads');
                 $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=ads');
-                $cardSecondaryText = $currentLang === 'en' ? 'Estimate cost' : 'Рассчитать стоимость';
+                $cardSecondaryText = $currentLang === 'en' ? 'Launch ads' : 'Запустить рекламу';
                 include __DIR__ . '/includes/partials/service-card.php';
                 ?>
             </div>
