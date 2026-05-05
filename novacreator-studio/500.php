@@ -10,6 +10,7 @@ http_response_code(500);
 $pageTitle = $currentLang === 'en' ? '500 - Server Error' : '500 - Ошибка сервера';
 $pageMetaTitle = $currentLang === 'en' ? '500 - Server Error' : '500 - Ошибка сервера';
 $pageMetaDescription = $currentLang === 'en' ? 'An internal server error occurred.' : 'Произошла внутренняя ошибка сервера.';
+$pageMetaRobots = 'noindex, nofollow';
 include 'includes/header.php';
 ?>
 

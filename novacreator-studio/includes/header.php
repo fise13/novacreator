@@ -197,6 +197,16 @@ require_once __DIR__ . '/theme_switcher.php';
     <!-- Preconnect для критических ресурсов -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script>
+        // Load Figma capture script only when figma hash params are present.
+        (function() {
+            if (!window.location.hash || !window.location.hash.includes('figmacapture=')) return;
+            var script = document.createElement('script');
+            script.src = 'https://mcp.figma.com/mcp/html-to-design/capture.js';
+            script.async = true;
+            document.head.appendChild(script);
+        })();
+    </script>
 </head>
 <body class="overflow-x-hidden" style="background-color: var(--color-bg); color: var(--color-text);">
     <!-- Google Tag Manager (noscript) -->
@@ -232,7 +242,7 @@ require_once __DIR__ . '/theme_switcher.php';
 
                 <div class="flex items-center gap-4 sm:gap-6">
                     <!-- Навигация для десктопа -->
-                    <div class="hidden md:flex items-center gap-6 lg:gap-[24px] text-[15px] md:text-[16px] font-medium tracking-tight leading-none" role="menubar">
+                    <div class="hidden md:flex items-center gap-6 lg:gap-[24px] text-[15px] md:text-[16px] font-medium tracking-tight leading-none">
                         <?php 
                         $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                         $currentPath = getCurrentPath();
@@ -240,7 +250,6 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
                             class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'index' ? 'opacity-100' : 'opacity-80'; ?>"
-                            role="menuitem"
                             aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>"
                         >
                             <?php echo htmlspecialchars(t('nav.home')); ?>
@@ -248,7 +257,6 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
                             class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'services' ? 'opacity-100' : 'opacity-80'; ?>"
-                            role="menuitem"
                             aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
                         >
                             <?php echo htmlspecialchars(t('nav.services')); ?>
@@ -256,7 +264,6 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
                             class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'seo' ? 'opacity-100' : 'opacity-80'; ?>"
-                            role="menuitem"
                             aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
                         >
                             <?php echo htmlspecialchars(t('nav.seo')); ?>
@@ -264,7 +271,6 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
                             class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'ads' ? 'opacity-100' : 'opacity-80'; ?>"
-                            role="menuitem"
                             aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
                         >
                             <?php echo htmlspecialchars(t('nav.ads')); ?>
@@ -272,7 +278,6 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
                             class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'about' ? 'opacity-100' : 'opacity-80'; ?>"
-                            role="menuitem"
                             aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
                         >
                             <?php echo htmlspecialchars(t('nav.about')); ?>
@@ -1005,4 +1010,5 @@ require_once __DIR__ . '/theme_switcher.php';
         include __DIR__ . '/breadcrumbs.php';
     }
     ?>
+    <main id="main-content">
 

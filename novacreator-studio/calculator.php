@@ -258,6 +258,19 @@ include 'includes/header.php';
                                 <?php echo $currentLang === 'en' ? 'Save & Email' : 'Сохранить и отправить'; ?>
                             </button>
                         </div>
+                        <div class="mt-6 p-5 rounded-xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                            <p class="text-sm mb-3" style="color: var(--color-text-secondary);">
+                                <?php echo $currentLang === 'en' ? 'Get a fixed quote and implementation plan within 2 hours' : 'Получите фиксированную смету и план запуска в течение 2 часов'; ?>
+                            </p>
+                            <form id="calcLeadForm" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <input type="text" id="calcName" class="form-input" placeholder="<?php echo $currentLang === 'en' ? 'Your name' : 'Ваше имя'; ?>" required>
+                                <input type="tel" id="calcPhone" class="form-input" placeholder="<?php echo $currentLang === 'en' ? 'Phone number' : 'Телефон'; ?>" required>
+                                <button type="submit" class="btn-neon">
+                                    <?php echo $currentLang === 'en' ? 'Get proposal' : 'Получить предложение'; ?>
+                                </button>
+                            </form>
+                            <p id="calcLeadMessage" class="text-sm mt-3 hidden" style="color: var(--color-text-secondary);"></p>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -273,6 +286,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const priceNote = document.getElementById('price-note');
     const calculateBtn = document.getElementById('calculateBtn');
     const currencyButtons = document.querySelectorAll('.currency-toggle-btn');
+    const calcLeadForm = document.getElementById('calcLeadForm');
+    const calcLeadMessage = document.getElementById('calcLeadMessage');
 
     // Базовая цена всегда считается в тенге
     let lastPriceKzt = 0;
@@ -523,22 +538,64 @@ document.addEventListener('DOMContentLoaded', function() {
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
+    async function sendCalculationLead(name, phone) {
+        const data = new FormData();
+        data.append('type', 'contact');
+        data.append('form_name', '<?php echo $currentLang === 'en' ? 'Calculator Lead' : 'Заявка из калькулятора'; ?>');
+        data.append('name', name);
+        data.append('phone', phone);
+        data.append('message', '<?php echo $currentLang === 'en' ? 'Lead from calculator' : 'Заявка из калькулятора'; ?>: ' + priceDiv.textContent + '; service=' + (document.querySelector('.service-radio:checked')?.value || 'n/a'));
+        data.append('website', '');
+        const response = await fetch('/backend/send.php', { method: 'POST', body: data });
+        return response.json();
+    }
+
     // Сохранение расчета
     const saveBtn = document.getElementById('saveCalculation');
     if (saveBtn) {
-        saveBtn.addEventListener('click', function() {
-            const service = document.querySelector('.service-radio:checked').value;
-            const priceFormatted = priceDiv.textContent;
-            const calculationData = {
-                service: service,
-                priceKzt: lastPriceKzt,
-                currency: currentCurrency,
-                priceFormatted: priceFormatted,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Здесь можно добавить отправку на email через AJAX
-            alert('<?php echo $currentLang === "en" ? "Calculation saved! We will send it to your email." : "Расчет сохранен! Мы отправим его на ваш email."; ?>');
+        saveBtn.addEventListener('click', async function() {
+            const fallbackName = '<?php echo $currentLang === "en" ? "Website visitor" : "Посетитель сайта"; ?>';
+            const fallbackPhone = '+70000000000';
+            try {
+                const res = await sendCalculationLead(fallbackName, fallbackPhone);
+                alert(res.success
+                    ? '<?php echo $currentLang === "en" ? "Saved. Our team will contact you shortly." : "Сохранено. Мы скоро с вами свяжемся."; ?>'
+                    : '<?php echo $currentLang === "en" ? "Unable to save now. Please use the short form below." : "Не удалось сохранить. Используйте форму ниже."; ?>');
+            } catch (err) {
+                alert('<?php echo $currentLang === "en" ? "Network error. Please use the short form below." : "Ошибка сети. Используйте форму ниже."; ?>');
+            }
+        });
+    }
+
+    if (calcLeadForm) {
+        calcLeadForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('calcName').value.trim();
+            const phone = document.getElementById('calcPhone').value.trim();
+            const phoneDigits = phone.replace(/[^\d+]/g, '');
+            if (!name || !phone || phoneDigits.length < 8) {
+                calcLeadMessage.classList.remove('hidden');
+                calcLeadMessage.textContent = '<?php echo $currentLang === "en" ? "Please enter name and a valid phone number." : "Введите имя и корректный номер телефона."; ?>';
+                return;
+            }
+            const submitBtn = calcLeadForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = '<?php echo $currentLang === "en" ? "Sending..." : "Отправляем..."; ?>';
+            try {
+                const res = await sendCalculationLead(name, phone);
+                calcLeadMessage.classList.remove('hidden');
+                calcLeadMessage.textContent = res.success
+                    ? '<?php echo $currentLang === "en" ? "Great, we will contact you within 2 hours." : "Отлично, свяжемся с вами в течение 2 часов."; ?>'
+                    : '<?php echo $currentLang === "en" ? "Could not send now. Please try again." : "Не удалось отправить. Попробуйте еще раз."; ?>';
+                if (res.success) calcLeadForm.reset();
+            } catch (err) {
+                calcLeadMessage.classList.remove('hidden');
+                calcLeadMessage.textContent = '<?php echo $currentLang === "en" ? "Network error. Please try again." : "Ошибка сети. Попробуйте еще раз."; ?>';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
         });
     }
     

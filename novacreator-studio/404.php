@@ -10,6 +10,7 @@ http_response_code(404);
 $pageTitle = $currentLang === 'en' ? '404 - Page Not Found' : '404 - Страница не найдена';
 $pageMetaTitle = $currentLang === 'en' ? '404 - Page Not Found' : '404 - Страница не найдена';
 $pageMetaDescription = $currentLang === 'en' ? 'The page you are looking for does not exist.' : 'Запрашиваемая страница не существует.';
+$pageMetaRobots = 'noindex, nofollow';
 include 'includes/header.php';
 ?>
 

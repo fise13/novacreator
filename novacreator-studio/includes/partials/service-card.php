@@ -14,13 +14,12 @@ if (!isset($cardTitle) || !isset($cardDescription)) {
 
 $cardIcon = $cardIcon ?? '';
 $cardLinkUrl = $cardLinkUrl ?? '';
+$currentCardLang = function_exists('getCurrentLanguage') ? getCurrentLanguage() : (isset($currentLang) ? $currentLang : 'ru');
+$cardSecondaryUrl = $cardSecondaryUrl ?? '';
+$cardSecondaryText = $cardSecondaryText ?? ($currentCardLang === 'en' ? 'Estimate cost' : 'Рассчитать стоимость');
 // Определяем язык для текста ссылки
 if (!isset($cardLinkText)) {
-    if (function_exists('getCurrentLanguage')) {
-        $lang = getCurrentLanguage();
-    } else {
-        $lang = isset($currentLang) ? $currentLang : 'ru';
-    }
+    $lang = $currentCardLang;
     $cardLinkText = $lang === 'en' ? 'Learn more' : 'Подробнее';
 }
 ?>
@@ -37,13 +36,22 @@ if (!isset($cardLinkText)) {
     <p class="text-base sm:text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
         <?php echo htmlspecialchars($cardDescription); ?>
     </p>
-    <?php if ($cardLinkUrl): ?>
-    <a href="<?php echo htmlspecialchars($cardLinkUrl); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-all duration-200 hover:opacity-70 hover:translate-x-1 min-h-[44px] touch-manipulation" style="color: var(--color-text);">
-        <span><?php echo htmlspecialchars($cardLinkText); ?></span>
-        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-        </svg>
-    </a>
+    <?php if ($cardLinkUrl || $cardSecondaryUrl): ?>
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-2">
+        <?php if ($cardLinkUrl): ?>
+        <a href="<?php echo htmlspecialchars($cardLinkUrl); ?>" class="inline-flex items-center gap-2 text-base sm:text-lg font-medium transition-all duration-200 hover:opacity-70 hover:translate-x-1 min-h-[44px] touch-manipulation" style="color: var(--color-text);">
+            <span><?php echo htmlspecialchars($cardLinkText); ?></span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+        </a>
+        <?php endif; ?>
+        <?php if ($cardSecondaryUrl): ?>
+        <a href="<?php echo htmlspecialchars($cardSecondaryUrl); ?>" class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-lg border transition-all duration-200 hover:opacity-85 min-h-[44px] touch-manipulation" style="border-color: var(--color-border); color: var(--color-text); background-color: var(--color-bg-lighter);">
+            <?php echo htmlspecialchars($cardSecondaryText); ?>
+        </a>
+        <?php endif; ?>
+    </div>
     <?php endif; ?>
 </div>
 

@@ -52,6 +52,31 @@ $heroScrollIndicator = true;
 include __DIR__ . '/includes/partials/hero-section.php';
 ?>
 
+<!-- Social proof -->
+<section class="reveal-group py-8 md:py-12" style="background-color: var(--color-bg); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto reveal">
+            <p class="text-sm sm:text-base uppercase tracking-[0.12em] mb-4 text-center" style="color: var(--color-text-secondary);">
+                <?php echo $currentLang === 'en' ? 'Trusted by businesses in Kazakhstan and abroad' : 'Нам доверяют бизнесы в Казахстане и за его пределами'; ?>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+                <div class="p-4 rounded-xl text-center" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <p class="text-2xl font-bold" style="color: var(--color-text);">100+</p>
+                    <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'projects delivered' : 'проектов запущено'; ?></p>
+                </div>
+                <div class="p-4 rounded-xl text-center" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <p class="text-2xl font-bold" style="color: var(--color-text);">10+</p>
+                    <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'years in digital' : 'лет в digital'; ?></p>
+                </div>
+                <div class="p-4 rounded-xl text-center" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                    <p class="text-2xl font-bold" style="color: var(--color-text);">2h</p>
+                    <p class="text-sm" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'average response time' : 'среднее время ответа'; ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Статистика - Apple минимализм -->
 <section class="reveal-group py-12 md:py-20 lg:py-32 relative overflow-hidden" style="background-color: var(--color-bg-lighter);">
     <div class="absolute top-0 left-0 right-0 h-24 md:h-48 pointer-events-none" style="background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-lighter));"></div>
@@ -101,6 +126,8 @@ include __DIR__ . '/includes/partials/hero-section.php';
                     : 'Выводим ваш сайт в топ поисковых систем с использованием новаторских методов продвижения. Комплексная оптимизация, технический аудит и постоянный мониторинг результатов.';
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/seo');
+                $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=seo');
+                $cardSecondaryText = $currentLang === 'en' ? 'Estimate cost' : 'Рассчитать стоимость';
                 include __DIR__ . '/includes/partials/service-card.php';
                 
                 // Разработка сайтов карточка
@@ -108,6 +135,8 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 $cardDescription = t('home.services.development.description');
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/services#development');
+                $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=development');
+                $cardSecondaryText = $currentLang === 'en' ? 'Estimate cost' : 'Рассчитать стоимость';
                 include __DIR__ . '/includes/partials/service-card.php';
                 
                 // Google Ads карточка
@@ -117,6 +146,8 @@ include __DIR__ . '/includes/partials/hero-section.php';
                     : 'Контекстная реклама и поисковая интернет реклама под ключ. Настройка, запуск и оптимизация кампаний для максимальной конверсии и ROI.';
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/ads');
+                $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=ads');
+                $cardSecondaryText = $currentLang === 'en' ? 'Estimate cost' : 'Рассчитать стоимость';
                 include __DIR__ . '/includes/partials/service-card.php';
                 ?>
             </div>

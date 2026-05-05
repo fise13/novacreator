@@ -184,6 +184,9 @@ include 'includes/header.php';
                         <p class="text-sm text-center" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(t('pages.contact.form.privacy')); ?>
                         </p>
+                        <p class="text-sm text-center" style="color: var(--color-text-secondary);">
+                            <?php echo $currentLang === 'en' ? 'No spam. We usually reply within 2 hours on business days.' : 'Без спама. Обычно отвечаем в течение 2 часов в рабочее время.'; ?>
+                        </p>
                     </form>
                 </div>
             </div>

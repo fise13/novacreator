@@ -37,6 +37,25 @@ include 'includes/header.php';
     </div>
 </section>
 
+<section class="reveal-group py-10 md:py-14" style="background-color: var(--color-bg-lighter); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-5 rounded-xl reveal" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+                <p class="text-sm uppercase mb-2" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'Best for' : 'Лучше всего для'; ?></p>
+                <p class="font-semibold" style="color: var(--color-text);"><?php echo $currentLang === 'en' ? 'B2B services, trust building and SEO traffic' : 'B2B услуг, доверия и SEO-трафика'; ?></p>
+            </div>
+            <div class="p-5 rounded-xl reveal" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+                <p class="text-sm uppercase mb-2" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'Launch window' : 'Срок запуска'; ?></p>
+                <p class="font-semibold" style="color: var(--color-text);"><?php echo $currentLang === 'en' ? '7-10 weeks with content and SEO setup' : '7-10 недель с контентом и SEO-настройкой'; ?></p>
+            </div>
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="p-5 rounded-xl reveal inline-flex items-center justify-between gap-3 transition-all hover:opacity-85" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff;">
+                <span class="font-semibold"><?php echo $currentLang === 'en' ? 'Get architecture proposal' : 'Получить архитектуру сайта'; ?></span>
+                <span aria-hidden="true">-></span>
+            </a>
+        </div>
+    </div>
+</section>
+
 <!-- Что такое корпоративный сайт -->
 <section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">

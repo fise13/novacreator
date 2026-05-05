@@ -5,17 +5,24 @@
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    initAnimations();
+    const hasDedicatedAnimationsModule = typeof window.Animations !== 'undefined';
+    if (!hasDedicatedAnimationsModule) {
+        initAnimations();
+    }
     initNavigation();
     initForms();
-    initScrollEffects();
-    initCounters();
-    initProgressBars();
-    initScrollProgress();
-    initBackToTop();
+    if (!hasDedicatedAnimationsModule) {
+        initScrollEffects();
+        initCounters();
+        initProgressBars();
+        initScrollProgress();
+        initBackToTop();
+    }
     initPageLoadAnimation();
     initTouchOptimizations();
-    initLazyLoading();
+    if (!hasDedicatedAnimationsModule) {
+        initLazyLoading();
+    }
 });
 
 /**

@@ -3071,6 +3071,77 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* ============================================
+   2026 UI STABILIZATION OVERRIDES
+   Keep interactions predictable across pages
+   ============================================ */
+
+.btn-primary,
+.btn-secondary {
+  min-height: 44px;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #fff;
+}
+
+.btn-secondary {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-lighter);
+  color: var(--color-text);
+}
+
+/* Prevent global link/button motion from fighting component-level styles */
+a:not(.btn-neon):not(.btn-outline):not([class*="btn"]):hover {
+  transform: none;
+}
+
+button:not(.btn-neon):not(.btn-outline):not([class*="btn"]):hover {
+  transform: none;
+}
+
+/* Strong and consistent keyboard focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Disable visually noisy decorative effects by default */
+.floating-particles,
+.particle,
+.text-gradient-animated::before,
+.service-card-enhanced::before {
+  animation: none !important;
+}
+
+.portfolio-item-3d,
+.portfolio-item-3d:hover,
+.service-card:hover .icon-wrapper,
+.service-card:hover .icon-wrapper::after {
+  transform: none !important;
+}
+
+/* Keep hover subtle and consistent */
+.service-card:hover,
+[class*="card"]:hover,
+.card-lift:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Prevent aggressive image zoom on content images */
+img:hover {
+  transform: none !important;
+  filter: none !important;
+}
+
+/* ============================================
    3D ЭФФЕКТЫ ДЛЯ КАРТОЧЕК ПОРТФОЛИО
    Интерактивные 3D трансформации
    ============================================ */

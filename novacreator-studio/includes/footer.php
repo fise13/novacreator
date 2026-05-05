@@ -10,6 +10,7 @@ if (!function_exists('t')) {
 
 $currentLang = getCurrentLanguage();
 ?>
+    </main>
     <!-- Footer - минималистичный стиль holymedia.kz с мобильной адаптацией -->
     <footer class="mt-20 md:mt-32 py-12 md:py-16 lg:py-20 border-t" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
         <div class="container mx-auto px-4 md:px-6 lg:px-8">
@@ -25,7 +26,7 @@ $currentLang = getCurrentLanguage();
                             <?php echo htmlspecialchars(t('footer.description')); ?>
                         </p>
                         <div class="flex space-x-6 footer-social-buttons">
-                            <a href="#" class="footer-social-btn footer-social-btn-1 w-8 h-8 flex items-center justify-center touch-manipulation" style="color: var(--color-text-secondary);" aria-label="Facebook">
+                            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn footer-social-btn-1 w-8 h-8 flex items-center justify-center touch-manipulation" style="color: var(--color-text-secondary);" aria-label="LinkedIn">
                                 <svg class="w-5 h-5 footer-social-icon" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                                 </svg>
@@ -91,8 +92,8 @@ $currentLang = getCurrentLanguage();
         </div>
     </footer>
     
-    <!-- Внутренняя перелинковка - отключена для минималистичного дизайна -->
-    <?php // include __DIR__ . '/internal_linking.php'; ?>
+    <!-- Внутренняя перелинковка -->
+    <?php include __DIR__ . '/internal_linking.php'; ?>
     
     <!-- Плавающий CTA виджет -->
     <?php 
@@ -113,6 +114,18 @@ $currentLang = getCurrentLanguage();
             <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="3" stroke-dasharray="283" stroke-dashoffset="283" id="scrollProgressCircle"/>
         </svg>
     </button>
+
+    <!-- Mobile sticky CTA -->
+    <div class="fixed md:hidden left-0 right-0 z-40 px-3 pb-3" style="bottom: max(0.5rem, env(safe-area-inset-bottom));">
+        <div class="grid grid-cols-2 gap-2 rounded-xl p-2" style="background-color: color-mix(in srgb, var(--color-bg) 88%, #000 12%); border: 1px solid var(--color-border); backdrop-filter: blur(8px);">
+            <a href="tel:+77066063921" class="inline-flex items-center justify-center min-h-[44px] rounded-lg text-sm font-semibold" style="background-color: var(--color-bg-lighter); color: var(--color-text); text-decoration: none;">
+                <?php echo $currentLang === 'en' ? 'Call now' : 'Позвонить'; ?>
+            </a>
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="inline-flex items-center justify-center min-h-[44px] rounded-lg text-sm font-semibold" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; text-decoration: none;">
+                <?php echo $currentLang === 'en' ? 'Get proposal' : 'Получить КП'; ?>
+            </a>
+        </div>
+    </div>
     
     <!-- Подключение основного JavaScript -->
     <?php
@@ -144,28 +157,28 @@ $currentLang = getCurrentLanguage();
     <script src="<?php echo $jsPath; ?>" defer></script>
     
     <!-- GPU-оптимизированные анимации -->
-    <script src="/assets/js/animations.js"></script>
+    <script src="/assets/js/animations.js" defer></script>
     
     <!-- Premium Staggered Reveal Animations -->
-    <script src="/assets/js/reveal.js"></script>
+    <script src="/assets/js/reveal.js" defer></script>
     
     <!-- Parallax эффект для hero-секций -->
-    <script src="/assets/js/parallax.js"></script>
+    <script src="/assets/js/parallax.js" defer></script>
     
     <!-- Анимированные SVG иконки для услуг -->
-    <script src="/assets/js/animated-icons.js"></script>
+    <script src="/assets/js/animated-icons.js" defer></script>
     
     <!-- Skeleton Loading -->
-    <script src="/assets/js/skeleton-loading.js"></script>
+    <script src="/assets/js/skeleton-loading.js" defer></script>
     
     <!-- 3D эффекты для портфолио - отключено -->
     <?php // <script src="/assets/js/portfolio-3d.js"></script> ?>
     
     <!-- Улучшенные touch-жесты и swipe-функции -->
-    <script src="/assets/js/touch-gestures.js"></script>
+    <script src="/assets/js/touch-gestures.js" defer></script>
     
     <!-- Оптимизация форм для мобильных устройств -->
-    <script src="/assets/js/mobile-forms.js"></script>
+    <script src="/assets/js/mobile-forms.js" defer></script>
     
     <!-- Service Worker для Push-уведомлений -->
     <script>

@@ -10,13 +10,8 @@ header('Content-Type: application/xml; charset=utf-8');
 require_once __DIR__ . '/includes/i18n.php';
 
 // Базовый URL сайта (всегда без www и всегда HTTPS для правильной индексации)
-$host = $_SERVER['HTTP_HOST'] ?? 'novacreatorstudio.com';
-// Убираем www из хоста, чтобы избежать редиректов в sitemap
-$host = preg_replace('/^www\./i', '', $host);
-$isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
-// Всегда используем HTTPS для sitemap
-$scheme = 'https';
-$baseUrl = $scheme . '://' . $host;
+$baseUrl = 'https://novacreatorstudio.com';
+$siteName = t('site.name');
 
 // Текущая дата для lastmod
 $currentDate = date('Y-m-d');
@@ -49,28 +44,6 @@ if (file_exists($blogFile)) {
 
 // Поддерживаемые языки (основные)
 $languages = ['ru', 'en'];
-
-// Дополнительные языки для глобального охвата в sitemap
-// Google будет знать, что сайт доступен для всех этих регионов
-$globalLanguageMap = [
-    'ru' => 'ru-RU',
-    'en' => 'en-US',
-    'zh-CN' => 'zh-CN', // Китай
-    'zh-TW' => 'zh-TW', // Тайвань
-    'ja' => 'ja-JP', // Япония
-    'ko' => 'ko-KR', // Корея
-    'de' => 'de-DE', // Германия
-    'fr' => 'fr-FR', // Франция
-    'es' => 'es-ES', // Испания
-    'it' => 'it-IT', // Италия
-    'pt' => 'pt-PT', // Португалия
-    'pt-BR' => 'pt-BR', // Бразилия
-    'ar' => 'ar-SA', // Саудовская Аравия
-    'hi' => 'hi-IN', // Индия
-    'nl' => 'nl-NL', // Нидерланды
-    'pl' => 'pl-PL', // Польша
-    'tr' => 'tr-TR', // Турция
-];
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
 ?>
