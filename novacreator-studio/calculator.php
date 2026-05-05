@@ -52,7 +52,7 @@ include 'includes/header.php';
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="seo" class="hidden service-radio" checked>
                             <div class="calculator-service-card service-card-option p-6 selected">
-                                <div class="text-3xl mb-3">🔍</div>
+                                <div class="service-card-emoji text-3xl mb-3">🔍</div>
                                 <div class="font-semibold text-lg mb-2">
                                     <?php echo htmlspecialchars(t('pages.calculator.services.seo')); ?>
                                 </div>
@@ -61,7 +61,7 @@ include 'includes/header.php';
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="development" class="hidden service-radio">
                             <div class="calculator-service-card service-card-option p-6">
-                                <div class="text-3xl mb-3">💻</div>
+                                <div class="service-card-emoji text-3xl mb-3">💻</div>
                                 <div class="font-semibold text-lg mb-2">
                                     <?php echo htmlspecialchars(t('pages.calculator.services.development')); ?>
                                 </div>
@@ -70,7 +70,7 @@ include 'includes/header.php';
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="ads" class="hidden service-radio">
                             <div class="calculator-service-card service-card-option p-6">
-                                <div class="text-3xl mb-3">📢</div>
+                                <div class="service-card-emoji text-3xl mb-3">📢</div>
                                 <div class="font-semibold text-lg mb-2">
                                     <?php echo htmlspecialchars(t('pages.calculator.services.ads')); ?>
                                 </div>
@@ -79,7 +79,7 @@ include 'includes/header.php';
                         <label class="cursor-pointer">
                             <input type="radio" name="service" value="ios" class="hidden service-radio">
                             <div class="calculator-service-card service-card-option p-6">
-                                <div class="text-3xl mb-3">📱</div>
+                                <div class="service-card-emoji text-3xl mb-3">📱</div>
                                 <div class="font-semibold text-lg mb-2">
                                     <?php echo $currentLang === 'en' ? 'iOS development' : 'iOS разработка'; ?>
                                 </div>
@@ -350,7 +350,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         const card = radio.closest('label')?.querySelector('.service-card-option');
         if (card) {
+            card.classList.remove('selection-pop');
+            void card.offsetWidth;
             card.classList.add('selected');
+            card.classList.add('selection-pop');
         }
     }
 

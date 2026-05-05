@@ -1035,29 +1035,74 @@
   
   /* Карточки выбора услуги */
   .calculator-service-card {
+    position: relative;
+    overflow: hidden;
     border: 2px solid var(--color-border);
     background-color: var(--color-bg);
     color: var(--color-text);
-    border-radius: var(--radius-lg);
+    border-radius: 16px;
     padding: 1.5rem;
     text-align: center;
-    transition: border-color var(--transition-base), background-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+    transition: border-color .35s ease, background-color .35s ease, box-shadow .35s ease, transform .35s ease;
+  }
+
+  .calculator-service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(139, 92, 246, 0.14));
+    opacity: 0;
+    transition: opacity .35s ease;
+    pointer-events: none;
+  }
+
+  .calculator-service-card .service-card-emoji {
+    transition: transform .35s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   
   .calculator-service-card:hover {
     border-color: var(--color-neon-purple);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 28px rgba(99, 102, 241, 0.14);
+    transform: translateY(-2px);
+  }
+
+  .calculator-service-card:hover::before {
+    opacity: .6;
+  }
+
+  .calculator-service-card:hover .service-card-emoji {
+    transform: translateY(-2px) scale(1.04);
   }
   
   .calculator-service-card.selected {
     border-color: var(--color-neon-purple);
     background-color: var(--color-surface);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 16px 34px rgba(99, 102, 241, 0.22), 0 0 0 1px rgba(139, 92, 246, 0.25);
+    transform: translateY(-3px) scale(1.01);
+  }
+
+  .calculator-service-card.selected::before {
+    opacity: 1;
+  }
+
+  .calculator-service-card.selected .service-card-emoji {
+    transform: translateY(-1px) scale(1.08);
+  }
+
+  .calculator-service-card.selection-pop {
+    animation: calcCardSelectPop .55s cubic-bezier(0.22, 1, 0.36, 1);
   }
   
   :root.dark .calculator-service-card.selected {
     background-color: var(--color-surface-lighter);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(139, 92, 246, 0.35);
+  }
+
+  @keyframes calcCardSelectPop {
+    0% { transform: translateY(0) scale(0.98); }
+    55% { transform: translateY(-4px) scale(1.025); }
+    100% { transform: translateY(-3px) scale(1.01); }
   }
   
   /* Блок результата калькулятора */
@@ -2794,6 +2839,22 @@ a[class*="btn"]:active, button:active, .btn-apple:active {
 .reveal:hover, .service-card-option:hover, [class*="card"]:hover {
   transform: translateY(-4px) scale(1.01);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Service card CTA motion should depend on CTA hover, not card hover */
+.primary-service-cta,
+.secondary-service-link {
+  border-radius: 16px;
+}
+
+.primary-service-cta .cta-arrow,
+.secondary-service-link .cta-arrow {
+  transition: transform .25s ease;
+}
+
+.primary-service-cta:hover .cta-arrow,
+.secondary-service-link:hover .cta-arrow {
+  transform: translateX(4px);
 }
 
 /* Микро-анимации для ссылок */
