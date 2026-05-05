@@ -258,14 +258,14 @@ include 'includes/header.php';
                                 <?php echo $currentLang === 'en' ? 'Save & Email' : 'Сохранить и отправить'; ?>
                             </button>
                         </div>
-                        <div class="mt-6 p-5 rounded-xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
+                        <div class="calc-lead-panel mt-6 p-5 rounded-xl" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
                             <p class="text-sm mb-3" style="color: var(--color-text-secondary);">
                                 <?php echo $currentLang === 'en' ? 'Get a fixed quote and implementation plan within 2 hours' : 'Получите фиксированную смету и план запуска в течение 2 часов'; ?>
                             </p>
                             <form id="calcLeadForm" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 <input type="text" id="calcName" class="form-input" placeholder="<?php echo $currentLang === 'en' ? 'Your name' : 'Ваше имя'; ?>" required>
                                 <input type="tel" id="calcPhone" class="form-input" placeholder="<?php echo $currentLang === 'en' ? 'Phone number' : 'Телефон'; ?>" required>
-                                <button type="submit" class="btn-neon">
+                                <button type="submit" class="btn-neon calc-lead-btn">
                                     <?php echo $currentLang === 'en' ? 'Get proposal' : 'Получить предложение'; ?>
                                 </button>
                             </form>
@@ -320,6 +320,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         updatePriceDisplay();
+        priceDiv.classList.remove('price-currency-pulse');
+        void priceDiv.offsetWidth;
+        priceDiv.classList.add('price-currency-pulse');
     }
 
     if (currencyButtons.length) {
@@ -334,17 +337,56 @@ document.addEventListener('DOMContentLoaded', function() {
         setActiveCurrency('KZT');
     }
 
+    function animateServiceOptions(nextBlock) {
+        if (!nextBlock) return;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const currentBlock = document.querySelector('.service-options:not(.hidden)');
+
+        if (reduceMotion) {
+            document.querySelectorAll('.service-options').forEach(opt => opt.classList.add('hidden'));
+            nextBlock.classList.remove('hidden');
+            return;
+        }
+
+        if (!currentBlock || currentBlock === nextBlock) {
+            nextBlock.classList.remove('hidden');
+            nextBlock.animate(
+                [
+                    { opacity: 0, transform: 'translateY(14px)', filter: 'blur(2px)' },
+                    { opacity: 1, transform: 'translateY(0)', filter: 'blur(0)' }
+                ],
+                { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' }
+            );
+            return;
+        }
+
+        currentBlock.animate(
+            [
+                { opacity: 1, transform: 'translateY(0)', filter: 'blur(0)' },
+                { opacity: 0, transform: 'translateY(10px)', filter: 'blur(1px)' }
+            ],
+            { duration: 180, easing: 'ease-out', fill: 'forwards' }
+        ).onfinish = () => {
+            currentBlock.classList.add('hidden');
+            nextBlock.classList.remove('hidden');
+            nextBlock.animate(
+                [
+                    { opacity: 0, transform: 'translateY(16px)', filter: 'blur(2px)' },
+                    { opacity: 1, transform: 'translateY(0)', filter: 'blur(0)' }
+                ],
+                { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' }
+            );
+        };
+    }
+
     function activateService(value) {
         const target = Array.from(serviceRadios).find(r => r.value === value);
         const fallback = document.querySelector('.service-radio:checked') || serviceRadios[0];
         const radio = target || fallback;
         if (!radio) return;
         radio.checked = true;
-        document.querySelectorAll('.service-options').forEach(opt => opt.classList.add('hidden'));
         const optionsBlock = document.getElementById(radio.value + '-options');
-        if (optionsBlock) {
-            optionsBlock.classList.remove('hidden');
-        }
+        animateServiceOptions(optionsBlock);
         document.querySelectorAll('.service-card-option').forEach(card => {
             card.classList.remove('selected');
         });
