@@ -5,7 +5,7 @@
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    const hasDedicatedAnimationsModule = typeof window.Animations !== 'undefined';
+    const hasDedicatedAnimationsModule = window.__USE_DEDICATED_ANIMATIONS !== false;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!hasDedicatedAnimationsModule) {
         initAnimations();

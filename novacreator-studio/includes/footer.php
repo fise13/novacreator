@@ -147,6 +147,7 @@ $currentLang = getCurrentLanguage();
         $jsPath = '/assets/js/main.min.js';
     }
     ?>
+    <script>window.__USE_DEDICATED_ANIMATIONS = true;</script>
     <script src="<?php echo $jsPath; ?>" defer></script>
     
     <!-- GPU-оптимизированные анимации -->

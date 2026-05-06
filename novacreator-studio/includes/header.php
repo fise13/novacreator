@@ -78,15 +78,8 @@ require_once __DIR__ . '/theme_switcher.php';
     <?php include __DIR__ . '/seo_meta.php'; ?>
     
     <!-- Preconnect для ускорения загрузки -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <!-- Google Fonts: Radio Canada Big (Figma Navigation) + остальные -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Локальный fallback для Radio Canada Big (только для логотипа) -->
     <style>
@@ -486,7 +479,7 @@ require_once __DIR__ . '/theme_switcher.php';
                             aria-label="Меню"
                             aria-expanded="false"
                             aria-controls="burgerMenu"
-                            class="inline-flex items-center justify-center w-10 h-10 min-w-[44px] min-h-[44px] rounded-lg border border-black/10 dark:border-white/15 bg-transparent text-neutral-900 dark:text-neutral-100 transition-all duration-200 active:scale-95 focus:outline-none hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
+                            class="inline-flex items-center justify-center w-10 h-10 min-w-[44px] min-h-[44px] rounded-lg border border-black/10 dark:border-white/15 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 shadow-sm transition-all duration-200 active:scale-95 focus:outline-none hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
                         >
                             <svg
                                 id="burgerIcon"
