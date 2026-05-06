@@ -49,12 +49,27 @@
     
     // Animation configuration
     const CONFIG = {
-        staggerDelay: 120, // Delay between each element in ms
-        duration: 800, // Animation duration in ms (0.8s)
-        threshold: 0.1, // IntersectionObserver threshold
-        rootMargin: '0px 0px -50px 0px', // Trigger animation slightly before element enters viewport
-        translateDistance: 40, // Distance to translate (px)
+        staggerDelay: 90, // Base delay between elements in ms
+        maxStaggerDelay: 360, // Cap delay to avoid slow feeling on long lists
+        duration: 920, // Animation duration in ms
+        threshold: 0.12, // IntersectionObserver threshold
+        rootMargin: '0px 0px -10% 0px', // Trigger slightly before section center
     };
+
+    function getDirectionClass(element, index) {
+        // Allow explicit direction from markup for precise control.
+        const customDirection = element.dataset.reveal;
+        if (customDirection === 'left') return 'animate-fade-left';
+        if (customDirection === 'right') return 'animate-fade-right';
+        if (customDirection === 'up') return 'animate-fade-up';
+
+        // Default behavior: alternate left/right to create rhythm.
+        return index % 2 === 0 ? 'animate-fade-left' : 'animate-fade-right';
+    }
+
+    function getDelay(index) {
+        return Math.min(index * CONFIG.staggerDelay, CONFIG.maxStaggerDelay);
+    }
 
     /**
      * Initialize staggered reveal animations
@@ -70,8 +85,8 @@
             return;
         }
 
-        // Find all reveal containers (sections or containers with .reveal-group)
-        const revealGroups = document.querySelectorAll('.reveal-group, section');
+        // Find all reveal containers
+        const revealGroups = document.querySelectorAll('.reveal-group');
         
         revealGroups.forEach(group => {
             // Get all .reveal elements within this group
@@ -83,8 +98,9 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Get all reveal elements in this group
-                        const elements = entry.target.querySelectorAll('.reveal');
+                        // Reveal in visual order (top-to-bottom) for cleaner cascade.
+                        const elements = Array.from(entry.target.querySelectorAll('.reveal'))
+                            .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
                         
                         elements.forEach((element, index) => {
                             // Skip if already animated
@@ -93,23 +109,16 @@
                             // Mark as animated
                             element.classList.add('reveal-animated');
                             
-                            // Set initial state (hidden)
                             element.style.opacity = '0';
                             element.style.willChange = 'transform, opacity';
                             
-                            // Determine animation direction based on index (alternating)
-                            const isEven = index % 2 === 0;
-                            const animationClass = isEven ? 'animate-fade-left' : 'animate-fade-right';
+                            const animationClass = getDirectionClass(element, index);
+                            const delay = getDelay(index);
                             
-                            // Calculate stagger delay
-                            const delay = index * CONFIG.staggerDelay;
-                            
-                            // Apply animation with delay
                             setTimeout(() => {
                                 element.classList.add(animationClass);
                                 element.style.opacity = '1';
                                 
-                                // Remove will-change after animation completes
                                 setTimeout(() => {
                                     element.style.willChange = 'auto';
                                 }, CONFIG.duration);
@@ -134,7 +143,7 @@
         
         if (standaloneReveals.length > 0) {
             const standaloneObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         const element = entry.target;
                         
@@ -143,16 +152,13 @@
                         
                         element.classList.add('reveal-animated');
                         
-                        // Set initial state
                         element.style.opacity = '0';
                         element.style.willChange = 'transform, opacity';
                         
-                        // Determine animation direction (alternating)
-                        const isEven = index % 2 === 0;
-                        const animationClass = isEven ? 'animate-fade-left' : 'animate-fade-right';
-                        
-                        // Calculate delay
-                        const delay = index * CONFIG.staggerDelay;
+                        const allStandalone = Array.from(standaloneReveals);
+                        const itemIndex = Math.max(allStandalone.indexOf(element), 0);
+                        const animationClass = getDirectionClass(element, itemIndex);
+                        const delay = getDelay(itemIndex);
                         
                         setTimeout(() => {
                             element.classList.add(animationClass);

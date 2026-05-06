@@ -2678,54 +2678,61 @@
     transform: translate3d(0, 0, 0);
   }
   
-  /* Reveal groups - containers for staggered animations */
-  .reveal-group {
-    /* Container doesn't need special styling */
-  }
-  
   /* Animation classes applied by JS */
   .animate-fade-left {
-    animation: fadeInLeft 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation: fadeInLeft 0.92s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   
   .animate-fade-right {
-    animation: fadeInRight 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation: fadeInRight 0.92s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   
   .animate-fade-up {
-    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   
   /* Keyframes defined in Tailwind config, but ensure GPU acceleration */
   @keyframes fadeInLeft {
     0% {
-      transform: translate3d(-40px, 0, 0);
+      transform: translate3d(-48px, 0, 0) scale(0.985);
       opacity: 0;
     }
+    72% {
+      transform: translate3d(4px, 0, 0) scale(1);
+      opacity: 1;
+    }
     100% {
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0) scale(1);
       opacity: 1;
     }
   }
   
   @keyframes fadeInRight {
     0% {
-      transform: translate3d(40px, 0, 0);
+      transform: translate3d(48px, 0, 0) scale(0.985);
       opacity: 0;
     }
+    72% {
+      transform: translate3d(-4px, 0, 0) scale(1);
+      opacity: 1;
+    }
     100% {
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0) scale(1);
       opacity: 1;
     }
   }
   
   @keyframes fadeInUp {
     0% {
-      transform: translate3d(0, 40px, 0);
+      transform: translate3d(0, 44px, 0) scale(0.99);
       opacity: 0;
     }
+    70% {
+      transform: translate3d(0, -2px, 0) scale(1);
+      opacity: 1;
+    }
     100% {
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0) scale(1);
       opacity: 1;
     }
   }

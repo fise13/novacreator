@@ -155,9 +155,6 @@ $currentLang = getCurrentLanguage();
     <!-- Premium Staggered Reveal Animations -->
     <script src="/assets/js/reveal.js" defer></script>
     
-    <!-- Parallax эффект для hero-секций -->
-    <script src="/assets/js/parallax.js" defer></script>
-    
     <!-- Анимированные SVG иконки для услуг -->
     <script src="/assets/js/animated-icons.js" defer></script>
     

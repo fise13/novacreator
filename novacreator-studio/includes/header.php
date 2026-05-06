@@ -98,6 +98,29 @@ require_once __DIR__ . '/theme_switcher.php';
             font-style: normal;
             font-display: swap;
         }
+
+        /* Better text selection contrast in both themes */
+        ::selection {
+            background: rgba(139, 92, 246, 0.28);
+            color: var(--color-text);
+            text-shadow: none;
+        }
+
+        ::-moz-selection {
+            background: rgba(139, 92, 246, 0.28);
+            color: var(--color-text);
+            text-shadow: none;
+        }
+
+        html.light ::selection {
+            background: rgba(99, 102, 241, 0.24);
+            color: #111827;
+        }
+
+        html.light ::-moz-selection {
+            background: rgba(99, 102, 241, 0.24);
+            color: #111827;
+        }
     </style>
     
     <!-- Tailwind CSS -->
