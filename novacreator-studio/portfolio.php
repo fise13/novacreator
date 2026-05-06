@@ -12,28 +12,73 @@ $pageMetaDescription = t('seo.pages.portfolio.description');
 $pageMetaKeywords = t('seo.pages.portfolio.keywords');
 include 'includes/header.php';
 
-// Загружаем проекты из JSON файла
-$portfolioFile = __DIR__ . '/data/portfolio.json';
-$projects = [];
-if (file_exists($portfolioFile)) {
-    $jsonContent = file_get_contents($portfolioFile);
-    if ($jsonContent !== false) {
-        // Normalize JSON payload to reduce decode failures from BOM/encoding issues.
-        $jsonContent = preg_replace('/^\xEF\xBB\xBF/', '', $jsonContent);
-        if (!mb_check_encoding($jsonContent, 'UTF-8')) {
-            $jsonContent = mb_convert_encoding($jsonContent, 'UTF-8', 'UTF-8, Windows-1251, ISO-8859-1');
-        }
-    }
-    $decoded = json_decode((string)$jsonContent, true);
-    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-        $projects = $decoded;
-    } else {
-        // Логируем ошибку JSON если есть
-        error_log('Portfolio JSON decode error: ' . json_last_error_msg());
-    }
-} else {
-    error_log('Portfolio file not found: ' . $portfolioFile);
-}
+// Фиксированный набор проектов (без JSON), чтобы структура была простой и прозрачной.
+$projects = [
+    [
+        'id' => 1,
+        'title' => 'Motor-Land.kz',
+        'title_en' => 'Motor-Land.kz',
+        'category' => 'ecommerce',
+        'service_type' => 'development',
+        'city' => 'Казахстан',
+        'city_en' => 'Kazakhstan',
+        'description' => 'Коммерческий web-проект по продаже контрактных двигателей и автозапчастей: понятная структура каталога, доверительные блоки и удобная форма заявки.',
+        'description_en' => 'A commercial web project for contract engines and auto parts sales: clear catalog structure, trust-focused sections, and a streamlined lead form.',
+        'results' => [
+            'traffic_increase' => 'Улучшена видимость ключевых посадочных страниц',
+            'conversion_increase' => 'Сделан более прямой путь пользователя до заявки',
+            'leads_increase' => 'Стабильный поток обращений через формы'
+        ],
+        'duration' => 'Итерационная разработка',
+        'duration_en' => 'Iterative development',
+        'project_url' => 'https://motor-land.kz',
+        'project_url_label' => 'Открыть сайт',
+        'project_url_label_en' => 'Open Website',
+        'repo_url' => '',
+        'repo_url_label' => '',
+        'repo_url_label_en' => '',
+        'testimonial' => [
+            'text' => 'Сильный проект с точки зрения структуры и конверсии: пользователю проще понять предложение и оставить заявку.',
+            'text_en' => 'A strong project in terms of structure and conversion: users can understand the offer faster and submit a lead more easily.',
+            'author' => 'Команда проекта',
+            'author_en' => 'Project Team',
+            'position' => 'Motor-Land.kz',
+            'position_en' => 'Motor-Land.kz'
+        ]
+    ],
+    [
+        'id' => 2,
+        'title' => 'AutoCore (iOS + macOS)',
+        'title_en' => 'AutoCore (iOS + macOS)',
+        'category' => 'b2b',
+        'service_type' => 'development',
+        'city' => 'Казахстан',
+        'city_en' => 'Kazakhstan',
+        'description' => 'Нативный продукт для iOS и macOS: рабочие сценарии, авторизация, синхронизация данных и масштабируемая архитектура приложения.',
+        'description_en' => 'A native product for iOS and macOS: operational workflows, authentication, data sync, and scalable app architecture.',
+        'results' => [
+            'platform_coverage' => 'Единый продукт на iOS и macOS',
+            'sync_stability' => 'Надежная синхронизация рабочих данных',
+            'architecture' => 'Масштабируемая архитектура под новые модули'
+        ],
+        'duration' => 'Продуктовая разработка',
+        'duration_en' => 'Product development',
+        'project_url' => '',
+        'project_url_label' => '',
+        'project_url_label_en' => '',
+        'repo_url' => 'https://github.com',
+        'repo_url_label' => 'Смотреть код (GitHub)',
+        'repo_url_label_en' => 'View Code (GitHub)',
+        'testimonial' => [
+            'text' => 'AutoCore стал единым рабочим инструментом для мобильной и десктопной среды.',
+            'text_en' => 'AutoCore became a unified operational tool across mobile and desktop environments.',
+            'author' => 'Внутренняя команда',
+            'author_en' => 'Internal Team',
+            'position' => 'AutoCore',
+            'position_en' => 'AutoCore'
+        ]
+    ]
+];
 
 function getProjectField($project, $field, $lang) {
     if ($lang === 'en' && isset($project[$field . '_en']) && !empty($project[$field . '_en'])) {
@@ -50,29 +95,8 @@ if ($serviceFilter !== 'all' && in_array($serviceFilter, ['seo', 'development', 
     });
 }
 
-// Фильтрация по категории
-$categoryFilter = $_GET['category'] ?? 'all';
-if ($categoryFilter !== 'all') {
-    $projects = array_filter($projects, function($project) use ($categoryFilter) {
-        return isset($project['category']) && $project['category'] === $categoryFilter;
-    });
-}
-
 // Переиндексируем массив после фильтрации
 $projects = array_values($projects);
-
-// Временная отладка для проверки загрузки проектов
-if (isset($_GET['debug'])) {
-    $debugInfo = [
-        'file_exists' => file_exists($portfolioFile),
-        'total_before_filter' => count(json_decode(file_get_contents($portfolioFile), true) ?: []),
-        'total_after_filter' => count($projects),
-        'service_filter' => $serviceFilter,
-        'category_filter' => $categoryFilter,
-        'projects' => array_map(function($p) { return $p['title'] ?? 'no title'; }, $projects)
-    ];
-    error_log('Portfolio debug: ' . json_encode($debugInfo, JSON_UNESCAPED_UNICODE));
-}
 ?>
 
 <!-- Hero секция -->
@@ -100,22 +124,22 @@ if (isset($_GET['debug'])) {
                 
                 <!-- Фильтр по типу услуги -->
                 <div class="flex flex-wrap gap-2">
-                    <a href="?service=all&category=<?php echo htmlspecialchars($categoryFilter); ?>" 
+                    <a href="?service=all" 
                        class="portfolio-filter px-4 py-2 text-base transition-all <?php echo $serviceFilter === 'all' ? 'active' : ''; ?>" 
                        style="color: var(--color-text);">
                         <?php echo $currentLang === 'en' ? 'All' : 'Все'; ?>
                     </a>
-                    <a href="?service=development&category=<?php echo htmlspecialchars($categoryFilter); ?>" 
+                    <a href="?service=development" 
                        class="portfolio-filter px-4 py-2 text-base transition-all <?php echo $serviceFilter === 'development' ? 'active' : ''; ?>" 
                        style="color: var(--color-text);">
                         <?php echo $currentLang === 'en' ? 'Development' : 'Разработка'; ?>
                     </a>
-                    <a href="?service=seo&category=<?php echo htmlspecialchars($categoryFilter); ?>" 
+                    <a href="?service=seo" 
                        class="portfolio-filter px-4 py-2 text-base transition-all <?php echo $serviceFilter === 'seo' ? 'active' : ''; ?>" 
                        style="color: var(--color-text);">
                         SEO
                     </a>
-                    <a href="?service=ads&category=<?php echo htmlspecialchars($categoryFilter); ?>" 
+                    <a href="?service=ads" 
                        class="portfolio-filter px-4 py-2 text-base transition-all <?php echo $serviceFilter === 'ads' ? 'active' : ''; ?>" 
                        style="color: var(--color-text);">
                         <?php echo $currentLang === 'en' ? 'Ads' : 'Реклама'; ?>
@@ -130,20 +154,12 @@ if (isset($_GET['debug'])) {
 <section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <?php 
-            // Временная отладка - показываем количество проектов
-            $totalBeforeFilter = 0;
-            if (file_exists($portfolioFile)) {
-                $allProjects = json_decode(file_get_contents($portfolioFile), true) ?: [];
-                $totalBeforeFilter = count($allProjects);
-            }
-            ?>
             <?php if (empty($projects)): ?>
                 <div class="text-center py-20 reveal">
                     <p class="text-xl md:text-2xl mb-4" style="color: var(--color-text-secondary);">
                         <?php echo $currentLang === 'en' ? 'No projects found' : 'Проекты не найдены'; ?>
                     </p>
-                    <?php if ($serviceFilter !== 'all' || $categoryFilter !== 'all'): ?>
+                    <?php if ($serviceFilter !== 'all'): ?>
                         <p class="text-base mt-4 mb-4" style="color: var(--color-text-secondary);">
                             <?php echo $currentLang === 'en' 
                                 ? 'Try changing filters or view all projects' 
@@ -154,12 +170,6 @@ if (isset($_GET['debug'])) {
                            style="border-color: var(--color-border); color: var(--color-text);">
                             <?php echo $currentLang === 'en' ? 'Show all projects' : 'Показать все проекты'; ?>
                         </a>
-                    <?php else: ?>
-                        <p class="text-sm mt-4" style="color: var(--color-text-secondary);">
-                            <?php echo $currentLang === 'en' 
-                                ? 'Total projects in database: ' . $totalBeforeFilter
-                                : 'Всего проектов в базе: ' . $totalBeforeFilter; ?>
-                        </p>
                     <?php endif; ?>
                 </div>
             <?php else: ?>
