@@ -782,9 +782,9 @@
     }
   }
   
-  /* Lazy loading для изображений */
+  /* Lazy loading: never hide images by default (prevents random dimming/flicker) */
   img[loading="lazy"] {
-    opacity: 0;
+    opacity: 1;
     transition: opacity var(--transition-base);
   }
   

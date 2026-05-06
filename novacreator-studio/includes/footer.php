@@ -155,12 +155,6 @@ $currentLang = getCurrentLanguage();
     <!-- Premium Staggered Reveal Animations -->
     <script src="/assets/js/reveal.js" defer></script>
     
-    <!-- Анимированные SVG иконки для услуг -->
-    <script src="/assets/js/animated-icons.js" defer></script>
-    
-    <!-- Skeleton Loading -->
-    <script src="/assets/js/skeleton-loading.js" defer></script>
-    
     <!-- 3D эффекты для портфолио - отключено -->
     <?php // <script src="/assets/js/portfolio-3d.js"></script> ?>
     

@@ -9,6 +9,8 @@
     // Проверка поддержки и предпочтений пользователя
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth <= 768;
+    const lowPowerDevice = typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 4;
+    const minimalMotion = prefersReducedMotion || isMobile || lowPowerDevice;
     
     // Единый easing для всех анимаций
     const EASING = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
@@ -108,18 +110,14 @@
         };
         
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    const delay = isMobile ? index * 20 : index * 50;
-                    
-                    // Используем requestAnimationFrame для синхронизации с браузером
+                    const delay = minimalMotion ? 0 : 30;
+
                     requestAnimationFrame(() => {
                         setTimeout(() => {
                             entry.target.classList.add('visible');
-                            // Убираем will-change после анимации
-                            setTimeout(() => {
-                                entry.target.style.willChange = 'auto';
-                            }, 600);
+                            entry.target.style.willChange = 'auto';
                         }, delay);
                     });
                     
@@ -137,7 +135,7 @@
      * Оптимизированный параллакс эффект (только для десктопа)
      */
     function initParallax() {
-        if (isMobile || prefersReducedMotion) return;
+        if (minimalMotion) return;
         
         const parallaxElements = document.querySelectorAll('.parallax');
         if (parallaxElements.length === 0) return;
@@ -273,12 +271,17 @@
      */
     function initLazyLoading() {
         if ('loading' in HTMLImageElement.prototype) {
-            // Native lazy loading
             const images = document.querySelectorAll('img[loading="lazy"]');
             images.forEach(img => {
                 if (img.dataset.src) {
                     img.src = img.dataset.src;
                     delete img.dataset.src;
+                }
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+                    img.addEventListener('error', () => img.classList.add('loaded'), { once: true });
                 }
             });
         } else {
@@ -337,11 +340,15 @@
         
         initScrollAnimations();
         initCounters();
-        initParallax();
-        initScrollProgress();
+        if (!minimalMotion) {
+            initParallax();
+            initScrollProgress();
+        }
         initBackToTop();
         initLazyLoading();
-        initSmoothScroll();
+        if (!minimalMotion) {
+            initSmoothScroll();
+        }
     }
     
     // Экспорт для использования в других модулях
