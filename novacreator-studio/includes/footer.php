@@ -164,12 +164,6 @@ $currentLang = getCurrentLanguage();
     <!-- 3D эффекты для портфолио - отключено -->
     <?php // <script src="/assets/js/portfolio-3d.js"></script> ?>
     
-    <!-- Улучшенные touch-жесты и swipe-функции -->
-    <script src="/assets/js/touch-gestures.js" defer></script>
-    
-    <!-- Оптимизация форм для мобильных устройств -->
-    <script src="/assets/js/mobile-forms.js" defer></script>
-    
     <!-- Service Worker для Push-уведомлений -->
     <script>
     if ('serviceWorker' in navigator) {

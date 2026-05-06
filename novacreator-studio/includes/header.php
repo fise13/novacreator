@@ -237,7 +237,7 @@ require_once __DIR__ . '/theme_switcher.php';
         id="mainNavbar"
         role="navigation"
         aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>"
-        class="navbar fixed top-0 left-0 right-0 z-50 border-b border-black/10 dark:border-white/10 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-[32px] supports-[backdrop-filter]:backdrop-blur-[32px] supports-[backdrop-filter]:bg-white/80 transition-all duration-300 pt-[env(safe-area-inset-top)] h-[60px] md:h-20 flex items-center"
+        class="navbar fixed top-0 left-0 right-0 z-50 border-b border-black/10 dark:border-white/10 bg-white/95 dark:bg-neutral-900/95 md:bg-white/80 md:dark:bg-neutral-900/80 md:backdrop-blur-[32px] md:supports-[backdrop-filter]:backdrop-blur-[32px] md:supports-[backdrop-filter]:bg-white/80 transition-all duration-300 pt-[env(safe-area-inset-top)] h-[60px] md:h-20 flex items-center"
     >
         <div class="max-w-[1400px] mx-auto px-[20px] md:px-6 lg:px-8 relative z-10 w-full">
             <div class="flex items-center justify-between gap-6 md:gap-[24px] w-full">
