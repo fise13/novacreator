@@ -17,7 +17,14 @@ $portfolioFile = __DIR__ . '/data/portfolio.json';
 $projects = [];
 if (file_exists($portfolioFile)) {
     $jsonContent = file_get_contents($portfolioFile);
-    $decoded = json_decode($jsonContent, true);
+    if ($jsonContent !== false) {
+        // Normalize JSON payload to reduce decode failures from BOM/encoding issues.
+        $jsonContent = preg_replace('/^\xEF\xBB\xBF/', '', $jsonContent);
+        if (!mb_check_encoding($jsonContent, 'UTF-8')) {
+            $jsonContent = mb_convert_encoding($jsonContent, 'UTF-8', 'UTF-8, Windows-1251, ISO-8859-1');
+        }
+    }
+    $decoded = json_decode((string)$jsonContent, true);
     if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
         $projects = $decoded;
     } else {
