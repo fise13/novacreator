@@ -2820,6 +2820,245 @@
   transform: scale(1.05);
 }
 
+/* ============================================
+   PORTFOLIO FULL REDESIGN (LIST + CASE PAGES)
+   ============================================ */
+.portfolio-redesign-kicker {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.portfolio-redesign-title {
+  font-size: clamp(2.2rem, 6vw, 5.8rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-bottom: 1.25rem;
+}
+
+.portfolio-redesign-subtitle {
+  max-width: 60rem;
+  margin: 0 auto;
+  font-size: clamp(1rem, 2.2vw, 1.8rem);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.portfolio-redesign-list-head {
+  margin-bottom: 2rem;
+}
+
+.portfolio-redesign-list-head h2 {
+  color: var(--color-text);
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-redesign-list-head p {
+  color: var(--color-text-secondary);
+  max-width: 44rem;
+  line-height: 1.6;
+}
+
+.portfolio-redesign-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.portfolio-redesign-card {
+  border: 1px solid;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-redesign-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.portfolio-redesign-card-media {
+  height: 11rem;
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.portfolio-redesign-card-service {
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.portfolio-redesign-card-body {
+  padding: 1.4rem;
+}
+
+.portfolio-redesign-card-body h3 {
+  color: var(--color-text);
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.portfolio-redesign-card-body p {
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.portfolio-redesign-meta {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 1.1rem;
+}
+
+.portfolio-redesign-meta span {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  margin-bottom: 0.2rem;
+}
+
+.portfolio-redesign-meta strong {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.portfolio-redesign-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.7rem;
+  color: var(--color-bg);
+  background: var(--color-text);
+  text-decoration: none;
+  font-weight: 700;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.portfolio-redesign-link:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.portfolio-case-back {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.portfolio-case-back:hover {
+  color: var(--color-text);
+}
+
+.portfolio-case-kicker {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.portfolio-case-title {
+  font-size: clamp(2rem, 4.8vw, 4.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.portfolio-case-intro {
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 52rem;
+  margin-bottom: 1.2rem;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+}
+
+.portfolio-case-primary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.75rem;
+  color: var(--color-bg);
+  background: var(--color-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.portfolio-case-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.portfolio-case-block {
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-bg-lighter);
+  padding: 1.15rem;
+}
+
+.portfolio-case-block h2 {
+  color: var(--color-text);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+}
+
+.portfolio-case-block p,
+.portfolio-case-block li {
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.portfolio-case-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.portfolio-case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.portfolio-case-tags span {
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
 /* Кнопки ссылок в карточках портфолио */
 .portfolio-link-btn {
   text-decoration: none;
@@ -2853,6 +3092,16 @@
 
   .portfolio-link-btn {
     width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .portfolio-redesign-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .portfolio-redesign-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

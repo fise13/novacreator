@@ -749,6 +749,12 @@
       "title": "Portfolio",
       "breadcrumb": "Portfolio",
       "subtitle": "We build digital products with a strong focus on speed, UX, and architecture. From SEO-driven websites to native iOS/macOS applications.",
+      "selectionLabel": "Portfolio Selection",
+      "selectedCasesTitle": "Selected Cases",
+      "selectedCasesSubtitle": "Two focused products with complete case pages, architecture decisions, and launch-ready links.",
+      "viewCase": "View Case",
+      "timeline": "Timeline",
+      "stack": "Stack",
       "cta": {
         "title": "Ready to start working?",
         "subtitle": "Contact us and let's discuss your project",
