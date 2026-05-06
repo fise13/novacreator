@@ -486,7 +486,7 @@ require_once __DIR__ . '/theme_switcher.php';
                             aria-label="Меню"
                             aria-expanded="false"
                             aria-controls="burgerMenu"
-                            class="inline-flex items-center justify-center w-10 h-10 min-w-[44px] min-h-[44px] rounded-full border border-black/10 dark:border-white/15 bg-white/60 dark:bg-neutral-900/70 text-neutral-900 dark:text-neutral-100 backdrop-blur-md transition-all duration-200 active:scale-95 focus:outline-none"
+                            class="inline-flex items-center justify-center w-10 h-10 min-w-[44px] min-h-[44px] rounded-lg border border-black/10 dark:border-white/15 bg-transparent text-neutral-900 dark:text-neutral-100 transition-all duration-200 active:scale-95 focus:outline-none hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
                         >
                             <svg
                                 id="burgerIcon"
@@ -495,7 +495,7 @@ require_once __DIR__ . '/theme_switcher.php';
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
                                 aria-hidden="true"
-                                stroke-width="2"
+                                stroke-width="1.75"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
@@ -506,7 +506,7 @@ require_once __DIR__ . '/theme_switcher.php';
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
                                 aria-hidden="true"
-                                stroke-width="2"
+                                stroke-width="1.75"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -537,7 +537,7 @@ require_once __DIR__ . '/theme_switcher.php';
         <?php $currentPage = basename($_SERVER['PHP_SELF'], '.php'); ?>
         <div
             id="burgerPanel"
-            class="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-[32px] border-b border-black/10 dark:border-white/10 px-[20px] pb-[20px] flex flex-col gap-[24px] shadow-[0_16px_40px_rgba(0,0,0,0.12)] rounded-b-2xl"
+            class="bg-white dark:bg-neutral-900 border-b border-black/10 dark:border-white/10 px-[20px] pb-[20px] flex flex-col gap-[20px] shadow-[0_8px_24px_rgba(0,0,0,0.08)] rounded-b-2xl"
         >
             <span id="burgerMenuTitle" class="sr-only"><?php echo htmlspecialchars(t('nav.main')); ?></span>
 
@@ -545,7 +545,7 @@ require_once __DIR__ . '/theme_switcher.php';
             <nav role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>">
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t-0"
+                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t-0"
                     aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -553,7 +553,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
                     aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -561,7 +561,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
                     aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -569,7 +569,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
                     aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -577,7 +577,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[40px] font-medium leading-none tracking-[-1.2px] py-[24px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-b border-[#dbe0ec]"
+                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-b border-[#e6e8ee] dark:border-white/10"
                     aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
