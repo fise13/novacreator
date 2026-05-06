@@ -170,9 +170,13 @@ if (isset($_GET['debug'])) {
                         $category = $project['category'] ?? 'general';
                         $serviceType = $project['service_type'] ?? 'development';
                         $results = $project['results'] ?? [];
-                        $price = isset($project['price']) ? number_format((int)$project['price'], 0, ',', ' ') . ' ₸' : '';
+                        $price = !empty($project['price']) ? number_format((int)$project['price'], 0, ',', ' ') . ' ₸' : '';
                         $duration = getProjectField($project, 'duration', $currentLang);
                         $testimonial = $project['testimonial'] ?? null;
+                        $projectUrl = trim((string)($project['project_url'] ?? ''));
+                        $repoUrl = trim((string)($project['repo_url'] ?? ''));
+                        $projectUrlLabel = getProjectField($project, 'project_url_label', $currentLang);
+                        $repoUrlLabel = getProjectField($project, 'repo_url_label', $currentLang);
                         ?>
                         <article class="portfolio-item reveal group relative overflow-hidden rounded-2xl transition-all duration-500 hover:scale-[1.02]" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
                             <!-- Изображение проекта -->
@@ -242,7 +246,11 @@ if (isset($_GET['debug'])) {
                                             'appointments_online' => $currentLang === 'en' ? 'Appointments' : 'Записи',
                                             'new_patients' => $currentLang === 'en' ? 'New patients' : 'Новых пациентов',
                                             'students_registered' => $currentLang === 'en' ? 'Students' : 'Студентов',
-                                            'courses_sold' => $currentLang === 'en' ? 'Courses sold' : 'Курсов продано'
+                                            'courses_sold' => $currentLang === 'en' ? 'Courses sold' : 'Курсов продано',
+                                            'platform_coverage' => $currentLang === 'en' ? 'Platform coverage' : 'Покрытие платформ',
+                                            'sync_stability' => $currentLang === 'en' ? 'Sync stability' : 'Стабильность синхронизации',
+                                            'native_ux' => $currentLang === 'en' ? 'Native UX' : 'Нативный UX',
+                                            'architecture' => $currentLang === 'en' ? 'Architecture' : 'Архитектура'
                                         ];
                                         $displayedResults = array_slice($results, 0, 2);
                                         foreach ($displayedResults as $key => $value): 
@@ -273,6 +281,30 @@ if (isset($_GET['debug'])) {
                                 </div>
                                 <?php endif; ?>
                                 
+                                <!-- Ссылки на проект -->
+                                <?php if ($projectUrl || $repoUrl): ?>
+                                    <div class="mt-4 pt-4 border-t flex flex-wrap gap-2" style="border-color: var(--color-border);">
+                                        <?php if ($projectUrl): ?>
+                                            <a href="<?php echo htmlspecialchars($projectUrl); ?>"
+                                               target="_blank"
+                                               rel="noopener noreferrer"
+                                               class="portfolio-link-btn inline-flex items-center justify-center px-3 py-2 text-sm font-semibold rounded-lg transition-all"
+                                               style="background-color: var(--color-text); color: var(--color-bg);">
+                                                <?php echo htmlspecialchars($projectUrlLabel ?: ($currentLang === 'en' ? 'Open project' : 'Открыть проект')); ?>
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php if ($repoUrl): ?>
+                                            <a href="<?php echo htmlspecialchars($repoUrl); ?>"
+                                               target="_blank"
+                                               rel="noopener noreferrer"
+                                               class="portfolio-link-btn inline-flex items-center justify-center px-3 py-2 text-sm font-semibold rounded-lg transition-all"
+                                               style="background-color: var(--color-bg-lighter); color: var(--color-text); border: 1px solid var(--color-border);">
+                                                <?php echo htmlspecialchars($repoUrlLabel ?: 'GitHub'); ?>
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+
                                 <!-- Отзыв клиента -->
                                 <?php if ($testimonial): ?>
                                     <div class="mt-4 pt-4 border-t" style="border-color: var(--color-border);">

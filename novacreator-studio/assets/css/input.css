@@ -2820,6 +2820,22 @@
   transform: scale(1.05);
 }
 
+/* Кнопки ссылок в карточках портфолио */
+.portfolio-link-btn {
+  text-decoration: none;
+  min-height: 2.25rem;
+}
+
+.portfolio-link-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.portfolio-link-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 /* Адаптивность для мобильных */
 @media (max-width: 768px) {
   .portfolio-filter {
@@ -2833,6 +2849,10 @@
   
   .portfolio-item .relative.h-64 {
     height: 12rem;
+  }
+
+  .portfolio-link-btn {
+    width: 100%;
   }
 }
 
