@@ -109,6 +109,23 @@
         "description": "We increase website conversion through A/B testing, UX optimization and implementation of best practices."
       }
     },
+    "selectedWork": {
+      "kicker": "Selected work",
+      "title": "Case studies we're proud of",
+      "subtitle": "Product sites and native platforms — built for clarity and conversion.",
+      "viewAll": "View all work",
+      "motorLandTag": "Web product",
+      "motorLandTitle": "Motor-Land.kz",
+      "motorLandDesc": "Commercial auto parts catalog with conversion-focused UX.",
+      "autocoreTag": "Native apps",
+      "autocoreTitle": "AutoCore (iOS + macOS)",
+      "autocoreDesc": "Cross-platform native workflows with synced data."
+    },
+    "contactCta": {
+      "title": "Let's work together",
+      "subcopy": "Leave your details — we usually reply within 2 hours.",
+      "formHeading": "Leave a request"
+    },
     "stats": {
       "newCompany": "New",
       "company": "Company",
@@ -161,7 +178,8 @@
     "seoOptimization": "SEO Optimization",
     "websiteDevelopment": "Website Development",
     "marketing": "Marketing",
-    "analytics": "Analytics"
+    "analytics": "Analytics",
+    "privacyPolicy": "Privacy Policy"
   },
   "pages": {
     "services": {

@@ -13,19 +13,14 @@ $pageMetaKeywords = t('seo.pages.services.keywords');
 include 'includes/header.php';
 ?>
 
-<!-- Hero секция - Apple минималистичный дизайн на весь экран -->
-<section class="parallax-hero reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background-color: var(--color-bg);">
-    <!-- Parallax background elements -->
-    <div class="parallax-bg absolute inset-0 opacity-10 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-neon-blue/30 to-neon-purple/30 rounded-full blur-3xl"></div>
-    </div>
-    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="parallax-content max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
+<!-- Hero — compact (template rhythm) -->
+<section class="page-hero reveal-group border-b pt-24 pb-12 md:pt-28 md:pb-16" style="background-color: var(--color-bg); border-color: var(--color-border);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <h1 class="reveal text-3xl font-semibold tracking-tight md:text-4xl lg:text-[2.75rem] lg:leading-tight" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.services.title')); ?>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
+            <p class="reveal mt-4 text-base leading-relaxed md:mt-5 md:text-lg" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.services.subtitle')); ?>
             </p>
         </div>
@@ -37,7 +32,7 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight md:text-3xl" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.services.seo.title')); ?>
                 </h2>
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
@@ -87,7 +82,7 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight md:text-3xl" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.services.development.title')); ?>
                 </h2>
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
@@ -152,7 +147,7 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight md:text-3xl" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.services.ads.title')); ?>
                 </h2>
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
@@ -202,7 +197,7 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight md:text-3xl" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.services.marketing.title')); ?>
                 </h2>
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
@@ -252,7 +247,7 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight md:text-3xl" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.services.analytics.title')); ?>
                 </h2>
                 <p class="text-lg md:text-xl leading-relaxed" style="color: var(--color-text-secondary); max-width: 65ch;">
@@ -304,7 +299,7 @@ include 'includes/header.php';
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-12 md:mb-16 reveal">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="color: var(--color-text);">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight md:text-3xl" style="color: var(--color-text);">
                     <?php echo htmlspecialchars(t('pages.services.guarantees.title')); ?>
                 </h2>
             </div>

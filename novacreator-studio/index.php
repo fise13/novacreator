@@ -37,28 +37,72 @@ $heroCtaButtons = [
         'text' => t('common.getStarted'),
         'url' => '#contact-form',
         'onclick' => "const el = document.getElementById('contact-form'); if(el) { el.scrollIntoView({behavior: 'smooth'}); return false; }",
-        'class' => 'hero-cta-main w-full sm:w-auto px-10 md:px-12 py-4 md:py-5 text-lg md:text-xl font-semibold rounded-full transition-all duration-300 min-h-[48px] md:min-h-[56px] flex items-center justify-center touch-manipulation hover:scale-105 hover:shadow-xl',
-        'style' => 'background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);'
+        'class' => 'btn-premium-primary hero-cta-main inline-flex min-h-[48px] w-full items-center justify-center rounded-xl px-8 py-3.5 text-base font-semibold sm:w-auto md:px-10 md:py-4 md:text-lg'
     ],
     [
-        'text' => $currentLang === 'en' ? 'Our Services' : 'Наши услуги',
+        'text' => t('nav.services'),
         'url' => getLocalizedUrl($currentLang, '/services'),
-        'class' => 'hero-cta-secondary w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation border-2',
-        'style' => 'border-color: var(--color-border); color: var(--color-text); background-color: transparent; text-decoration: none;'
+        'class' => 'btn-premium-ghost hero-cta-secondary inline-flex min-h-[48px] w-full items-center justify-center rounded-xl border px-8 py-3.5 text-base font-medium sm:w-auto md:px-10 md:py-4 md:text-lg'
     ]
 ];
-$heroWithParallax = true;
-$heroScrollIndicator = true;
+$heroTrustLine = t('home.hero.trustLine');
+$heroWithParallax = false;
+$heroScrollIndicator = false;
 include __DIR__ . '/includes/partials/hero-section.php';
 ?>
 
-<!-- Услуги - карточки в стиле holymedia.kz -->
+<!-- Selected work — template-style spotlight -->
+<section id="work" class="reveal-group border-b py-16 md:py-24" style="background-color: var(--color-bg); border-color: var(--color-border);">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+        <div class="mx-auto mb-10 max-w-2xl text-center md:mb-14">
+            <p class="reveal text-xs font-semibold uppercase tracking-widest" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('home.selectedWork.kicker')); ?></p>
+            <h2 class="reveal mt-3 text-3xl font-semibold tracking-tight md:text-4xl" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.selectedWork.title')); ?></h2>
+            <p class="reveal mx-auto mt-4 max-w-xl text-base leading-relaxed md:text-lg" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('home.selectedWork.subtitle')); ?></p>
+        </div>
+        <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 md:gap-8">
+            <article class="reveal flex flex-col overflow-hidden rounded-2xl border transition-shadow duration-300 hover:shadow-md" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+                <div class="h-36 border-b px-5 py-4 md:h-40" style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 90%, var(--color-border));">
+                    <span class="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide" style="background: var(--color-bg); color: var(--color-text-secondary); border: 1px solid var(--color-border);"><?php echo htmlspecialchars(t('home.selectedWork.motorLandTag')); ?></span>
+                </div>
+                <div class="flex flex-1 flex-col p-6 md:p-8">
+                    <h3 class="text-xl font-semibold md:text-2xl" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.selectedWork.motorLandTitle')); ?></h3>
+                    <p class="mt-3 flex-1 text-base leading-relaxed" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('home.selectedWork.motorLandDesc')); ?></p>
+                    <a href="<?php echo htmlspecialchars(getLocalizedUrl($currentLang, '/portfolio-motor-land')); ?>" class="btn-minimal-link mt-6 inline-flex items-center gap-1 text-sm font-semibold md:text-base" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('pages.portfolio.viewCase')); ?>
+                        <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </article>
+            <article class="reveal flex flex-col overflow-hidden rounded-2xl border transition-shadow duration-300 hover:shadow-md" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+                <div class="h-36 border-b px-5 py-4 md:h-40" style="border-color: var(--color-border); background: color-mix(in srgb, var(--color-surface) 90%, var(--color-border));">
+                    <span class="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide" style="background: var(--color-bg); color: var(--color-text-secondary); border: 1px solid var(--color-border);"><?php echo htmlspecialchars(t('home.selectedWork.autocoreTag')); ?></span>
+                </div>
+                <div class="flex flex-1 flex-col p-6 md:p-8">
+                    <h3 class="text-xl font-semibold md:text-2xl" style="color: var(--color-text);"><?php echo htmlspecialchars(t('home.selectedWork.autocoreTitle')); ?></h3>
+                    <p class="mt-3 flex-1 text-base leading-relaxed" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('home.selectedWork.autocoreDesc')); ?></p>
+                    <a href="<?php echo htmlspecialchars(getLocalizedUrl($currentLang, '/portfolio-autocore')); ?>" class="btn-minimal-link mt-6 inline-flex items-center gap-1 text-sm font-semibold md:text-base" style="color: var(--color-text);">
+                        <?php echo htmlspecialchars(t('pages.portfolio.viewCase')); ?>
+                        <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </article>
+        </div>
+        <div class="reveal mt-10 text-center md:mt-12">
+            <a href="<?php echo htmlspecialchars(getLocalizedUrl($currentLang, '/portfolio')); ?>" class="inline-flex items-center justify-center rounded-xl border px-6 py-3 text-sm font-semibold transition-colors md:text-base" style="border-color: var(--color-border); color: var(--color-text);">
+                <?php echo htmlspecialchars(t('home.selectedWork.viewAll')); ?>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Услуги -->
 <section id="services" class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <?php
-            // Заголовок секции
             $sectionTitle = t('home.services.title');
+            $sectionSubtitle = t('home.services.subtitle');
+            $sectionAlign = 'center';
             include __DIR__ . '/includes/partials/section-header.php';
             ?>
             
@@ -67,14 +111,12 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 <?php
                 // SEO карточка
                 $cardTitle = t('home.services.seo.title');
-                $cardDescription = $currentLang === 'en' 
-                    ? t('home.services.seo.description') 
-                    : 'Выводим ваш сайт в топ поисковых систем с использованием новаторских методов продвижения. Комплексная оптимизация, технический аудит и постоянный мониторинг результатов.';
+                $cardDescription = t('home.services.seo.description');
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/seo');
-                $cardLinkText = $currentLang === 'en' ? 'Learn more about SEO' : 'Подробнее о SEO';
+                $cardLinkText = t('common.readMore') . ' — SEO';
                 $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=seo');
-                $cardSecondaryText = $currentLang === 'en' ? 'Get audit' : 'Получить аудит';
+                $cardSecondaryText = t('common.getConsultation');
                 include __DIR__ . '/includes/partials/service-card.php';
                 
                 // Разработка сайтов карточка
@@ -82,21 +124,19 @@ include __DIR__ . '/includes/partials/hero-section.php';
                 $cardDescription = t('home.services.development.description');
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/services#development');
-                $cardLinkText = $currentLang === 'en' ? 'Learn more about development' : 'Подробнее о разработке';
+                $cardLinkText = t('common.readMore') . ' — ' . t('home.services.development.title');
                 $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=development');
-                $cardSecondaryText = $currentLang === 'en' ? 'Discuss project' : 'Обсудить проект';
+                $cardSecondaryText = t('pages.portfolio.cta.button');
                 include __DIR__ . '/includes/partials/service-card.php';
                 
                 // Google Ads карточка
                 $cardTitle = t('home.services.ads.title');
-                $cardDescription = $currentLang === 'en' 
-                    ? t('home.services.ads.description') 
-                    : 'Контекстная реклама и поисковая интернет реклама под ключ. Настройка, запуск и оптимизация кампаний для максимальной конверсии и ROI.';
+                $cardDescription = t('home.services.ads.description');
                 $cardIcon = '<svg class="w-full h-full text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>';
                 $cardLinkUrl = getLocalizedUrl($currentLang, '/ads');
-                $cardLinkText = $currentLang === 'en' ? 'Learn more about Google Ads' : 'Подробнее о Google Ads';
+                $cardLinkText = t('common.readMore') . ' — Google Ads';
                 $cardSecondaryUrl = getLocalizedUrl($currentLang, '/calculator?service=ads');
-                $cardSecondaryText = $currentLang === 'en' ? 'Launch ads' : 'Запустить рекламу';
+                $cardSecondaryText = t('common.calculateCost');
                 include __DIR__ . '/includes/partials/service-card.php';
                 ?>
             </div>
@@ -104,171 +144,17 @@ include __DIR__ . '/includes/partials/hero-section.php';
     </div>
 </section>
 
-<!-- Секция процесса работы - информативная -->
-<section id="process" class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <!-- Заголовок секции -->
-            <div class="mb-12 md:mb-16 lg:mb-20 reveal">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
-                    <?php echo $currentLang === 'en' ? 'How We Work' : 'Как мы работаем'; ?>
-                </h2>
-                <p class="text-lg sm:text-xl md:text-2xl max-w-3xl" style="color: var(--color-text-secondary);">
-                    <?php echo $currentLang === 'en' ? 'A clear process from idea to result' : 'Четкий процесс от идеи до результата'; ?>
-                </p>
-            </div>
-            
-            <!-- Этапы работы: на десктопе — стрелки между карточками 1→2→3→4 -->
-            <div class="process-steps">
-                <div class="flex flex-col lg:flex-row lg:items-stretch gap-8 md:gap-12 lg:gap-4 lg:justify-between">
-                    <!-- Этап 1: Анализ — лупа -->
-                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step flex-1 min-w-0" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                        <div class="relative w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">1</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Analysis' : 'Анализ'; ?>
-                        </h3>
-                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                            <?php echo $currentLang === 'en' ? 'We study your business, competitors, and target audience to create an effective strategy.' : 'Изучаем ваш бизнес, конкурентов и целевую аудиторию для создания эффективной стратегии.'; ?>
-                        </p>
-                    </div>
-                    <!-- Стрелка 1→2 (только lg) -->
-                    <div class="hidden lg:flex items-center justify-center flex-shrink-0 text-2xl" style="color: var(--color-border);" aria-hidden="true">→</div>
-                    <!-- Этап 2: Планирование — план/документ -->
-                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step flex-1 min-w-0" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                        <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                            <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">2</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Planning' : 'Планирование'; ?>
-                        </h3>
-                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                            <?php echo $currentLang === 'en' ? 'We develop a detailed plan with milestones, deadlines, and expected results.' : 'Разрабатываем детальный план с этапами, сроками и ожидаемыми результатами.'; ?>
-                        </p>
-                    </div>
-                    <!-- Стрелка 2→3 (только lg) -->
-                    <div class="hidden lg:flex items-center justify-center flex-shrink-0 text-2xl" style="color: var(--color-border);" aria-hidden="true">→</div>
-                    <!-- Этап 3: Реализация — шестерёнка -->
-                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step flex-1 min-w-0" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                        <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">3</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Implementation' : 'Реализация'; ?>
-                        </h3>
-                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                            <?php echo $currentLang === 'en' ? 'We implement the solution step by step, keeping you informed at every stage.' : 'Внедряем решение поэтапно, информируя вас на каждом этапе работы.'; ?>
-                        </p>
-                    </div>
-                    <!-- Стрелка 3→4 (только lg) -->
-                    <div class="hidden lg:flex items-center justify-center flex-shrink-0 text-2xl" style="color: var(--color-border);" aria-hidden="true">→</div>
-                    <!-- Этап 4: Поддержка — headset -->
-                    <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl process-step flex-1 min-w-0" style="background-color: var(--color-bg-lighter); border: 1px solid var(--color-border);">
-                        <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 relative" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                            <span class="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">4</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Support' : 'Поддержка'; ?>
-                        </h3>
-                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                            <?php echo $currentLang === 'en' ? 'We monitor results, optimize, and provide ongoing support for your project.' : 'Отслеживаем результаты, оптимизируем и обеспечиваем постоянную поддержку проекта.'; ?>
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- CTA под блоком -->
-                <div class="reveal mt-12 md:mt-16 text-center">
-                    <a href="#contact-form" onclick="document.getElementById('contact-form')?.scrollIntoView({behavior:'smooth'}); return false;" class="inline-flex items-center justify-center px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl border-2" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border-color: transparent; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);">
-                        <?php echo $currentLang === 'en' ? 'Discuss my project' : 'Обсудить мой проект'; ?>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Секция преимуществ - технологии, результаты, подход с иконками -->
-<section id="advantages" class="reveal-group py-16 md:py-20 lg:py-32" style="background-color: var(--color-bg-lighter);">
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <!-- Заголовок секции -->
-            <div class="mb-12 md:mb-16 lg:mb-20 reveal">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
-                    <?php echo $currentLang === 'en' ? 'Why Choose Us' : 'Почему мы'; ?>
-                </h2>
-            </div>
-            
-            <!-- Преимущества с иконками -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
-                <!-- Технологии -->
-                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
-                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                        <?php echo $currentLang === 'en' ? 'Modern Technologies' : 'Современные технологии'; ?>
-                    </h3>
-                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? 'We use the latest tools and technologies to create fast, secure, and scalable solutions.' 
-                            : 'Используем современные инструменты и технологии для создания быстрых, безопасных и масштабируемых решений.'; ?>
-                    </p>
-                </div>
-                
-                <!-- Результаты -->
-                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
-                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                        <?php echo $currentLang === 'en' ? 'Measurable Results' : 'Измеримые результаты'; ?>
-                    </h3>
-                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? 'We track and analyze all metrics to ensure your business grows with concrete numbers.' 
-                            : 'Отслеживаем и анализируем все метрики, чтобы ваш бизнес рос с конкретными цифрами.'; ?>
-                    </p>
-                </div>
-                
-                <!-- Подход -->
-                <div class="group relative reveal p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl md:col-span-2 lg:col-span-1" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
-                    <div class="w-14 h-14 mb-6 flex items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text); stroke-width: 1.5;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-bold mb-4 leading-tight" style="color: var(--color-text);">
-                        <?php echo $currentLang === 'en' ? 'Individual Approach' : 'Индивидуальный подход'; ?>
-                    </h3>
-                    <p class="text-base sm:text-lg leading-relaxed" style="color: var(--color-text-secondary);">
-                        <?php echo $currentLang === 'en' 
-                            ? 'Each project is unique. We develop strategies tailored specifically to your business.' 
-                            : 'Каждый проект уникален. Разрабатываем стратегии, адаптированные именно под ваш бизнес.'; ?>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Форма в стиле holymedia.kz - оптимизирована для мобильных -->
-<section id="contact-form" class="reveal-group py-12 sm:py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
+<!-- Contact CTA + form -->
+<section id="contact-form" class="reveal-group border-t py-16 md:py-24" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
     <div class="container mx-auto px-4 sm:px-5 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
-            <!-- Заголовок - оптимизирован для мобильных -->
-            <div class="mb-8 sm:mb-12 md:mb-16 reveal">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-black leading-[0.9] sm:leading-[0.85] tracking-tighter" style="color: var(--color-text);">
-                    <?php echo $currentLang === 'en' ? 'So, shall we work?' : 'Ну что, работаем?'; ?>
+            <div class="mb-10 max-w-2xl reveal md:mb-14">
+                <h2 class="text-3xl font-semibold tracking-tight md:text-4xl" style="color: var(--color-text);">
+                    <?php echo htmlspecialchars(t('home.contactCta.title')); ?>
                 </h2>
+                <p class="mt-3 text-base leading-relaxed md:text-lg" style="color: var(--color-text-secondary);">
+                    <?php echo htmlspecialchars(t('home.contactCta.subcopy')); ?>
+                </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20">
@@ -277,7 +163,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                     <!-- Телефон -->
                     <div class="mb-6 sm:mb-8 md:mb-10">
                         <h3 class="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-2 sm:mb-3" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Our phone' : 'Наш телефон'; ?>
+                            <?php echo htmlspecialchars(t('pages.contact.phone')); ?>
                         </h3>
                         <a href="tel:+77066063921" class="inline-block text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold transition-colors hover:opacity-80 touch-manipulation min-h-[44px] flex items-center" style="color: var(--color-text);">
                             +7 706 606 39 21
@@ -287,7 +173,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                     <!-- Email -->
                     <div class="mb-6 sm:mb-8 md:mb-10">
                         <h3 class="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-2 sm:mb-3" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Email' : 'Email'; ?>
+                            <?php echo htmlspecialchars(t('pages.contact.email')); ?>
                         </h3>
                         <a href="mailto:contact@novacreatorstudio.com" class="inline-block text-base sm:text-lg md:text-xl lg:text-2xl font-bold transition-colors hover:opacity-80 break-all touch-manipulation min-h-[44px] flex items-center" style="color: var(--color-text);">
                             contact@novacreatorstudio.com
@@ -297,7 +183,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                     <!-- Мессенджеры -->
                     <div>
                         <h3 class="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-3 sm:mb-4" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'You can write!' : 'Написать — можно!'; ?>
+                            <?php echo htmlspecialchars(t('common.contactUs')); ?>
                         </h3>
                         <div class="flex flex-wrap gap-3 sm:gap-4">
                             <a href="https://wa.me/77066063921" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold transition-colors hover:opacity-80 touch-manipulation min-h-[44px]" style="color: var(--color-text);">
@@ -310,7 +196,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                                 <svg class="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.12l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
                                 </svg>
-                                <span><?php echo $currentLang === 'en' ? 'Telegram' : 'Телеграм'; ?></span>
+                                <span>Telegram</span>
                             </a>
                         </div>
                     </div>
@@ -318,9 +204,9 @@ include __DIR__ . '/includes/partials/hero-section.php';
 
                 <!-- Форма справа - оптимизирована для мобильных -->
                 <div class="reveal order-1 lg:order-2 w-full">
-                    <div class="w-full max-w-full overflow-hidden p-5 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl transition-all duration-300 hover:shadow-xl relative" style="background-color: var(--color-bg); border: 2px solid var(--color-border); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);">
-                        <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-5 sm:mb-6 md:mb-8" style="color: var(--color-text);">
-                            <?php echo $currentLang === 'en' ? 'Leave a request' : 'Оставить заявку'; ?>
+                    <div class="relative w-full max-w-full overflow-hidden rounded-2xl border p-5 sm:p-6 md:p-8 lg:p-10" style="background-color: var(--color-bg); border-color: var(--color-border); box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+                        <h3 class="mb-5 text-xl font-semibold sm:mb-6 sm:text-2xl md:text-3xl" style="color: var(--color-text);">
+                            <?php echo htmlspecialchars(t('home.contactCta.formHeading')); ?>
                         </h3>
 
                         <!-- Inline success block (скрыт по умолчанию) -->
@@ -436,8 +322,7 @@ include __DIR__ . '/includes/partials/hero-section.php';
                             <!-- Кнопка отправки - оптимизирована для мобильных -->
                             <button 
                                 type="submit" 
-                                class="w-full px-6 py-4 sm:py-5 text-base sm:text-lg md:text-lg font-semibold rounded-lg transition-all duration-200 hover:opacity-90 active:scale-[0.98] touch-manipulation shadow-lg hover:shadow-xl"
-                                style="background-color: #FF6B6B; color: white; border: none; min-height: 52px; font-size: 16px;"
+                                class="form-submit-premium w-full px-6 py-4 sm:py-5 text-base sm:text-lg md:text-lg font-semibold rounded-lg transition-all duration-200 hover:opacity-95 active:scale-[0.98] touch-manipulation shadow-lg hover:shadow-xl"
                             >
                                 <?php echo $currentLang === 'en' ? 'Send' : 'Отправить'; ?>
                             </button>

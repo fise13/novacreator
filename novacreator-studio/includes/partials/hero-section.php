@@ -1,79 +1,75 @@
 <?php
 /**
- * Hero секция - универсальный компонент
- * 
- * @param string $title - Заголовок H1
- * @param string $subtitle - Подзаголовок (опционально)
- * @param array $ctaButtons - Массив CTA кнопок (опционально)
- * @param bool $withParallax - Использовать parallax эффект (по умолчанию true)
+ * Hero — minimal template style (calm typography, optional soft background)
+ *
+ * @param string $heroTitle
+ * @param string $heroSubtitle
+ * @param array $heroCtaButtons
+ * @param bool|string $heroTrustLine
+ * @param bool $heroWithParallax
+ * @param bool $heroScrollIndicator
  */
 if (!isset($heroTitle)) {
-    return; // Не показываем, если не передан title
+    return;
 }
 
 $heroSubtitle = $heroSubtitle ?? '';
 $heroCtaButtons = $heroCtaButtons ?? [];
 $heroTrustLine = $heroTrustLine ?? false;
-$heroWithParallax = $heroWithParallax ?? true;
+$heroWithParallax = $heroWithParallax ?? false;
 $heroScrollIndicator = $heroScrollIndicator ?? false;
 ?>
 
-<section class="reveal-group relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24" style="background: linear-gradient(135deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 95%, rgba(99, 102, 241, 0.06)) 50%, var(--color-bg) 100%);">
+<section class="hero-premium reveal-group relative overflow-hidden border-b pt-24 pb-16 md:pt-32 md:pb-24" style="border-color: var(--color-border);">
     <?php if ($heroWithParallax): ?>
-    <!-- Parallax background elements + geometric pattern -->
-    <div class="parallax-bg absolute inset-0 opacity-15 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-neon-blue/30 to-neon-purple/30 rounded-full blur-3xl"></div>
+    <div class="pointer-events-none absolute inset-0 opacity-[0.04] dark:opacity-[0.07]" aria-hidden="true">
+        <div class="absolute -left-1/4 top-1/4 h-64 w-64 rounded-full blur-3xl" style="background: var(--color-text);"></div>
+        <div class="absolute -right-1/4 bottom-1/4 h-64 w-64 rounded-full blur-3xl" style="background: var(--color-text-secondary);"></div>
     </div>
     <?php endif; ?>
-    
-    <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div class="<?php echo $heroWithParallax ? 'parallax-content' : ''; ?> max-w-7xl mx-auto text-center relative">
-            <!-- Главный заголовок -->
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-extrabold mb-6 md:mb-8 lg:mb-10 leading-[0.85] tracking-tighter reveal" style="color: var(--color-text);">
+
+    <div class="container relative z-10 mx-auto px-4 md:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+            <h1 class="hero-title-premium reveal mb-5 md:mb-6">
                 <?php echo htmlspecialchars($heroTitle); ?>
             </h1>
-            
+
             <?php if ($heroSubtitle): ?>
-            <!-- Подзаголовок -->
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto leading-relaxed font-light reveal px-2" style="color: var(--color-text-secondary);">
+            <p class="hero-subtitle-premium reveal mx-auto mb-8 text-balance md:mb-10">
                 <?php echo htmlspecialchars($heroSubtitle); ?>
             </p>
             <?php endif; ?>
-            
+
             <?php if (!empty($heroCtaButtons)): ?>
-            <!-- CTA кнопки -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 reveal px-4 sm:px-0">
+            <div class="reveal flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <?php foreach ($heroCtaButtons as $button): ?>
-                    <a 
-                        href="<?php echo htmlspecialchars($button['url'] ?? '#'); ?>" 
+                    <a
+                        href="<?php echo htmlspecialchars($button['url'] ?? '#'); ?>"
                         <?php if (isset($button['onclick'])): ?>onclick="<?php echo htmlspecialchars($button['onclick']); ?>"<?php endif; ?>
-                        class="<?php echo htmlspecialchars($button['class'] ?? 'hero-cta-btn w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-medium rounded-full transition-all duration-300 min-h-[44px] md:min-h-[48px] flex items-center justify-center touch-manipulation hover:scale-105 hover:shadow-xl'); ?>" 
-                        style="<?php echo htmlspecialchars($button['style'] ?? 'background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; border: none; text-decoration: none; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);'); ?>"
+                        class="<?php echo htmlspecialchars($button['class'] ?? 'btn-premium-primary inline-flex min-h-[48px] w-full items-center justify-center rounded-xl px-8 py-3.5 text-base font-semibold transition-colors duration-200 sm:w-auto'); ?>"
+                        <?php if (isset($button['style']) && $button['style'] !== ''): ?>style="<?php echo htmlspecialchars($button['style']); ?>"<?php endif; ?>
                     >
                         <?php echo htmlspecialchars($button['text']); ?>
                     </a>
                 <?php endforeach; ?>
             </div>
-            <?php if ($heroTrustLine): ?>
-            <!-- Trust line -->
-            <p class="reveal mt-6 md:mt-8 text-base md:text-lg font-medium" style="color: var(--color-text-secondary);">
+            <?php endif; ?>
+
+            <?php if ($heroTrustLine && is_string($heroTrustLine) && $heroTrustLine !== ''): ?>
+            <p class="reveal mt-8 text-sm font-medium md:text-base" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars($heroTrustLine); ?>
             </p>
             <?php endif; ?>
-            <?php endif; ?>
         </div>
     </div>
-    
+
     <?php if ($heroScrollIndicator): ?>
-    <!-- Индикатор прокрутки -->
-    <div class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
-        <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform cursor-pointer" style="border-color: var(--color-border); background-color: rgba(255, 255, 255, 0.05);">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-text-secondary);">
+    <div class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 sm:block" aria-hidden="true">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full border transition-opacity hover:opacity-80" style="border-color: var(--color-border); color: var(--color-text-secondary);">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
         </div>
     </div>
     <?php endif; ?>
 </section>
-

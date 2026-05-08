@@ -109,6 +109,23 @@
         "description": "Увеличиваем конверсию сайта через A/B тестирование, оптимизацию UX и внедрение лучших практик."
       }
     },
+    "selectedWork": {
+      "kicker": "Избранные работы",
+      "title": "Кейсы, которыми гордимся",
+      "subtitle": "Продуктовые сайты и нативные платформы — ясная структура и конверсия.",
+      "viewAll": "Все работы",
+      "motorLandTag": "Web-продукт",
+      "motorLandTitle": "Motor-Land.kz",
+      "motorLandDesc": "Коммерческий каталог автозапчастей с UX под конверсию.",
+      "autocoreTag": "Нативные приложения",
+      "autocoreTitle": "AutoCore (iOS + macOS)",
+      "autocoreDesc": "Кроссплатформенные нативные сценарии с синхронизацией данных."
+    },
+    "contactCta": {
+      "title": "Давайте работать вместе",
+      "subcopy": "Оставьте контакты — обычно отвечаем в течение 2 часов.",
+      "formHeading": "Оставить заявку"
+    },
     "stats": {
       "newCompany": "Новая",
       "company": "Компания",
@@ -161,7 +178,8 @@
     "seoOptimization": "SEO-оптимизация",
     "websiteDevelopment": "Разработка сайтов",
     "marketing": "Маркетинг",
-    "analytics": "Аналитика"
+    "analytics": "Аналитика",
+    "privacyPolicy": "Политика конфиденциальности"
   },
   "pages": {
     "services": {

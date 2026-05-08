@@ -11,18 +11,17 @@ if (!function_exists('t')) {
 $currentLang = getCurrentLanguage();
 ?>
     </main>
-    <!-- Footer - минималистичный стиль holymedia.kz с мобильной адаптацией -->
-    <footer class="mt-20 md:mt-32 py-12 md:py-16 lg:py-20 border-t" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
+    <!-- Footer — template-style -->
+    <footer class="mt-16 border-t py-12 md:mt-24 md:py-16" style="background-color: var(--color-bg-lighter); border-color: var(--color-border);">
         <div class="container mx-auto px-4 md:px-6 lg:px-8">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
-                    <!-- О компании -->
-                    <div>
-                        <div class="flex items-center space-x-3 mb-6">
-                            <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="w-10 h-10 md:w-12 md:h-12 rounded-lg" loading="lazy" decoding="async" width="48" height="48" />
-                            <span class="text-lg sm:text-xl font-bold" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
+            <div class="mx-auto max-w-6xl">
+                <div class="flex flex-col gap-12 md:flex-row md:justify-between md:gap-16">
+                    <div class="max-w-sm">
+                        <div class="mb-5 flex items-center gap-3">
+                            <img src="/assets/img/logo.svg" alt="<?php echo htmlspecialchars(t('alt.logo')); ?>" class="h-10 w-10 rounded-lg md:h-11 md:w-11" loading="lazy" decoding="async" width="48" height="48" />
+                            <span class="text-base font-semibold md:text-lg" style="color: var(--color-text);"><?php echo htmlspecialchars(t('site.name')); ?></span>
                         </div>
-                        <p class="mb-6 leading-relaxed" style="color: var(--color-text-secondary);">
+                        <p class="mb-6 text-sm leading-relaxed md:text-base" style="color: var(--color-text-secondary);">
                             <?php echo htmlspecialchars(t('footer.description')); ?>
                         </p>
                         <div class="flex space-x-6 footer-social-buttons">
@@ -43,51 +42,48 @@ $currentLang = getCurrentLanguage();
                             </a>
                         </div>
                     </div>
-                    
-                    <!-- Услуги -->
+
+                    <div class="grid flex-1 grid-cols-2 gap-8 sm:gap-10 md:grid-cols-3">
                     <div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.services')); ?></h3>
-                        <ul class="space-y-4">
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.seoOptimization')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.websiteDevelopment')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.ads')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#marketing'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.marketing')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.analytics')); ?></a></li>
+                        <h3 class="mb-4 text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.services')); ?></h3>
+                        <ul class="space-y-2.5 text-sm md:text-[15px]">
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.seoOptimization')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#development'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.websiteDevelopment')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.ads')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#marketing'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.marketing')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/services#analytics'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.analytics')); ?></a></li>
                         </ul>
                     </div>
-                    
-                    <!-- Компания -->
                     <div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.company')); ?></h3>
-                        <ul class="space-y-4">
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.about')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/privacy'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo $currentLang === 'en' ? 'Privacy Policy' : 'Политика конфиденциальности'; ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.contacts')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/faq'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.faq')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.calculator')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.blog')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.portfolio')); ?></a></li>
-                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/vacancies'); ?>" class="text-lg transition-all" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.vacancies')); ?></a></li>
+                        <h3 class="mb-4 text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.company')); ?></h3>
+                        <ul class="space-y-2.5 text-sm md:text-[15px]">
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.portfolio')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.about')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/privacy'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.privacyPolicy')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('footer.contacts')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/faq'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.faq')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/calculator'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.calculator')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/blog'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.blog')); ?></a></li>
+                            <li><a href="<?php echo getLocalizedUrl($currentLang, '/vacancies'); ?>" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);"><?php echo htmlspecialchars(t('nav.vacancies')); ?></a></li>
                         </ul>
                     </div>
-                    
-                    <!-- Контакты -->
-                    <div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-6" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.contacts')); ?></h3>
-                        <ul class="space-y-4">
+                    <div class="col-span-2 md:col-span-1">
+                        <h3 class="mb-4 text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text);"><?php echo htmlspecialchars(t('footer.contacts')); ?></h3>
+                        <ul class="space-y-2.5 text-sm md:text-[15px]">
                             <li>
-                                <a href="mailto:contact@novacreatorstudio.com" class="text-lg transition-all" style="color: var(--color-text-secondary);">contact@novacreatorstudio.com</a>
+                                <a href="mailto:contact@novacreatorstudio.com" class="break-all transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);">contact@novacreatorstudio.com</a>
                             </li>
                             <li>
-                                <a href="tel:+77066063921" class="text-lg transition-all" style="color: var(--color-text-secondary);">+7 706 606 39 21</a>
+                                <a href="tel:+77066063921" class="transition-opacity hover:opacity-80" style="color: var(--color-text-secondary);">+7 706 606 39 21</a>
                             </li>
                         </ul>
+                    </div>
                     </div>
                 </div>
-                
-                <!-- Копирайт -->
-                <div class="border-t mt-8 md:mt-12 pt-6 md:pt-8 text-center" style="border-color: var(--color-border);">
-                    <p class="text-base sm:text-lg" style="color: var(--color-text-secondary);">&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(t('site.name')); ?>. <?php echo htmlspecialchars(t('common.allRightsReserved')); ?>.</p>
+
+                <div class="mt-10 border-t pt-8 text-center md:mt-12" style="border-color: var(--color-border);">
+                    <p class="text-sm md:text-base" style="color: var(--color-text-secondary);">&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(t('site.name')); ?>. <?php echo htmlspecialchars(t('common.allRightsReserved')); ?>.</p>
+                </div>
             </div>
         </div>
     </footer>
@@ -105,13 +101,13 @@ $currentLang = getCurrentLanguage();
     ?>
     
     <!-- Кнопка "Наверх" - скрыта на мобильных устройствах -->
-    <button id="backToTop" class="hidden md:flex fixed bottom-8 right-8 w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 opacity-0 pointer-events-none z-40 group" aria-label="<?php echo htmlspecialchars(t('common.backToTop')); ?>" style="bottom: max(2rem, calc(2rem + env(safe-area-inset-bottom))); right: max(2rem, calc(2rem + env(safe-area-inset-right)));">
-        <svg class="w-6 h-6 md:w-7 md:h-7 text-white transform group-hover:-translate-y-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+    <button id="backToTop" class="group pointer-events-none fixed bottom-8 right-8 z-40 hidden h-12 w-12 items-center justify-center rounded-full border opacity-0 shadow-sm transition-all duration-300 hover:opacity-90 md:flex md:h-14 md:w-14" aria-label="<?php echo htmlspecialchars(t('common.backToTop')); ?>" style="bottom: max(2rem, calc(2rem + env(safe-area-inset-bottom))); right: max(2rem, calc(2rem + env(safe-area-inset-right))); background-color: var(--color-bg); border-color: var(--color-border); color: var(--color-text);">
+        <svg class="relative z-10 h-5 w-5 md:h-6 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>
         <!-- Индикатор прогресса прокрутки -->
-        <svg class="absolute inset-0 w-full h-full transform -rotate-90 opacity-30" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="3" stroke-dasharray="283" stroke-dashoffset="283" id="scrollProgressCircle"/>
+        <svg class="pointer-events-none absolute inset-0 h-full w-full -rotate-90 opacity-25" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="283" stroke-dashoffset="283" id="scrollProgressCircle"/>
         </svg>
     </button>
 

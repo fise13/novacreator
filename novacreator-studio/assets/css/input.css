@@ -2208,19 +2208,12 @@
                 transform 0.2s var(--easing-smooth);
   }
   
-  /* Плавные анимации для прогресс-баров - используем transform вместо width */
   .scroll-progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-neon-purple), var(--color-neon-blue));
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: transform 0.1s linear;
-    will-change: transform;
-    z-index: 9999;
     pointer-events: none;
+  }
+
+  .scroll-progress-bar-fill {
+    transform-origin: left;
   }
   
   [class*="progress-bar"]:not(.scroll-progress-bar) {
@@ -2857,10 +2850,10 @@
 }
 
 .portfolio-redesign-title {
-  font-size: clamp(2.2rem, 6vw, 5.8rem);
-  line-height: 0.95;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.035em;
   color: var(--color-text);
   margin-bottom: 1.25rem;
 }
@@ -2904,8 +2897,8 @@
 }
 
 .portfolio-redesign-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
 .portfolio-redesign-card-media {
@@ -3253,6 +3246,134 @@ input:focus, select:focus, textarea:focus {
   width: 100%;
 }
 
+/* ============================================
+   MINIMAL PREMIUM OVERRIDES (Homepage)
+   ============================================ */
+
+.hero-premium {
+  background-color: var(--color-bg);
+}
+
+.hero-title-premium {
+  color: var(--color-text);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+}
+
+.hero-subtitle-premium {
+  color: var(--color-text-secondary);
+  max-width: 42rem;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.btn-premium-primary {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  border: 1px solid var(--color-text);
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.btn-premium-primary:hover {
+  opacity: 0.92;
+  filter: none;
+  box-shadow: none;
+}
+
+:root.dark .btn-premium-primary {
+  background-color: #f5f5f7;
+  color: #0a0a0a;
+  border-color: #f5f5f7;
+}
+
+.btn-premium-ghost {
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.btn-premium-ghost:hover {
+  background-color: color-mix(in srgb, var(--color-text) 4%, transparent);
+}
+
+.btn-minimal-link {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-minimal-link:hover {
+  border-bottom-color: currentColor;
+  opacity: 0.85;
+}
+
+/* Inner pages — compact hero (template rhythm) */
+.page-hero {
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.card-premium {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 10px rgba(17, 24, 39, 0.05);
+}
+
+.card-premium-soft {
+  background-color: var(--color-bg-lighter);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 10px rgba(17, 24, 39, 0.04);
+}
+
+.section-title-premium {
+  color: var(--color-text);
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+}
+
+.section-subtitle-premium {
+  color: var(--color-text-secondary);
+}
+
+.form-control-premium {
+  background-color: #fff;
+  border-color: var(--color-border);
+  color: #111827;
+}
+
+.form-submit-premium {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  border: 0;
+  min-height: 52px;
+  box-shadow: none;
+}
+
+:root.dark .form-submit-premium {
+  background-color: #f5f5f7;
+  color: #0a0a0a;
+}
+
+/* Calm hover — no global scale on reveals */
+.reveal:hover {
+  transform: none;
+}
+
+.service-card-option:hover,
+[class*="card-premium"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+}
+
+a:hover svg, button:hover svg {
+  transform: none;
+}
+
 /* Микро-анимации для статистики */
 .counter-number {
   transition: all 0.3s ease;
@@ -3262,24 +3383,7 @@ input:focus, select:focus, textarea:focus {
   transform: scale(1.1) rotate(2deg);
 }
 
-/* Микро-анимации для градиентов */
-[class*="gradient"] {
-  transition: all 0.5s ease;
-}
-
-[class*="gradient"]:hover {
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
+/* Disable busy gradient hover shifts (template = calm) */
 
 /* Отключение анимаций для пользователей с prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {

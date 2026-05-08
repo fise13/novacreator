@@ -49,11 +49,11 @@
     
     // Animation configuration
     const CONFIG = {
-        staggerDelay: 90, // Base delay between elements in ms
-        maxStaggerDelay: 360, // Cap delay to avoid slow feeling on long lists
-        duration: 920, // Animation duration in ms
-        threshold: 0.12, // IntersectionObserver threshold
-        rootMargin: '0px 0px -10% 0px', // Trigger slightly before section center
+        staggerDelay: 55,
+        maxStaggerDelay: 220,
+        duration: 680,
+        threshold: 0.12,
+        rootMargin: '0px 0px -8% 0px',
     };
 
     function getDirectionClass(element, index) {
@@ -63,8 +63,8 @@
         if (customDirection === 'right') return 'animate-fade-right';
         if (customDirection === 'up') return 'animate-fade-up';
 
-        // Default behavior: alternate left/right to create rhythm.
-        return index % 2 === 0 ? 'animate-fade-left' : 'animate-fade-right';
+        // Default: single calm motion (template-style)
+        return 'animate-fade-up';
     }
 
     function getDelay(index) {

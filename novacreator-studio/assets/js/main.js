@@ -700,7 +700,7 @@ function initProgressBars() {
  * Оптимизировано для мобильных устройств
  */
 function initScrollProgress() {
-    const progressBar = document.querySelector('.scroll-progress-bar');
+    const progressBar = document.querySelector('.scroll-progress-bar-fill') || document.querySelector('.scroll-progress-bar');
     if (!progressBar) return;
     
     const isMobile = window.innerWidth < 768;

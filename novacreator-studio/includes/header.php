@@ -220,25 +220,28 @@ require_once __DIR__ . '/theme_switcher.php';
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Skip to content link for accessibility -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-neon-purple focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2"><?php echo htmlspecialchars(t('nav.skipToContent') ?? 'Skip to content'); ?></a>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:px-4 focus:py-2 focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: var(--color-text); color: var(--color-bg);"><?php echo htmlspecialchars(t('nav.skipToContent') ?? 'Skip to content'); ?></a>
     
-    <!-- Индикатор прогресса прокрутки -->
-    <div class="scroll-progress-bar fixed top-0 left-0 h-1 bg-gradient-to-r from-neon-purple to-neon-blue z-50" style="width: 0%; transition: width 0.1s ease-out;"></div>
+    <!-- Scroll progress — neutral -->
+    <div class="scroll-progress-bar fixed left-0 top-0 z-50 h-0.5 w-full bg-transparent" aria-hidden="true">
+        <div class="scroll-progress-bar-fill h-full" style="width: 0%; background-color: var(--color-text); transition: width 0.12s ease-out;"></div>
+    </div>
     
-    <!-- Навигация - минималистичный Figma-style header -->
+    <!-- Навигация — минимальный template-style -->
     <nav
         id="mainNavbar"
         role="navigation"
         aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>"
-        class="navbar fixed top-0 left-0 right-0 z-50 border-b border-black/10 dark:border-white/10 bg-white/95 dark:bg-neutral-900/95 md:bg-white/80 md:dark:bg-neutral-900/80 md:backdrop-blur-[32px] md:supports-[backdrop-filter]:backdrop-blur-[32px] md:supports-[backdrop-filter]:bg-white/80 transition-all duration-300 pt-[env(safe-area-inset-top)] h-[60px] md:h-20 flex items-center"
+        class="navbar fixed left-0 right-0 top-0 z-50 flex h-[56px] items-center border-b pt-[env(safe-area-inset-top)] transition-all duration-300 md:h-[64px]"
+        style="background-color: color-mix(in srgb, var(--color-bg) 92%, transparent); border-color: var(--color-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
     >
-        <div class="max-w-[1400px] mx-auto px-[20px] md:px-6 lg:px-8 relative z-10 w-full">
+        <div class="relative z-10 mx-auto w-full max-w-6xl px-5 md:px-8">
             <div class="flex items-center justify-between gap-6 md:gap-[24px] w-full">
                 <!-- Логотип / название сайта (Figma Navigation: только Radio Canada Big, без text-lg/font-semibold/font-sans) -->
                 <a
                     id="site-logo"
                     href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                    class="font-medium text-[20px] md:text-[22px] leading-[1.2] tracking-[-0.3px] touch-manipulation flex-shrink-0 transition-opacity duration-200 hover:opacity-70"
+                    class="flex-shrink-0 touch-manipulation text-[17px] font-semibold leading-tight tracking-tight transition-opacity duration-200 hover:opacity-70 md:text-[18px]"
                     style="color: var(--color-text); font-family: 'Radio Canada Big', sans-serif;"
                     aria-label="<?php echo htmlspecialchars(t('nav.home') . ' - ' . t('site.name')); ?>"
                     aria-current="<?php echo basename($_SERVER['PHP_SELF'], '.php') == 'index' ? 'page' : 'false'; ?>"
@@ -248,7 +251,7 @@ require_once __DIR__ . '/theme_switcher.php';
 
                 <div class="flex items-center gap-4 sm:gap-6">
                     <!-- Навигация для десктопа -->
-                    <div class="hidden md:flex items-center gap-6 lg:gap-[24px] text-[15px] md:text-[16px] font-medium tracking-tight leading-none">
+                    <div class="hidden items-center gap-8 text-[14px] font-medium leading-none md:flex md:text-[15px]">
                         <?php 
                         $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                         $currentPath = getCurrentPath();
@@ -261,25 +264,18 @@ require_once __DIR__ . '/theme_switcher.php';
                             <?php echo htmlspecialchars(t('nav.home')); ?>
                         </a>
                         <a
+                            href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>"
+                            class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo ($currentPage === 'portfolio' || strpos($currentPage, 'portfolio-') === 0) ? 'opacity-100' : 'opacity-80'; ?>"
+                            aria-current="<?php echo ($currentPage === 'portfolio' || strpos($currentPage, 'portfolio-') === 0) ? 'page' : 'false'; ?>"
+                        >
+                            <?php echo htmlspecialchars(t('nav.portfolio')); ?>
+                        </a>
+                        <a
                             href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
                             class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'services' ? 'opacity-100' : 'opacity-80'; ?>"
                             aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
                         >
                             <?php echo htmlspecialchars(t('nav.services')); ?>
-                        </a>
-                        <a
-                            href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
-                            class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'seo' ? 'opacity-100' : 'opacity-80'; ?>"
-                            aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
-                        >
-                            <?php echo htmlspecialchars(t('nav.seo')); ?>
-                        </a>
-                        <a
-                            href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
-                            class="nav-link inline-flex items-center gap-1 leading-none transition-opacity duration-200 hover:opacity-70 <?php echo $currentPage == 'ads' ? 'opacity-100' : 'opacity-80'; ?>"
-                            aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
-                        >
-                            <?php echo htmlspecialchars(t('nav.ads')); ?>
                         </a>
                         <a
                             href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
@@ -295,7 +291,8 @@ require_once __DIR__ . '/theme_switcher.php';
                         <a
                             href="<?php echo $hasContactForm ? '#contact-form' : getLocalizedUrl($currentLang, '/contact'); ?>"
                             <?php echo $hasContactForm ? 'onclick="const el = document.getElementById(\'contact-form\'); if(el) { el.scrollIntoView({behavior: \'smooth\'}); return false; }"' : ''; ?>
-                            class="font-radio inline-flex items-center justify-center bg-black text-white rounded-xl px-6 py-3 text-[16px] font-semibold tracking-tight transition-all duration-200 hover:opacity-90 active:opacity-80 active:scale-[0.98]"
+                            class="font-radio inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-[14px] font-semibold tracking-tight transition-opacity duration-200 hover:opacity-90 md:px-6 md:py-3 md:text-[15px]"
+                            style="background-color: var(--color-text); color: var(--color-bg);"
                         >
                             <?php echo htmlspecialchars(t('common.getStarted')); ?>
                         </a>
@@ -521,7 +518,7 @@ require_once __DIR__ . '/theme_switcher.php';
     <div
         id="burgerMenu"
         class="fixed left-0 w-full z-[9999] opacity-0 -translate-y-3 pointer-events-none transition-all duration-300 ease-out hidden"
-        style="top: calc(52px + env(safe-area-inset-top));"
+        style="top: calc(56px + env(safe-area-inset-top));"
         role="dialog"
         aria-modal="true"
         aria-labelledby="burgerMenuTitle"
@@ -538,15 +535,23 @@ require_once __DIR__ . '/theme_switcher.php';
             <nav role="navigation" aria-label="<?php echo htmlspecialchars(t('nav.main')); ?>">
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t-0"
+                    class="burger-menu-link font-radio block w-full text-[28px] font-medium leading-none tracking-[-0.6px] py-[16px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t-0"
                     aria-current="<?php echo $currentPage == 'index' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
                     <?php echo htmlspecialchars(t('nav.home')); ?>
                 </a>
                 <a
+                    href="<?php echo getLocalizedUrl($currentLang, '/portfolio'); ?>"
+                    class="burger-menu-link font-radio block w-full text-[28px] font-medium leading-none tracking-[-0.6px] py-[16px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
+                    aria-current="<?php echo ($currentPage === 'portfolio' || strpos($currentPage, 'portfolio-') === 0) ? 'page' : 'false'; ?>"
+                    style="color: var(--color-text); text-decoration: none;"
+                >
+                    <?php echo htmlspecialchars(t('nav.portfolio')); ?>
+                </a>
+                <a
                     href="<?php echo getLocalizedUrl($currentLang, '/services'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
+                    class="burger-menu-link font-radio block w-full text-[28px] font-medium leading-none tracking-[-0.6px] py-[16px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
                     aria-current="<?php echo $currentPage == 'services' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -554,7 +559,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/seo'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
+                    class="burger-menu-link font-radio block w-full text-[28px] font-medium leading-none tracking-[-0.6px] py-[16px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
                     aria-current="<?php echo $currentPage == 'seo' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -562,7 +567,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/ads'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
+                    class="burger-menu-link font-radio block w-full text-[28px] font-medium leading-none tracking-[-0.6px] py-[16px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-[#e6e8ee] dark:border-white/10"
                     aria-current="<?php echo $currentPage == 'ads' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -570,7 +575,7 @@ require_once __DIR__ . '/theme_switcher.php';
                 </a>
                 <a
                     href="<?php echo getLocalizedUrl($currentLang, '/about'); ?>"
-                    class="burger-menu-link font-radio block w-full text-[32px] font-medium leading-none tracking-[-0.8px] py-[18px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-b border-[#e6e8ee] dark:border-white/10"
+                    class="burger-menu-link font-radio block w-full text-[28px] font-medium leading-none tracking-[-0.6px] py-[16px] transition-all duration-200 hover:opacity-70 active:opacity-50 border-t border-b border-[#e6e8ee] dark:border-white/10"
                     aria-current="<?php echo $currentPage == 'about' ? 'page' : 'false'; ?>"
                     style="color: var(--color-text); text-decoration: none;"
                 >
@@ -647,7 +652,7 @@ require_once __DIR__ . '/theme_switcher.php';
         }
         /* Dropdown: под navbar с отступом, на всю ширину, не side panel */
         #burgerMenu {
-            top: calc(52px + env(safe-area-inset-top)) !important;
+            top: calc(56px + env(safe-area-inset-top)) !important;
             left: 0 !important;
             right: 0 !important;
             bottom: auto !important;
@@ -663,7 +668,7 @@ require_once __DIR__ . '/theme_switcher.php';
         /* Принудительно на мобильных (тот же breakpoint, что в output.css) */
         @media (max-width: 768px) {
             #burgerMenu {
-                top: calc(52px + env(safe-area-inset-top)) !important;
+                top: calc(56px + env(safe-area-inset-top)) !important;
                 left: 0 !important;
                 right: 0 !important;
                 bottom: auto !important;

@@ -24,7 +24,7 @@ if (!isset($cardLinkText)) {
 }
 ?>
 
-<div class="group relative reveal cursor-pointer touch-manipulation p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl h-full flex flex-col" style="background-color: var(--color-bg); border: 1px solid var(--color-border);">
+<div class="card-premium group relative reveal cursor-pointer touch-manipulation p-8 md:p-10 rounded-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl h-full flex flex-col">
     <?php if ($cardIcon): ?>
     <div class="w-12 h-12 sm:w-14 sm:h-14 mb-6 flex items-center justify-center transition-opacity duration-200 group-hover:opacity-70">
         <?php echo $cardIcon; ?>
@@ -39,7 +39,7 @@ if (!isset($cardLinkText)) {
     <?php if ($cardLinkUrl || $cardSecondaryUrl): ?>
     <div class="mt-auto pt-2">
         <?php if ($cardSecondaryUrl): ?>
-        <a href="<?php echo htmlspecialchars($cardSecondaryUrl); ?>" class="primary-service-cta inline-flex w-full items-center justify-center gap-2 px-5 py-3 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-300 min-h-[48px] touch-manipulation hover:scale-[1.03] hover:shadow-[0_10px_28px_rgba(139,92,246,0.45)]" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff; text-decoration: none; box-shadow: 0 6px 18px rgba(99, 102, 241, 0.28);">
+        <a href="<?php echo htmlspecialchars($cardSecondaryUrl); ?>" class="btn-premium-primary primary-service-cta inline-flex w-full items-center justify-center gap-2 px-5 py-3 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-300 min-h-[48px] touch-manipulation hover:scale-[1.03] hover:shadow-[0_10px_28px_rgba(139,92,246,0.45)]">
             <span><?php echo htmlspecialchars($cardSecondaryText); ?></span>
             <svg class="cta-arrow w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5l7.5 7.5-7.5 7.5M3 12h17.25"></path>

@@ -13,15 +13,15 @@ if (!isset($sectionTitle)) {
 $sectionSubtitle = $sectionSubtitle ?? '';
 $sectionAlign = $sectionAlign ?? 'left';
 $alignClass = $sectionAlign === 'center' ? 'text-center' : '';
-$maxWidthClass = $sectionAlign === 'center' ? 'max-w-5xl mx-auto' : '';
+$subtitleWidthClass = $sectionAlign === 'center' ? 'max-w-2xl mx-auto' : 'max-w-2xl';
 ?>
 
-<div class="mb-12 md:mb-16 lg:mb-20 reveal <?php echo $alignClass; ?>">
-    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold mb-4 md:mb-6 leading-[0.9] tracking-tighter" style="color: var(--color-text);">
+<div class="mb-10 reveal md:mb-14 <?php echo $alignClass; ?>">
+    <h2 class="mb-3 text-2xl font-semibold tracking-tight md:mb-4 md:text-3xl" style="color: var(--color-text);">
         <?php echo htmlspecialchars($sectionTitle); ?>
     </h2>
     <?php if ($sectionSubtitle): ?>
-    <p class="text-lg sm:text-xl md:text-2xl <?php echo $maxWidthClass; ?>" style="color: var(--color-text-secondary);">
+    <p class="<?php echo $subtitleWidthClass; ?> text-base leading-relaxed md:text-lg" style="color: var(--color-text-secondary);">
         <?php echo htmlspecialchars($sectionSubtitle); ?>
     </p>
     <?php endif; ?>

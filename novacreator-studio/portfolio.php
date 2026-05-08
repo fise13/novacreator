@@ -44,7 +44,7 @@ $projects = [
 ];
 ?>
 
-<section class="portfolio-redesign-hero reveal-group pt-28 md:pt-32 pb-14 md:pb-20" style="background-color: var(--color-bg);">
+<section class="portfolio-redesign-hero reveal-group border-b pt-24 pb-12 md:pt-28 md:pb-16" style="background-color: var(--color-bg); border-color: var(--color-border);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto text-center">
             <p class="portfolio-redesign-kicker reveal"><?php echo htmlspecialchars($ui['portfolioLabel']); ?></p>
@@ -95,13 +95,13 @@ $projects = [
 <section class="reveal-group py-16 md:py-24" style="background-color: var(--color-bg-lighter);">
     <div class="container mx-auto px-4 md:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 reveal" style="color: var(--color-text);">
+            <h2 class="reveal mb-4 text-2xl font-semibold tracking-tight md:text-3xl" style="color: var(--color-text);">
                 <?php echo htmlspecialchars(t('pages.portfolio.cta.title')); ?>
             </h2>
-            <p class="text-xl md:text-2xl mb-8 reveal" style="color: var(--color-text-secondary);">
+            <p class="reveal mb-8 text-base md:text-lg" style="color: var(--color-text-secondary);">
                 <?php echo htmlspecialchars(t('pages.portfolio.cta.subtitle')); ?>
             </p>
-            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="reveal inline-block px-10 py-5 bg-black text-white text-lg font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200">
+            <a href="<?php echo getLocalizedUrl($currentLang, '/contact'); ?>" class="reveal inline-block rounded-xl px-8 py-3.5 text-base font-semibold transition-opacity duration-200 hover:opacity-90 md:px-10 md:py-4 md:text-lg" style="background-color: var(--color-text); color: var(--color-bg);">
                 <?php echo htmlspecialchars($ui['contactCta']); ?>
             </a>
         </div>
